@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="assets/css/order_success.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> --> 
+</head>
+<body>
+<div id="wrap">
+	<div class="main">
+	<script id="tpl-list" type="text/html">
+		<div class="bear">
+			{if order_detail.o_status == '已全款' || order_detail.o_status == '未签署'}
+			<img class="zf" src="assets/img/order/zf.png" alt="">
+			{else}
+			<img src="assets/img/order/order_success.png" alt="">
+			{/if}
+		</div>
+		<div class="contents">
+			<div class="mation">
+				订单信息
+			</div>
+			<div class="con_bott">
+			
+				{if order_detail.o_product_name}
+				<p>{order_detail.o_product_name}</p>
+				{/if}
+				{if order_detail.o_number}
+				<div class="list">
+					<span class="tit">订单编号：</span><span>{order_detail.o_number}</span>
+				</div>
+				{/if}
+				{if order_detail.o_days}
+				<div class="list">
+					<span class="tit">行程天数：</span><span>{order_detail.o_days}</span>
+				</div>
+				{/if}
+				{if order_detail.o_start_date&&order_detail.o_end_date}
+				<div class="list">
+					<span class="tit">行程时间：</span><span>{order_detail.o_start_date} 至 {order_detail.o_end_date}</span>
+				</div>
+				{/if}
+				
+				<div class="list flo">
+					<span class="tit">总&#x3000;&#x3000;额：</span>
+					{if order_detail.o_buy_real}
+					<span class="pric nos">¥{order_detail.o_buy_real}</span>
+					{/if}
+					{if order_detail.o_settle_real}
+					<span class="pric yes">¥{order_detail.o_settle_real}</span>
+					{/if}
+				</div>
+				
+			</div>
+		</div>
+		{if orderContract != null}
+			{if (order_detail.o_status == '已全款' && order_detail.existsContract == '1') || order_detail.o_status == '未签署'}
+			<div class="styles">
+				<div class="title">
+					请选择电子合同签署方式：
+				</div>
+				<div class="pay_list pay_lists mation_pact">
+					<div class="pay_left pay_le">
+						<img src="assets/img/order/j1.png" alt="">
+					</div>
+					<div class="pay_right">
+						<h3>短信发送</h3>
+						<div class="choice choice_bor"></div>
+					</div>
+				</div>
+				
+				
+			</div>
+			{else}
+			<div class="sta_mation">
+				您好，请支付后再签署合同哦~点击下方按钮返回支付
+			</div>
+			{/if}
+		{/if}
+	</div>
+	{if orderContract != null}
+		{if (order_detail.o_status == '已全款' && order_detail.existsContract == '1') || order_detail.o_status == '未签署'}
+			<div class="bottom_index succ">
+				确定
+			</div>
+		{else}
+			<div class="bottom_index succ_cal">
+				返回上一页
+			</div>
+		{/if}
+		{else}
+		<div class="bottom_index che_detail">查看订单详情</div>
+	{/if}
+	</script>
+</div>
+</body>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/order_success.build.js"></script>
+</html>

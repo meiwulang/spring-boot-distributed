@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>退款申请</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/order_endorse.css">
+    <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> 
+</head>
+<body>
+    <div id="wrap">
+        <script id="tpl-order" type="text/html">
+            <div class="main">
+                <div class="t-bar"><a class="left"></a><span>申请改签</span></div>
+                <div class="order-endorse lists">
+                    <div class="define"></div>
+                    <div class="content part">
+                        <div class="title">
+                            订单信息
+                        </div>
+                        <div class="body">
+                            <div>线路名称：</div>
+                            <div>订单号：</div>
+                            <div>团号：</div>
+                            <div>订单游客数：</div>
+                            <div>出团日期：</div>
+                        </div>
+                    </div>
+
+                    <div class="tourist part">
+                        <div class="title">
+                            请选择改签的游客
+                        </div>
+                        <div class="body">
+                            <div class="allcheck">
+                                <input type="checkbox" name="" checked="checked" id="allcheck" class="mui-checkbox"/>
+                                <label for="allcheck">全选</label>
+                            </div>
+                            <div class="checkPart">
+                                {if body && body.length}
+                                    { each body as value i }  
+                                    <div>
+                                        <input class="mui-checkbox" type="checkbox" checked="checked" name="checkPart" value="{body[i].touristId}">
+                                        <span>{body[i].touristName}</span>
+                                    </div>
+                                    {/each}
+                                {/if}
+                            </div>
+                        </div>                        
+                    </div>
+
+                    <div class="submit clearfix">
+                        <div class="tips">
+                            温馨提示：您好，若此时改签订单，依据旅游有关法律法规、与游客签署的旅游合同、
+                            与接待方签署的协议和确认单以及与此业务有关的其他协议和文件中所规定条款，可能产生相应费用。                            
+                        </div>
+                        <div class="btn">下一步</div>
+                    </div> 
+                </div>
+        
+            </div>
+        </script>
+    </div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/order_endorse.build.js"></script>
+</html>

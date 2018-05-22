@@ -1,0 +1,4 @@
+var wx_user={'openid':'wap'};
+var share_user={};
+var _guide={};
+var wx_config={ debug:false, appId: 'wx533cb9c4b232c428', timestamp: 1506418899, nonceStr: 'R7NGDFa2rcSWff0K', signature: 'c41a245a55d1352fdef29f4e94f9ed93aab4b6e8', jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo','startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'stopVoice','onVoicePlayEnd', 'uploadVoice', 'downloadVoice', 'chooseImage', 'previewImage','uploadImage', 'downloadImage', 'translateVoice', 'getNetworkType', 'openLocation','getLocation', 'hideOptionMenu', 'showOptionMenu', 'hideMenuItems', 'showMenuItems','hideAllNonBaseMenuItem', 'showAllNonBaseMenuItem', 'closeWindow', 'scanQRCode','chooseWXPay', 'openProductSpecificView', 'addCard', 'chooseCard', 'openCard'] };

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>芒果卉旅游</title>
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link href="../Public/Css/icon/css/font-awesome.min.css" rel="stylesheet">
+
+	<script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/rangedate.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/perfect.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/showprice.css?t='+_TimeStamp+'">'
+        );
+    </script>
+	<!--<link rel="stylesheet" type="text/css" href="css/wsupple.css"/>-->
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<script src="js/lib/jquery-1.11.3.js"></script>
+	<script src="js/lib/bootstrap.js"></script>
+	<script src="js/lib/echo.min.js"></script>
+	<script src="js/lib/jBootstrapPage.js"></script>
+	<script src="js/lib/doT.min.js"></script>
+	<script src="js/lib/Rangedate.js"></script>
+	<script src="js/common/configs.js"></script>
+	<script src="js/lib/bootstrap-datetimepicker.js"></script>
+	<script src="js/lib/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+
+<body>
+	<div id="header"> </div>
+	<div class="main_navbar">
+		<div class="box_wrapper ">
+			<ul class="nav nav-tabs index_navbar">
+				<li role="presentation" class=" first_child">
+					<a href="index.html">首页</a>
+				</li>
+				<li role="presentation" id='type10'>
+					<a href="product_list.html?type=10">周边短线</a>
+				</li>
+				<li role="presentation" id='type11'>
+					<a href="product_list.html?type=11">国内长线</a>
+				</li>
+				<li role="presentation" id='type20'>
+					<a href="product_list.html?type=20">出境游</a>
+				</li>
+				<!-- <li role="presentation" id='type30'>
+					<a href="product_list.html?type=30">邮轮</a>
+				</li>
+				<li role="presentation" id='type40'>
+					<a href="product_list.html?type=40">特色游</a>
+				</li>
+				<li role="presentation" id='type50'>
+					<a href="product_list.html?type=50">自助游</a>
+				</li>
+				<li role="presentation">
+					<a href="business.html">商家大全</a>
+				</li> -->
+			</ul>
+			<div class="login_registerBtn"> <span> <span class="ion_login"></span><span class="adde"></span> <a class="sp" data-toggle="modal" data-target="#myModal"><span>登录</span></a> </span> <span class="raid"> <span class="ion_register"></span> <a href="register0.html"><span>注册</span></a> </span> </div>
+		</div>
+	</div>
+	<div class="all_travelList">
+		<div class="box_wrapper clearfloat">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-2 col-xs-2"> <span class="yellow_border"></span> <span>芒果卉旅游</span> <span class="glyphicon glyphicon-chevron-right"></span> </div>
+					<div class="col-md-10 col-xs-10">
+						<p class="sreachTop">搜索：<span class="contentSreach"></span></p>
+						<ul class="pull-left travelList_item select-result"></ul>
+						<span class="pull-left">共 <span class="hotsoso" id="soso"></span> 条统计</span>
+					</div>
+				</div>
+				<div class="row business_list maxhei">
+					<div class="col-md-1 col-xs-1 travelList_title"> 商家信息: </div>
+					<ul class="col-md-10 col-xs-10" id="selectE"></ul>
+				</div>
+
+				<div class="row day_list maxhei">
+					<div class="col-md-1 col-xs-1 travelList_title"> 行程天数: </div>
+					<ul class="col-md-10 col-xs-10" id="selectB"></ul>
+					<div class="col-md-1 col-xs-1 load_moreIntro" style="display: none;"> <span>更多</span></div>
+				</div>
+
+				<div class="row go_list">
+					<div class="col-md-1 col-xs-1 travelList_title"> 出发日期: </div>
+					<ul class="col-md-10 col-xs-10">
+						<div class="pull-left inline layinput date_controlWidget">
+							<input size="16" type="text" id="datetimeStart" readonly class="form_datetime">
+							<span class="dao">至</span>
+							<input size="16" type="text" id="datetimeEnd" readonly class="form_datetime">
+						</div>
+						<div class="pull-left subDate">确定</div><div class="pull-left clearDate">清除</div>
+					</ul>
+				</div>
+
+				<div class="row city_list maxhei">
+					<div class="col-md-1 col-xs-1 travelList_title"> 热门目的地: </div>
+					<ul class="col-md-10 col-xs-10" id="selectA"></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="product_recommend">
+		<div class="box_wrapper container-fluid">
+			<div class="row">
+				<div class="col-md-8 col-xs-8">
+					<div class="recomment_list clearfloat">
+						<div class="pull-left recommendList_name one_list" > <span class="pull-left">产品</span> </div>
+						<div class="pull-left recommendList_name two_list" style="display: none;"> 
+							<span class="pull-left clearsel" type="0">全部产品</span>
+							<div class="selectlist">
+								<div class="groupsel"  type="2">成团</div>
+								<i></i>
+								<div class="sellnum"  type="1">已售</div>
+							</div> 
+							<div class="list_eye open" style="display: none;">
+								<i class="fa fa-eye eye_slash" aria-hidden="true"></i>
+							</div>
+						</div>
+						<div class="pull-right recomend_menuBtns">
+							<div class="pull-right menuF"> <span class="glyphicon glyphicon-th"></span> </div>
+							<div class="pull-right menuS"> <span class="glyphicon glyphicon-th-list"></span> </div>
+						</div>
+					</div>
+
+					<div class="list_box first">
+						<div class="rec">没有查询到数据！</div>
+						<ul class="travelItem_detailIntro container-fluid " id="ProductlistsData"></ul>
+
+						<script id="ProductlistsData-template" type="text/x-dot-template">
+							{{ for(var i in it) { }}
+							<li class="clearfloat row">
+								<a href="detail.html?p_id={{=it[i].p_id}}">
+									<div class="col-md-2 col-xs-2 travelItem_pic">
+										<img src="s.gif" alt="" data-echo="{{=it[i].p_cover}}?x-oss-process=image/resize,m_fill,h_120,w_160" />
+									</div>
+									<div class="col-md-8 col-xs-8 Item_detailIntro">
+										<h4> {{=it[i].p_name}}</h4>
+
+										<!-- {{? it[i].p_promotion && it[i].p_promotion.length > 0}}
+											
+											<div class="yh_left"><span>{{=it[i].p_promotion[0].pp_tip}}</span></div>
+							
+										    <div class="pary">
+											活动详情>>
+											<div class="chils">
+												{{ for(var g in it[i].p_promotion){ }}
+												<div class="groups">
+												
+												<div class="group_right">
+													<span>{{=it[i].p_promotion[g].pp_title}}</span>
+												</div>
+												<div class="conten">
+													<span>活动时间：<span>{{=it[i].p_promotion[g].pp_start_date}}</span>&nbsp;至&nbsp;<span>{{=it[i].p_promotion[g].pp_end_date}}</span></span>
+												</div>
+												<div class="conten">
+													<span>班期时间：<span>{{=it[i].p_promotion[g].pp_classes_start_date}}</span>&nbsp;至&nbsp;<span>{{=it[i].p_promotion[g].pp_classes_end_date}}</span></span>
+												</div>
+												</div>
+											{{ }}}
+
+											</div>
+											<img src="img/bgs.png" alt="">
+											</div>
+										{{?}} -->
+										<div class="show_dif">
+											<p class="clearfloat show_s">
+												{{? it[i].p_promotion && it[i].p_promotion.length > 0}}
+												<span class="al_specialTravelLine">{{=it[i].p_promotion[0].pp_tip}}</span>
+												{{?}}
+												{{ for(var k in it[i].p_key){ }}
+													{{? it[i].p_key[k].pk_bcolor}}
+													<span class="al_keyTravelLine" style="color:{{=it[i].p_key[k].pk_color}} ;border:1px solid {{=it[i].p_key[k].pk_bcolor}};">{{=it[i].p_key[k].pk_name}}</span>
+													{{??}}
+													<span class="al_specialTravelLine" style="color:{{=it[i].p_key[k].pk_color}} ;background: {{=it[i].p_key[k].pk_bgcolor}};">{{=it[i].p_key[k].pk_name}}</span>
+													{{?}}
+												{{ }}}
+											</p>
+										</div>
+										
+										<div class="travel_plan">
+											<p class="go_day"><span>行程天数：</span><span>{{=it[i].p_days}}</span></p>
+											<p class="go_city"><span>出发城市：</span>
+											 	{{ for(var j in it[i].start_place) { }}
+												<span>{{=it[i].start_place[j]}}</span>
+											 	{{ } }}
+											</p>
+											<p class="clearfloat nexse"><span>最近发团：</span>
+												{{? it[i].bus_lists.length > 30}}
+												<span class="dateRe">{{=it[i].bus_lists}}</span>
+												<a class="dateMore" href="detail.html?p_id={{=it[i].p_id}}">更多<i class="fa fa-caret-right"></i></a>
+												{{??}}
+												<span class="dateRe">{{=it[i].bus_lists}}</span>
+												{{?}}
+											</p>
+										</div>
+									</div>
+
+									<div class="col-md-2 col-xs-2 travelItem_evaluate">
+										<h5><a href="company.html?org_id={{=it[i].business_id}}">{{=it[i].business}}</a></h5>
+										<p class="travel_proPrice priceColor_danger pri_p"> <span>¥</span><span title="同行价：{{=it[i].t_trade_price}}" class="pri_b"></span><span class=" price_promptBigFont">{{=it[i].ticket_min}}</span><span>起</span > </p>
+										<p> </p>
+										<a href="detail.html?p_id={{=it[i].p_id}}">
+											<button class="check_detail">查看详情</button>
+										</a>
+									</div>
+								</a>
+							</li>
+							{{ } }}
+						</script>
+
+						<ol class="pager" id="Pagination_p"></ol>
+
+					</div>
+					<div class="list_box second">
+						<div class="container-fluid travel_detailIntroTable">
+							<div class="row">
+								<div class="col-md-5 col-xs-5 log_width">线路名称</div>
+								<div class="col-md-1 col-xs-1">出团日期</div>
+								<div class="col-md-1 col-xs-1">天数</div>
+								<div class="col-md-1 col-xs-1">计划</div>
+								<div class="col-md-1 col-xs-1">已定</div>
+								<div class="col-md-1 col-xs-1">余座</div>
+								<div class="col-md-1 col-xs-1">门市价</div>
+								<div class="col-md-1 col-xs-1 log_block t_price" style="width: 10%;">同行价</div>
+								<div class="col-md-1 col-xs-1" style="width: 8.5%;">操作</div>
+							</div>
+							<ul class="travelItem_detailIntroSecond" id="ProductbuslistData"></ul>
+
+							<script id="ProductbuslistData-template" type="text/x-dot-template">
+								{{ for(var i in it) { }}
+								<li class="row">
+								<!-- 售罄 -->
+									<div class="col-md-5 col-xs-5 th log_width maiwan">
+										<h5>
+											
+											{{? it[i].p_type_name == '周边短线'}}
+											<span class="pro_type">[短线]</span> 
+											{{?? it[i].p_type_name == '国内长线'}}
+											<span class="pro_type">[长线]</span> 
+											{{?? it[i].p_type_name == '出境旅游'}}
+											<span class="pro_type">[出境]</span> 
+											{{?? it[i].p_type_name == '邮轮'}}
+											<span class="pro_type">[邮轮]</span>
+											{{?}}
+											<a href="detail.html?p_id={{=it[i].p_id}}">
+												<span title="{{= it[i].p_name}}">{{= it[i].p_name}}</span> 
+											</a>
+										</h5>
+										<div class="travel_lineCode clearfloat">
+											<p class="pull-left">[{{=it[i].p_num}}]&nbsp</p>
+											
+											<!-- 标签 -->
+											<div class="show_dif-b">
+												<p class="clearfloat show_s-b">
+													{{? it[i].p_promotion && it[i].p_promotion.length > 0}}
+													<span class="al_specialTravelLine-b">{{=it[i].p_promotion[0].pp_tip}}</span>
+													{{?}}
+													{{ for(var k in it[i].p_key){ }}
+														{{? it[i].p_key[k].pk_bcolor}}
+														<span class="al_keyTravelLine-b" style="color:{{=it[i].p_key[k].pk_color}} ;border:1px solid {{=it[i].p_key[k].pk_bcolor}};">{{=it[i].p_key[k].pk_name}}</span>
+														{{??}}
+														<span class="al_specialTravelLine al_specialTravelLine-b" style="color:{{=it[i].p_key[k].pk_color}} ;background: {{=it[i].p_key[k].pk_bgcolor}};">{{=it[i].p_key[k].pk_name}}</span>
+														{{?}}
+													{{ }}}
+												</p>
+											</div>
+										</div>
+										
+										
+
+										{{? it[i].sell_status == 1}}
+										<img class="sellOutImgList" src="img/sell_out.png">
+										{{?}}
+									</div>
+									
+
+									<div class="col-md-1 col-xs-1">
+										<p> <span>{{=it[i].bl_start_date}} </span> <span>( {{=it[i].bl_start_week}} )</span> </p>
+									</div>
+									<div class="col-md-1 col-xs-1"> <span>{{=it[i].p_days}}日</span> </div>
+									<div class="col-md-1 col-xs-1"> {{=it[i].bl_seat_count}} </div>
+									
+									<!-- 成团 -->
+									{{? it[i].is_cluster == 1}}
+									<div class="col-md-1 col-xs-1 chengtuan"><img class="groupImgList" src="img/group.png"><span>{{=it[i].bl_saled}}</span> </div>
+									{{??}}
+									<div class="col-md-1 col-xs-1"> {{=it[i].bl_saled}} </div>
+									
+									{{?}}
+
+									<div class="col-md-1 col-xs-1 hotsoso"> {{= Number(it[i].bl_seat_count) - Number(it[i].bl_saled) }} </div>
+									{{? it[i].t_price == "暂无报价"}}
+									<div class="col-md-1 col-xs-1 priceColor_danger"> <span></span><span>{{=it[i].t_price}} </span> </div>
+									{{??}}
+									<div class="col-md-1 col-xs-1 priceColor_danger"> <span>&yen</span><span>{{=it[i].t_price}} </span> </div>
+									{{?}}
+									{{? it[i].t_trade_price == "暂无报价"}}
+									<div class="col-md-1 col-xs-1 priceColor_danger log_bottom t_price" style="width: 10.3%;"> <span></span><span>{{=it[i].t_trade_price}} </span></div>
+									{{??}}
+									<div class="col-md-1 col-xs-1 priceColor_danger log_bottom t_price" style="width: 10.3%;"> <span>&yen</span><span>{{=it[i].t_trade_price}} </span></div>
+									{{?}}
+									<div class="col-md-1 col-xs-1 linkBtn clearfloat">
+										<!-- <span>活动立减</span> -->
+									{{? it[i].appoint == true}}
+										{{? it[i].sell_status == 0}}
+										<div class="check_detail c_detail pull-left" onclick="gorders('{{= it[i].p_id}}','{{= it[i].bl_id}}',event)">下单</div>
+										{{??}}
+										<div class="check_detail disabledBtn c_detail  pull-left" disabled="">售罄</div>
+										{{?}}
+									{{??}}
+										<div class="check_detail disabledBtn c_detail  pull-left" disabled="">限购</div>
+									{{?}}
+										<!-- <div class="imBtn pull-left"><a class="" href='detail.html?p_id={{=it[i].p_id}}'>详情</a></div> -->
+									</div>
+								</li>
+
+								{{ } }}
+							</script>
+						</div>
+
+						<ol class="pager" id="Pagination_b"></ol>
+
+					</div>
+				</div>
+				<!-- 购买记录 -->
+				<ul class="col-md-4 col-xs-4 list_prodDetail" id="buslistData"></ul>
+
+				<script id="buslistData-template" type="text/x-dot-template">
+					<div class="tits">购买记录</div>
+					{{? it}}
+					{{ for(var i = 0; i < 5 && i < it.length; i++) { }} 
+					<li class="travel_productDetail">
+						<a href="detail.html?p_id={{=it[i].p_id}}">
+							<div class="travel_productDetailIntro">
+								<p>[{{= it[i].p_num}}] <span>{{= it[i].p_name}}</span> </p>
+								<div class="clearfloat">
+									<div class="pull-left travel_proPrice priceColor_danger"> <span>&yen</span><span class="price_promptBigFont">{{= it[i].price}}</span><span>起</span> </div>
+									<div class="pull-right sales_volume">
+										<a>{{= it[i].p_type}}</a>
+									</div>
+								</div>
+							</div>
+						</a>
+					</li>
+					{{ } }}
+					{{??}}
+					<p class="tise">暂无购买</p>
+					{{?}}
+				</script>
+
+				<ul class="col-md-4 col-xs-4 list_prodDetail" style="float: right;" id="buslistDatas"></ul>
+
+				<script id="buslistData-templates" type="text/x-dot-template">
+					<div class="tits">浏览记录</div>
+					{{? it}}
+					{{ for(var i = 0; i< 5 && i < it.length; i++) { }} 
+					<li class="travel_productDetail">
+						<a href="detail.html?p_id={{=it[i].iod}}">
+							<div class="travel_productDetailIntro">
+								<p>[ {{= it[i].pnum}} ] <span>{{? it[i].tit}}{{= it[i].tit}}{{?? it[i].tits}}{{= it[i].tit}}{{?}}</span> </p>
+								<div class="clearfloat">
+									<div class="pull-left travel_proPrice priceColor_danger"> <span>&yen</span><span class="price_promptBigFont">{{= it[i].price}}</span><span>起</span> </div>
+									<div class="pull-right sales_volume">
+										<a>{{= it[i].types}}</a>
+									</div>
+								</div>
+							</div>
+						</a>
+					</li>
+					{{ } }}
+					{{??}}
+					<p class="tise">暂无浏览</p>
+					{{?}}
+				</script>
+
+			</div>
+		</div>
+	</div>
+	<div id="footer"></div>
+	<div id="login_mask"> </div>
+	<script src="js/common/alert.js"></script>
+</body>
+<script id="link-js" type="text/javascript">
+    document.write(
+    	'<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+    	'<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+    	'<script type="text/javascript" src="js/lib/showprice.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/product_list.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/statistics.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

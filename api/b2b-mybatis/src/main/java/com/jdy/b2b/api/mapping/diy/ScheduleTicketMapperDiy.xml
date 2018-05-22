@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.ScheduleTicketMapperDiy">
+
+    <resultMap id="ResultMapExt" extends="com.jdy.b2b.api.dao.ticket.TicketMapper.BaseResultMap"
+               type="com.jdy.b2b.api.model.diy.TicketDTO">
+        <result column="chosen" property="chosen"/>
+        <result column="departure_num" property="departureNum"/>
+    </resultMap>
+
+    <select id="selectTicketListUnionAll" resultMap="ResultMapExt">
+      SELECT 
+          t.id,  t.t_company_id,  t.t_product_id,  t.t_ticket_type,  t.t_type,  t.t_name,  t.t_limit_type,  t.t_limit_condition, 
+     t.t_category,  t.t_traffic,  t.t_market_price,  t.t_peer_price, t.t_gather_price,  t.t_price_add,  t.t_price_reduce,
+    t.t_stock,  t.t_effect_week,  t.t_introduction,  t.t_source_id, t.t_from_ticket_id,  t.t_status,  t.t_default_price,
+     t.t_adult_num, t.t_child_num, t.create_time,  t.create_user,
+     t.update_time,  t.update_user,t.factory_price, 0 as chosen,
+          count(DISTINCT p.id) departure_num
+      FROM
+          ct_ticket t
+      LEFT JOIN ct_ticket_departure p ON t.id = p.ticket_id
+      LEFT JOIN ct_schedule_ticket st ON st_schedule_id =#{stScheduleId} 
+      WHERE
+          t.t_status = 0
+      AND t.t_source_id IS NULL
+      AND t.t_product_id = #{stProductId}
+      and t.t_company_id = #{dstCompanyId}
+      GROUP BY
+	      t.id
+
+      UNION ALL
+
+      SELECT 
+          t.id,  t.t_company_id,  t.t_product_id,  t.t_ticket_type,  t.t_type,  t.t_name,  t.t_limit_type,  t.t_limit_condition, 
+     t.t_category,  t.t_traffic,  st.t_market_price,  t.t_peer_price, t.t_gather_price,  t.t_price_add,  t.t_price_reduce,
+     st.t_stock,  t.t_effect_week,  t.t_introduction,  t.t_source_id, t.t_from_ticket_id,  t.t_status,  t.t_default_price,
+     t.t_adult_num, t.t_child_num, t.create_time,  t.create_user,
+     t.update_time,  t.update_user,t.factory_price, 1 as chosen,
+          count(DISTINCT p.id) departure_num
+      FROM
+          ct_schedule_ticket st,
+          ct_ticket t
+      LEFT JOIN ct_ticket_departure p ON t.id = p.ticket_id
+      WHERE
+          st.st_schedule_id = #{stScheduleId}
+      AND st.st_product_id = #{stProductId}
+      AND st.st_ticket_id = t.id
+      AND t.t_status = 0
+      and t.t_company_id = #{dstCompanyId}
+      GROUP BY
+	      t.id
+  </select>
+
+    <insert id="insertBatch" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        insert into ct_schedule_ticket (id, st_product_id, st_schedule_id,
+        st_ticket_id, create_time, create_user,
+        update_time, update_user,t_market_price,t_stock)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.id,jdbcType=BIGINT}, #{item.stProductId,jdbcType=BIGINT},
+            #{item.stScheduleId,jdbcType=BIGINT}, #{item.stTicketId,jdbcType=BIGINT},
+            #{item.createTime,jdbcType=TIMESTAMP}, #{item.createUser,jdbcType=BIGINT},
+            #{item.updateTime,jdbcType=TIMESTAMP}, #{item.updateUser,jdbcType=BIGINT},#{item.tMarketPrice},#{item.tStock})
+        </foreach>
+    </insert>
+
+    <delete id="deleteCustomTickets" parameterType="com.jdy.b2b.api.model.ScheduleTicket">
+        DELETE t
+        FROM
+            ct_ticket t,
+            ct_schedule_ticket s
+        WHERE
+            s.st_schedule_id = #{stScheduleId}
+        AND s.st_ticket_id = t.id
+        AND t.t_source_id IS NOT NULL
+    </delete>
+
+    <delete id="deleteScheduleTicketRecords" parameterType="com.jdy.b2b.api.model.ScheduleTicket">
+        DELETE s
+        FROM
+            ct_ticket t,
+            ct_schedule_ticket s
+        WHERE
+            s.st_schedule_id = #{stScheduleId}
+        AND s.st_ticket_id = t.id
+        AND t.t_company_id = #{dstCompanyId}
+    </delete>
+    <delete id="deleteGatherScheduleTicketRecords">
+        DELETE s
+        FROM
+            ct_ticket t,
+            ct_schedule_ticket s
+        WHERE
+            s.st_schedule_id = #{id}
+        AND s.st_ticket_id = t.id
+        AND t.t_company_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="selectScheduleTicketIdRelations" parameterType="long" resultType="map">
+        SELECT
+            s.id st_id,
+            s.st_schedule_id,
+            s.st_ticket_id,
+            t.id t_id,
+            t.t_source_id
+        FROM
+            ct_schedule_ticket s,
+            ct_ticket t
+        WHERE
+            s.st_schedule_id = #{stId}
+        AND s.st_ticket_id = t.id
+    </select>
+    <select id="selectTicketListByCompanyIdAndScheduleId" resultType="java.lang.Long">
+        select st.st_ticket_id
+        from ct_ticket t
+        inner join ct_schedule_ticket st on t.id = st.st_ticket_id
+        where t.t_company_id = #{companyId}
+        and st.st_schedule_id = #{stScheduleId}
+    </select>
+
+    <update id="updateTicketStock">
+        <foreach collection="list" item="t" separator=";">
+            update ct_schedule_ticket
+            set t_stock = t_stock - #{t.stockChange},
+            update_time = now()
+            where st_schedule_id = #{t.scheduleId}
+            and st_ticket_id = #{t.ticketId}
+            and t_stock is not null
+            and t_stock > 0
+        </foreach>
+    </update>
+</mapper>

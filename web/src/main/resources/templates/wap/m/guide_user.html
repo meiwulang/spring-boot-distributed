@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>联系人</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/guide_user.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->    
+</head>
+<body>
+<div id="wrap">
+	<div class="acti_header">联系人
+		<a class="lef" href="javascript:;"></a>
+	</div>
+	<div class="main">
+		<script id="tpl-condition" type="text/html">
+		{if team_detail}
+		<div class="mation cons">
+			<dl>
+			<dd>
+				<div class="tit">{team_detail.team_p_name}</div>
+				<div class="cont">
+					<div class="lefts">
+						<span class="tim"><span></span>{team_detail.team_num}</span>
+						<span class="tim tims"><span></span>{team_detail.team_start_date}至{team_detail.team_end_date}</span>
+					</div>
+					<div class="rights">
+						<p>{team_detail.team_saled}人</p>
+						<span>{team_detail.team_adult}大{team_detail.team_children}小</span>
+					</div>
+				</div>
+			</dd>
+			
+		</dl>
+		<ul class="lx">
+			<li class="tit">联系信息</li>
+			{if team_detail.team_user}
+			<li>
+				<div class="titls">计调人</div>
+				<div class="mations">
+				{team_detail.team_user}
+				{if team_detail.team_user_mob}
+				<span> <a href="tel:{team_detail.team_user_mob}">{team_detail.team_user_mob}</a></span>
+				{/if}
+				</div>
+			</li>
+			{/if}
+			{if team_detail.team_guide_name}
+			<li>
+				<div class="titls">全程导游</div>
+				<div class="mations">{team_detail.team_guide_name}
+				{if team_detail.team_guide_tel}
+				<span> <a href="tel:{team_detail.team_guide_tel}">{team_detail.team_guide_tel}</a></span>
+				{/if}
+				</div>
+			</li>
+			{/if}
+			{if team_detail.team_local_guide_name}
+			<li>
+				<div class="titls">地接导游</div>
+				<div class="mations">{team_detail.team_local_guide_name}
+				{if team_detail.team_local_guide_tel}
+				<span> <a href="tel:{team_detail.team_local_guide_tel}">{team_detail.team_local_guide_tel}</a></span>
+				{/if}
+				</div>
+			</li>
+			{/if}
+			{if team_detail.team_driver_name}
+			<li>
+				<div class="titls">司机车辆</div>
+				<div class="mations">{team_detail.team_driver_name}
+				{if team_detail.team_driver_tel}
+				<span> <a href="tel:{team_detail.team_driver_tel}">{team_detail.team_driver_tel}</a></span>
+				{/if}
+				{if team_detail.team_bus}
+				<i>({team_detail.team_bus})</i>
+				{/if}
+				</div>
+			</li>
+			{/if}
+		
+		
+		</ul>
+		<ul class="lx">
+			<li class="tit">其他信息</li>
+			{if team_detail.team_org_name}
+			<li>
+				<div class="titls">公司名称</div>
+				<div class="mations">{team_detail.team_org_name}</div>
+			</li>
+			{/if}
+			{if team_detail.team_org_tel}
+			<li>
+				<div class="titls">公司电话</div>
+				<div class="mations"><a href="tel:{team_detail.team_org_tel}">{team_detail.team_org_tel}</a></div>
+			</li>
+			{/if}
+			{if team_detail.team_org_addr}
+			<li>
+				<div class="titls">公司地址</div>
+				<div class="mations">{team_detail.team_org_addr}</div>
+			</li>
+			{/if}
+			{if team_detail.team_total_fee}
+			<li>
+				<div class="titls">导游领款</div>
+				<div class="mations prace"><span class="mon">￥</span>{team_detail.team_total_fee}</div>
+			</li>
+			{/if}
+		</ul>
+		</div>
+		{/if}
+	</script>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/guide_user.build.js"></script>
+</html>

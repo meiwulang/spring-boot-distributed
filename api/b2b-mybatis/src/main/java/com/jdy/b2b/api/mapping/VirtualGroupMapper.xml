@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.VirtualGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.virtualGroup.VirtualGroup" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="g_no" property="gNo" jdbcType="VARCHAR" />
+    <result column="g_name" property="gName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="g_status" property="gStatus" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, g_no, g_name, company_id, g_status, create_user, create_time, update_user, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from fx_virtual_group
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from fx_virtual_group
+    where g_no = #{no,jdbcType=VARCHAR}
+  </select>
+    <select id="selectByNos" resultType="com.jdy.b2b.api.model.virtualGroup.VirtualGroup">
+      select
+      <include refid="Base_Column_List" />
+      from fx_virtual_group
+      where g_no IN (
+      <foreach collection="array" separator="," item="item" >
+        #{item}
+      </foreach>
+      )
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from fx_virtual_group
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.virtualGroup.VirtualGroup" >
+    insert into fx_virtual_group (id, g_no, g_name, 
+      company_id, g_status, create_user, 
+      create_time, update_user, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{gNo,jdbcType=VARCHAR}, #{gName,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=INTEGER}, #{gStatus,jdbcType=INTEGER}, #{createUser,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.virtualGroup.VirtualGroup" >
+    insert into fx_virtual_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gNo != null" >
+        g_no,
+      </if>
+      <if test="gName != null" >
+        g_name,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="gStatus != null" >
+        g_status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gNo != null" >
+        #{gNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gName != null" >
+        #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="gStatus != null" >
+        #{gStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.virtualGroup.VirtualGroup" >
+    update fx_virtual_group
+    <set >
+      <if test="gNo != null" >
+        g_no = #{gNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gName != null" >
+        g_name = #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="gStatus != null" >
+        g_status = #{gStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.virtualGroup.VirtualGroup" >
+    update fx_virtual_group
+    set g_no = #{gNo,jdbcType=VARCHAR},
+      g_name = #{gName,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=INTEGER},
+      g_status = #{gStatus,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

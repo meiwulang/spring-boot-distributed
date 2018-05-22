@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.OrderPriceDetailMapperDiy">
+
+    <insert id="batchInsertOrderPriceDetails" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+    insert into sl_order_price_detail (id, op_order_id, op_ticket_id,
+      op_price_name, op_num, op_price,
+      op_total_price, op_remark, op_type,
+      op_activity_id, create_time, create_user,
+      update_time, update_user,op_adult_num,op_child_num)
+    values
+    <foreach collection="list" separator="," item ="item">
+        (#{item.id,jdbcType=BIGINT}, #{item.opOrderId,jdbcType=BIGINT}, #{item.opTicketId,jdbcType=BIGINT},
+        #{item.opPriceName,jdbcType=VARCHAR}, #{item.opNum,jdbcType=INTEGER}, #{item.opPrice,jdbcType=DECIMAL},
+        #{item.opTotalPrice,jdbcType=DECIMAL}, #{item.opRemark,jdbcType=VARCHAR}, #{item.opType,jdbcType=INTEGER},
+        #{item.opActivityId,jdbcType=BIGINT}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.createUser,jdbcType=BIGINT},
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.updateUser,jdbcType=BIGINT},
+        #{item.opAdultNum,jdbcType=INTEGER},#{item.opChildNum,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+
+    <update id="updatePriceDetailStatusByOrderId">
+        UPDATE sl_order_price_detail d
+        SET d.op_status = #{status}
+        WHERE
+            d.op_order_id = #{orderId}
+    </update>
+    
+    <resultMap id="OrderPriceDetailDTOMap" type="com.jdy.b2b.api.model.diy.OrderPriceDetailDTO" extends="com.jdy.b2b.api.dao.OrderPriceDetailMapper.BaseResultMap">
+        <result column="category" property="category"/>
+        <result column="categoryName" property="categoryName"/>
+    </resultMap>
+
+    <select id="selectOrderPriceListByOrder" resultMap="OrderPriceDetailDTOMap">
+        SELECT
+          p.*,
+          t.t_category category,
+          d.d_name     categoryName
+        FROM sl_order_price_detail p
+          LEFT JOIN ct_ticket t ON p.op_ticket_id = t.id
+          LEFT JOIN sm_dictionaries d ON d.id = t.t_category
+        WHERE p.op_order_id = #{id}
+    </select>
+</mapper>

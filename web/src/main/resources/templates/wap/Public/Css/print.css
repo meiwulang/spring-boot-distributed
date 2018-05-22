@@ -1,0 +1,106 @@
+* {font-size:10pt; margin: 0; padding: 0;}
+body {background-color:#f3f3f3; text-align: center;}
+.txt{background-color:#fff;font-size:10pt;}
+.ltitle {font-weight:bold; text-align:center; margin:5px; font-size:12pt;}
+
+.info-box{width:750px;margin:auto;background: #fff;padding: 20px;}
+.xlinfo {font-size:10pt; line-height:150%; text-align: left}
+.xlinfo table {border-collapse:collapse; margin-bottom:10px;}
+.xlinfo td, .xlinfo th { background:#fff; padding:3px; border:1px solid #333;}
+.xlinfo td .t_body {line-height: 18px; overflow: hidden;/*white-space: nowrap;*/word-break:break-all;text-overflow: ellipsis;}
+.xlinfo th {font-weight: bold; text-align: center;}
+.xlinfo .tip { border: 1px #ccc dotted; width: 500px; padding: 20px; line-height: 180%; margin: 20px auto; text-align: center; background: #fff url(../Images/tip.png) 30px center no-repeat;}
+.xlinfo .tip h3, .xlinfo .tip span { color: red;}
+.xlinfo .header {font-size:14pt; font-family:"微软雅黑", "黑体", "华文细黑", Arial, "Arial Narrow", Verdana; margin:5px; text-align:center;}
+.xlinfo #lkd_div .title { }
+
+
+.jd_info { margin:10px 0px; }
+.jd_info span { float: right; }
+
+.letter{letter-spacing:2px;font-weight:bold}
+
+
+
+
+#pzprint {position:absolute;left:0px;top:0px;width:19cm;height:28.2cm;z-index:1;}
+
+body {margin:0px; text-align:center; background:#f3f3f3;}
+
+
+.xcxxxx { text-align:left; }
+.xcxxxx table { border-collapse: collapse  !important;}
+.xcxxxx td, .xcxxxx th {border:1px solid #000000 !important;}
+
+
+.info {width:189mm; height:262mm; _height:258mm; overflow:hidden; margin:0px auto; text-align:left; position:relative;}
+.infoha {width:735px; height:auto; overflow:hidden; margin:0px auto; text-align:left;}
+.bottom {width:189mm; background:#FFFFFF; border-top:1px solid #000000; padding-top:3px; margin:0px auto; text-align:center;}
+
+.fjinfo span{float:right;}
+
+.title {font-size:14pt; font-family:"微软雅黑", "黑体", "华文细黑", Arial, "Arial Narrow", Verdana; text-align:center;}
+.ct_title {font-size:14pt; font-family:"微软雅黑", "黑体", "华文细黑", Arial, "Arial Narrow", Verdana; margin:5px; text-align:center;}
+
+#pzxxb.td { font-size:9pt;}
+.tm {float:right;background:#fff; width:170px; padding:5px 0px 2px 0px; margin:5px 0px;}
+.tmcode { text-align:center; letter-spacing: 6px;}
+
+.tm-b {height:25px;width:1px;overflow:hidden;display:inline-block}
+.tm-w {height:25px;width:1px;overflow:hidden;display:inline-block}
+.tm-b div {height:25px; width:1px; overflow:hidden;display:inline-block}
+.tm-w div {height:25px; width:1px; overflow:hidden;}
+.tm-b img, .tm-b img {margin:0px;}
+
+
+.tm-b1 { width:130px; _width:140px; height:30px; margin:0px auto; }
+.tm-b1 div { height:30px; width:1px; overflow:hidden; float:left; margin:0px; }
+
+.xianlu-info {width:735px; overflow:hidden; text-align:left;}
+.xianlu-info table{width:733px; margin-bottom:5px; border-collapse:collapse;}
+.xianlu-info td {border:solid #666 1.0pt; font-size:9pt; padding:1px; text-align:left;}
+.xianlu-info div {text-align:left;}
+.xianlu-info p {padding:0px; margin:0px;}
+
+
+.A4Ah {text-align:left;}
+.A4AH table {border-collapse:collapse;}
+.A4AH th {padding:3px; text-align:center;border:1px solid #333; font-size:9pt;}
+.A4AH td {padding:3px; font-size:9pt; border:1px solid #333;}
+
+.xcxxxx, .xcxxxx p, .xcxxxx font, .xcxxxx div, .xcxxxx span { font-size:9pt !important; font-family:"宋体" !important; margin:1px 0px; }
+.xcxxxx h3 { padding:0px; margin:5px 0px; font-size:10pt;}
+
+.thqrz { position:absolute; top:150px; right:10px; width:240px; height:auto; z-index:-1; background:none; }
+
+@media print{
+    .noprint {display:none}
+    .txt { font-size:8pt}
+    .div_RightMenu {display:none !important;}
+    .xlinfo #lkd_div { position: absolute !important; top:21cm !important; left:0px !important; }
+    .xlinfo #lkd_div .title { padding-top: 1cm !important; margin-top: 0px !important; border-top:none !important; }
+}
+
+.od_journey ul{
+    border: 1px solid #000000;list-style-type:none;margin:10px 0 0 0;padding: 5px;
+}
+.od_journey ul li{
+    min-height: 30px;
+}
+
+.o_number{
+    float:right;
+}
+.title_td{
+    background: #f6f6f6;
+    font-weight: bold;
+    text-align:left!important;
+}
+
+.print_box {background: #FFFFFF;padding:15px}
+.print_box .td-left {text-align: left}
+.print_box .td-title {font-weight: bold}
+.print_box .td-grey {background:#F3F3F3;padding:7px 0;text-align: right;padding-right: 5px;}
+.print_box .td-yl {background:cornsilk; text-align: right}
+.print_box .td-green {background: #b0ffce; text-align: right}
+.print_box .pc-l {text-align: left;z-index: 999}

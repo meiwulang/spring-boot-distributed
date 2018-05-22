@@ -1,0 +1,47 @@
+#dev环境
+server:
+  port: 5555
+  context-path: /api/salesCenter
+spring:
+  profiles: dev
+  application:
+    name: b2b-sales
+  aop :
+    proxy-target-class : true
+
+  datasource:
+      name: dev_sp_db
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://47.96.30.236:3306/dev_sp_db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false
+      type: com.alibaba.druid.pool.DruidDataSource
+      maxActive: 20
+      initialSize: 1
+      maxWait: 60000
+      minIdle: 1
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: true
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+      username: sp_user
+      password: 123456
+      filters: log4j
+  #微信
+  wechat:
+      publicId: gh_155170e9f6b2
+  orderUrl: http://zjdev.fingercrm.cn/dypc/dcshop/orderapi
+  order_group_advice_url: http://b2b.test.fingercrm.cn/notify/groupAdviceNoteForMessage?orderNoCode=
+
+#礼品卡接口调用url
+shp_card_web_interface_url: http://localhost:8101/shp-card-web
+
+mq:
+  appId: SP
+  appSecret: 0E6A12D3A2421A876715DC66AE3F283D
+  requestUrl: http://localhost:8085/data-warehouse
+changsha: 
+  tuijieqianzhui: http://sp.h5.test.fingercrm.cn/
+  tuijieqianzhui2: http://sp.h5.dev.fingercrm.cn/

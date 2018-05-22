@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.OrderCardMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.OrderCard">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
+    <result column="card_pass" jdbcType="VARCHAR" property="cardPass" />
+    <result column="valid_time" jdbcType="VARCHAR" property="validTime" />
+    <result column="user_uid" jdbcType="BIGINT" property="userUid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="marketing_price" jdbcType="DECIMAL" property="marketingPrice" />
+    <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+    <result column="sale_price" jdbcType="DECIMAL" property="salePrice" />
+    <result column="card_type" jdbcType="INTEGER" property="cardType" />
+    <result column="card_price" jdbcType="DECIMAL" property="cardPrice" />
+    <result column="card_person" jdbcType="INTEGER" property="cardPerson" />
+    <result column="card_person_prior" jdbcType="INTEGER" property="cardPersonPrior" />
+    <result column="card_discount_rate" jdbcType="DECIMAL" property="cardDiscountRate" />
+    <result column="card_discount_max" jdbcType="DECIMAL" property="cardDiscountMax" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, card_no, card_pass, valid_time, user_uid, create_time, create_user, 
+    update_time, update_user, marketing_price, cost_price, sale_price, card_type, card_price, 
+    card_person, card_person_prior, card_discount_rate, card_discount_max
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_order_card
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sl_order_card
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.OrderCard">
+    insert into sl_order_card (id, order_id, card_no, 
+      card_pass, valid_time, user_uid, 
+      create_time, create_user, update_time, 
+      update_user, marketing_price, cost_price, 
+      sale_price, card_type, card_price, 
+      card_person, card_person_prior, card_discount_rate, 
+      card_discount_max)
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{cardNo,jdbcType=VARCHAR}, 
+      #{cardPass,jdbcType=VARCHAR}, #{validTime,jdbcType=VARCHAR}, #{userUid,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT}, #{marketingPrice,jdbcType=DECIMAL}, #{costPrice,jdbcType=DECIMAL}, 
+      #{salePrice,jdbcType=DECIMAL}, #{cardType,jdbcType=INTEGER}, #{cardPrice,jdbcType=DECIMAL}, 
+      #{cardPerson,jdbcType=INTEGER}, #{cardPersonPrior,jdbcType=INTEGER}, #{cardDiscountRate,jdbcType=DECIMAL}, 
+      #{cardDiscountMax,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.OrderCard">
+    insert into sl_order_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="cardNo != null">
+        card_no,
+      </if>
+      <if test="cardPass != null">
+        card_pass,
+      </if>
+      <if test="validTime != null">
+        valid_time,
+      </if>
+      <if test="userUid != null">
+        user_uid,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="marketingPrice != null">
+        marketing_price,
+      </if>
+      <if test="costPrice != null">
+        cost_price,
+      </if>
+      <if test="salePrice != null">
+        sale_price,
+      </if>
+      <if test="cardType != null">
+        card_type,
+      </if>
+      <if test="cardPrice != null">
+        card_price,
+      </if>
+      <if test="cardPerson != null">
+        card_person,
+      </if>
+      <if test="cardPersonPrior != null">
+        card_person_prior,
+      </if>
+      <if test="cardDiscountRate != null">
+        card_discount_rate,
+      </if>
+      <if test="cardDiscountMax != null">
+        card_discount_max,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="cardNo != null">
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardPass != null">
+        #{cardPass,jdbcType=VARCHAR},
+      </if>
+      <if test="validTime != null">
+        #{validTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userUid != null">
+        #{userUid,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="marketingPrice != null">
+        #{marketingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="costPrice != null">
+        #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="salePrice != null">
+        #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cardType != null">
+        #{cardType,jdbcType=INTEGER},
+      </if>
+      <if test="cardPrice != null">
+        #{cardPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cardPerson != null">
+        #{cardPerson,jdbcType=INTEGER},
+      </if>
+      <if test="cardPersonPrior != null">
+        #{cardPersonPrior,jdbcType=INTEGER},
+      </if>
+      <if test="cardDiscountRate != null">
+        #{cardDiscountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="cardDiscountMax != null">
+        #{cardDiscountMax,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.OrderCard">
+    update sl_order_card
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="cardNo != null">
+        card_no = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardPass != null">
+        card_pass = #{cardPass,jdbcType=VARCHAR},
+      </if>
+      <if test="validTime != null">
+        valid_time = #{validTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userUid != null">
+        user_uid = #{userUid,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="marketingPrice != null">
+        marketing_price = #{marketingPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="costPrice != null">
+        cost_price = #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="salePrice != null">
+        sale_price = #{salePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cardType != null">
+        card_type = #{cardType,jdbcType=INTEGER},
+      </if>
+      <if test="cardPrice != null">
+        card_price = #{cardPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="cardPerson != null">
+        card_person = #{cardPerson,jdbcType=INTEGER},
+      </if>
+      <if test="cardPersonPrior != null">
+        card_person_prior = #{cardPersonPrior,jdbcType=INTEGER},
+      </if>
+      <if test="cardDiscountRate != null">
+        card_discount_rate = #{cardDiscountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="cardDiscountMax != null">
+        card_discount_max = #{cardDiscountMax,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.OrderCard">
+    update sl_order_card
+    set order_id = #{orderId,jdbcType=BIGINT},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      card_pass = #{cardPass,jdbcType=VARCHAR},
+      valid_time = #{validTime,jdbcType=VARCHAR},
+      user_uid = #{userUid,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      marketing_price = #{marketingPrice,jdbcType=DECIMAL},
+      cost_price = #{costPrice,jdbcType=DECIMAL},
+      sale_price = #{salePrice,jdbcType=DECIMAL},
+      card_type = #{cardType,jdbcType=INTEGER},
+      card_price = #{cardPrice,jdbcType=DECIMAL},
+      card_person = #{cardPerson,jdbcType=INTEGER},
+      card_person_prior = #{cardPersonPrior,jdbcType=INTEGER},
+      card_discount_rate = #{cardDiscountRate,jdbcType=DECIMAL},
+      card_discount_max = #{cardDiscountMax,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="batchInsertOrderCards" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+    insert into sl_order_card
+    (id, order_id, card_no,
+    card_pass, valid_time, user_uid,
+    create_time, create_user, update_time,
+    update_user, marketing_price, cost_price,
+    sale_price, card_type, card_price,
+    card_person, card_person_prior, card_discount_rate,
+    card_discount_max)
+    values
+    <foreach collection="list" separator="," item="item">
+      (#{item.id,jdbcType=BIGINT}, #{item.orderId,jdbcType=BIGINT}, #{item.cardNo,jdbcType=VARCHAR},
+    #{item.cardPass,jdbcType=VARCHAR}, #{item.validTime,jdbcType=VARCHAR}, #{item.userUid,jdbcType=BIGINT},
+    #{item.createTime,jdbcType=TIMESTAMP}, #{item.createUser,jdbcType=BIGINT}, #{item.updateTime,jdbcType=TIMESTAMP},
+    #{item.updateUser,jdbcType=BIGINT}, #{item.marketingPrice,jdbcType=DECIMAL}, #{item.costPrice,jdbcType=DECIMAL},
+    #{item.salePrice,jdbcType=DECIMAL}, #{item.cardType,jdbcType=INTEGER}, #{item.cardPrice,jdbcType=DECIMAL},
+    #{item.cardPerson,jdbcType=INTEGER}, #{item.cardPersonPrior,jdbcType=INTEGER}, #{item.cardDiscountRate,jdbcType=DECIMAL},
+    #{item.cardDiscountMax,jdbcType=DECIMAL})
+    </foreach>
+  </insert>
+
+
+  <select id="selectCardsByOrderId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sl_order_card
+    where order_id = #{orderId}
+  </select>
+
+</mapper>

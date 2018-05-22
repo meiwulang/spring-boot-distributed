@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.electroniccontract.ProductContractTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.electroniccontract.ProductContractTemplate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="t_id" jdbcType="BIGINT" property="tId" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pid, t_id, create_user, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ct_product_contract_template
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_product_contract_template
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.electroniccontract.ProductContractTemplate">
+    insert into ct_product_contract_template (id, pid, t_id, create_user, 
+      create_time)
+    values (#{id,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{tId,jdbcType=BIGINT}, #{createUser,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.electroniccontract.ProductContractTemplate">
+    insert into ct_product_contract_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="tId != null">
+        t_id,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="tId != null">
+        #{tId,jdbcType=BIGINT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.electroniccontract.ProductContractTemplate">
+    update ct_product_contract_template
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="tId != null">
+        t_id = #{tId,jdbcType=BIGINT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.electroniccontract.ProductContractTemplate">
+    update ct_product_contract_template
+    set pid = #{pid,jdbcType=BIGINT},
+      t_id = #{tId,jdbcType=BIGINT},
+      create_user = #{createUser,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <delete id="deleteByPid">
+    DELETE
+        a
+    FROM
+        ct_product_contract_template a
+    INNER JOIN sm_contract_template_info b ON b.id = a.t_id
+    AND b.company_id = #{pcompanyId}
+    WHERE
+        a.pid = #{pid}
+  </delete>
+
+  <select id="selectByPid" resultMap="BaseResultMap">
+    SELECT pt.*
+    FROM ct_product_contract_template pt, sm_contract_template_info ct, ct_ticket t
+    WHERE pt.pid = #{pid} AND pt.t_id = ct.id AND ct.company_id = t.t_company_id AND t.id = #{ticketId}
+    LIMIT 1
+  </select>
+
+  <select id="selectByPidAndCompanyId" resultMap="BaseResultMap">
+    SELECT
+        a.*
+    FROM
+        ct_product_contract_template a
+    INNER JOIN sm_contract_template_info b on b.id = a.t_id AND b.company_id = #{companyId}
+    WHERE
+        pid = #{pid}  limit 1
+  </select>
+
+</mapper>

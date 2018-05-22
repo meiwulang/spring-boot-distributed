@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.product.TripCalendarMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.product.TripCalendar">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tc_product_id" jdbcType="BIGINT" property="tcProductId" />
+    <result column="tc_trip_id" jdbcType="BIGINT" property="tcTripId" />
+    <result column="tc_start_day" jdbcType="TIMESTAMP" property="tcStartDay" />
+    <result column="tc_end_day" jdbcType="TIMESTAMP" property="tcEndDay" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap id="DtoResultMap" type="com.jdy.b2b.api.model.product.TripCalendarDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tc_product_id" jdbcType="BIGINT" property="tProductId" />
+    <result column="tc_trip_id" jdbcType="BIGINT" property="phTripId" />
+    <result column="tc_start_day" jdbcType="TIMESTAMP" property="tcStartDay" />
+    <result column="tc_end_day" jdbcType="TIMESTAMP" property="tcEndDay" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tc_product_id, tc_trip_id, tc_start_day, tc_end_day, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ct_trip_calendar
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_trip_calendar
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.product.TripCalendar">
+    insert into ct_trip_calendar (id, tc_product_id, tc_trip_id, 
+      tc_start_day, tc_end_day, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{id,jdbcType=BIGINT}, #{tcProductId,jdbcType=BIGINT}, #{tcTripId,jdbcType=BIGINT}, 
+      #{tcStartDay,jdbcType=TIMESTAMP}, #{tcEndDay,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.product.TripCalendar">
+    insert into ct_trip_calendar
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tcProductId != null">
+        tc_product_id,
+      </if>
+      <if test="tcTripId != null">
+        tc_trip_id,
+      </if>
+      <if test="tcStartDay != null">
+        tc_start_day,
+      </if>
+      <if test="tcEndDay != null">
+        tc_end_day,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tcProductId != null">
+        #{tcProductId,jdbcType=BIGINT},
+      </if>
+      <if test="tcTripId != null">
+        #{tcTripId,jdbcType=BIGINT},
+      </if>
+      <if test="tcStartDay != null">
+        #{tcStartDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tcEndDay != null">
+        #{tcEndDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.product.TripCalendar">
+    update ct_trip_calendar
+    <set>
+      <if test="tcProductId != null">
+        tc_product_id = #{tcProductId,jdbcType=BIGINT},
+      </if>
+      <if test="tcTripId != null">
+        tc_trip_id = #{tcTripId,jdbcType=BIGINT},
+      </if>
+      <if test="tcStartDay != null">
+        tc_start_day = #{tcStartDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tcEndDay != null">
+        tc_end_day = #{tcEndDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.product.TripCalendar">
+    update ct_trip_calendar
+    set tc_product_id = #{tcProductId,jdbcType=BIGINT},
+      tc_trip_id = #{tcTripId,jdbcType=BIGINT},
+      tc_start_day = #{tcStartDay,jdbcType=TIMESTAMP},
+      tc_end_day = #{tcEndDay,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="batchUpdateByPrimaryKeyAndCompanyId" parameterType="java.util.List">
+  <foreach collection="list" item="t" separator=";">
+    UPDATE ct_trip_calendar
+    SET 
+      tc_trip_id = #{t.tcTripId,jdbcType=BIGINT},
+      tc_start_day = #{t.tcStartDay,jdbcType=TIMESTAMP},
+      tc_end_day = #{t.tcEndDay,jdbcType=TIMESTAMP},
+      update_time = #{t.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{t.updateUser,jdbcType=BIGINT}
+    WHERE id = #{t.id,jdbcType=BIGINT} AND tc_product_id = #{t.tcProductId,jdbcType=BIGINT}
+  </foreach>
+  </update>
+  <insert id="batchSave"  parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+    insert into ct_trip_calendar ( tc_product_id, tc_trip_id, 
+      tc_start_day, tc_end_day, create_time, 
+      create_user, update_time, update_user
+      )
+    values 
+     <foreach collection="list" item="t" separator=",">
+      ( #{t.tProductId,jdbcType=BIGINT}, #{t.phTripId,jdbcType=BIGINT}, 
+      #{t.tcStartDay,jdbcType=TIMESTAMP}, #{t.tcEndDay,jdbcType=TIMESTAMP}, #{t.createTime,jdbcType=TIMESTAMP}, 
+      #{t.createUser,jdbcType=BIGINT}, #{t.updateTime,jdbcType=TIMESTAMP}, #{t.updateUser,jdbcType=BIGINT}
+      )
+     </foreach>
+  </insert>  
+  <sql id="tableName">ct_trip_calendar</sql>
+  <select id="countByProductIdAndEffectDay" resultType="int">
+  SELECT count(1) 
+  FROM <include refid="tableName"/> 
+  WHERE tc_product_id=#{productId} 
+  AND (
+     (tc_start_day  &gt;= #{tcStartDay}  AND tc_end_day  &lt;= #{tcEndDay})
+  OR (tc_start_day  &lt;= #{tcStartDay}  AND tc_end_day  &gt;= #{tcEndDay})
+  OR (tc_start_day  &lt;= #{tcStartDay}  AND tc_end_day  &gt;= #{tcStartDay})
+  OR (tc_start_day  &lt;= #{tcEndDay}  AND tc_end_day  &gt;= #{tcEndDay})
+  )
+  <if test="trips !=null and trips.size > 0">
+  AND tc_trip_id NOT IN <foreach collection="trips" close=")" item="t" open="(" separator=",">#{t.id}</foreach>	
+  </if>
+  </select>
+  <delete id="batchDelete">
+  DELETE FROM <include refid="tableName"/> WHERE tc_trip_id in
+   <foreach collection="list" item="t" close=")" open="(" separator=",">
+    #{t.phTripId,jdbcType=BIGINT}
+   </foreach>
+   and tc_product_id =#{t.tProductId,jdbcType=BIGINT}
+   
+  </delete>
+  <select id="queryByproductId" resultMap="DtoResultMap" >
+  select id, tc_product_id, tc_trip_id, tc_start_day, tc_end_day
+  from  <include refid="tableName"/>
+  where tc_product_id =#{productId,jdbcType=BIGINT}
+  </select>
+<!--   <select id="queryEffectDayByproductId" resultType="java.sql.Date"> -->
+<!--   select tc_start_day,tc_end_day -->
+<!--   from  <include refid="tableName"/> -->
+<!--   where tc_product_id =#{productId,jdbcType=BIGINT} group by tc_start_day,tc_end_day -->
+<!--   </select> -->
+</mapper>

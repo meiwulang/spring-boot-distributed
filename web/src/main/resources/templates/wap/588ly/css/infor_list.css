@@ -1,0 +1,136 @@
+.tab_nav{
+	margin: 20px 0;
+	text-align: center;
+}
+.tab_nav a{
+	display: inline-block;
+	padding: 5px 12px;
+	margin-right: 10px;
+	white-space: nowrap;
+	cursor: pointer;
+	font-size: 16px;
+	border: 1px solid #fff;
+}
+.tab_nav a.active{
+	background-color: #FFAA0D;
+	color: #fff;
+	border-radius: 3px;
+}
+.active{
+background-color: #FFAA0D;
+}
+.tab_nav a:hover{
+	border: 1px solid #FFAA0D;
+	border-radius: 3px;
+}
+
+.content{
+	padding-top: 50px;
+}
+.content ul li{
+	position: relative;
+	z-index: 1;
+	height: 237px;
+	border: 1px solid #e2e2e2;
+	background-color: #fff;
+	margin-bottom: 10px;
+}
+.content ul li i{
+	position: absolute;
+	z-index: 2;
+	right: -1px;
+	top: -1px;
+	width: 70px;
+	height: 70px;
+	background-image: url(../img/sprite.png);
+	background-repeat: no-repeat;
+	background-position: 0 -140px;
+}
+.imgL{
+	float: left;
+	width: 325px;
+}
+.imgL a{
+	color: #666;
+}
+.imgL a img{
+	width: 325px;
+	height: 235px;
+}
+.detail{
+	padding: 0px 50px 0px 350px;
+}
+.detail h3{
+	height: 40px;
+	line-height: 40px;
+	font-weight: bold;
+}
+.detail h3 a{
+	color: #333;
+	font-size: 20px;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-decoration: none;
+}
+.detail h3 a:hover{
+	color: #FFAA0D;
+}
+.detail .contsL{
+	height: 100px;
+	line-height: 25px;
+	font-size: 14px;
+	color: #666;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.detail .tipsF{
+	height: 30px;
+	padding-top: 10px;
+	line-height: 30px;
+	font-size: 12px;
+}
+
+.detail .tipsF .time{
+	margin-right: 10px;
+}
+.detail .tipsF .source{
+	margin-right: 10px;
+
+}
+
+.pager{
+    text-align: center;
+    margin-top: 40px;
+}
+.pager .pages{
+    display: inline-block;
+    width:40px;
+    height:40px;
+    line-height: 40px;
+    border:1px solid #eaeaea;
+   text-align: center;
+   margin-left:5px;
+}
+.pager .pages.center{
+    border:0;
+}
+.pager .pages.active{
+    background: #FFA600;
+}
+.pagination_prevPage{
+    display: none;
+}
+.pagination_nextPage>button,.pagination_prevPage>button{
+    border:1px solid #eaeaea;
+    padding:0 30px;
+    background: #fff;
+    height:40px;
+}
+.pagination_nextPage>button:focus,.pagination_prevPage>button:focus{
+    outline: none;
+}
+.pager li{
+	cursor: pointer;
+}

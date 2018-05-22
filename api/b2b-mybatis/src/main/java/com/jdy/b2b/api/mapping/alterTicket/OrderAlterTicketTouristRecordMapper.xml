@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.alterTicket.OrderAlterTicketTouristRecordMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketTouristRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="alter_ticket_id" jdbcType="BIGINT" property="alterTicketId" />
+    <result column="tourist_id" jdbcType="BIGINT" property="touristId" />
+    <result column="tourist_name" jdbcType="VARCHAR" property="touristName" />
+    <result column="tourist_lincese" jdbcType="VARCHAR" property="touristLincese" />
+    <result column="ticket_id" jdbcType="BIGINT" property="ticketId" />
+    <result column="ticket_name" jdbcType="VARCHAR" property="ticketName" />
+    <result column="old_price" jdbcType="DECIMAL" property="oldPrice" />
+    <result column="now_price" jdbcType="DECIMAL" property="nowPrice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, alter_ticket_id, tourist_id, tourist_name, tourist_lincese, ticket_id, ticket_name, 
+    old_price, now_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_order_alter_ticket_tourist_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sl_order_alter_ticket_tourist_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketTouristRecord">
+    insert into sl_order_alter_ticket_tourist_record (id, alter_ticket_id, tourist_id, 
+      tourist_name, tourist_lincese, ticket_id, 
+      ticket_name, old_price, now_price
+      )
+    values (#{id,jdbcType=BIGINT}, #{alterTicketId,jdbcType=BIGINT}, #{touristId,jdbcType=BIGINT}, 
+      #{touristName,jdbcType=VARCHAR}, #{touristLincese,jdbcType=VARCHAR}, #{ticketId,jdbcType=BIGINT}, 
+      #{ticketName,jdbcType=VARCHAR}, #{oldPrice,jdbcType=DECIMAL}, #{nowPrice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketTouristRecord">
+    insert into sl_order_alter_ticket_tourist_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="alterTicketId != null">
+        alter_ticket_id,
+      </if>
+      <if test="touristId != null">
+        tourist_id,
+      </if>
+      <if test="touristName != null">
+        tourist_name,
+      </if>
+      <if test="touristLincese != null">
+        tourist_lincese,
+      </if>
+      <if test="ticketId != null">
+        ticket_id,
+      </if>
+      <if test="ticketName != null">
+        ticket_name,
+      </if>
+      <if test="oldPrice != null">
+        old_price,
+      </if>
+      <if test="nowPrice != null">
+        now_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="alterTicketId != null">
+        #{alterTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="touristId != null">
+        #{touristId,jdbcType=BIGINT},
+      </if>
+      <if test="touristName != null">
+        #{touristName,jdbcType=VARCHAR},
+      </if>
+      <if test="touristLincese != null">
+        #{touristLincese,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketId != null">
+        #{ticketId,jdbcType=BIGINT},
+      </if>
+      <if test="ticketName != null">
+        #{ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="oldPrice != null">
+        #{oldPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="nowPrice != null">
+        #{nowPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+    <insert id="batchInsert" parameterType="java.util.ArrayList">
+      insert into sl_order_alter_ticket_tourist_record (
+      alter_ticket_id, tourist_id,
+      tourist_name, tourist_lincese, ticket_id,
+      ticket_name, old_price, now_price
+      )
+    values
+    <foreach collection="list" item="record" separator="," >
+      (#{record.alterTicketId,jdbcType=BIGINT}, #{record.touristId,jdbcType=BIGINT},
+      #{record.touristName,jdbcType=VARCHAR}, #{record.touristLincese,jdbcType=VARCHAR}, #{record.ticketId,jdbcType=BIGINT},
+      #{record.ticketName,jdbcType=VARCHAR}, #{record.oldPrice,jdbcType=DECIMAL}, #{record.nowPrice,jdbcType=DECIMAL}
+      )
+    </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketTouristRecord">
+    update sl_order_alter_ticket_tourist_record
+    <set>
+      <if test="alterTicketId != null">
+        alter_ticket_id = #{alterTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="touristId != null">
+        tourist_id = #{touristId,jdbcType=BIGINT},
+      </if>
+      <if test="touristName != null">
+        tourist_name = #{touristName,jdbcType=VARCHAR},
+      </if>
+      <if test="touristLincese != null">
+        tourist_lincese = #{touristLincese,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketId != null">
+        ticket_id = #{ticketId,jdbcType=BIGINT},
+      </if>
+      <if test="ticketName != null">
+        ticket_name = #{ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="oldPrice != null">
+        old_price = #{oldPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="nowPrice != null">
+        now_price = #{nowPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketTouristRecord">
+    update sl_order_alter_ticket_tourist_record
+    set alter_ticket_id = #{alterTicketId,jdbcType=BIGINT},
+      tourist_id = #{touristId,jdbcType=BIGINT},
+      tourist_name = #{touristName,jdbcType=VARCHAR},
+      tourist_lincese = #{touristLincese,jdbcType=VARCHAR},
+      ticket_id = #{ticketId,jdbcType=BIGINT},
+      ticket_name = #{ticketName,jdbcType=VARCHAR},
+      old_price = #{oldPrice,jdbcType=DECIMAL},
+      now_price = #{nowPrice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectListByRecordId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sl_order_alter_ticket_tourist_record
+    where alter_ticket_id = #{recordId}
+  </select>
+
+</mapper>

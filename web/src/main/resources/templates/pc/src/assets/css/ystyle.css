@@ -1,0 +1,291 @@
+
+.yjk-orderList .fontcolor-buy{
+    color: #ff4500
+  }
+  .yjk-orderList .fontcolor-sale{
+    color: #009999
+  }
+  
+  .table-total {
+    margin: 10px 0;
+  }
+  .table-total>span {
+    color: #467cd4;
+  }
+  .table-total>span span {
+    color: #000;
+  }
+  .table-total .yjk-total {
+    color: #ff4949;
+  }
+  
+  .yjk-search .el-form-item__content {
+    width: 280px;
+  }
+  .isreturn {
+    height: 60px;
+    line-height: 60px;
+    margin-left: 50px;
+  }
+  .yjk-ml100 .el-form-item__label {
+    width: 80px!important;
+  }
+  .yjk-ml50 .el-form-item__label {
+    width: 50px!important;
+  }  
+  .yjk-mb10 {
+    margin-bottom: 10px!important;
+  }
+  .yjk-cellExpand{
+    background: #dfe6ec
+  }
+  
+  .yjk-orderList .yjk-orderDetailBtn{
+    width: 120px;
+    margin-top: 15px;
+  }
+  .yjk-orderList .yjk-orderChangeSel{
+    width: 120px;
+    display: block;
+    margin: 15px auto;
+  }
+  .yjk-orderList tbody .cell{
+    padding:0;
+  }
+  .yjk-orderList .yjk-cellExpand{
+    height: 40px;
+    line-height: 40px;
+  }
+  /* .yjk-orderList tbody .el-table_1_column_1{
+    padding-bottom: 54px;
+  }
+  .yjk-orderList tbody .el-table_1_column_2{
+    padding-bottom: 55px;
+  }
+  .yjk-orderList tbody .el-table_1_column_3{
+    padding-bottom: 55px;
+  }
+  .yjk-orderList tbody .el-table_1_column_4{
+    padding-bottom: 43px;
+  } */
+  /* 标签(用于买家订单,卖家订单) */
+  .yjk-orderList .yjk-noticeTitle{
+    width: 80px;
+    height: 20px;
+    border-radius: 25px;
+    padding: 0 10px;
+    color: #fff;
+  }
+  .yjk-orderList .noticePink{
+      background: #ff99ff;
+  }
+  .yjk-orderList .noticeYellow{
+    background: #ffcc00;
+}  
+.yjk-orderList .noticeOrange{
+    background: #ff9900;
+}
+.yjk-orderList .noticeGreen{
+    background: #009933;
+} 
+.yjk-orderList .noticePurple{
+    background: #ff66cc;
+}  
+.yjk-orderList .noticeBlue{
+    background: #0099ff;
+}
+.yjk-orderList .noticeGray{
+    background: #999999;
+}  
+
+.yjk-orderList .pInfo>span:nth-child(1){
+    padding: 0 10px;
+}
+.yjk-orderList .pInfo>span:nth-child(2){
+    padding: 0 20px 0 0;
+}
+.yjk-orderList .pInfo>span:nth-child(3){
+    padding-right: 20px;
+}
+.yjk-orderList .yjk-cellIN{
+    border-bottom: 1px solid #edf4f8;
+    padding: 5px 0;
+}
+.yjk-orderList tbody *{
+    font-size: 13px;
+}
+.yjk-orderList .yjk-width30{
+    display: inline-block;
+    width: 40%;
+    text-align: left;
+}
+.yjk-orderList .ptlr20{
+    text-align: left;
+}
+.yjk-orderList .personinfo{
+    text-align: left;
+    padding: 22px 20px 0 20px;
+    height:102px;
+}
+.yjk-orderList .saleCompanyColor{
+    color:#8080ff;
+}
+
+.yjk-alertInner{
+    padding: 20px 15px;
+    margin-bottom: 20px;
+}
+.yjk-alertInner textarea{
+    height: auto;
+}
+.yjk-alertInner .yjk-w30{
+    width: 30%;
+}
+.yjk-alertInner .yjk-w70{
+    width: 70%
+}
+.yjk-alertInner>div{
+    padding: 15px 0;
+}
+.yjk-alertInner .yjk-innerTitle{
+    width: 140px;
+    text-align: right;
+    display: inline-block;
+    padding-right: 5px;
+}
+.yjk-alertFoot{
+    height: auto !important; 
+}
+.yjk-orderList .yjk-link{
+    color: #20a0ff;
+}
+.yjk-orderList .yjk-link:hover{
+    color: #4db3ff;
+}
+.yjk-all{
+    /* margin: 10px;
+    border: 1px solid #d7dfe3;
+    border-radius: 3px; */
+    background: #edf4f8;
+    font-size: 14px;
+    width: -moz-calc(100% -20px);
+    width: -webkit-calc(100% - 20px);
+    width: calc(100% - 20px);
+    min-height: 300px;
+    margin-top: 65px;    
+}
+.console_tagblue{
+    background: #7e9fcc;
+}
+.console_tagorange{
+    background: #f56954;
+}
+.console_tagpurple{
+    background: #ba8bd1;
+}
+.console_tagyellow{
+    background: #fcb247;
+}
+.console_tagblue .taglist_mark{
+    background: url("../images/title_console.png") center center no-repeat
+}
+.console_tagorange .taglist_mark{
+    background: url("../images/money_console.png") center center no-repeat
+}
+.console_tagpurple .taglist_mark{
+    background: url("../images/point_console.png") center center no-repeat
+}
+.console_tagyellow .taglist_mark{
+    background: url("../images/bean_console.png") center center no-repeat
+}
+
+.ficon.line{
+    background: url("../images/line_console.png") center center no-repeat
+}
+.ficon.order{
+    background: url("../images/order_console.png") center center no-repeat
+}
+.ficon.report{
+    background: url("../images/report_console.png") center center no-repeat
+}
+.ficon.bill{
+    background: url("../images/bill_console.png") center center no-repeat
+}
+.ficon.add{
+    background: url("../images/add_console.png") center center no-repeat
+}
+
+.table-yjkwrap{
+    margin: 5px 0 20px 0;
+}
+.table-yjk{
+    width: 100%;
+    border-top: 1px solid #d7dfe3;
+    border-left: 1px solid #d7dfe3;
+}
+.table-yjk th,.table-yjk td{
+    border-right: 1px solid #d7dfe3;
+    border-bottom: 1px solid #d7dfe3;
+    padding: 8px 20px;
+    line-height: 24px;
+    color: #475669;
+    vertical-align: top;
+    text-align: center;
+}
+.table-yjk .color{
+    background-color: #edf4f8;
+}
+.table-yjk .bold{
+    font-weight: bold;
+}
+.table-yjk .textleft{
+    text-align: left;
+}
+.selshort .el-form-item__content{
+    width: 140px;
+}
+.selshort  .el-date-editor.el-input.el-date-editor--date{
+    width: 140px;
+}
+.yjk-alertInner .unpassImg{
+    background: url("../images/unpass.png") center center  no-repeat;
+    background-size: contain 
+}
+.yjk-alertInner .passImg{
+    background: url("../images/pass.png") center center  no-repeat;
+    background-size: contain     
+}
+.listPart .img_titel_demand{
+    width: 40px;
+    height: 30px;
+    background: url("../images/demand_mark.png") center left no-repeat;
+}
+.listPart .img_titel_scheme{
+    width: 40px;
+    height: 30px;    
+    background: url("../images/scheme_mark.png") center left no-repeat;
+}
+.listPart .img_line{
+    width:40px;
+    height: 40px;
+    background: url("../images/line_mark.png") center left no-repeat;
+}
+
+.yjk-alertInner .redstar:before{
+    content: '*';
+    color: #ff4949;
+    margin-right: 4px;
+}
+
+.unpass{
+    background: url("../images/unpass.png") center center  no-repeat;
+    background-size: contain;
+    opacity:0.7;
+}
+.pass{
+    background: url("../images/pass.png") center center  no-repeat;
+    background-size: contain;
+    opacity:0.7;  
+}
+
+

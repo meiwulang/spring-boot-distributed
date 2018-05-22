@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.station.StationPriceMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.station.StationPrice">
+    <id column="sp_id" jdbcType="INTEGER" property="spId" />
+    <result column="sp_name" jdbcType="VARCHAR" property="spName" />
+    <result column="sp_go_time" jdbcType="VARCHAR" property="spGoTime" />
+    <result column="sp_go_times" jdbcType="INTEGER" property="spGoTimes" />
+    <result column="sp_type" jdbcType="CHAR" property="spType" />
+    <result column="sp_date_s" jdbcType="INTEGER" property="spDateS" />
+    <result column="sp_date_e" jdbcType="INTEGER" property="spDateE" />
+    <result column="sp_save_time" jdbcType="INTEGER" property="spSaveTime" />
+    <result column="sp_price" jdbcType="REAL" property="spPrice" />
+    <result column="sp_stid" jdbcType="INTEGER" property="spStid" />
+    <result column="sp_status" jdbcType="CHAR" property="spStatus" />
+    <result column="sp_org_id" jdbcType="INTEGER" property="spOrgId" />
+    <result column="sp_u_id" jdbcType="INTEGER" property="spUId" />
+    <result column="sp_settle_price" jdbcType="REAL" property="spSettlePrice" />
+    <result column="sp_site_id" jdbcType="INTEGER" property="spSiteId" />
+    <result column="sp_site_name" jdbcType="VARCHAR" property="spSiteName" />
+    <result column="sp_ptype" jdbcType="INTEGER" property="spPtype" />
+    <result column="sp_time_lag" jdbcType="INTEGER" property="spTimeLag" />
+    <result column="sp_go_back" jdbcType="VARCHAR" property="spGoBack" />
+    <result column="sp_traffic" jdbcType="VARCHAR" property="spTraffic" />
+    <result column="sp_station_type" jdbcType="VARCHAR" property="spStationType" />
+    <result column="sp_weekly" jdbcType="VARCHAR" property="spWeekly" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sp_id, sp_name, sp_go_time, sp_go_times, sp_type, sp_date_s, sp_date_e, sp_save_time, 
+    sp_price, sp_stid, sp_status, sp_org_id, sp_u_id, sp_settle_price, sp_site_id, sp_site_name, 
+    sp_ptype, sp_time_lag, sp_go_back, sp_traffic, sp_station_type, sp_weekly
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_station_price
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sl_station_price
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.station.StationPrice">
+    insert into sl_station_price (sp_id, sp_name, sp_go_time, 
+      sp_go_times, sp_type, sp_date_s, 
+      sp_date_e, sp_save_time, sp_price, 
+      sp_stid, sp_status, sp_org_id, 
+      sp_u_id, sp_settle_price, sp_site_id, 
+      sp_site_name, sp_ptype, sp_time_lag, 
+      sp_go_back, sp_traffic, sp_station_type, 
+      sp_weekly)
+    values (#{spId,jdbcType=INTEGER}, #{spName,jdbcType=VARCHAR}, #{spGoTime,jdbcType=VARCHAR}, 
+      #{spGoTimes,jdbcType=INTEGER}, #{spType,jdbcType=CHAR}, #{spDateS,jdbcType=INTEGER}, 
+      #{spDateE,jdbcType=INTEGER}, #{spSaveTime,jdbcType=INTEGER}, #{spPrice,jdbcType=REAL}, 
+      #{spStid,jdbcType=INTEGER}, #{spStatus,jdbcType=CHAR}, #{spOrgId,jdbcType=INTEGER}, 
+      #{spUId,jdbcType=INTEGER}, #{spSettlePrice,jdbcType=REAL}, #{spSiteId,jdbcType=INTEGER}, 
+      #{spSiteName,jdbcType=VARCHAR}, #{spPtype,jdbcType=INTEGER}, #{spTimeLag,jdbcType=INTEGER}, 
+      #{spGoBack,jdbcType=VARCHAR}, #{spTraffic,jdbcType=VARCHAR}, #{spStationType,jdbcType=VARCHAR}, 
+      #{spWeekly,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.station.StationPrice">
+    insert into sl_station_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="spId != null">
+        sp_id,
+      </if>
+      <if test="spName != null">
+        sp_name,
+      </if>
+      <if test="spGoTime != null">
+        sp_go_time,
+      </if>
+      <if test="spGoTimes != null">
+        sp_go_times,
+      </if>
+      <if test="spType != null">
+        sp_type,
+      </if>
+      <if test="spDateS != null">
+        sp_date_s,
+      </if>
+      <if test="spDateE != null">
+        sp_date_e,
+      </if>
+      <if test="spSaveTime != null">
+        sp_save_time,
+      </if>
+      <if test="spPrice != null">
+        sp_price,
+      </if>
+      <if test="spStid != null">
+        sp_stid,
+      </if>
+      <if test="spStatus != null">
+        sp_status,
+      </if>
+      <if test="spOrgId != null">
+        sp_org_id,
+      </if>
+      <if test="spUId != null">
+        sp_u_id,
+      </if>
+      <if test="spSettlePrice != null">
+        sp_settle_price,
+      </if>
+      <if test="spSiteId != null">
+        sp_site_id,
+      </if>
+      <if test="spSiteName != null">
+        sp_site_name,
+      </if>
+      <if test="spPtype != null">
+        sp_ptype,
+      </if>
+      <if test="spTimeLag != null">
+        sp_time_lag,
+      </if>
+      <if test="spGoBack != null">
+        sp_go_back,
+      </if>
+      <if test="spTraffic != null">
+        sp_traffic,
+      </if>
+      <if test="spStationType != null">
+        sp_station_type,
+      </if>
+      <if test="spWeekly != null">
+        sp_weekly,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="spId != null">
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spName != null">
+        #{spName,jdbcType=VARCHAR},
+      </if>
+      <if test="spGoTime != null">
+        #{spGoTime,jdbcType=VARCHAR},
+      </if>
+      <if test="spGoTimes != null">
+        #{spGoTimes,jdbcType=INTEGER},
+      </if>
+      <if test="spType != null">
+        #{spType,jdbcType=CHAR},
+      </if>
+      <if test="spDateS != null">
+        #{spDateS,jdbcType=INTEGER},
+      </if>
+      <if test="spDateE != null">
+        #{spDateE,jdbcType=INTEGER},
+      </if>
+      <if test="spSaveTime != null">
+        #{spSaveTime,jdbcType=INTEGER},
+      </if>
+      <if test="spPrice != null">
+        #{spPrice,jdbcType=REAL},
+      </if>
+      <if test="spStid != null">
+        #{spStid,jdbcType=INTEGER},
+      </if>
+      <if test="spStatus != null">
+        #{spStatus,jdbcType=CHAR},
+      </if>
+      <if test="spOrgId != null">
+        #{spOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="spUId != null">
+        #{spUId,jdbcType=INTEGER},
+      </if>
+      <if test="spSettlePrice != null">
+        #{spSettlePrice,jdbcType=REAL},
+      </if>
+      <if test="spSiteId != null">
+        #{spSiteId,jdbcType=INTEGER},
+      </if>
+      <if test="spSiteName != null">
+        #{spSiteName,jdbcType=VARCHAR},
+      </if>
+      <if test="spPtype != null">
+        #{spPtype,jdbcType=INTEGER},
+      </if>
+      <if test="spTimeLag != null">
+        #{spTimeLag,jdbcType=INTEGER},
+      </if>
+      <if test="spGoBack != null">
+        #{spGoBack,jdbcType=VARCHAR},
+      </if>
+      <if test="spTraffic != null">
+        #{spTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="spStationType != null">
+        #{spStationType,jdbcType=VARCHAR},
+      </if>
+      <if test="spWeekly != null">
+        #{spWeekly,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.station.StationPrice">
+    update sl_station_price
+    <set>
+      <if test="spName != null">
+        sp_name = #{spName,jdbcType=VARCHAR},
+      </if>
+      <if test="spGoTime != null">
+        sp_go_time = #{spGoTime,jdbcType=VARCHAR},
+      </if>
+      <if test="spGoTimes != null">
+        sp_go_times = #{spGoTimes,jdbcType=INTEGER},
+      </if>
+      <if test="spType != null">
+        sp_type = #{spType,jdbcType=CHAR},
+      </if>
+      <if test="spDateS != null">
+        sp_date_s = #{spDateS,jdbcType=INTEGER},
+      </if>
+      <if test="spDateE != null">
+        sp_date_e = #{spDateE,jdbcType=INTEGER},
+      </if>
+      <if test="spSaveTime != null">
+        sp_save_time = #{spSaveTime,jdbcType=INTEGER},
+      </if>
+      <if test="spPrice != null">
+        sp_price = #{spPrice,jdbcType=REAL},
+      </if>
+      <if test="spStid != null">
+        sp_stid = #{spStid,jdbcType=INTEGER},
+      </if>
+      <if test="spStatus != null">
+        sp_status = #{spStatus,jdbcType=CHAR},
+      </if>
+      <if test="spOrgId != null">
+        sp_org_id = #{spOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="spUId != null">
+        sp_u_id = #{spUId,jdbcType=INTEGER},
+      </if>
+      <if test="spSettlePrice != null">
+        sp_settle_price = #{spSettlePrice,jdbcType=REAL},
+      </if>
+      <if test="spSiteId != null">
+        sp_site_id = #{spSiteId,jdbcType=INTEGER},
+      </if>
+      <if test="spSiteName != null">
+        sp_site_name = #{spSiteName,jdbcType=VARCHAR},
+      </if>
+      <if test="spPtype != null">
+        sp_ptype = #{spPtype,jdbcType=INTEGER},
+      </if>
+      <if test="spTimeLag != null">
+        sp_time_lag = #{spTimeLag,jdbcType=INTEGER},
+      </if>
+      <if test="spGoBack != null">
+        sp_go_back = #{spGoBack,jdbcType=VARCHAR},
+      </if>
+      <if test="spTraffic != null">
+        sp_traffic = #{spTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="spStationType != null">
+        sp_station_type = #{spStationType,jdbcType=VARCHAR},
+      </if>
+      <if test="spWeekly != null">
+        sp_weekly = #{spWeekly,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.station.StationPrice">
+    update sl_station_price
+    set sp_name = #{spName,jdbcType=VARCHAR},
+      sp_go_time = #{spGoTime,jdbcType=VARCHAR},
+      sp_go_times = #{spGoTimes,jdbcType=INTEGER},
+      sp_type = #{spType,jdbcType=CHAR},
+      sp_date_s = #{spDateS,jdbcType=INTEGER},
+      sp_date_e = #{spDateE,jdbcType=INTEGER},
+      sp_save_time = #{spSaveTime,jdbcType=INTEGER},
+      sp_price = #{spPrice,jdbcType=REAL},
+      sp_stid = #{spStid,jdbcType=INTEGER},
+      sp_status = #{spStatus,jdbcType=CHAR},
+      sp_org_id = #{spOrgId,jdbcType=INTEGER},
+      sp_u_id = #{spUId,jdbcType=INTEGER},
+      sp_settle_price = #{spSettlePrice,jdbcType=REAL},
+      sp_site_id = #{spSiteId,jdbcType=INTEGER},
+      sp_site_name = #{spSiteName,jdbcType=VARCHAR},
+      sp_ptype = #{spPtype,jdbcType=INTEGER},
+      sp_time_lag = #{spTimeLag,jdbcType=INTEGER},
+      sp_go_back = #{spGoBack,jdbcType=VARCHAR},
+      sp_traffic = #{spTraffic,jdbcType=VARCHAR},
+      sp_station_type = #{spStationType,jdbcType=VARCHAR},
+      sp_weekly = #{spWeekly,jdbcType=VARCHAR}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+</mapper>

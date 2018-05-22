@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>金豆云旅游</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="Public/Css/icon/css/font-awesome.min.css" rel="stylesheet">
+    <script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/perfect.css?t='+_TimeStamp+'">'
+        );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/lib/jquery-1.11.3.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/echo.min.js"></script>
+    <script src="js/lib/doT.min.js"></script>
+    <script src="js/common/configs.js"></script>
+    <script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+<body>
+<div id="header"></div>
+<div class="main_navbar">
+    <div class="box_wrapper ">
+        <ul class="nav nav-tabs index_navbar">
+            <li role="presentation" class="active first_child">
+                        <a href="index.html">首页</a>
+
+                    </li>
+                    <li role="presentation"><a href="product_list.html?type=10">周边短线</a></li>
+                    <li role="presentation"><a href="product_list.html?type=11">国内长线</a></li>
+                    <li role="presentation"><a href="product_list.html?type=20">出境游</a></li>
+                    <li role="presentation"><a href="product_list.html?type=30">邮轮</a></li>
+                    <li role="presentation" id='type40'><a href="product_list.html?type=40">特色游</a></li>
+                    <li role="presentation" id='type50'><a href="product_list.html?type=50">自助游</a></li>
+                    <li role="presentation"><a class="businessLink" href="business.html">商家大全</a></li>
+        </ul>
+
+        <div class="login_registerBtn"> <span> <span class="ion_login"></span><span class="adde"></span> <a class="sp" data-toggle="modal" data-target="#myModal"><span>登录</span></a> </span> <span class="raid"> <span class="ion_register"></span> <a href="register0.html"><span>注册</span></a> </span> </div>
+    </div>
+
+</div>
+<div class="travelDetail_new">
+    <div class="box_wrapper container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-xs-8">
+                <div class="content_topTitle">
+                    <h3 id="title">
+                        
+                    </h3>
+                    <div class="send_time">
+                        <span>发表于:</span>
+                        <span id="send_time"></span>
+                       
+                    </div>
+                    <!--<ul class="clearfloat link_icons">
+                        <li class="pull-left"><span class="link_qqZone"></span></li>
+                        <li class="pull-left"><span class="link_sina"></span></li>
+                        <li class="pull-left"><span class="link_weixin"></span></li>
+                        <li class="pull-left"><span class="link_qq"></span></li>
+                        <li class="pull-left"><span class="link_friendCircle"></span></li>
+                    </ul>-->
+                </div>
+                <ul class="intro_contentWriting">
+                    
+                    
+                    <li>
+                        <div class="content_detail">
+                        
+                        </div>
+                     
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-xs-4">
+                <div class="happiness_share">
+                    <div class="title">
+                        <div class="skew_mark">
+                            <div class="top_border"></div>
+                            <div class="bottom_border"></div>
+                        </div>
+                        <span>分享快乐</span>
+                    </div>
+                    <div class="content">
+                        <img src="" alt="" id="qcode"/>
+                        <h4>手机扫一扫</h4>
+                        <p>快速分享给朋友,快乐就是这么简单</p>
+                    </div>
+                </div>
+                <div class="travel_news">
+                    <div class="title">
+                        <div class="skew_mark">
+                            <div class="top_border"></div>
+                            <div class="bottom_border"></div>
+                        </div>
+                        <span>分享快乐</span>
+                    </div>
+                    <div class="content"  id="NewslistsData">
+                        
+                    </div>
+                    <script id="NewslistsData-template" type="text/x-dot-template">
+						{{ for(var i in it) { }}
+						
+						<p>
+						 <span><a href="contentDetail.html?id={{=it[i].id}}">{{=it[i].title}}</a></span>
+						</p>
+					  
+					  
+						{{ } }}
+                      </script>
+
+                </div>
+                <!--<div class="news_pic">
+                    <a href="#"><img src="" alt=""/></a>
+                </div>-->
+            </div>
+
+        </div>
+        </div>
+    </div>
+</div>
+<div id="footer"></div>
+<div id="login_mask">
+
+</div>
+</body>
+<script id="link-js" type="text/javascript">
+    document.write(
+        '<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/contentDetail.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

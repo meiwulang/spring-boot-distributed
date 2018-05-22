@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>金豆云</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/order_search.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> --> 
+</head>
+<body>
+<div id="wrap">
+	<div class="main">
+		<div class="t-bar">
+            <div class="t-box">
+                <div class="go-back"><a class="left"></a></div>
+                <div class="inp clearfix">
+                    <input type="search" value="" placeholder="订单号、游客姓名、手机号、商家" />
+                </div> 
+                <!-- <div class="sub">
+                    <a class="search"></a>
+                </div> -->
+            </div>  
+        </div>
+        <ul class="detail">
+        <script id="tpl-search" type="text/html">
+            { each data as value i }
+            <li>
+                <a href="order_detail.html?n={ data[i].o_number }&order_type={order_type}">
+                    <span class="date">{ data[i].o_start_date }</span><span class="peo-num">（{ data[i].o_num }人）</span><span class="title">{ data[i].o_product_name }（{ data[i].org_name }）</span>
+                </a>
+            </li>
+            { /each }
+           
+        </script>
+        </ul>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/order_search.build.js"></script>
+</html>

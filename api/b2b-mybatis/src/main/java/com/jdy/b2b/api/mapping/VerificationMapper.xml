@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.VerificationMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.Verification">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="v_code" jdbcType="VARCHAR" property="vCode" />
+    <result column="v_phone" jdbcType="VARCHAR" property="vPhone" />
+    <result column="v_type" jdbcType="INTEGER" property="vType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, v_code, v_phone, v_type, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cm_verification
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cm_verification
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.Verification">
+    insert into cm_verification (id, v_code, v_phone, 
+      v_type, create_time)
+    values (#{id,jdbcType=BIGINT}, #{vCode,jdbcType=VARCHAR}, #{vPhone,jdbcType=VARCHAR}, 
+      #{vType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.Verification">
+    insert into cm_verification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="vCode != null">
+        v_code,
+      </if>
+      <if test="vPhone != null">
+        v_phone,
+      </if>
+      <if test="vType != null">
+        v_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="vCode != null">
+        #{vCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vPhone != null">
+        #{vPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="vType != null">
+        #{vType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.Verification">
+    update cm_verification
+    <set>
+      <if test="vCode != null">
+        v_code = #{vCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vPhone != null">
+        v_phone = #{vPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="vType != null">
+        v_type = #{vType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.Verification">
+    update cm_verification
+    set v_code = #{vCode,jdbcType=VARCHAR},
+      v_phone = #{vPhone,jdbcType=VARCHAR},
+      v_type = #{vType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

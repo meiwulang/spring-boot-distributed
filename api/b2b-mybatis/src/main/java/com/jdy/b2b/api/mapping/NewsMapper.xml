@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.NewsMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.News">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="n_title" jdbcType="VARCHAR" property="nTitle" />
+    <result column="n_type" jdbcType="INTEGER" property="nType" />
+    <result column="n_recommend" jdbcType="BIT" property="nRecommend" />
+    <result column="n_status" jdbcType="INTEGER" property="nStatus" />
+    <result column="n_keys" jdbcType="VARCHAR" property="nKeys" />
+    <result column="n_sort" jdbcType="INTEGER" property="nSort" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jdy.b2b.api.model.News">
+    <result column="n_content" jdbcType="LONGVARCHAR" property="nContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, n_title, n_type, n_recommend, n_status, n_sort, n_keys, create_time, create_user, update_time,
+    update_user
+  </sql>
+  <sql id="Blob_Column_List">
+    n_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sm_news
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_news
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.News">
+    insert into sm_news (id, n_title, n_type, 
+      n_recommend, n_status, n_sort, n_keys,
+      create_time, create_user, update_time, 
+      update_user, n_content)
+    values (#{id,jdbcType=BIGINT}, #{nTitle,jdbcType=VARCHAR}, #{nType,jdbcType=INTEGER}, 
+      #{nRecommend,jdbcType=BIT}, #{nStatus,jdbcType=INTEGER}, #{nSort,jdbcType=INTEGER}, #{nKeys,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT}, #{nContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.News" useGeneratedKeys="true" keyProperty="id">
+    insert into sm_news
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nTitle != null">
+        n_title,
+      </if>
+      <if test="nType != null">
+        n_type,
+      </if>
+      <if test="nRecommend != null">
+        n_recommend,
+      </if>
+      <if test="nStatus != null">
+        n_status,
+      </if>
+      <if test="nSort != null">
+        n_sort,
+      </if>
+      <if test="nKeys != null">
+        n_keys,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="nContent != null">
+        n_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="nTitle != null">
+        #{nTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="nType != null">
+        #{nType,jdbcType=INTEGER},
+      </if>
+      <if test="nRecommend != null">
+        #{nRecommend,jdbcType=BIT},
+      </if>
+      <if test="nStatus != null">
+        #{nStatus,jdbcType=INTEGER},
+      </if>
+      <if test="nSort != null">
+        #{nSort,jdbcType=INTEGER},
+      </if>
+      <if test="nKeys != null">
+        #{nKeys,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="nContent != null">
+        #{nContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.News">
+    update sm_news
+    <set>
+      <if test="nTitle != null">
+        n_title = #{nTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="nType != null">
+        n_type = #{nType,jdbcType=INTEGER},
+      </if>
+      <if test="nRecommend != null">
+        n_recommend = #{nRecommend,jdbcType=BIT},
+      </if>
+      <if test="nStatus != null">
+        n_status = #{nStatus,jdbcType=INTEGER},
+      </if>
+      <if test="nSort != null">
+        n_sort = #{nSort,jdbcType=INTEGER},
+      </if>
+      <if test="nKeys != null">
+        n_keys = #{nKeys,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="nContent != null">
+        n_content = #{nContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jdy.b2b.api.model.News">
+    update sm_news
+    set n_title = #{nTitle,jdbcType=VARCHAR},
+      n_type = #{nType,jdbcType=INTEGER},
+      n_recommend = #{nRecommend,jdbcType=BIT},
+      n_status = #{nStatus,jdbcType=INTEGER},
+      n_sort = #{nSort,jdbcType=INTEGER},
+      n_keys = #{nKeys,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      n_content = #{nContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.News">
+    update sm_news
+    set n_title = #{nTitle,jdbcType=VARCHAR},
+      n_type = #{nType,jdbcType=INTEGER},
+      n_recommend = #{nRecommend,jdbcType=BIT},
+      n_status = #{nStatus,jdbcType=INTEGER},
+      n_sort = #{nSort,jdbcType=INTEGER},
+      n_keys = #{nKeys,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

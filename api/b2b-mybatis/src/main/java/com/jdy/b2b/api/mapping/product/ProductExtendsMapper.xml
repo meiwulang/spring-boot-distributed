@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.product.ProductExtendsMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.product.ProductExtends">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pe_product_id" jdbcType="BIGINT" property="tProductId" />
+    <result column="pe_start_day" jdbcType="TIMESTAMP" property="tcStartDay" />
+    <result column="pe_end_day" jdbcType="TIMESTAMP" property="tcEndDay" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jdy.b2b.api.model.product.ProductExtendsWithBLOBs">
+    <result column="pe_special" jdbcType="LONGVARCHAR" property="pSpecial" />
+    <result column="pe_cost_include" jdbcType="LONGVARCHAR" property="pCostInclude" />
+    <result column="pe_cost_exclude" jdbcType="LONGVARCHAR" property="pCostExclude" />
+    <result column="pe_notes" jdbcType="LONGVARCHAR" property="pNotes" />
+    <result column="pe_visa" jdbcType="LONGVARCHAR" property="pVisa" />
+    <result column="pe_staff" jdbcType="LONGVARCHAR" property="pStaff" />
+    <result column="pe_jobless" jdbcType="LONGVARCHAR" property="pJobless" />
+    <result column="pe_student" jdbcType="LONGVARCHAR" property="pStudent" />
+    <result column="pe_preschool" jdbcType="LONGVARCHAR" property="pPreschool" />
+    <result column="pe_professional" jdbcType="LONGVARCHAR" property="pProfessional" />
+    <result column="pe_retiree" jdbcType="LONGVARCHAR" property="pRetiree" />
+    <result column="pe_cost_remark" jdbcType="LONGVARCHAR" property="pCostRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pe_product_id, pe_start_day, pe_end_day, create_time, create_user, update_time, 
+    update_user
+  </sql>
+  <sql id="Blob_Column_List">
+    pe_special, pe_cost_include, pe_cost_exclude, pe_notes, pe_visa,pe_staff,pe_jobless,pe_student,pe_preschool,
+    pe_professional,pe_retiree,pe_cost_remark
+  </sql>
+  <select id="selectByTime" parameterType="com.jdy.b2b.api.model.product.ProductExtendsWithBLOBs" resultMap="ResultMapWithBLOBs">
+    SELECT 
+	<include refid="Base_Column_List"/>,<include refid="Blob_Column_List"/>
+	FROM
+	ct_product_extends
+    WHERE pe_product_id = #{tProductId,jdbcType=BIGINT} AND pe_start_day = #{tcStartDay,jdbcType=DATE} AND
+      pe_end_day = #{tcEndDay,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_product_extends
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByTime" >
+    DELETE FROM ct_product_extends
+    WHERE pe_product_id = #{tProductId,jdbcType=BIGINT} AND pe_start_day = #{tcStartDay,jdbcType=DATE} AND
+      pe_end_day = #{tcEndDay,jdbcType=DATE}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.product.ProductExtendsWithBLOBs" useGeneratedKeys="true" keyProperty="id">
+    insert into ct_product_extends ( pe_product_id, pe_start_day, 
+      pe_end_day, create_time, create_user, 
+      update_time, update_user, pe_special, 
+      pe_cost_include, pe_cost_exclude, pe_notes, 
+      pe_visa,pe_staff,pe_jobless,pe_student,pe_preschool,pe_professional,pe_retiree,pe_cost_remark)
+    values ( #{tProductId,jdbcType=BIGINT}, #{tcStartDay,jdbcType=DATE}, 
+      #{tcEndDay,jdbcType=DATE}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}, #{pSpecial,jdbcType=LONGVARCHAR}, 
+      #{pCostInclude,jdbcType=LONGVARCHAR}, #{pCostExclude,jdbcType=LONGVARCHAR}, #{pNotes,jdbcType=LONGVARCHAR}, 
+      #{pVisa,jdbcType=LONGVARCHAR},#{pStaff},#{pJobless},#{pStudent},#{pPreschool},#{pProfessional},#{pRetiree},#{pCostRemark})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.product.ProductExtendsWithBLOBs">
+    insert into ct_product_extends
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tProductId != null">
+        pe_product_id,
+      </if>
+      <if test="tcStartDay != null">
+        pe_start_day,
+      </if>
+      <if test="tcEndDay != null">
+        pe_end_day,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="pSpecial != null">
+        pe_special,
+      </if>
+      <if test="pCostInclude != null">
+        pe_cost_include,
+      </if>
+      <if test="pCostExclude != null">
+        pe_cost_exclude,
+      </if>
+      <if test="pNotes != null">
+        pe_notes,
+      </if>
+      <if test="pVisa != null">
+        pe_visa,
+      </if>
+      <if test="pStaff != null">
+        pe_staff,
+      </if>
+      <if test="pJobless != null">
+        pe_jobless,
+      </if>
+      <if test="pStudent != null">
+        pe_student,
+      </if>
+      <if test="pPreschool != null">
+        pe_preschool,
+      </if>
+      <if test="pProfessional != null">
+        pe_professional,
+      </if>
+      <if test="pRetiree != null">
+        pe_retiree,
+      </if>
+      <if test="pCostRemark != null">
+        pe_cost_remark,
+      </if>        
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tProductId != null">
+        #{tProductId,jdbcType=BIGINT},
+      </if>
+      <if test="tcStartDay != null">
+        #{tcStartDay,jdbcType=DATE},
+      </if>
+      <if test="tcEndDay != null">
+        #{tcEndDay,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="pSpecial != null">
+        #{pSpecial,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pCostInclude != null">
+        #{pCostInclude,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pCostExclude != null">
+        #{pCostExclude,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pNotes != null">
+        #{pNotes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pVisa != null">
+        #{pVisa,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pStaff != null">
+        #{pStaff},
+      </if>
+      <if test="pJobless != null">
+        #{pJobless},
+      </if>
+      <if test="pStudent != null">
+        #{pStudent},
+      </if>
+      <if test="pPreschool != null">
+        #{pPreschool},
+      </if>
+      <if test="pProfessional != null">
+        #{pProfessional},
+      </if>
+      <if test="pRetiree != null">
+        #{pRetiree},
+      </if>
+      <if test="pCostRemark != null">
+        #{pCostRemark},
+      </if>  
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.product.ProductExtendsWithBLOBs">
+    update ct_product_extends
+    <set>
+      <if test="tProductId != null">
+        pe_product_id = #{tProductId,jdbcType=BIGINT},
+      </if>
+      <if test="tcStartDay != null">
+        pe_start_day = #{tcStartDay,jdbcType=DATE},
+      </if>
+      <if test="tcEndDay != null">
+        pe_end_day = #{tcEndDay,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="pSpecial != null">
+        pe_special = #{pSpecial,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pCostInclude != null">
+        pe_cost_include = #{pCostInclude,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pCostExclude != null">
+        pe_cost_exclude = #{pCostExclude,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pNotes != null">
+        pe_notes = #{pNotes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pVisa != null">
+        pe_visa = #{pVisa,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pStaff != null">
+        pe_staff=#{pStaff},
+      </if>
+      <if test="pJobless != null">
+        pe_jobless=#{pJobless},
+      </if>
+      <if test="pStudent != null">
+        pe_student=#{pStudent},
+      </if>
+      <if test="pPreschool != null">
+        pe_preschool=#{pPreschool},
+      </if>
+      <if test="pProfessional != null">
+        pe_professional=#{pProfessional},
+      </if>
+      <if test="pRetiree != null">
+        pe_retiree=#{pRetiree},
+      </if>      
+      <if test="pCostRemark != null">
+        pe_cost_remark=#{pCostRemark},
+      </if>      
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jdy.b2b.api.model.product.ProductExtendsWithBLOBs">
+    update ct_product_extends
+    set 
+      pe_start_day = #{tcStartDay,jdbcType=DATE},
+      pe_end_day = #{tcEndDay,jdbcType=DATE},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      pe_special = #{pSpecial,jdbcType=LONGVARCHAR},
+      pe_cost_include = #{pCostInclude,jdbcType=LONGVARCHAR},
+      pe_cost_exclude = #{pCostExclude,jdbcType=LONGVARCHAR},
+      pe_notes = #{pNotes,jdbcType=LONGVARCHAR},
+      pe_visa = #{pVisa,jdbcType=LONGVARCHAR},
+      pe_staff=#{pStaff},
+      pe_jobless=#{pJobless},
+      pe_student=#{pStudent},
+      pe_preschool=#{pPreschool},
+      pe_professional=#{pProfessional},
+      pe_cost_remark=#{pCostRemark},
+      pe_retiree=#{pRetiree}
+    where pe_product_id = #{tProductId,jdbcType=BIGINT} AND pe_start_day = #{tcStartDay,jdbcType=DATE} AND
+      pe_end_day = #{tcEndDay,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.product.ProductExtends">
+    update ct_product_extends
+    set pe_product_id = #{tProductId,jdbcType=BIGINT},
+      pe_start_day = #{tcStartDay,jdbcType=DATE},
+      pe_end_day = #{tcEndDay,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

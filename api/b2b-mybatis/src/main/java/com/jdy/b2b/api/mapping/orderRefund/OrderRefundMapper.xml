@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.orderRefund.OrderRefundMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.orderRefund.OrderRefund">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="or_order_no" jdbcType="VARCHAR" property="orOrderNo" />
+    <result column="or_product_id" jdbcType="BIGINT" property="orProductId" />
+    <result column="or_product_name" jdbcType="VARCHAR" property="orProductName" />
+    <result column="or_product_no" jdbcType="VARCHAR" property="orProductNo" />
+    <result column="or_saler_id" jdbcType="BIGINT" property="orSalerId" />
+    <result column="or_saler_name" jdbcType="VARCHAR" property="orSalerName" />
+    <result column="or_buyer_id" jdbcType="BIGINT" property="orBuyerId" />
+    <result column="or_label_id" jdbcType="BIGINT" property="orLabelId" />
+    <result column="or_buyer_name" jdbcType="VARCHAR" property="orBuyerName" />
+    <result column="or_refund" jdbcType="DECIMAL" property="orRefund" />
+    <result column="or_reason" jdbcType="VARCHAR" property="orReason" />
+    <result column="or_remark" jdbcType="VARCHAR" property="orRemark" />
+    <result column="or_stauts" jdbcType="BIT" property="orStauts" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+
+  <resultMap id="QueryListResultMap" type="com.jdy.b2b.api.model.orderRefund.OrderRefundResultDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="or_order_no" jdbcType="VARCHAR" property="orOrderNo" />
+    <result column="or_product_id" jdbcType="BIGINT" property="orProductId" />
+    <result column="or_product_name" jdbcType="VARCHAR" property="orProductName" />
+    <result column="or_product_no" jdbcType="VARCHAR" property="orProductNo" />
+    <result column="or_saler_name" jdbcType="VARCHAR" property="orSalerName" />
+    <result column="or_buyer_name" jdbcType="VARCHAR" property="orBuyerName" />
+    <result column="or_label_id" jdbcType="BIGINT" property="orLabelId" />
+    <result column="or_refund" jdbcType="DECIMAL" property="orRefund" />
+    <result column="or_reason" jdbcType="VARCHAR" property="orReason" />
+    <result column="or_remark" jdbcType="VARCHAR" property="orRemark" />
+    <result column="or_stauts" jdbcType="BIT" property="orStauts" />
+    <result column="s_calendar" jdbcType="DATE" property="oLeaveDay" />
+    <result column="op_pay_method" jdbcType="INTEGER" property="opPayMethod" />
+    <result column="l_name" jdbcType="VARCHAR" property="lName" />
+    <result column="l_color" jdbcType="VARCHAR" property="lColor" />
+  </resultMap>
+
+  <resultMap id="QueryStatusResultMap" type="com.jdy.b2b.api.model.orderRefund.OrderRefundResult">
+    <result column="countNum" jdbcType="INTEGER" property="countNum" />
+    <result column="countRefund" jdbcType="INTEGER" property="countRefund" />
+    <result column="flag" jdbcType="VARCHAR" property="flag" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, or_order_no, or_product_id, or_product_name, or_product_no, or_saler_id, or_saler_name,
+    or_buyer_id, or_label_id,or_buyer_name, or_refund, or_reason, or_remark, or_stauts, create_time,
+    create_user, update_time, update_user
+  </sql>
+
+  <sql id="QueryList_Column_List">
+    r.id, r.or_order_no, r.or_product_id, r.or_product_name, r.or_product_no, r.or_saler_name,
+    r.or_buyer_name,r.or_label_id, r.or_refund, r.or_reason, r.or_remark, r.or_stauts, schedule.s_calendar,p.op_pay_method,
+    label.l_name,label.l_color
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from fn_order_refund
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from fn_order_refund
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.orderRefund.OrderRefund" useGeneratedKeys="true" keyProperty="id">
+    insert into fn_order_refund (id, or_order_no, or_product_id,
+    or_product_name, or_product_no, or_saler_id, or_label_id,
+    or_saler_name, or_buyer_id, or_buyer_name,
+    or_refund, or_reason, or_remark,
+    or_stauts, create_time, create_user,
+    update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{orOrderNo,jdbcType=VARCHAR}, #{orProductId,jdbcType=BIGINT},
+    #{orProductName,jdbcType=VARCHAR}, #{orProductNo,jdbcType=VARCHAR}, #{orSalerId,jdbcType=BIGINT}, #{orLabelId,jdbcType=BIGINT},
+    #{orSalerName,jdbcType=VARCHAR}, #{orBuyerId,jdbcType=BIGINT}, #{orBuyerName,jdbcType=VARCHAR},
+    #{orRefund,jdbcType=DECIMAL}, #{orReason,jdbcType=VARCHAR}, #{orRemark,jdbcType=VARCHAR},
+    #{orStauts,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT},
+    #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.orderRefund.OrderRefund">
+    insert into fn_order_refund
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orOrderNo != null">
+        or_order_no,
+      </if>
+      <if test="orProductId != null">
+        or_product_id,
+      </if>
+      <if test="orProductName != null">
+        or_product_name,
+      </if>
+      <if test="orProductNo != null">
+        or_product_no,
+      </if>
+      <if test="orSalerId != null">
+        or_saler_id,
+      </if>
+      <if test="orLabelId != null">
+        or_label_id,
+      </if>
+      <if test="orSalerName != null">
+        or_saler_name,
+      </if>
+      <if test="orBuyerId != null">
+        or_buyer_id,
+      </if>
+      <if test="orBuyerName != null">
+        or_buyer_name,
+      </if>
+      <if test="orRefund != null">
+        or_refund,
+      </if>
+      <if test="orReason != null">
+        or_reason,
+      </if>
+      <if test="orRemark != null">
+        or_remark,
+      </if>
+      <if test="orStauts != null">
+        or_stauts,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orOrderNo != null">
+        #{orOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orProductId != null">
+        #{orProductId,jdbcType=BIGINT},
+      </if>
+      <if test="orProductName != null">
+        #{orProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="orProductNo != null">
+        #{orProductNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orSalerId != null">
+        #{orSalerId,jdbcType=BIGINT},
+      </if>
+      <if test="orLabelId != null">
+        #{orLabelId,jdbcType=BIGINT},
+      </if>
+      <if test="orSalerName != null">
+        #{orSalerName,jdbcType=VARCHAR},
+      </if>
+      <if test="orBuyerId != null">
+        #{orBuyerId,jdbcType=BIGINT},
+      </if>
+      <if test="orBuyerName != null">
+        #{orBuyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="orRefund != null">
+        #{orRefund,jdbcType=DECIMAL},
+      </if>
+      <if test="orReason != null">
+        #{orReason,jdbcType=VARCHAR},
+      </if>
+      <if test="orRemark != null">
+        #{orRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="orStauts != null">
+        #{orStauts,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.orderRefund.OrderRefund">
+    update fn_order_refund
+    <set>
+      <if test="orOrderNo != null">
+        or_order_no = #{orOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orProductId != null">
+        or_product_id = #{orProductId,jdbcType=BIGINT},
+      </if>
+      <if test="orProductName != null">
+        or_product_name = #{orProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="orProductNo != null">
+        or_product_no = #{orProductNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orSalerId != null">
+        or_saler_id = #{orSalerId,jdbcType=BIGINT},
+      </if>
+      <if test="orLabelId != null">
+        or_label_id = #{orLabelId,jdbcType=BIGINT},
+      </if>
+      <if test="orSalerName != null">
+        or_saler_name = #{orSalerName,jdbcType=VARCHAR},
+      </if>
+      <if test="orBuyerId != null">
+        or_buyer_id = #{orBuyerId,jdbcType=BIGINT},
+      </if>
+      <if test="orBuyerName != null">
+        or_buyer_name = #{orBuyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="orRefund != null">
+        or_refund = #{orRefund,jdbcType=DECIMAL},
+      </if>
+      <if test="orReason != null">
+        or_reason = #{orReason,jdbcType=VARCHAR},
+      </if>
+      <if test="orRemark != null">
+        or_remark = #{orRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="orStauts != null">
+        or_stauts = #{orStauts,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.orderRefund.OrderRefund">
+    update fn_order_refund
+    set or_order_no = #{orOrderNo,jdbcType=VARCHAR},
+    or_product_id = #{orProductId,jdbcType=BIGINT},
+    or_product_name = #{orProductName,jdbcType=VARCHAR},
+    or_product_no = #{orProductNo,jdbcType=VARCHAR},
+    or_saler_id = #{orSalerId,jdbcType=BIGINT},
+    or_label_id = #{orLabelId,jdbcType=BIGINT},
+    or_saler_name = #{orSalerName,jdbcType=VARCHAR},
+    or_buyer_id = #{orBuyerId,jdbcType=BIGINT},
+    or_buyer_name = #{orBuyerName,jdbcType=VARCHAR},
+    or_refund = #{orRefund,jdbcType=DECIMAL},
+    or_reason = #{orReason,jdbcType=VARCHAR},
+    or_remark = #{orRemark,jdbcType=VARCHAR},
+    or_stauts = #{orStauts,jdbcType=BIT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    create_user = #{createUser,jdbcType=BIGINT},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!--分页查退款列表-->
+  <select id="queryOrderRefundListForPage" parameterType="com.jdy.b2b.api.model.orderRefund.OrderRefundQueryDTO" resultMap="QueryListResultMap">
+    SELECT
+    <include refid="QueryList_Column_List"/>
+    from
+    fn_order_refund r
+    inner join sl_order o on r.or_order_no = o.o_order_no
+    inner join ct_schedule schedule on o.o_schedule_id = schedule.id
+    inner join sl_order_pay p on o.id = p.op_order_id
+    left join sm_label label on r.or_label_id = label.id
+    <where>
+      (label.l_status is null or label.l_status !=1)
+      <if test="orOrderNo != null">
+        <bind name="orderNoLikeStr" value="'%' +orOrderNo + '%'" />
+        AND r.or_order_no like #{orderNoLikeStr,jdbcType=VARCHAR}
+      </if>
+      <if test="opPayMethod != null">
+        AND p.op_pay_method = #{opPayMethod,jdbcType=INTEGER}
+      </if>
+      <if test="orLabelId != null">
+        AND r.or_label_id = #{orLabelId,jdbcType=BIGINT}
+      </if>
+      <if test="orSalerId != null">
+        AND r.or_saler_id = #{orSalerId,jdbcType=BIGINT}
+      </if>
+      <if test="orBuyerId != null">
+        AND r.or_buyer_id = #{orBuyerId,jdbcType=BIGINT}
+      </if>
+      <if test="orStauts != null">
+        AND r.or_stauts = #{orStauts,jdbcType=BIGINT}
+      </if>
+    </where>
+    order by r.or_stauts,r.create_time ASC
+  </select>
+  <select id="queryOrderRefundStatus" parameterType="com.jdy.b2b.api.model.orderRefund.OrderRefundQueryDTO" resultMap="QueryStatusResultMap">
+    SELECT
+    count(1) AS countNum,
+    sum(r.or_refund) AS countRefund,
+    'all' as flag
+    from
+    fn_order_refund r
+    <where>
+      <if test="orSalerId != null">
+        AND r.or_saler_id = #{orSalerId,jdbcType=BIGINT}
+      </if>
+      <if test="orBuyerId != null">
+        AND r.or_buyer_id = #{orBuyerId,jdbcType=BIGINT}
+      </if>
+    </where>
+
+    union all
+
+    SELECT
+    count(1) AS countNum,
+    sum(r.or_refund) AS countRefund,
+    'now' AS flag
+    from
+    fn_order_refund r
+    <where>
+      r.or_stauts = 1
+      <if test="orSalerId != null">
+        AND r.or_saler_id = #{orSalerId,jdbcType=BIGINT}
+      </if>
+      <if test="orBuyerId != null">
+        AND r.or_buyer_id = #{orBuyerId,jdbcType=BIGINT}
+      </if>
+    </where>
+  </select>
+</mapper>

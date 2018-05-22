@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.SalesPerformanceMapper">
+    <select id="selectDaysOfOrderAmount" resultType="java.util.Map" parameterType="java.lang.Long">
+        SELECT
+            DATE_FORMAT(a.ss_day,'%Y-%m-%d') AS dateStr,
+            COUNT(a.id) AS orderAmount,
+            SUM(a.order_money) AS orderMoney
+        FROM
+          sl_orders_report a
+        <where>
+            AND a.company_id = #{companyId}
+        <![CDATA[
+            AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') >= DATE_FORMAT(date_sub(CURDATE(),INTERVAL 29 DAY),'%Y-%m-%d')
+            AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') <= CURDATE()
+        ]]>
+        </where>
+        GROUP BY DATE_FORMAT(a.ss_day,'%Y-%m-%d')
+    </select>
+
+
+    <select id="selectDaysOfOrderAmountByDepartmentId" resultType="java.util.Map" parameterType="java.lang.Long">
+        SELECT
+          DATE_FORMAT(a.ss_day,'%Y-%m-%d') AS dateStr,
+          COUNT(a.id) AS orderAmount,
+          SUM(a.order_money) AS orderMoney,
+          SUM(IFNULL(p.op_pay_amount,0)) AS incomeAmount
+        FROM
+          sl_orders_report a
+        LEFT JOIN
+        (
+            select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+            GROUP BY op_order_id
+        ) p
+        ON (a.order_id = p.op_order_id)
+        <where>
+            AND a.depart_id = #{departmentId}
+          <![CDATA[
+            AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') >= DATE_FORMAT(date_sub(CURDATE(),INTERVAL 29 DAY),'%Y-%m-%d')
+            AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') <= CURDATE()
+          ]]>
+        </where>
+        GROUP BY DATE_FORMAT(a.ss_day,'%Y-%m-%d')
+    </select>
+
+    <select id="selectSalesPerformanceByIdAndDateType" resultType="java.util.Map">
+        SELECT
+          <if test="dateType == 1">DATE_FORMAT(a.ss_day,'%H') AS dateStr,</if>
+          <if test="dateType == 2">DATE_FORMAT(a.ss_day,'%Y-%m-%d') AS dateStr,</if>
+          <if test="dateType == 3">DATE_FORMAT(a.ss_day,'%Y-%m-%d') AS dateStr,</if>
+          <if test="dateType == 4">DATE_FORMAT(a.ss_day,'%c') AS dateStr,</if>
+          <if test="dateType == 5">CONCAT(QUARTER(a.ss_day), '') AS dateStr,</if>
+          COUNT(a.id) AS orderAmount,
+          SUM(a.order_money) AS orderMoney,
+          SUM(IFNULL(p.op_pay_amount,0)) AS incomeAmount
+        FROM
+          sl_orders_report a
+        LEFT JOIN
+        (
+            select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+            GROUP BY op_order_id
+        ) p
+        ON (a.order_id = p.op_order_id)
+        <where>
+            <if test="dataLevel == 0 and ids != null and ids != ''">AND a.depart_id in (${ids})</if>
+            <if test="dataLevel == 1">AND a.company_id = #{id}</if>
+            <if test="dataLevel == 2">AND a.depart_id = #{id}</if>
+            <if test="dataLevel == 3">AND a.user_id in (${ids})</if>
+            <if test="dateType == 1"> AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') = #{dateStrBegin} </if>
+            <if test="dateType == 2">
+                <![CDATA[
+                    AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') >= #{dateStrBegin}
+                    AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') <= #{dateStrEnd}
+                ]]>
+            </if>
+            <if test="dateType == 3">
+                <![CDATA[
+                    AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') >= #{dateStrBegin}
+                    AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') <= #{dateStrEnd}
+                ]]>
+            </if>
+            <if test="dateType == 4">
+                <![CDATA[
+                    AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') >= #{dateStrBegin}
+                    AND DATE_FORMAT(a.ss_day,'%Y-%m-%d') <= #{dateStrEnd}
+                ]]>
+            </if>
+            <if test="dateType == 5"> AND DATE_FORMAT(a.ss_day,'%Y') = #{dateStrBegin}</if>
+        </where>
+        GROUP BY dateStr
+    </select>
+
+    <select id="selectIdListByPid" resultType="java.util.Map" parameterType="java.util.List">
+        SELECT
+          MAX(a.id) as id,
+          a.user_id as userId,
+          a.openid as openId
+        FROM
+          sl_orders_report a
+        WHERE a.pid IN
+        <foreach collection="openIds" item="pid" index="index"
+                 open="(" close=")" separator=",">
+            #{pid}
+        </foreach>
+        AND a.openid != a.pid
+        group by userId
+    </select>
+
+
+    <select id="selectPidById" resultType="java.lang.String" parameterType="java.lang.Long">
+        SELECT
+          a.openid,
+          MAX(a.id)
+        FROM
+          sl_orders_report a
+        WHERE
+          a.user_id = #{id};
+    </select>
+</mapper>

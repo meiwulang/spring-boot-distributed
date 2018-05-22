@@ -1,0 +1,44 @@
+.not_join_product {
+    border: 1px solid #CCCCCC;
+}
+
+.al_join_product {
+    border: 1px solid #CCCCCC;
+}
+
+.al_join_product .x-panel-header, .not_join_product .x-panel-header {
+    border: 1px solid red;
+    background: #fff;
+}
+
+.al_join_product .x-title-text, .not_join_product .x-title-text {
+    color: #000000;
+    font-size: 14px;
+}
+
+.but-id {
+    height: 450px;
+    width: 100%;
+    margin-top: 1px;
+}
+
+.but-id .but-in img {
+    width: 24px;
+    margin-left: 7.5px;
+    margin-top: 190px;
+    cursor: pointer;
+}
+
+.but-id .but-out img {
+    width: 25px;
+    margin-left: 6px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.pre-title-text {
+    border: 1px solid #f40;
+    color: #f40;
+    border-radius: 5px;
+    padding: 1px 6px;
+}

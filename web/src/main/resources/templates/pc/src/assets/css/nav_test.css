@@ -1,0 +1,214 @@
+.logo {
+  width: 100%;
+  height: 65px;
+  background: url("../images/logo.png") no-repeat;
+  background-size: 100% 65px;
+}
+
+.jdy-nav {
+  width: 60px;
+  height: 100%;
+  background: #272c33;
+  color: #aeb5bf;
+  font-size: 12px;
+  position: relative;
+}
+
+.jdy-nav li {
+  position: relative;
+}
+
+.jdy-nav-title {
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  /* background: #30363e; */
+  position: relative;
+  margin-top: 25px;
+}
+
+.jdy-nav-title a {
+  width: 56px;
+  height: 45px;
+  float: left;
+  margin-left:4px;
+  color: #798699;
+  border-radius: 5px 0 0 5px;
+  text-indent: 50px;
+}
+
+.navicon {
+  background: url("../images/iconIndex.png") no-repeat;
+}
+.header-nav-icon{
+  background: url("../images/icon.png") no-repeat;
+}
+.jdy-nav-title a:hover,
+.current a {
+  background-color: #181c22;
+  color: #fff;
+}
+
+
+.jdy-nav-childul {
+  width: 200px;
+  background: #2b3038;
+  top: 0;
+  left: 60px;
+  z-index: 9999;
+  display: none;
+  max-height: 300px;
+  /* overflow-y: scroll; */
+}
+
+.jdy-nav-childul li {
+  height: 45px;
+  line-height: 45px;
+  margin-bottom: 0;
+  margin-top: 1px;
+}
+
+.jdy-nav-title2 {
+  height: 44px;
+  line-height: 44px;
+  text-indent: 20px;
+  color: #fff;
+  border-bottom: 1px solid #31373e;
+}
+
+.jdy-nav-title3 {
+  height: 44px;
+  line-height: 44px;
+  text-indent: 20px;
+  color: #6f7f91;
+  cursor :pointer;
+  /* border-bottom: 1px solid #31373e; */
+}
+.jdy-nav-childul .liThr{
+  top: -45px;
+  left: 200px; 
+  z-index:9999999;
+  display: block;
+  margin-top: 0;
+  background: #272c33;
+}
+
+.jdy-nav-childul .ulThr{
+  background: #272c33;
+  z-index:9999999;
+}
+
+
+.jdy-nav-title3:hover {
+  color: #fff;
+  background: #181c22;
+}
+
+.jdy-nav-childul a:link,
+.jdy-nav-childul a:visited {
+  width: 100%;
+  color: #6f7f91;
+  font-size: 12px;
+  text-indent: 20px;
+}
+
+.jdy-nav-childul a.active:link,
+.jdy-nav-childul a.active:visited,
+.jdy-nav-childul a:hover,
+.jdy-nav-childul a.active:hover {
+  color: #fff;
+  background: #181c22;
+}
+
+.jdy-nav-childul .nobgcolor a.active:link,
+.jdy-nav-childul .nobgcolor a.active:visited,
+.jdy-nav-childul .nobgcolor a:hover,
+.jdy-nav-childul .nobgcolor a.active:hover {
+  background: #272c33;
+}
+
+/* 控制台 */
+.console .navicon{
+  background-position: 12px -1px;
+}
+.current.console .navicon {
+  background-position: -351px -1px;
+}
+/* 计调中心 */
+.transfer .navicon{
+  background-position: 12px -57px;
+}
+.current.transfer .navicon {
+  background-position: -351px -57px;
+}
+/* 资源中心 */
+.resources .navicon{
+  background-position: 12px -114px;
+}
+.current.resources .navicon {
+  background-position: -351px -114px;
+}
+/* 分销中心 */
+.buyerCenter .navicon{
+  background-position: 12px -171px;
+}
+.current.buyerCenter .navicon {
+  background-position: -351px -171px;
+}
+/* 系统中心 */
+.system .navicon{
+  background-position: 12px -228px;
+}
+.current.system .navicon {
+  background-position: -351px -228px;
+}
+/* 个人中心 */
+.personal .navicon{
+  background-position: 12px -285px;
+}
+.current.personal .navicon {
+  background-position: -351px -285px;
+}
+/* 销售中心 */
+.sale .navicon{
+  background-position: 12px -346px;
+}
+.current.sale .navicon {
+  background-position: -351px -346px;
+}
+/* 财务中心 */
+.finance .navicon{
+  background-position: 12px -406px;
+}
+.current.finance .navicon {
+  background-position: -351px -406px;
+}
+/* 报表中心 */
+.report .navicon{
+  background-position: 12px -465px;
+}
+.current.report .navicon {
+  background-position: -351px -465px;
+}
+
+/* .reportform .navicon {}
+
+.application .navicon {} */
+
+.jdy-nav-triangle {
+  width: 7px;
+  height: 12px;
+  background: url("../images/triangle_hide.png") no-repeat;
+  position: absolute;
+  top: 22px;
+  right: 28px;
+}
+
+.jdy-nav-triangle-active {
+  /* transform: rotate(180deg); */
+  width: 12px;
+  height: 7px;
+  top: 28px;
+  right: 22px;
+  background: url("../images/triangle.png") no-repeat;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>支付订单</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/pay.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> --> 
+</head>
+<body>
+<div id="wrap">
+	
+	<script id="tpl-bala" type="text/html">	
+	    {if payment_info}
+		<div class="main" openid="{ payment_info.u_wx_openid }">
+
+			{if payment_info.o_product_name}
+			<p>{payment_info.o_product_name}</p>
+			{/if}
+			{if payment_info.o_product_num}
+			<div class="ground"><span>产品编号：</span><span>{payment_info.o_product_num}</span></div>
+			{/if}
+			{if payment_info.o_days}
+			<div class="ground"><span>行程天数：</span><span>{payment_info.o_days}天</span></div>
+			{/if}
+			{if payment_info.o_start_date&&payment_info.o_end_date}
+			<div class="ground"><span>行程时间：</span><span>{payment_info.o_start_date} 至 {payment_info.o_end_date}</span></div>
+			{/if}
+			<div class="ground"><span>总&#x3000;&#x3000;额：</span>
+			<span class="pary nos">¥{payment_info.total_fee}</span>
+			</div>
+			
+		 
+		</div>
+		{/if}
+		<div class="styles">
+			<div class="title">
+				可选支付方式
+			</div>
+			{ if payment_info.show_type == 1 || payment_info.show_type == 0}
+			<div class="pay_list pay_lists listOff">
+				<div class="pay_left">
+					<img src="assets/img/order/wx.png" alt="">
+				</div>
+				<div class="pay_right">
+					<h3>线下支付</h3>
+					<div class="choice { if payment_info.o_source == 3 && payment_info.total_fee == 0 }choice_yes{ else }choice_bor{ /if }"></div>
+				</div>
+			</div>
+			{ /if }
+			{if payment_info.show_type == 0 || payment_info.show_type == 2}
+			<div class="pay_list pay_lists listsss">
+				<div class="pay_left">
+					<img src="assets/img/order/wx.png" alt="">
+				</div>
+				<div class="pay_right">
+					<h3>微信支付</h3>
+					<div class="choice { if payment_info.o_source == 3 && payment_info.total_fee == 0 }choice_yes{ else }choice_bor{ /if }"></div>
+				</div>
+			</div>
+			{/if}
+			{ if payment_info.total_fee > 0 && (payment_info.show_type == 0 || payment_info.show_type == 2)}
+			<div class="pay_list pay_lists listss">
+				<div class="pay_left">
+					<img src="assets/img/order/wx.png" alt="">
+				</div>
+				<div class="pay_right">
+					<h3>
+						<div>微信扫码支付</div>
+						<!-- <p>由于受微信长按识别二维码支付的限制,请直接使用其他手机扫描二维码支付!</p> -->
+					</h3>
+					<div class="choice choice_bor"></div>
+				</div>
+			</div>
+			{ /if }
+			<div class="wx-qrcode">
+				<img src="" />
+			</div>
+		</div>
+		{ if payment_info.total_fee > 0 && payment_info.o_source == 4 && payment_info.o_status == 3 }
+		<div class="payInput">
+			<div class="tourist-info-con">
+				<ul>
+					<li class="clearfix">
+						<span>支付金额</span>
+						<div>
+							<input class="name" type="text" value="" placeholder="请输入金额">
+							<i class="icon-error">!</i>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		{/if}
+		<div class="buttons">确认支付</div>
+	</script>
+	
+
+</div>
+</body>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/pay.build.js"></script>
+</html>

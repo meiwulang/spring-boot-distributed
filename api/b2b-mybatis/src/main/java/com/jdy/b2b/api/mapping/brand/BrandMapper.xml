@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.brand.BrandMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.brand.Brand">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="b_company_id" jdbcType="BIGINT" property="bCompanyId" />
+    <result column="b_name" jdbcType="VARCHAR" property="bName" />
+    <result column="b_introduction" jdbcType="VARCHAR" property="bIntroduction" />
+<!--     <result column="p_oss_name" jdbcType="VARCHAR" property="pOssName" /> -->
+    <result column="b_status" jdbcType="INTEGER" property="bStatus" />
+    <result column="b_del" jdbcType="INTEGER" property="bDel" />
+    <result column="b_sort" jdbcType="INTEGER" property="bSort" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap id="HasNameResultMap" extends="BaseResultMap" type="com.jdy.b2b.api.model.brand.Brand">
+   <association property="companyName" column="b_company_id" select="selectCompanyName"></association>
+   <association property="createUserName" column="create_user" select="selectCreateUserName"></association>
+   <association property="pOssName" column="id" select="selectAttachName"></association>
+  </resultMap>
+  <select id="selectCompanyName" parameterType="long" resultType="String">
+	SELECT
+		c_name companyName
+	FROM
+		sm_company
+	WHERE
+		id =#{b_company_id}
+  </select>
+  <select id="selectCreateUserName" parameterType="long" resultType="String">
+	SELECT
+		u_real_name createUserName
+	FROM
+		sm_user
+	WHERE
+		id =#{create_user}
+	</select>
+  <select id="selectAttachName" parameterType="long" resultType="String">
+	SELECT
+		p_oss_name pOssName
+	FROM
+		cm_attach
+	WHERE
+		p_pid =#{id}
+	AND p_type = 5 limit 1
+	</select>
+  <sql id="Base_Column_List">
+    id, b_company_id, b_name, b_introduction, b_status,b_del, create_time, create_user, update_time, 
+    update_user,b_sort
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="HasNameResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sm_brand
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="queryByRecord"  parameterType="com.jdy.b2b.api.model.brand.Brand" resultMap="HasNameResultMap">
+    select <include refid="Base_Column_List"></include>
+    from sm_brand
+    <include refid="fullWhere" />
+    order by b_sort desc
+    limit #{startNum},#{pageSize}
+  </select>
+  <sql id="fullWhere">
+	<where>
+	  1=1
+	  <choose>
+		<when test="pcType !=null and pcType==2 and bCompanyId == null"></when>
+		<otherwise>AND b_company_id = #{bCompanyId,jdbcType=BIGINT}</otherwise>
+	  </choose>
+      <if test="bName != null">
+      <bind name="likeName" value="'%' + bName + '%'"/>
+        AND b_name like #{likeName,jdbcType=VARCHAR}
+      </if>
+      <if test="bStatus != null">
+        AND b_status = #{bStatus,jdbcType=BIT}
+      </if>
+      <if test="bDel != null">
+        AND b_del=#{bDel,jdbcType=INTEGER}
+      </if>
+	</where>  
+  </sql>
+  <select id="queryByName" parameterType="com.jdy.b2b.api.model.brand.Brand" resultMap="HasNameResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sm_brand
+    where b_name = #{bName,jdbcType=VARCHAR} and b_del=#{bDel,jdbcType=INTEGER}
+  </select>
+  <select id="countByRecord" parameterType="com.jdy.b2b.api.model.brand.Brand" resultType="int">
+    select 
+    count(1)
+    from  sm_brand
+    <include refid="fullWhere" />
+  </select>
+  <select id="listForIndex" parameterType="java.lang.Integer" resultType="Map" >
+    select 
+    id, b_company_id as org_id, b_name as org_sname,p_oss_name as org_logo
+    from sm_brand,cm_attach
+    where  b_del=0  AND b_status=0 AND p_pid = id order by b_sort desc limit 0,#{size}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sm_brand
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.brand.Brand" useGeneratedKeys="true" keyProperty="id">
+    insert into sm_brand (id, b_company_id, b_name, 
+      b_introduction, b_status, create_time, 
+      create_user, update_time, update_user,b_del,b_sort
+      )
+    values (#{id,jdbcType=INTEGER}, #{bCompanyId,jdbcType=BIGINT}, #{bName,jdbcType=VARCHAR}, 
+      #{bIntroduction,jdbcType=VARCHAR}, #{bStatus,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT},
+      #{bDel,jdbcType=INTEGER},#{bSort,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.brand.Brand">
+    insert into sm_brand
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bCompanyId != null">
+        b_company_id,
+      </if>
+      <if test="bName != null">
+        b_name,
+      </if>
+      <if test="bIntroduction != null">
+        b_introduction,
+      </if>
+      <if test="bStatus != null">
+        b_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="bDel != null">
+        b_del,
+      </if>
+      <if test="bSort != null">
+        b_sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bCompanyId != null">
+        #{bCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="bName != null">
+        #{bName,jdbcType=VARCHAR},
+      </if>
+      <if test="bIntroduction != null">
+        #{bIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="bStatus != null">
+        #{bStatus,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="bDel != null">
+        #{bDel,jdbcType=INTEGER},
+      </if>
+      <if test="bSort != null">
+        #{bSort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.brand.Brand">
+    update sm_brand
+    <set>
+      <if test="bCompanyId != null">
+        b_company_id = #{bCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="bName != null">
+        b_name = #{bName,jdbcType=VARCHAR},
+      </if>
+      <if test="bIntroduction != null">
+        b_introduction = #{bIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="bStatus != null">
+        b_status = #{bStatus,jdbcType=BIT},
+      </if>
+      <if test="bDel != null">
+        b_del=#{bDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="bSort != null">
+        b_sort = #{bSort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and (b_company_id = #{bCompanyId,jdbcType=BIGINT} or #{bCompanyId,jdbcType=BIGINT} =1)
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.brand.Brand">
+    update sm_brand
+    set 
+      b_name = #{bName,jdbcType=VARCHAR},
+      b_introduction = #{bIntroduction,jdbcType=VARCHAR},
+      b_status = #{bStatus,jdbcType=BIT},
+      b_sort = #{bSort,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER} and (b_company_id = #{bCompanyId,jdbcType=BIGINT} or #{bCompanyId,jdbcType=BIGINT} =1)
+  </update>
+</mapper>

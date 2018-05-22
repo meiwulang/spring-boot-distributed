@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.reports.AgentDevelopChartMapper">
+    <delete id="deleteFailedData">
+        delete from sl_orders_report where date_format(ss_day, '%Y-%m-%d') = #{dateStr}
+    </delete>
+
+    <select id="getAgentCount" parameterType="com.jdy.b2b.api.model.reports.AgentDevelopChartQueryVo" resultType="com.jdy.b2b.api.model.reports.AgentDevelopChartDO">
+        SELECT count(u.id) todayCount,
+        <if test="queryType == 5">
+            FLOOR((date_format(datelist,'%m')+2)/3) orderBy,
+            (case FLOOR((date_format(datelist,'%m')+2)/3)
+            WHEN 1 then '第一季度'
+            when 2 then '第二季度'
+            when 3 then '第三季度'
+            when 4 then '第四季度'
+            END )
+        </if>
+        <if test="queryType == 4">
+            date_format(datelist,'%m') orderBy,concat(date_format(datelist,'%c'),'月')
+        </if>
+        <if test="queryType == 1">
+            date_format(datelist,'%d')orderBy,date_format(datelist,'%c.%d')
+        </if>
+        <if test="queryType == 3">
+
+            (
+            CASE dayofweek(fz.datelist)
+            WHEN 2 THEN 1
+            WHEN 3 THEN 2
+            WHEN 4 THEN 3
+            WHEN 5 THEN 4
+            WHEN 6 THEN 5
+            WHEN 7 THEN 6
+            WHEN 1 THEN 7
+            END
+            )orderBy, (
+            CASE dayofweek(fz.datelist)
+            WHEN 2 THEN '周一'
+            WHEN 3 THEN '周二'
+            WHEN 4 THEN '周三'
+            WHEN 5 THEN '周四'
+            WHEN 6 THEN '周五'
+            WHEN 7 THEN '周六'
+            WHEN 1 THEN '周日'
+            END
+            )
+
+        </if>
+        <if test="queryType == 2">hour orderBy,concat(hour,':00')</if> as stringDay
+        FROM
+        <if test="queryType != 2">
+            fz_calendar fz
+        </if>
+        <if test="queryType == 2">
+            fz_hour fz
+        </if>
+
+        LEFT JOIN sm_user u ON
+        <if test="queryType != 2">
+            datediff(fz.datelist,u.create_time)=0
+        </if>
+        <if test="queryType == 2">
+            hour = date_format(create_time,'%H') AND datediff(create_time,#{startDate})=0
+        </if>
+        AND u.u_type = 1 AND u.u_wx_openid IS NOT NULL AND u.u_pid IS NOT NULL
+        <if test="companyId!=null">
+          AND u.company_id = #{companyId}
+        </if>
+        <if test="departId != null">
+            and u.u_department_id = #{departId}
+        </if>
+        <if test="departId == null">
+            and u.u_department_id IS NOT NULL
+        </if>
+        <where>
+            <if test="queryType != 2">
+                datelist >= #{startDate} and datelist &lt; #{endDate}
+            </if>
+
+        </where>
+        GROUP BY stringDay
+        order by orderBy
+
+    </select>
+
+    <select id="getBeforePeopleNum" parameterType="com.jdy.b2b.api.model.reports.AgentDevelopChartQueryVo" resultType="Integer">
+        select count(*) from sm_user where datediff(create_time,#{startDate}) &lt; 0
+        and u_type = 1 and u_wx_openid is NOT  NULL  and u_pid is not NULL
+        <if test="departId!=null">
+            AND u_department_id = #{departId}
+        </if>
+        <if test="companyId!=null">
+            AND company_id = #{companyId}
+        </if>
+        <if test="departId == null">
+            and u_department_id is NOT  NULL
+        </if>
+    </select>
+    <select id="getUserLevelAgentCount" resultType="com.jdy.b2b.api.model.reports.AgentDevelopChartDO" parameterType="com.jdy.b2b.api.model.reports.AgentDevelopChartQueryVo">
+        SELECT u.id agentId,
+        <if test="queryType == 5">
+            FLOOR((date_format(datelist,'%m')+2)/3) orderBy,
+            (case FLOOR((date_format(datelist,'%m')+2)/3)
+            WHEN 1 then '第一季度'
+            when 2 then '第二季度'
+            when 3 then '第三季度'
+            when 4 then '第四季度'
+            END )
+        </if>
+        <if test="queryType == 4">
+            date_format(datelist,'%m') orderBy,concat(date_format(datelist,'%c'),'月')
+        </if>
+        <if test="queryType == 1">
+            date_format(datelist,'%d')orderBy,date_format(datelist,'%c.%d')
+        </if>
+        <if test="queryType == 3">
+
+            (
+            CASE dayofweek(fz.datelist)
+            WHEN 2 THEN 1
+            WHEN 3 THEN 2
+            WHEN 4 THEN 3
+            WHEN 5 THEN 4
+            WHEN 6 THEN 5
+            WHEN 7 THEN 6
+            WHEN 1 THEN 7
+            END
+            )orderBy, (
+            CASE dayofweek(fz.datelist)
+            WHEN 2 THEN '周一'
+            WHEN 3 THEN '周二'
+            WHEN 4 THEN '周三'
+            WHEN 5 THEN '周四'
+            WHEN 6 THEN '周五'
+            WHEN 7 THEN '周六'
+            WHEN 1 THEN '周日'
+            END
+            )
+
+        </if>
+        <if test="queryType == 2">hour orderBy,concat(hour,':00')</if> as stringDay,
+        getFirstLevelAgent(u.u_wx_openid) firstAgentId
+        FROM
+        <if test="queryType != 2">
+            fz_calendar fz
+        </if>
+        <if test="queryType == 2">
+            fz_hour fz
+        </if>
+
+        LEFT JOIN sm_user u ON
+        <if test="queryType != 2">
+            datediff(fz.datelist,u.create_time)=0
+        </if>
+        <if test="queryType == 2">
+            hour = date_format(create_time,'%H') AND datediff(create_time,#{startDate})=0
+        </if>
+        AND u.u_type = 1 AND u.u_wx_openid IS NOT NULL AND u.u_pid IS NOT NULL
+
+        <if test="companyId != null">
+           AND u.company_id = #{companyId}
+        </if>
+
+        <if test="departId != null">
+            and u.u_department_id = #{departId}
+        </if>
+        <if test="departId == null">
+            and u.u_department_id IS NOT NULL
+        </if>
+        <where>
+            <if test="queryType != 2">
+                datelist >= #{startDate} and datelist &lt; #{endDate}
+            </if>
+
+        </where>
+        order by orderBy
+    </select>
+    <select id="getUserLevelBeforePeopleNum" parameterType="com.jdy.b2b.api.model.reports.AgentDevelopChartQueryVo" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM (
+        SELECT
+        id,
+        getFirstLevelAgent(u_wx_openid) firstAgentId
+        FROM sm_user
+        WHERE datediff(create_time, #{startDate}) &lt; 0
+        AND u_type = 1 AND u_wx_openid IS NOT NULL AND u_pid IS NOT NULL
+        AND u_department_id = #{departId}
+        AND company_id = #{pcompanyId}
+        ) temp
+        WHERE firstAgentId = #{userId}
+    </select>
+
+    <insert id="syncOrderData" parameterType="string">
+        INSERT INTO sl_orders_report (
+            order_id,
+            create_time,
+            company_id,
+            depart_name,
+            depart_id,
+            user_name,
+            user_id,
+            openid,
+            pid,
+            ss_day,
+            tourist_count,
+            order_money,
+			product_id,
+			product_name
+        ) SELECT
+            o.id,
+            now(),
+            o.o_buyer_company_id,
+            d.d_name,
+            d.id,
+            o.o_buyer_name,
+            o.o_buyer_id,
+            u.u_wx_openid,
+            u.u_pid,
+            o.update_time,
+            o.o_people_num,
+            o.o_real_pay,
+			IFNULL(p.id,-1),
+			IFNULL(p.p_name,"")
+        FROM
+            sl_order o
+        INNER JOIN sm_user u ON u.id = o.o_buyer_id
+        LEFT JOIN sm_department d ON u.u_department_id = d.id 
+        LEFT JOIN ct_product p ON p.id = o.o_product_id
+        WHERE
+            date_format(o.update_time, '%Y-%m-%d') = #{dateStr}
+        AND o.o_status = 3
+    </insert>
+</mapper>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.SmsMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.Sms">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="s_company_id" jdbcType="BIGINT" property="sCompanyId" />
+    <result column="s_company_name" jdbcType="VARCHAR" property="sCompanyName" />
+    <result column="s_order_id" jdbcType="BIGINT" property="sOrderId" />
+    <result column="s_temp_id" jdbcType="BIGINT" property="sTempId" />
+    <result column="s_tel" jdbcType="VARCHAR" property="sTel" />
+    <result column="s_sms" jdbcType="VARCHAR" property="sSms" />
+    <result column="s_reason" jdbcType="VARCHAR" property="sReason" />
+    <result column="s_status" jdbcType="INTEGER" property="sStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, s_company_id, s_company_name, s_order_id, s_temp_id, s_tel, s_sms, s_reason, 
+    s_status, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_sms
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sl_sms
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.Sms">
+    insert into sl_sms (id, s_company_id, s_company_name, 
+      s_order_id, s_temp_id, s_tel, 
+      s_sms, s_reason, s_status, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{id,jdbcType=BIGINT}, #{sCompanyId,jdbcType=BIGINT}, #{sCompanyName,jdbcType=VARCHAR}, 
+      #{sOrderId,jdbcType=BIGINT}, #{sTempId,jdbcType=BIGINT}, #{sTel,jdbcType=VARCHAR}, 
+      #{sSms,jdbcType=VARCHAR}, #{sReason,jdbcType=VARCHAR}, #{sStatus,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.Sms">
+    insert into sl_sms
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sCompanyId != null">
+        s_company_id,
+      </if>
+      <if test="sCompanyName != null">
+        s_company_name,
+      </if>
+      <if test="sOrderId != null">
+        s_order_id,
+      </if>
+      <if test="sTempId != null">
+        s_temp_id,
+      </if>
+      <if test="sTel != null">
+        s_tel,
+      </if>
+      <if test="sSms != null">
+        s_sms,
+      </if>
+      <if test="sReason != null">
+        s_reason,
+      </if>
+      <if test="sStatus != null">
+        s_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sCompanyId != null">
+        #{sCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="sCompanyName != null">
+        #{sCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="sOrderId != null">
+        #{sOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="sTempId != null">
+        #{sTempId,jdbcType=BIGINT},
+      </if>
+      <if test="sTel != null">
+        #{sTel,jdbcType=VARCHAR},
+      </if>
+      <if test="sSms != null">
+        #{sSms,jdbcType=VARCHAR},
+      </if>
+      <if test="sReason != null">
+        #{sReason,jdbcType=VARCHAR},
+      </if>
+      <if test="sStatus != null">
+        #{sStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.Sms">
+    update sl_sms
+    <set>
+      <if test="sCompanyId != null">
+        s_company_id = #{sCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="sCompanyName != null">
+        s_company_name = #{sCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="sOrderId != null">
+        s_order_id = #{sOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="sTempId != null">
+        s_temp_id = #{sTempId,jdbcType=BIGINT},
+      </if>
+      <if test="sTel != null">
+        s_tel = #{sTel,jdbcType=VARCHAR},
+      </if>
+      <if test="sSms != null">
+        s_sms = #{sSms,jdbcType=VARCHAR},
+      </if>
+      <if test="sReason != null">
+        s_reason = #{sReason,jdbcType=VARCHAR},
+      </if>
+      <if test="sStatus != null">
+        s_status = #{sStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.Sms">
+    update sl_sms
+    set s_company_id = #{sCompanyId,jdbcType=BIGINT},
+      s_company_name = #{sCompanyName,jdbcType=VARCHAR},
+      s_order_id = #{sOrderId,jdbcType=BIGINT},
+      s_temp_id = #{sTempId,jdbcType=BIGINT},
+      s_tel = #{sTel,jdbcType=VARCHAR},
+      s_sms = #{sSms,jdbcType=VARCHAR},
+      s_reason = #{sReason,jdbcType=VARCHAR},
+      s_status = #{sStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.module.ModuleMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.module.Module">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="m_name" jdbcType="VARCHAR" property="mName" />
+    <result column="m_img" jdbcType="VARCHAR" property="mImg" />
+    <result column="m_en_name" jdbcType="VARCHAR" property="mEnName" />
+    <result column="m_operation" jdbcType="VARCHAR" property="mOperation" />
+    <result column="m_type" jdbcType="INTEGER" property="mType" />
+    <result column="m_pid" jdbcType="INTEGER" property="mPid" />
+    <result column="m_url" jdbcType="VARCHAR" property="mUrl" />
+    <result column="m_mode" jdbcType="INTEGER" property="mMode" />
+    <result column="m_sort" jdbcType="INTEGER" property="mSort" />
+    <result column="m_status" jdbcType="INTEGER" property="mStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, m_name,m_img, m_en_name,m_operation, m_type, m_pid,m_url,m_mode, m_sort, m_status, create_time, create_user, update_time,
+    update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sm_module
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sm_module
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.module.Module" useGeneratedKeys="true" keyProperty="id">
+    insert into sm_module (id, m_name, m_img,m_en_name, m_operation,
+      m_type, m_pid,m_url,m_mode,m_sort, m_status,
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{id,jdbcType=INTEGER}, #{mName,jdbcType=VARCHAR}, #{mImg,jdbcType=VARCHAR},#{mEnName,jdbcType=VARCHAR}, #{mOperation,jdbcType=VARCHAR},
+      #{mType,jdbcType=INTEGER}, #{mPid,jdbcType=INTEGER},#{mUrl,jdbcType=VARCHAR},#{mMode,jdbcType=INTEGER},#{mSort,jdbcType=INTEGER}, #{mStatus,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.module.Module">
+    insert into sm_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mName != null">
+        m_name,
+      </if>
+      <if test="mImg != null">
+        m_img,
+      </if>
+      <if test="mEnName != null">
+        m_en_name,
+      </if>
+      <if test="mOperation != null">
+        m_operation,
+      </if>
+      <if test="mType != null">
+        m_type,
+      </if>
+      <if test="mPid != null">
+        m_pid,
+      </if>
+      <if test="mUrl != null">
+        m_url,
+      </if>
+      <if test="mMode != null">
+        m_mode,
+      </if>
+      <if test="mSort != null">
+        m_sort,
+      </if>
+      <if test="mStatus != null">
+        m_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mName != null">
+        #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mImg != null">
+        #{mImg,jdbcType=VARCHAR},
+      </if>
+      <if test="mEnName != null">
+        #{mEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="mOperation != null">
+        #{mOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="mType != null">
+        #{mType,jdbcType=INTEGER},
+      </if>
+      <if test="mPid != null">
+        #{mPid,jdbcType=INTEGER},
+      </if>
+      <if test="mUrl != null">
+        #{mUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mMode != null">
+        #{mMode,jdbcType=INTEGER},
+      </if>
+      <if test="mSort != null">
+        #{mSort,jdbcType=INTEGER},
+      </if>
+      <if test="mStatus != null">
+        #{mStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.module.Module">
+    update sm_module
+    <set>
+      <if test="mName != null">
+        m_name = #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mImg != null">
+        m_img = #{mImg,jdbcType=VARCHAR},
+      </if>
+      <if test="mEnName != null">
+        m_en_name = #{mEnName,jdbcType=VARCHAR},
+      </if>
+      <if test="mOperation != null">
+        m_operation = #{mOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="mType != null">
+        m_type = #{mType,jdbcType=INTEGER},
+      </if>
+      <if test="mPid != null">
+        m_pid = #{mPid,jdbcType=INTEGER},
+      </if>
+      <if test="mUrl != null">
+        m_url = #{mUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mMode != null">
+        m_mode = #{mMode,jdbcType=INTEGER},
+      </if>
+      <if test="mSort != null">
+        m_sort = #{mSort,jdbcType=INTEGER},
+      </if>
+      <if test="mStatus != null">
+        m_status = #{mStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.module.Module">
+    update sm_module
+    set m_name = #{mName,jdbcType=VARCHAR},
+      m_img = #{mImg,jdbcType=VARCHAR},
+      m_en_name = #{mEnName,jdbcType=VARCHAR},
+      m_operation = #{mOperation,jdbcType=VARCHAR},
+      m_type = #{mType,jdbcType=INTEGER},
+      m_pid = #{mPid,jdbcType=INTEGER},
+      m_url = #{mUrl,jdbcType=VARCHAR},
+      m_mode = #{mMode,jdbcType=INTEGER},
+      m_sort = #{mSort,jdbcType=INTEGER},
+      m_status = #{mStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryModuleListForPage" parameterType="com.jdy.b2b.api.model.module.Module" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from sm_module
+  <where>
+    <if test="id != null">
+      id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="mName != null">
+      AND m_name = #{mName,jdbcType=VARCHAR}
+    </if>
+    <if test="mImg != null">
+      AND m_img = #{mImg,jdbcType=VARCHAR}
+    </if>
+    <if test="mEnName != null">
+      AND m_en_name = #{mEnName,jdbcType=VARCHAR}
+    </if>
+    <if test="mOperation != null">
+      AND m_operation = #{mOperation,jdbcType=VARCHAR}
+    </if>
+    <if test="mType != null">
+      AND m_type = #{mType,jdbcType=INTEGER}
+    </if>
+    <if test="mPid != null">
+      AND m_pid = #{mPid,jdbcType=INTEGER}
+    </if>
+    <if test="mUrl != null">
+      AND m_url = #{mUrl,jdbcType=VARCHAR}
+    </if>
+    <if test="mMode != null">
+      AND m_mode = #{mMode,jdbcType=INTEGER}
+    </if>
+    <if test="mSort != null">
+     AND m_sort = #{mSort,jdbcType=INTEGER}
+    </if>
+    <if test="mStatus != null">
+      AND m_status = #{mStatus,jdbcType=INTEGER}
+    </if>
+    <if test="createTime != null">
+      AND create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="createUser != null">
+      AND create_user = #{createUser,jdbcType=BIGINT}
+    </if>
+    <if test="updateTime != null">
+      AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updateUser != null">
+      AND update_user = #{updateUser,jdbcType=BIGINT}
+    </if>
+
+  </where>
+  ORDER BY
+  m_sort DESC
+</select>
+<!--如果是顶级模块 不执行查询-->
+  <select id="queryModuleList" parameterType="com.jdy.b2b.api.model.module.Module" resultMap="BaseResultMap">
+    select * from sm_module m
+    <where>
+      m.m_status = 0
+      <if test="id!=null">
+        and FIND_IN_SET(m.id,getModuleChildList(#{id}))
+      </if>
+      <choose>
+        <when test="mType==1">
+          and m_type = 0
+        </when>
+        <when test="mType==2">
+          and m_type = 1
+        </when>
+        <when test="mType==3">
+          and ( m_type = 1 or m_type =2)
+        </when>
+        <when test="mType==4">
+          and ( m_type = 1 or m_type =2)
+        </when>
+        <when test="mType==5">
+          and ( m_type = 1 or m_type =2)
+        </when>
+      </choose>
+    </where>
+    order by m.m_sort desc
+  </select>
+
+  <select id="firstModuleList" resultMap="BaseResultMap">
+    select * from sm_module
+    where m_pid = 0 and m_status = 0
+  </select>
+
+  <select id="querySameNameModule" resultMap="BaseResultMap">
+    select * from sm_module m
+    where (m.m_name = #{mName} or  m.m_en_name = #{enName})
+    and m.m_status = 0
+    and m.m_type in(0,1,2)
+  </select>
+
+    <update id="deleteModules" parameterType="com.jdy.b2b.api.model.module.Module">
+    update sm_module set m_status = 1 where FIND_IN_SET(id,getModuleChildList(#{id}));
+  </update>
+
+  <select id="selectModuleListByRoleIdList" resultType="java.util.Map" parameterType="java.lang.Long">
+    SELECT
+      b.id as id,
+      b.m_name as text,
+      b.m_pid as parentId
+    FROM
+        sm_role_module a
+    INNER JOIN sm_module b on b.id = a.rm_module_id
+    where  a.rm_role_id in
+    <foreach item="item" collection="roleIdList" separator="," open="(" close=")" index="">
+      #{item}
+    </foreach>
+  </select>
+
+
+
+    <select id="selectModulesByRoleId" resultMap="BaseResultMap" resultType="java.lang.Long">
+        select m.* from sm_module m JOIN sm_role_module rm ON m.id = rm.rm_module_id WHERE rm.rm_role_id =   #{roleId,jdbcType=BIGINT} and m.m_status = 0
+    </select>
+
+  <resultMap id="dtoResultMap" type="com.jdy.b2b.api.model.module.ModuleDto" extends="BaseResultMap">
+    <collection property="children" column="{positionId=positionId,pid=id}" select="selectModulesTreeByPositionId"/>
+  </resultMap>
+
+  <select id="selectModulesTreeByPositionId" resultMap="dtoResultMap" resultType="java.lang.Long">
+    select m.*,#{positionId,jdbcType=BIGINT} positionId
+    from sm_module m JOIN sm_role_module rm ON m.id = rm.rm_module_id
+    JOIN ct_position_role pr on rm.rm_role_id = pr.role_id
+    WHERE pr.position_id =   #{positionId,jdbcType=BIGINT}
+    and m.m_pid = #{pid,jdbcType=BIGINT}
+    and m.m_status = 0
+    order by m.m_sort
+  </select>
+  <select id="selectAllModules" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sm_module
+  </select>
+  <select id="selectModuleListByRoleId" resultMap="BaseResultMap">
+    select
+    m.*
+    from sm_module m
+    INNER JOIN sm_role_module rm ON m.id = rm.rm_module_id and rm.rm_role_id = #{roleId}
+    where m.m_status = 0
+  </select>
+
+  <resultMap id="selectModulesTreeMap" type="com.jdy.b2b.api.model.module.ModuleDto" extends="BaseResultMap">
+    <collection property="children" column="id" select="selectModulesTree"/>
+  </resultMap>
+
+  <select id="selectModulesTree" resultMap="selectModulesTreeMap">
+    select m.* from sm_module m WHERE
+     m.m_pid = #{pid,jdbcType=BIGINT}
+    and m.m_status = 0
+    order by m.m_sort
+  </select>
+  <select id="selectButtonClassNames" resultType="java.lang.String">
+    select m.m_en_name from sm_module m
+    <if test="positionId!=null">
+      JOIN sm_role_module rm ON m.id = rm.rm_module_id
+      JOIN ct_position_role pr on rm.rm_role_id = pr.role_id
+    </if>
+    WHERE
+     m.m_status = 0
+    and m.m_type = 4
+     <if test="positionId!=null">
+      and pr.position_id  =   #{positionId,jdbcType=BIGINT}
+     </if>
+  </select>
+  <select id="selectAllModuleList" resultMap="BaseResultMap">
+     select
+    m.*
+    from sm_module m
+
+    where m.m_status = 0
+  </select>
+</mapper>

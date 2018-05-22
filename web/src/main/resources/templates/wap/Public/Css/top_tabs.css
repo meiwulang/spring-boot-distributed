@@ -1,0 +1,490 @@
+
+/* 左上弹出 */
+.point {
+    cursor: pointer;
+}
+
+.l {
+    float: left;
+}
+
+.r {
+    float: right;
+}
+
+.center {
+    align:center;
+}
+
+.no {
+    display: none;
+}
+
+.ye {
+    display: inline-block;
+}
+
+/* 目的地 供应商 出发日期 特色主题 按钮滑块颜色 */
+.min_right_leftcontainer_title_zt{
+    background: #eeeeee;
+}
+
+.min_right_leftcontainer_title_zt a{
+    color: #666;
+}
+
+.min_right_leftcontainer_title_gys{
+    background: #eeeeee;
+}
+
+.min_right_leftcontainer_title_gys a{
+    color: #666;
+}
+
+.min_right_leftcontainer_title{
+    background: #eeeeee;
+}
+
+.min_right_leftcontainer_title a{
+    color: #666;
+}
+
+/* 目的地 */
+
+.min_right_leftcontainer {
+    width: 750px;
+    height: 100%;
+    float: left;
+    min-height: 317px;
+    overflow: hidden;
+}
+
+.min_right_leftcontainer_right {
+    width: 150px;
+    min-height: 360px;
+    max-height: 360px;
+    float: left;
+    overflow: hidden;
+}
+
+.min_right_leftcontainer_right ul{
+    width: 150px;
+    min-height: 360px;
+    max-height: 360px;
+    float: left;
+    overflow: hidden;
+}
+
+.min_right_leftcontainer_right ul li{
+    width: 150px;
+    height: 40px;
+    float: left;
+    overflow: hidden;
+}
+
+.min_right_leftcontainer_right ul li img{
+    width: 150px;
+    height: 35px;
+}
+
+.min_right_leftcontainer_right_more {
+    width: 150px;
+    height: 317px;
+    float: left;
+    overflow: hidden;
+}
+
+.min_right_leftcontainer_right_more ul{
+    width: 150px;
+    height: 317px;
+    float: left;
+    overflow: hidden;
+}
+
+.min_right_leftcontainer_right_more ul li{
+    width: 150px;
+    height: 40px;
+    float: left;
+    overflow: hidden;
+}
+
+.min_right_leftcontainer_right_more ul li img{
+    width: 150px;
+    height: 35px;
+}
+.min_right_leftcontainer_left {
+    width: 600px;
+}
+
+.content_list{
+    overflow: hidden;
+    table-layout:fixed;
+    word-break: break-all;
+    width: 750px;
+    min-height: 360px;
+    max-height: 360px;
+}
+
+.content_list dl {
+    height: 34px;
+    margin-top: -1px;
+    border-top: 1px dotted #E2E2E2;
+    overflow: hidden;
+    zoom: 1;
+    padding: 3px 0;
+    width: 600px;
+}
+
+.content_list dt {
+    padding: 1px 0 0;
+    float: left;
+    min-width: 55px;
+    height: 28px;
+    line-height: 28px;
+    text-align: left;
+    text-indent: 1em;
+}
+
+.content_list dt a {
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+    width: 55px;
+    height: 29px;
+}
+
+.content_list dd {
+    height: 28px;
+    overflow: hidden;
+    zoom: 1;
+    padding: 2px 0 0;
+}
+
+.content_list dd a{
+    color: #999999;
+}
+
+.content_list em {
+    float: left;
+    font-style: normal;
+    white-space: nowrap;
+    height: 14px;
+    line-height: 14px;
+    border-right: 1px solid #CCC;
+    margin: 6px 0;
+    padding: 0 8px;
+}
+
+.content_list_title {
+    width: 150px;
+    color: #4E9700;
+    font-weight: bold;
+}
+
+.leftcontainer_title_color_over{
+    background: #802F71;
+}
+
+.leftcontainer_title_color_out{
+    background:#eeeeee;
+}
+
+/** 供应商 **/
+
+.min_right_leftcontainer_gys {
+    width: 750px;
+    height: 100%;
+    float: left;
+    min-height: 317px;
+    overflow: hidden;
+}
+
+.min_right_gys {
+    width: 300px;
+    min-height: 360px;
+    max-height: 360px;
+}
+
+.min_right_gys_title{
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+
+}
+
+.min_right_gys_title a{
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    color: #4E9700;
+}
+.min_right_gys_content {
+    width: 300px;
+    height: 239px;
+}
+
+.min_right_gys_content ul{
+    width: 300px;
+    height: 239px;
+}
+
+.min_right_gys_content ul li{
+    height: 14px;
+    float: left;
+    border-right: 1px solid #CCC;
+    line-height: 14px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    padding-right: 5px;
+}
+
+.min_right_gys_content ul li a{
+    color: #999999;
+}
+
+.content_list_gys{
+    overflow: hidden;
+    table-layout:fixed;
+    word-break: break-all;
+    width: 750px;
+    min-height: 360px;
+    max-height: 360px;
+}
+
+/* 出发日期 */
+
+.min_right_leftcontainer_time {
+    width: 600px;
+    float: left;
+    height: 317px;
+}
+
+.min_right_leftcontainer_time_days {
+    width: 600px;
+    height: 60px;
+}
+
+.min_right_leftcontainer_time_days_pac{
+
+}
+
+.min_right_leftcontainer_time_days_pac dl{
+    width: 600px;
+    height: 184px;
+}
+
+.min_right_leftcontainer_time_days_pac dd{
+    width: 600px;
+    height: 184px;
+}
+
+.min_right_leftcontainer_time_days_pac dt{
+    width: 100px;
+    height: 184px;
+    float: left;
+    text-indent: 2em;
+}
+
+.min_right_leftcontainer_time_days_pac dt a{
+    color: #4E9700;
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+    width: 55px;
+    height: 29px;
+}
+
+.min_right_leftcontainer_time_days dl{
+    width: 600px;
+    height: 60px;
+    line-height: 60px;
+}
+
+.min_right_leftcontainer_time_days dt{
+    width: 100px;
+    height: 60px;
+    float: left;
+    line-height: 60px;
+    text-indent: 2em;
+}
+
+.start_date, .end_date {
+    width: 155px;
+    border: 1px solid #CCC;
+    padding: 2px;
+    background: url("../Images/index/bzy_icon_2.png") no-repeat right -1046px;
+}
+
+/*.start_date {
+    position: relative;
+    top:32px;
+    width: 90px;
+    left:30px;
+    z-index: 10;
+}
+
+.end_date {
+    position: relative;
+    top:32px;
+    width: 90px;
+    left:100px;
+    z-index: 10;
+}*/
+
+/*.ui-datepicker-title{
+    background:white;
+    color: white;
+    z-index: 0;
+}*/
+
+
+.journey_days dl dt{
+    /*    height: 40px;line-height: 40px;*/
+}
+
+.journey_days dl dd{
+    height: 40px;line-height: 40px;
+}
+
+.journey_days dl dt ul{
+    height: 40px;line-height: 40px;
+}
+
+.journey_days dl dt ul li{
+    height: 40px;line-height: 40px;
+}
+
+.min_right_leftcontainer_time_days ul{
+    width: 500px;
+    height: 60px;
+    float: left;
+    line-height: 60px;
+}
+
+.min_right_leftcontainer_time_days li{
+    width: 50px;
+    height: 60px;
+    line-height: 60px;
+    float: left;
+}
+
+.min_right_leftcontainer_time_days span{
+    padding:5px 0 5px 0;
+    cursor: pointer;
+}
+
+.min_right_leftcontainer_time_days dd{
+    width: 500px;
+    height: 60px;
+    float: left;
+    line-height: 60px;
+}
+
+.min_right_leftcontainer_time_days dt a{
+    color: #4E9700;
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+    width: 55px;
+    height: 29px;
+}
+
+.min_right_leftcontainer_time_days_acolor {
+    background: #FFAE2C;
+    color: white;
+}
+
+/*特色主题*/
+.content_list_zt dl {
+    height: 34px;
+    margin-top: -1px;
+    border-top: 1px dotted #E2E2E2;
+    overflow: hidden;
+    zoom: 1;
+    padding: 3px 0;
+    width: 600px;
+}
+
+.content_list_zt dt {
+    padding: 1px 0 0;
+    float: left;
+    min-width: 55px;
+    height: 28px;
+    line-height: 28px;
+    text-align: left;
+    text-indent: 1em;
+}
+
+.content_list_zt dt a {
+    color: #4E9700;
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+    width: 55px;
+    height: 29px;
+}
+
+.content_list_zt dd {
+    height: 28px;
+    overflow: hidden;
+    zoom: 1;
+    padding: 2px 0 0;
+}
+
+.content_list_zt dd a{
+    color: #999999;
+}
+
+.content_list_zt em {
+    float: left;
+    font-style: normal;
+    white-space: nowrap;
+    height: 14px;
+    line-height: 14px;
+    border-right: 1px solid #CCC;
+    margin: 6px 0;
+    padding: 0 8px;
+}
+
+.content_list_title_zt {
+    width: 150px;
+    color: #4E9700;
+    font-weight: bold;
+}
+
+.datepicker_right {
+    width: 80px;
+    height: 100%;
+    text-align: center;
+}
+
+.cxsj a{
+    color: #4E9700;
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+    width: 55px;
+    height: 29px;
+}
+
+.datepicker_right ul {
+    width: 80px;
+    height: 100%;
+}
+
+.datepicker_right ul li{
+    width: 80px;
+    height: 35px;
+}
+
+.ui-datepicker-inline{font-size:95%;}
+.ui-datepicker{width:160px;height: 205px;}
+.ui-datepicker td span, .ui-datepicker td a {padding:3px;text-align:center;}
+.ui-widget-header{border: 0;background:none;font-weight:normal;}
+.ui-widget {font-family:"宋体";}
+.ui-widget-content{border:1px solid #EEEEEE}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {background: none;}
+.ui-datepicker-calendar span {color: #B1B1B1;}
+.ui-datepicker-title span {color: #B1B1B1;}

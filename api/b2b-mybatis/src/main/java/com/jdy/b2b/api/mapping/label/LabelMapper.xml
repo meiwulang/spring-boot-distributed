@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.label.LabelMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.label.Label">
+  <id column="id" jdbcType="BIGINT" property="id" />
+  <result column="company_id" jdbcType="BIGINT" property="companyId" />
+  <result column="l_name" jdbcType="VARCHAR" property="lName" />
+  <result column="l_group_id" jdbcType="BIGINT" property="lGroupId" />
+  <result column="l_module_id" jdbcType="BIGINT" property="lModuleId" />
+  <result column="l_sort" jdbcType="INTEGER" property="lSort" />
+  <result column="l_color" jdbcType="VARCHAR" property="lColor" />
+  <result column="l_status" jdbcType="INTEGER" property="lStatus" />
+  <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  <result column="create_user" jdbcType="BIGINT" property="createUser" />
+  <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+</resultMap>
+
+  <resultMap id="PageResultMap" type="com.jdy.b2b.api.model.label.LabelDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="l_name" jdbcType="VARCHAR" property="lName" />
+    <result column="l_group_id" jdbcType="BIGINT" property="lGroupId" />
+    <result column="l_module_id" jdbcType="BIGINT" property="lModuleId" />
+    <result column="l_sort" jdbcType="INTEGER" property="lSort" />
+    <result column="l_color" jdbcType="VARCHAR" property="lColor" />
+    <result column="l_status" jdbcType="INTEGER" property="lStatus" />
+    <result column="d_name" jdbcType="VARCHAR" property="dName" />
+    <result column="lg_name" jdbcType="VARCHAR" property="lgName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, company_id,l_name, l_group_id, l_module_id,l_sort, l_color, l_status, create_time, create_user, update_time,
+    update_user
+  </sql>
+  <sql id="Page_Column_List">
+    label.id,
+    label.company_id,
+    label.l_name,
+    label.l_group_id,
+    label.l_module_id,
+    label.l_sort,
+    label.l_color,
+    label.l_status,
+    dict.d_name,
+    lgroup.lg_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sm_label
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_label
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.label.Label" keyProperty="id" useGeneratedKeys="true">
+    insert into sm_label (id,company_id, l_name, l_group_id,l_module_id,
+      l_sort, l_color, l_status, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{id,jdbcType=BIGINT},#{companyId,jdbcType=BIGINT}, #{lName,jdbcType=VARCHAR}, #{lGroupId,jdbcType=BIGINT},#{lModuleId,jdbcType=BIGINT},
+      #{lSort,jdbcType=INTEGER}, #{lColor,jdbcType=VARCHAR}, #{lStatus,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.label.Label">
+    insert into sm_label
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="lName != null">
+        l_name,
+      </if>
+      <if test="lGroupId != null">
+        l_group_id,
+      </if>
+      <if test="lModuleId != null">
+        l_module_id,
+      </if>
+      <if test="lSort != null">
+        l_sort,
+      </if>
+      <if test="lColor != null">
+        l_color,
+      </if>
+      <if test="lStatus != null">
+        l_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="lName != null">
+        #{lName,jdbcType=VARCHAR},
+      </if>
+      <if test="lGroupId != null">
+        #{lGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="lModuleId != null">
+        #{lModuleId,jdbcType=BIGINT},
+      </if>
+      <if test="lSort != null">
+        #{lSort,jdbcType=INTEGER},
+      </if>
+      <if test="lColor != null">
+        #{lColor,jdbcType=VARCHAR},
+      </if>
+      <if test="lStatus != null">
+        #{lStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.label.Label">
+    update sm_label
+    <set>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="lName != null">
+        l_name = #{lName,jdbcType=VARCHAR},
+      </if>
+      <if test="lGroupId != null">
+        l_group_id = #{lGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="lModuleId != null">
+        l_module_id = #{lModuleId,jdbcType=BIGINT},
+      </if>
+      <if test="lSort != null">
+        l_sort = #{lSort,jdbcType=INTEGER},
+      </if>
+      <if test="lColor != null">
+        l_color = #{lColor,jdbcType=VARCHAR},
+      </if>
+      <if test="lStatus != null">
+        l_status = #{lStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.label.Label">
+    update sm_label
+    set company_id = #{companyId,jdbcType=BIGINT},
+      l_name = #{lName,jdbcType=VARCHAR},
+      l_group_id = #{lGroupId,jdbcType=BIGINT},
+      l_module_id = #{lModuleId,jdbcType=BIGINT},
+      l_sort = #{lSort,jdbcType=INTEGER},
+      l_color = #{lColor,jdbcType=VARCHAR},
+      l_status = #{lStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="queryLabelListForPage" parameterType="com.jdy.b2b.api.model.label.Label" resultMap="PageResultMap">
+    SELECT
+    <include refid="Page_Column_List"/>
+    FROM
+    sm_label label
+    left JOIN sm_label_group lgroup
+    on label.l_group_id = lgroup.id
+    left join sm_dictionaries dict
+    on dict.id = label.l_module_id
+    <where>
+      lgroup.lg_status != 1
+      AND dict.d_status != 1
+      <if test="id != null">
+        AND label.id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="companyId != null">
+        AND label.company_id = #{companyId,jdbcType=BIGINT}
+      </if>
+      <if test="lName != null and lName!=''">
+        AND label.l_name like concat('%',#{lName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="lGroupId != null">
+        AND label.l_group_id = #{lGroupId,jdbcType=BIGINT}
+      </if>
+      <if test="lModuleId != null">
+        AND label.l_module_id = #{lModuleId,jdbcType=BIGINT}
+      </if>
+      <if test="lSort != null">
+        AND label.l_sort = #{lSort,jdbcType=INTEGER}
+      </if>
+      <if test="lColor != null">
+        AND label.l_color = #{lColor,jdbcType=VARCHAR}
+      </if>
+      <if test="lStatus != null">
+        AND label.l_status = #{lStatus,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        AND label.create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createUser != null">
+        AND label.create_user = #{createUser,jdbcType=BIGINT}
+      </if>
+      <if test="updateTime != null">
+        AND label.update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateUser != null">
+        AND label.update_user = #{updateUser,jdbcType=BIGINT}
+      </if>
+    </where>
+    ORDER BY
+    label.l_sort DESC
+  </select>
+</mapper>

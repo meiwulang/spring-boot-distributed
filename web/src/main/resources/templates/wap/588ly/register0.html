@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>注册 - 芒果卉旅游</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/perfect.css?t='+_TimeStamp+'">'
+        );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/lib/jquery-1.11.3.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/common/configs.js"></script>
+    <script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+<body>
+<div class="my_navbar">
+    <div class="box_wrapper clearfloat">
+        <div class="pull-left">
+            <span class="pull-left"> <a href="index.html">芒果卉首页</a></span>
+        </div>
+    </div>
+</div>
+<div class="register_login" id="register_log">
+    <div class="box_wrapper clearfloat">
+        <div class="pull-left jdy_logo"><a href="index.html"><img src="img/logo.png" alt=""/></a>
+        </div>
+        <div class="pull-right">
+            <span>已有芒果卉账号？</span>
+            <button class="login_btn" data-toggle="modal" data-target="#myModal">登录</button>
+        </div>
+    </div>
+</div>
+<div class="register_navbar" id="register_nav">
+    <div class="box_wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-xs-4 write_basic">
+                    <div class="hexagonal active" id="fist_background">
+                        <div class="hexagonalTop"></div>
+                        <div class="hexagonalMiddle"></div>
+                        <div class="hexagonalBottom"></div>
+                        <span class="step_sign">01</span>
+
+                        <div class="linkLine"></div>
+                        <p class="step_title">填写基本资料</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-4 write_service">
+                    <div class="hexagonal" id="two_background">
+                        <div class="hexagonalTop"></div>
+                        <div class="hexagonalMiddle"></div>
+                        <div class="hexagonalBottom"></div>
+                        <span class="step_sign">02</span>
+
+                        <div class="linkLine"></div>
+                        <p class="step_title">填写业务资料</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-4 submit_audit">
+                    <div class="hexagonal" id="submit_audit">
+                        <div class="hexagonalTop"></div>
+                        <div class="hexagonalMiddle"></div>
+                        <div class="hexagonalBottom"></div>
+                        <span class="step_sign">03</span>
+
+                        <div class="linkLine"></div>
+                        <p class="step_title">提交审核</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="page">
+    <form action="" name="myForm" class="register_firstForm">
+        <div class="box_wrapper" id="jdy_one">
+            <div class="lineIntro_title">账户信息:</div>
+            <div class="form_box">
+                <div class="form-group clearfloat">
+                    <label for="input_mobieRegister" class="col-sm-1 col-xs-1 control-label">手机注册:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="tel" name="input_mobieRegister" class="form-control" id="input_mobieRegister"
+                                   placeholder="请输入手机号">
+
+                            <div class="input-group-addon get_yzm">
+                                <button id="submit" type="button" onClick="showtime(120)">获取短信验证码</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="hin">
+                        <span class="warnColor">*</span><span>请输入正确的11位手机号</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_yzmRegister"
+                           class="col-sm-1 col-xs-1 control-label">验&nbsp;&nbsp;证&nbsp;&nbsp;码:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group yzm_register">
+                            <input type="tel" class="form-control" id="input_yzmRegister" placeholder="请输入六位验证码"
+                                   size="4" maxlength="6">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn">
+                        <span class="warnColor">*</span><span>请输入正确的6位验证码</span>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_passwordRegister" class="col-sm-1 col-xs-1 control-label">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="password" name="input_passwordRegister" class="form-control"
+                                   id="input_passwordRegister" placeholder="请输入6~20位密码!(数字或字母)">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="passwordReg">
+                        <span class="warnColor">*</span><span>请输入6~20位密码!(数字或字母)</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_passwordConfirm" class="col-sm-1 col-xs-1 control-label">确认密码:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="password" name="input_passwordConfirm" class="form-control"
+                                   id="input_passwordConfirm" placeholder="请再次输入密码">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="repassword">
+                        <span class="warnColor">*</span><span>确认密码要和输入密码保持一致</span>
+
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="lineIntro_title">公司信息:</div>
+            <div class="form_box">
+                <div class="form-group clearfloat two_lie">
+                    <label class="col-sm-1 col-xs-1 control-label">单位类型:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group business_selected">
+                            <label for="business_type1"><span class="ion_select ion_sele ion_o"></span>
+                                <input type="hidden" value="2" id="business_type1" class="business_type_cls"/></label><span class="padd_right">分销商</span>
+                            <label for="business_type2"><span class="ion_select ion_sele ion_w"></span>
+                                <input type="hidden" value="1" id="business_type2" class="business_type_cls"/></label><span class="padd_right">供应商</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn" id="business_text">
+                        <span class="warnColor">*</span><span>请选择单位类型</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group clearfloat four_lie togg">
+                    <label class="col-sm-1 col-xs-1 control-label">产品类型:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group business_selected bus">
+                            <label for="business_type10"><span class="ion_select ion_se"></span>
+                                <input type="hidden" value="10" class="business_typ"/></label><span class="padd_right">周边短线</span>
+                            <label for="business_type11"><span class="ion_select ion_se"></span>
+                                <input type="hidden" value="11" class="business_typ"/></label><span class="padd_right">国内长线</span>
+                            <label for="business_type20"><span class="ion_select ion_se"></span>
+                                <input type="hidden" value="20" class="business_typ"/></label><span class="padd_right">出境游</span>
+                            <label for="business_type30"><span class="ion_select ion_se"></span>
+                                <input type="hidden" value="30" class="business_typ"/></label><span class="padd_right">邮轮</span>
+                            <!-- <label for="business_type50"><span class="ion_select ion_se"></span>
+                                <input type="hidden" value="50" class="business_typ"/></label><span class="padd_right">自助游</span> -->
+                          
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn" id="business_text">
+                        <span class="warnColor">*</span><span>请选择产品类型</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                
+                <!-- <div class="form-group clearfloat togg" id="laun">
+                    <label for="input_lun" class="col-sm-1 col-xs-1 control-label">投放市场:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="text" name="input_lun" class="form-control" id="city_t" readonly placeholder="请选择投放市场">
+                        </div>
+                        <div>
+                        	
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="com">
+                        <span class="warnColor">*</span><span>请选择投放市场</span>
+
+                        <p></p>
+                    </div>
+                    <main id="launch">
+                        <ul id="launchs">
+                        </ul>
+                    </main>
+                     <script id="City-template" type="text/x-dot-template">
+                        {{ for(var i in it) { }}
+                        {{? it[i].gname}}
+                            {{? i == 0}}
+                            <li class="launchs">
+                                <div>{{=it[i].gname}}</div>
+                                <div class="two_act">
+                                {{ for(var j in it[i].data) { }}
+                                    {{? it[i].data[j].name }}
+                                    <span>{{=it[i].data[j].name}}</span>
+                                    {{?}}
+                                {{ } }}
+                                </div>
+                                <div class="clear_th"><span>X</span></div>
+                            </li>
+                            {{??}}
+                             <li class="launchs">
+                                <div>{{=it[i].gname}}</div>
+                                <div class="two_act">
+                                {{ for(var j in it[i].data) { }}
+                                    {{? it[i].data[j].name}}
+                                    <span>{{=it[i].data[j].name}}</span>
+                                    {{?}}
+                                {{ } }}
+                                </div>
+                               
+                            </li>
+                            {{?}}
+                        {{?}}
+                        {{ } }}
+                        
+                     </script>
+
+                </div> -->
+                
+                <div class="form-group clearfloat">
+                    <label for="input_company_nameRegister" class="col-sm-1 col-xs-1 control-label">公司名称:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="text" name="input_company_nameRegister" class="form-control"
+                                   id="input_company_nameRegister" placeholder="请输入公司真实的名称">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="com_name">
+                        <span class="warnColor">*</span><span>请输入公司真实的名称</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_company_name" class="col-sm-1 col-xs-1 control-label">公司简称:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="text" name="input_company_name" class="form-control"
+                                   id="input_company_name" placeholder="请输入公司简称">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="com_sname">
+                        <span class="warnColor">*</span><span>请输入公司简称</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_cityConfirm" class="col-sm-1 col-xs-1 control-label">所在城市:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input name="org_pcc" type="text" class="form-control" id="org_pc" placeholder="请选择地址" readonly>
+                            <div class="city_fa">
+                                <div class="city_fas">
+                                    <ul class="city_fa_ul clearfloat">
+                                        <li class="active">省份</li>
+                                        <li>城市</li>
+                                        <li>区县</li>
+                                    </ul>
+                                    <div class="clear">
+                                        X
+                                    </div>
+                                    <div class="cii city1 zin">
+                                       
+                                    </div>
+                                    <div class="cii city2">
+                                       
+                                    </div>
+                                    <div class="cii city3">
+                                      
+                                    </div>
+                                    <input class="ty1" type="hidden">
+                                    <input class="ty2" type="hidden">
+                                    <input class="ty3" type="hidden">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_companyAddrRegister" class="col-sm-1 col-xs-1 control-label">公司地址:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="text" name="org_addr" class="form-control" id="org_addr"
+                                   placeholder="请输入公司详细地址">
+
+
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="org_add">
+                        <span class="warnColor">*</span><span>请输入详细公司地址</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_companyIntroRegister" class="col-sm-1 col-xs-1 control-label">公司简介:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group companyIntro">
+                            <textarea name="org_intro" id="input_companyIntroRegister" form="jdy_basicRegister"
+                                      placeholder="简介"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="companyIntroRegister">
+                        <span class="warnColor"></span><span>简介内容不多余1000个字</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_contactsRegister" class="col-sm-1 col-xs-1 control-label">联&nbsp;&nbsp;系&nbsp;&nbsp;人:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="text" name="org_legal" class="form-control" id="input_contactsRegister"
+                                   placeholder="请输入联系人">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="legal">
+                        <span class="warnColor">*</span><span>请输入联系人</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_telRegister" class="col-sm-1 col-xs-1 control-label">固定电话:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="tel" name="org_tel" class="form-control" id="input_telRegister"
+                                   placeholder="请输入你的电话">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="org_tel">
+                        <span class="warnColor">*</span><span>请输入固定电话</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_emailRegister" class="col-sm-1 col-xs-1 control-label">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="email" name="org_email" class="form-control" id="input_emailRegister"
+                                   placeholder="请输入你的邮箱">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn hint" id="org_email">
+                        <span class="warnColor">*</span><span>请输入正确邮箱格式</span>
+
+                        <p></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form_center">
+                        <span class="ion_select ion_selected" id="select_next"></span>
+                        <label for="">
+                            <span>我已阅读并接受</span><a href="##" class="hotsoso models"  data-target="#pactModal">《芒果卉供应商注册事项和芒果卉分销商注册事项》</a>
+                        </label>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form_center">
+                        <button id="sub" type="button">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--！！！！！！注册第二步！！！！！！-->
+        <div class="box_wrapper jdy_resisterBusinessForm" id="jdy_two">
+            <div class="lineIntro_title">业务资料:</div>
+            <div class="form_box">
+                <div class="form-group clearfloat">
+                    <label for="input_businessLicenceRegister"
+                           class="col-sm-2 col-xs-2 control-label">企业营业执照注册号:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="text" name="org_licence_code" class="form-control"
+                                   id="input_businessLicenceRegister" placeholder="请输入企业营业执照注册号">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn">
+                        <span class="warnColor war_o">*</span><span>请输入正确的企业营业执照注册号</span>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="" class="col-sm-2 col-xs-2 control-label">企业营业照片:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group up_load phon1">
+                            <a href="javascript:;">
+                                <span class="cross_bg"></span>
+
+                                <p>点击上传正面</p>
+                                <input type="hidden"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn">
+                        <span class="warnColor war_o">*</span><span>上传照片不得大于5M,jpg,png</span>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="" class="col-sm-2 col-xs-2 control-label">企业LOGO:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group up_load phon4">
+                            <a href="javascript:;">
+                                <span class="cross_bg"></span>
+
+                                <p>点击上传正面</p>
+                                <input type="hidden"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn">
+                        <span class="warnColor war_o">*</span><span>上传照片不得大于5M,jpg,png</span>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_corporation" class="col-sm-2 col-xs-2 control-label">法人姓名:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="text" name="org_realname" class="form-control" id="input_corporation"
+                                   placeholder="请输入身份证姓名">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn">
+                        <span class="warnColor">*</span><span>请输入正确的身份证姓名</span>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label for="input_idConfirm" class="col-sm-2 col-xs-2 control-label">身份证号:</label>
+
+                    <div class="pull-left">
+                        <div class="input-group">
+                            <input type="text" name="org_card" class="form-control" id="input_idConfirm"
+                                   placeholder="请输入身份证号">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn">
+                        <span class="warnColor">*</span><span>请输入正确的身份证号18位</span>
+                    </div>
+                </div>
+                <div class="form-group clearfloat">
+                    <label class="col-sm-2 col-xs-2 control-label">身份证:</label>
+
+                    <div class="pull-left">
+                        <div class="pull-left input-group up_load first phon2">
+                            <a href="javascript:;">
+                                <span class="cross_bg"></span>
+
+                                <p>点击上传正面</p>
+                                <input type="hidden"/>
+                            </a>
+                        </div>
+                        <div class="pull-left input-group up_load phon3">
+                            <a href="javascript:;">
+                                <span class="cross_bg"></span>
+
+                                <p>点击上传反面</p>
+                                <input type="hidden"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-5 input_warn">
+                        <span class="warnColor">*</span><span>上传照片不得大于5M,jpg,png</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form_center">
+                        <button type="button" onClick="gostep(1);">返回上一步</button>
+                        <button type="button" id="reg">提交审核</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </form>
+
+    <form name="form1" id="form1" style="display:none;">
+        <input class="inpu1" style="display:none;" id="file1" type="file" name="name"></input>
+    </form>
+    <form name="form1" id="form2" style="display:none;">
+        <input class="inpu2" style="display:none;" id="file2" type="file" name="name"></input>
+    </form>
+    <form name="form1" id="form3" style="display:none;">
+        <input class="inpu3" style="display:none;" id="file3" type="file" name="name"></input>
+    </form>
+    <form name="form1" id="form4" style="display:none;">
+        <input class="inpu4" style="display:none;" id="file4" type="file" name="name"></input>
+    </form>
+</div>
+
+<div id="jdy_there">
+    <p>注册成功，等待审核！</p>
+</div>
+<div id="register_modal"></div>
+<div id="footer"></div>
+<div id="pactmo"></div>
+<div id="login_mask"> </div>
+<!--选择地区-->
+<script src="js/common/cityJson.js"></script>
+<script src="js/common/citySet.js"></script>
+<script src="js/lib/Popt.js"></script>
+<script src="js/common/alert.js"></script>
+<script src="js/lib/doT.min.js"></script>
+<script src="js/common/common.js"></script>
+<script id="link-js" type="text/javascript">
+    document.write(
+        '<script type="text/javascript" src="js/register.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</body>
+
+</html>
+

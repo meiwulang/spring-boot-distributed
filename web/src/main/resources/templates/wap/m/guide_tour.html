@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>行程说明</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/guide_tour.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->     
+</head>
+<body>
+<div id="wrap">
+	<div class="acti_header">行程说明
+		<a class="lef" href="javascript:;"></a>
+	</div>
+	<div class="main">
+		<script id="tpl-condition" type="text/html">
+				<div class="gare">
+				<dl>
+					<dt>
+						<div class="le">行程描述</div>
+						<div num="1" class="jh">详情</div>
+						<div num="0" class="jh active">简易</div>
+					</dt>
+					<div class="jy deta">
+						{each liste[0].stroke as value j}
+						<dd class="faci">
+							<div class="lef">
+								<p>第{j + 1}天</p>
+								<span>{liste[0].stroke[j].day_date_str}</span>
+							</div>
+							<div class="rig">
+								<p class="tops">【住宿】
+								{if liste[0].stroke[j].hotel}
+								{each liste[0].stroke[j].hotel as value k}
+									{liste[0].stroke[j].hotel[k]}
+								{/each}
+								{/if}
+								{if !liste[0].stroke[j].hotel.length}
+									住宿自理
+								{/if}
+								
+								【用餐】
+								{if liste[0].stroke[j].food}
+								{each liste[0].stroke[j].food as value k}
+									{liste[0].stroke[j].food[k]}
+								{/each}
+								{/if}
+								{if !liste[0].stroke[j].food.length}
+									三餐自理
+								{/if}
+								</p>
+								<p class="bott">{liste[0].stroke[j].source_text}</p>
+							</div>
+						</dd>
+						{/each}
+					</div>
+					<div class="deta dis">
+						{each liste[0].stroke as value j}
+						<dd class="faci">
+							<div class="lef">
+								<p>第{j + 1}天</p>
+								<span>{liste[0].stroke[j].day_date_str}</span>
+							</div>
+							<div class="rig">
+								<p class="tops">【住宿】
+								{if liste[0].stroke[j].hotel}
+								{each liste[0].stroke[j].hotel as value k}
+									{liste[0].stroke[j].hotel[k]}
+								{/each}
+								{/if}
+								{if !liste[0].stroke[j].hotel.length}
+									住宿自理
+								{/if}
+								
+								【用餐】
+								{if liste[0].stroke[j].food}
+								{each liste[0].stroke[j].food as value k}
+									{liste[0].stroke[j].food[k]}
+								{/each}
+								{/if}
+								{if !liste[0].stroke[j].food.length}
+									三餐自理
+								{/if}
+								</p>
+								<p class="bott">{liste[0].stroke[j].detail}</p>
+							</div>
+						</dd>
+						{/each}
+					</div>
+				</dl>
+			</div>
+			{if liste[0].cost_in}
+			<div class="cost">
+				<div class="tot">费用包含</div>
+				<div class="cont">
+					{liste[0].cost_in}
+				</div>
+			</div>
+			{/if}
+			{if liste[0].cost_noin}
+			<div class="cost">
+				<div class="tot">费用不包含</div>
+				<div class="cont">
+					{liste[0].cost_noin}
+				</div>
+			</div>
+			{/if}	
+	
+			
+		</script>	
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/guide_tour.build.js"></script>
+</html>

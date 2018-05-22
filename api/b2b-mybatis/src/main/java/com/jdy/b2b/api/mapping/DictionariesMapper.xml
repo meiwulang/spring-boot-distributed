@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.DictionariesMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.Dictionaries">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="d_name" jdbcType="VARCHAR" property="dName" />
+    <result column="d_group_id" jdbcType="BIGINT" property="dGroupId" />
+    <result column="d_pid" jdbcType="BIGINT" property="dPid" />
+    <result column="d_sort" jdbcType="INTEGER" property="dSort" />
+    <result column="d_status" jdbcType="INTEGER" property="dStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, company_id, d_name, d_group_id, d_pid, d_sort, d_status, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sm_dictionaries
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_dictionaries
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.Dictionaries">
+    insert into sm_dictionaries (id, company_id, d_name, 
+      d_group_id, d_pid, d_sort, 
+      d_status, create_time, create_user, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{dName,jdbcType=VARCHAR}, 
+      #{dGroupId,jdbcType=BIGINT}, #{dPid,jdbcType=BIGINT}, #{dSort,jdbcType=INTEGER}, 
+      #{dStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.Dictionaries">
+    insert into sm_dictionaries
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="dName != null">
+        d_name,
+      </if>
+      <if test="dGroupId != null">
+        d_group_id,
+      </if>
+      <if test="dPid != null">
+        d_pid,
+      </if>
+      <if test="dSort != null">
+        d_sort,
+      </if>
+      <if test="dStatus != null">
+        d_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="dName != null">
+        #{dName,jdbcType=VARCHAR},
+      </if>
+      <if test="dGroupId != null">
+        #{dGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="dPid != null">
+        #{dPid,jdbcType=BIGINT},
+      </if>
+      <if test="dSort != null">
+        #{dSort,jdbcType=INTEGER},
+      </if>
+      <if test="dStatus != null">
+        #{dStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.Dictionaries">
+    update sm_dictionaries
+    <set>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="dName != null">
+        d_name = #{dName,jdbcType=VARCHAR},
+      </if>
+      <if test="dGroupId != null">
+        d_group_id = #{dGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="dPid != null">
+        d_pid = #{dPid,jdbcType=BIGINT},
+      </if>
+      <if test="dSort != null">
+        d_sort = #{dSort,jdbcType=INTEGER},
+      </if>
+      <if test="dStatus != null">
+        d_status = #{dStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.Dictionaries">
+    update sm_dictionaries
+    set company_id = #{companyId,jdbcType=BIGINT},
+      d_name = #{dName,jdbcType=VARCHAR},
+      d_group_id = #{dGroupId,jdbcType=BIGINT},
+      d_pid = #{dPid,jdbcType=BIGINT},
+      d_sort = #{dSort,jdbcType=INTEGER},
+      d_status = #{dStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

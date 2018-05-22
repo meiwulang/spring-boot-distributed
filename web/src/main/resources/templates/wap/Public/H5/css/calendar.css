@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document */
+.nscalendar { margin-left: auto; margin-right: auto; width: 100%; overflow: hidden; }
+/****/
+.nscalendar .nsc-title { background-color: #eaeaea; position: relative; height: 42px; color: #4f4f4f; text-align: center; font-size: 18px; }
+.nscalendar .nsc-title .nsc-tc { line-height: 42px; }
+.nscalendar .nsc-title .prev { position: absolute; left: 14px; top: 10px; background-image: url(../img/left.png); width: 25px; height: 25px; }
+.nscalendar .nsc-title .next { position: absolute; right: 14px; top: 10px; background-image: url(../img/right.png); width: 25px; height: 25px; }
+.nscalendar .nsc-content { background-color: #fff; border-left: 1px solid #eaeaea; overflow: hidden; }
+.nscalendar .nsc-content .nsc-list { position: relative; overflow: hidden; width: 14.28571%; border-right: 1px solid #E4E4E4; height:;
+float: left; height: 48px; border-bottom: 1px solid #E4E4E4; font-size: 13px; color: #666; }
+.nscalendar .nsc-content .nsc-list.nsc-week { text-align: center; line-height: 25px; height:25px; font-size: 15px; color:#ffa600; background:#373737;border:none }
+.nscalendar .nsc-content .nsc-list.nsc-weekendt { text-align: center; line-height: 25px; height:25px; font-size: 15px; color:#373737; background:#ffa600; border:none }
+.nscalendar .nsc-content .nsc-list .d { line-height: 20px; text-align: center; display: block; float:left; margin-left:5px; margin-top:5px; }
+.nscalendar .nsc-content .nsc-list .dsel { line-height: 20px; text-align: center; display: block; float:left }
+.nscalendar .nsc-content .nsc-list .t { line-height: 20px; color: #FF6600; text-align: center; font-size: 12px; display: block; }
+.nscalendar .nsc-content .nsc-list.nsc-weekend{ background-color:#373737}
+.nscalendar .nsc-content .nsc-list.nsc-rest { background-color:#FFCB97; }
+.nscalendar .nsc-content .nsc-list .event a{ color:#FFF; width: 6px; height: 6px; display:block }
+.nscalendar .nsc-content .nsc-list .event.e1 { background-color: #999a00; }
+.nscalendar .nsc-content .nsc-list .event.e2 { background-color: #ff6600; top: 13px; }
+.nscalendar .nsc-content .nsc-list .event.e3 { background-color: #39d9d9; top: 21px; }
+.nscalendar .nsc-content .nsc-list .event.e4 { background-color: #ff9934; top: 29px; }
+.nscalendar .nsc-content .nsc-list .event.e5 { background-color: #3edb6a; top: 37px; }
+.nscalendar .nsc-content .nsc-list .prompt { position: absolute; right: 5px; top: 4px; cursor: pointer; width: 14px; height: 15px; overflow: hidden; }
+.nscalendar .nsc-content .nsc-list .prompt.p1 { background-image: url(../img/p1.png); }
+.nscalendar .nsc-content .nsc-list .prompt.p2 { background-image: url(../img/p2.png); top: 19px; }
+.nscalendar .nsc-content .nsc-list .prompt.p3 { background-image: url(../img/p3.png); top: 34px; }
+.nsc-prompt { font-size: 12px; line-height: 20px; color: #fff; background-image: url(../img/prompt-bg.png); background-position: center bottom; background-repeat: no-repeat; padding-bottom: 5px; position: absolute; left: 100px; top: 100px; }
+.nsc-prompt .nsc-p-c { z-index: 1000; background-color: #5EC6A9; padding: 5px; border-radius: 5px; max-width: 200px; }
+.nscalendar .s-pm,.nscalendar .s-future {background:#f6f6f6}
+.nscalendar .s-pm .d,.nscalendar .s-future .d {color:#999}
+.nscalendar .nsc-content .nsc-list .event { position: absolute; right: 3px; bottom: 3px; text-align:right; color:#ffa600;}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+    .nscalendar .nsc-content .nsc-list .event {font-size:9px;}
+}
+
+@media(min-device-width:375px) and (max-device-width:667px) and (-webkit-min-device-pixel-ratio:2){
+    .nscalendar .nsc-content .nsc-list .event {font-size:11px;}
+}
+@media(min-device-width:414px) and (max-device-width:736px) and(-webkit-min-device-pixel-ratio:3){
+    .nscalendar .nsc-content .nsc-list .event {font-size:13px;}
+}

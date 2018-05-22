@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ <mapper namespace="com.jdy.b2b.api.dao.PositionMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.position.Position" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="position_name" property="positionName" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="position_desc" property="positionDesc" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="data_limit" property="dataLimit" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, position_name, code, position_desc, company_id, department_id, create_time, data_limit
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from cm_position
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cm_position
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.position.Position" >
+    insert into cm_position (id, position_name, code,
+    position_desc, company_id, department_id,
+    create_time, data_limit)
+    values (#{id,jdbcType=BIGINT}, #{positionName,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+    #{positionDesc,jdbcType=VARCHAR}, #{companyId,jdbcType=BIGINT}, #{departmentId,jdbcType=BIGINT},
+    #{createTime,jdbcType=TIMESTAMP}, #{dataLimit,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.position.Position" >
+    insert into cm_position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="positionName != null" >
+        position_name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="positionDesc != null" >
+        position_desc,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="dataLimit != null" >
+        data_limit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="positionName != null" >
+        #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="positionDesc != null" >
+        #{positionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataLimit != null" >
+        #{dataLimit,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.position.Position" >
+    update cm_position
+    <set >
+      <if test="positionName != null" >
+        position_name = #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="positionDesc != null" >
+        position_desc = #{positionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataLimit != null" >
+        data_limit = #{dataLimit,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.position.Position" >
+    update cm_position
+    set position_name = #{positionName,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      position_desc = #{positionDesc,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=BIGINT},
+      department_id = #{departmentId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      data_limit = #{dataLimit,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="companyVO" type="com.jdy.b2b.api.model.position.PositionVO" extends="BaseResultMap">
+    <collection property="rolesDTOS" select="com.jdy.b2b.api.dao.PositionRoleMapper.selectRolesByPositionId" column="id"/>
+    <collection property="roleIds" select="com.jdy.b2b.api.dao.PositionRoleMapper.selectRolesIdsByPositionId" column="id"/>
+  </resultMap>
+  <select id="selectByCompanyId" resultMap="companyVO">
+    select <include refid="Base_Column_List"/> FROM cm_position
+    <where>
+      <if test="companyId !=null">
+        and company_id = #{companyId}
+      </if>
+      <if test="name!=null and name != ''">
+        <bind name="nameLike" value="'%'+name+'%'"/>
+        and position_name like #{nameLike}
+      </if>
+    </where>
+      group by position_name
+  </select>
+  <delete id="bathDelete">
+    DELETE FROM cm_position WHERE id IN
+    <foreach collection="removeList" item="id" separator="," open="(" close=")">
+      id
+    </foreach>
+  </delete>
+  <insert id="bathInsert" keyProperty="positionId" useGeneratedKeys="true">
+    INSERT INTO cm_position (id, position_name, code, position_desc, company_id, department_id,create_time) VALUES
+      <foreach collection="addList" item="item" separator=",">
+        (#{item.positionId},#{item.positionName},#{item.positionCode},#{item.positionDesc},#{item.companyId},#{item.departmentId},#{item.createDt})
+      </foreach>
+  </insert>
+  <insert id="insertDto">
+    INSERT INTO collection (id, position_name, code, position_desc, company_id, department_id,create_time) VALUES
+      (#{item.positionId},#{item.positionName},#{item.positionCode},#{item.positionDesc},#{item.companyId},#{item.departmentId},#{item.createDt})
+  </insert>
+  <update id="update">
+     update cm_position SET
+      position_name = #{positionName},
+      position_desc = #{positionDesc},
+      code = #{positionCode,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=BIGINT},
+      department_id = #{departmentId,jdbcType=BIGINT}
+      where id = #{positionId}
+  </update>
+  <select id="selectByDepartmentId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> FROM cm_position
+    <where>
+      <if test="departmentId!=null">
+        and department_id = #{departmentId}
+      </if>
+      <if test="name!=null">
+        <bind name="nameLike" value="name+'%'"/>
+        and name like #{nameLike}
+      </if>
+    </where>
+  </select>
+    <select id="selectByName" resultType="java.lang.Long">
+        SELECT id from cm_position WHERE position_name = #{positionName}
+    </select>
+    <update id="updateDataLimit">
+    UPDATE cm_position SET data_limit = #{dataLimit} where id = #{positionId}
+  </update>
+</mapper>

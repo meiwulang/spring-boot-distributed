@@ -1,0 +1,120 @@
+@import './common.less';
+#wrap{
+	width: 100%;
+	.t-bar{
+		height: 45px;
+		width: 100%;
+		line-height: 45px;
+		background-color: #fff;
+		text-align: center;
+		position: fixed;
+		font-size: 16px;
+		box-shadow: 0px 0px 1px #ccc;
+		left: 0;
+		top: 0;
+		width: 100%;
+		z-index: 10;
+		a.left{
+			position: absolute;
+			width: 45px;
+			height: 45px;
+			left: 0;
+			top: 0;
+			background: url('@{img}/icon_arr_back.png') center center no-repeat;
+			background-size: 9px auto;
+		}
+		a.right{
+			position: absolute;
+			width: 45px;
+			height: 45px;
+			right: 0;
+			top: 0;
+			background: url('@{img}/loupe.png') center center no-repeat;
+			background-size: 20px 20px;
+		}
+	}	
+	.tourist-info-con{
+		background-color: #fff;
+		margin-top: 45px;
+
+		ul{
+			position: relative;
+			padding-bottom: 20px;
+			li{
+				height: 45px;
+				line-height: 45px;
+				margin-left: 15px;
+				border-top: 1px solid #f1f1f1;
+				font-size: 14px;
+
+				span{
+					float: left;
+					color: #666;
+					width: 70px;
+				}
+
+				div{
+					overflow: hidden;
+					padding: 0 15px;
+					position: relative;
+
+					input,select{
+						width: 100%;
+						font-size: 14px;
+					}
+
+					select{
+						background: url('@{img}/icon_arr_down.png') right center no-repeat;
+						background-size: 11px auto;
+					}
+
+					i.icon-error{
+						position: absolute;
+						height: 45px;
+						line-height: 45px;
+						text-align: center;
+						width: 45px;
+						color: #f00;
+						right: 0;
+						top: 0;
+						display: none;
+					}
+				}
+			}
+
+			li:first-child{
+				border-top: none;
+			}
+			.saveBtn{
+				color: #fb2a35;
+				position: absolute;
+				bottom: 3%;
+				right: 5%;
+			}
+		}
+	}
+}
+@media screen and (max-width: 320px) {
+	#wrap,
+	#nav,
+	#wrap .main,
+	#wrap .main > .submit {
+		width: 320px;
+	}
+	}
+	@media screen and (min-width: 414px) and (max-width: 736px) {
+	#wrap,
+	#nav,
+	#wrap .main,
+	#wrap .main > .submit {
+		width: 100%;
+	}
+	}
+	@media screen and (min-width: 736px) {
+	#wrap,
+	#nav,
+	#wrap .main,
+	#wrap .main > .submit {
+		width: 736px;
+	}
+	} 

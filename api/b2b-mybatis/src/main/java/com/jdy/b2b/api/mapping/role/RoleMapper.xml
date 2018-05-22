@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.role.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.role.Roles">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="r_role_name" jdbcType="VARCHAR" property="rRoleName" />
+        <result column="r_remark" jdbcType="VARCHAR" property="rRemark" />
+        <result column="r_type" jdbcType="INTEGER" property="rType" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_user" jdbcType="BIGINT" property="createUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,  r_role_name,  r_remark ,  r_type, create_time, create_user,
+        update_time, update_user
+    </sql>
+    <insert id="insertRoleBySelective" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.jdy.b2b.api.model.role.RolesVO">
+        insert into sm_roles (
+        r_role_name,
+        <if test="rRemark != null">
+        r_remark,
+        </if>
+        r_type,
+        create_time,
+        create_user)
+        values(
+        #{rRoleName} ,
+        <if test="rRemark != null">
+        #{rRemark} ,
+        </if>
+        #{rType} ,
+        #{createTime} ,
+        #{createUser})
+    </insert>
+    <update id="updateRoleBySelective" parameterType="com.jdy.b2b.api.model.role.RolesVO">
+        update sm_roles
+        <set>
+            <if test="rRoleName != null and rRoleName != ''">
+                r_role_name = #{rRoleName},
+            </if>
+            <if test="rRemark != null">
+                r_remark = #{rRemark},
+            </if>
+            <if test="updateTime != null ">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser != null">
+                update_user  = #{updateUser},
+            </if>
+        </set>
+        where id = #{id}
+
+    </update>
+    <delete id="deleteByRoleId">
+        delete from sm_roles where id = #{id}
+    </delete>
+    <select id="selectByName" resultType="com.jdy.b2b.api.model.role.Roles" parameterType="com.jdy.b2b.api.model.role.RolesVO">
+        SELECT
+        b.id,
+        b.r_role_name  as  rRoleName,
+        b.r_remark  as  rRemark
+        FROM sm_roles b
+        <where>
+            <if test="key != null and key != ''">
+                and locate(#{key},b.r_role_name)
+            </if>
+        </where>
+        order by b.id
+    </select>
+    <select id="selectById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sm_roles
+        where id = #{roleId}
+    </select>
+    <select id="selectRolesByRoleIdList" resultMap="BaseResultMap" parameterType="java.util.List">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sm_roles
+        WHERE id IN
+        <foreach item="item" collection="roleIdList" separator="," open="(" close=")" index="">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectRoleListByUserId" resultType="java.util.Map" parameterType="java.lang.Long">
+        SELECT
+          a.id as id,
+          a.r_role_name as roleName
+        FROM
+            sm_roles a
+        WHERE a.create_user = #{userId}
+        ORDER BY a.create_time ASC
+    </select>
+</mapper>

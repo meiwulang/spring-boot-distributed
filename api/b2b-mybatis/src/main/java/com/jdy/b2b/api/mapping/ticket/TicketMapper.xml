@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.ticket.TicketMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.ticket.Ticket">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="t_company_id" jdbcType="BIGINT" property="tCompanyId" />
+    <result column="t_product_id" jdbcType="BIGINT" property="tProductId" />
+    <result column="t_ticket_type" jdbcType="INTEGER" property="tTicketType" />
+    <result column="t_type" jdbcType="INTEGER" property="tType" />
+    <result column="t_name" jdbcType="VARCHAR" property="tName" />
+    <result column="t_limit_type" jdbcType="INTEGER" property="tLimitType" />
+    <result column="t_limit_condition" jdbcType="VARCHAR" property="tLimitCondition" />
+    <result column="t_category" jdbcType="VARCHAR" property="tCategory" />
+    <result column="t_traffic" jdbcType="INTEGER" property="tTraffic" />
+    <result column="t_market_price" jdbcType="DECIMAL" property="tMarketPrice" />
+    <result column="t_peer_price" jdbcType="DECIMAL" property="tPeerPrice" />
+    <result column="t_gather_price" jdbcType="DECIMAL" property="tGatherPrice" />
+    <result column="t_price_add" jdbcType="DECIMAL" property="tPriceAdd" />
+    <result column="t_price_reduce" jdbcType="DECIMAL" property="tPriceReduce" />
+    <result column="t_stock" jdbcType="INTEGER" property="tStock" />
+    <result column="t_effect_week" jdbcType="VARCHAR" property="tEffectWeek" />
+    <result column="t_introduction" jdbcType="VARCHAR" property="tIntroduction" />
+    <result column="t_source_id" jdbcType="BIGINT" property="tSourceId" />
+    <result column="t_from_ticket_id" jdbcType="BIGINT" property="tFromTicketId" />
+    <result column="t_default_price" jdbcType="BIT" property="tDefaultPrice"/>
+    <result column="t_status" jdbcType="INTEGER" property="tStatus" />
+
+    <result column="t_adult_num" jdbcType="INTEGER" property="tAdultNum" />
+    <result column="t_child_num" jdbcType="INTEGER" property="tChildNum" />
+
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="factory_price" property="factoryPrice"/>
+
+    <result column="s_market_price" property="sMarketPrice"/>
+    <result column="s_stock" property="sStock"/>
+  </resultMap>
+
+
+  <resultMap id="QueryResultMap" type="com.jdy.b2b.api.model.ticket.Ticket">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tCompanyId" jdbcType="BIGINT" property="tCompanyId" />
+    <result column="tProductId" jdbcType="BIGINT" property="tProductId" />
+    <result column="tTicketType" jdbcType="INTEGER" property="tTicketType" />
+    <result column="tType" jdbcType="INTEGER" property="tType" />
+    <result column="tName" jdbcType="VARCHAR" property="tName" />
+    <result column="tLimitType" jdbcType="INTEGER" property="tLimitType" />
+    <result column="tLimitCondition" jdbcType="VARCHAR" property="tLimitCondition" />
+    <result column="tCategory" jdbcType="VARCHAR" property="tCategory" />
+    <result column="tTraffic" jdbcType="INTEGER" property="tTraffic" />
+    <result column="tMarketPrice" jdbcType="DECIMAL" property="tMarketPrice" />
+    <result column="tPeerPrice" jdbcType="DECIMAL" property="tPeerPrice" />
+    <result column="tGatherPrice" jdbcType="DECIMAL" property="tGatherPrice" />
+    <result column="tPriceAdd" jdbcType="DECIMAL" property="tPriceAdd" />
+    <result column="tPriceReduce" jdbcType="DECIMAL" property="tPriceReduce" />
+    <result column="tStock" jdbcType="INTEGER" property="tStock" />
+    <result column="tEffectWeek" jdbcType="VARCHAR" property="tEffectWeek" />
+    <result column="tIntroduction" jdbcType="VARCHAR" property="tIntroduction" />
+    <result column="tSourceId" jdbcType="BIGINT" property="tSourceId" />
+    <result column="tFromTicketId" jdbcType="BIGINT" property="tFromTicketId" />
+    <result column="tDefaultPrice" jdbcType="BIT" property="tDefaultPrice"/>
+    <result column="suitable_start_time" property="suitableStartTime" jdbcType="DATE" />
+    <result column="suitable_end_time" property="suitableEndTime" jdbcType="DATE" />
+    <result column="tAdultNum" jdbcType="INTEGER" property="tAdultNum" />
+    <result column="tChildNum" jdbcType="INTEGER" property="tChildNum" />
+
+    <result column="factory_price" property="factoryPrice"/>
+    
+    <result column="tStatus" jdbcType="INTEGER" property="tStatus" />
+    <collection property="sets" ofType="com.jdy.b2b.api.model.ticketset.TicketSet">
+      <result column="tsSingleId" jdbcType="BIGINT" property="tsSingleId"/>
+      <result column="tsSeats" jdbcType="INTEGER" property="tsSeats"/>
+    </collection>
+    <collection property="ticketAreaList" ofType="com.jdy.b2b.api.model.ticketarea.TicketArea">
+      <result column="taCountry" jdbcType="VARCHAR" property="taCountry" />
+      <result column="taProvince" jdbcType="VARCHAR" property="taProvince" />
+      <result column="taCity" jdbcType="VARCHAR" property="taCity" />
+      <result column="taArea" jdbcType="VARCHAR" property="taArea" />
+    </collection>
+    <collection property="ticketDepartureList" ofType="com.jdy.b2b.api.model.ticketdeparture.TicketDeparture">
+      <result column="ticketId" jdbcType="BIGINT" property="ticketId" />
+      <result column="departueId" jdbcType="BIGINT" property="departueId" />
+    </collection>
+    <collection property="departureList" ofType="com.jdy.b2b.api.model.station.Departure">
+      <id column="dId" jdbcType="BIGINT" property="id" />
+      <result column="dName" jdbcType="VARCHAR" property="dName" />
+    </collection>
+    <collection property="singleList" ofType="com.jdy.b2b.api.model.ticket.TicketSingle">
+      <id column="id2" jdbcType="BIGINT" property="id" />
+      <result column="tCompanyId2" jdbcType="BIGINT" property="tCompanyId" />
+      <result column="tProductId2" jdbcType="BIGINT" property="tProductId" />
+      <result column="tTicketType2" jdbcType="INTEGER" property="tTicketType" />
+      <result column="tType2" jdbcType="INTEGER" property="tType" />
+      <result column="tName2" jdbcType="VARCHAR" property="tName" />
+      <result column="tLimitType2" jdbcType="INTEGER" property="tLimitType" />
+      <result column="tLimitCondition2" jdbcType="VARCHAR" property="tLimitCondition" />
+      <result column="tCategory2" jdbcType="VARCHAR" property="tCategory" />
+      <result column="tTraffic2" jdbcType="INTEGER" property="tTraffic" />
+      <result column="tMarketPrice2" jdbcType="DECIMAL" property="tMarketPrice" />
+      <result column="tPeerPrice2" jdbcType="DECIMAL" property="tPeerPrice" />
+      <result column="tPriceAdd2" jdbcType="DECIMAL" property="tPriceAdd" />
+      <result column="tPriceReduce2" jdbcType="DECIMAL" property="tPriceReduce" />
+      <result column="tStock2" jdbcType="INTEGER" property="tStock" />
+      <result column="tEffectWeek2" jdbcType="VARCHAR" property="tEffectWeek" />
+      <result column="tIntroduction2" jdbcType="VARCHAR" property="tIntroduction" />
+      <result column="tSourceId2" jdbcType="BIGINT" property="tSourceId" />
+      <result column="tDefaultPrice2" jdbcType="BIT" property="tDefaultPrice"/>
+      <result column="tStatus2" jdbcType="INTEGER" property="tStatus" />
+    </collection>
+    <collection property="factoryTicketIds" select="com.jdy.b2b.api.dao.factoryTicket.TicketFactoryTicketMapper.selectFactoryTicketIds" column="id"/>
+  </resultMap>
+
+
+  <resultMap id="QueryListResultMap" type="com.jdy.b2b.api.model.ticket.TicketListDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tCompanyId" jdbcType="BIGINT" property="tCompanyId" />
+    <result column="tProductId" jdbcType="BIGINT" property="tProductId" />
+    <result column="tTicketType" jdbcType="INTEGER" property="tTicketType" />
+    <result column="tType" jdbcType="INTEGER" property="tType" />
+    <result column="tName" jdbcType="VARCHAR" property="tName" />
+    <result column="tLimitType" jdbcType="INTEGER" property="tLimitType" />
+    <result column="tLimitCondition" jdbcType="VARCHAR" property="tLimitCondition" />
+    <result column="tCategory" jdbcType="VARCHAR" property="tCategory" />
+    <result column="tTraffic" jdbcType="INTEGER" property="tTraffic" />
+    <result column="tMarketPrice" jdbcType="DECIMAL" property="tMarketPrice" />
+    <result column="tPeerPrice" jdbcType="DECIMAL" property="tPeerPrice" />
+    <result column="tGatherPrice" jdbcType="DECIMAL" property="tGatherPrice" />
+    <result column="tPriceAdd" jdbcType="DECIMAL" property="tPriceAdd" />
+    <result column="tPriceReduce" jdbcType="DECIMAL" property="tPriceReduce" />
+    <result column="tStock" jdbcType="INTEGER" property="tStock" />
+    <result column="tEffectWeek" jdbcType="VARCHAR" property="tEffectWeek" />
+    <result column="tIntroduction" jdbcType="VARCHAR" property="tIntroduction" />
+    <result column="tSourceId" jdbcType="BIGINT" property="tSourceId" />
+    <result column="tFromTicketId" jdbcType="BIGINT" property="tFromTicketId" />
+    <result column="t_default_price" jdbcType="BIT" property="tDefaultPrice"/>
+    <result column="tStatus" jdbcType="INTEGER" property="tStatus" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ticketDepartureId" jdbcType="BIGINT" property="ticketDepartureId" />
+    <result column="dicName" jdbcType="VARCHAR" property="dicName" />
+    <result column="factory_price" property="factoryPrice"/>
+    <result column="suitable_start_time" property="suitableStartTime" jdbcType="DATE" />
+    <result column="suitable_end_time" property="suitableEndTime" jdbcType="DATE" />
+    <result column="tAdultNum" jdbcType="INTEGER" property="tAdultNum" />
+    <result column="tChildNum" jdbcType="INTEGER" property="tChildNum" />
+    <collection property="factoryTicketIds" select="com.jdy.b2b.api.dao.factoryTicket.TicketFactoryTicketMapper.selectFactoryTicketIds" column="id"/>
+    <collection property="departureList" select="com.jdy.b2b.api.dao.ticketdeparture.TicketDepartureMapper.queryTicketDepartureList" column="id" jdbcType="BIGINT"/>
+  </resultMap>
+
+  <resultMap id="queryAreaListResultMap" type="com.jdy.b2b.api.model.ticketarea.TicketArea">
+    <result column="ta_city" jdbcType="VARCHAR" property="taCity" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    id, t_company_id, t_product_id, t_ticket_type, t_type, t_name, t_limit_type, t_limit_condition, 
+    t_category, t_traffic, t_market_price, t_peer_price,t_gather_price, t_price_add, t_price_reduce,
+    t_stock, t_effect_week, t_introduction, t_source_id,t_from_ticket_id, t_status, t_default_price,
+    t_adult_num,t_child_num,create_time, create_user,
+    update_time, update_user
+  </sql>
+
+  <sql id="Query_Column_List">
+    ticket.id as "id",
+    ticket.t_company_id as "tCompanyId",
+    ticket.t_product_id as "tProductId",
+    ticket.t_ticket_type as "tTicketType",
+    ticket.t_type as "tType",
+    ticket.t_name as "tName",
+    ticket.t_limit_type as "tLimitType",
+    ticket.t_limit_condition as "tLimitCondition",
+    ticket.t_category as "tCategory",
+    ticket.t_traffic as "tTraffic",
+    ticket.t_market_price as "tMarketPrice",
+    ticket.t_peer_price as "tPeerPrice",
+    ticket.t_gather_price as "tGatherPrice",
+    ticket.t_price_add as "tPriceAdd",
+    ticket.t_price_reduce as "tPriceReduce",
+    ticket.t_stock as "tStock",
+    ticket.t_effect_week as "tEffectWeek",
+    ticket.t_introduction as "tIntroduction",
+    ticket.t_source_id as "tSourceId",
+    ticket.t_from_ticket_id as "tFromTicketId",
+    ticket.t_default_price as "tDefaultPrice",
+
+    ticket.t_adult_num as "tAdultNum",
+    ticket.t_child_num as "tChildNum",
+
+    ticket.t_status as "tStatus",
+    ticketset.ts_single_id as "tsSingleId",
+    ticketset.ts_seats as "tsSeats",
+    ticketarea.ta_country as "taCountry",
+    ticketarea.ta_province as "taProvince",
+    ticketarea.ta_city as "taCity",
+    ticketarea.ta_area as "taArea",
+    ticketdeparture.ticket_id as "ticketId",
+    ticketdeparture.departue_id as "departueId",
+    departure.id as "dId",
+    departure.d_name as "dName",
+    ticket2.id as "id2",
+    ticket2.t_company_id as "tCompanyId2",
+    ticket2.t_product_id as "tProductId2",
+    ticket2.t_ticket_type as "tTicketType2",
+    ticket2.t_type as "tType2",
+    ticket2.t_name as "tName2",
+    ticket2.t_limit_type as "tLimitType2",
+    ticket2.t_limit_condition as "tLimitCondition2",
+    ticket2.t_category as "tCategory2",
+    ticket2.t_traffic as "tTraffic2",
+    ticket2.t_market_price as "tMarketPrice2",
+    ticket2.t_peer_price as "tPeerPrice2",
+    ticket2.t_price_add as "tPriceAdd2",
+    ticket2.t_price_reduce as "tPriceReduce2",
+    ticket2.t_stock as "tStock2",
+    ticket2.t_effect_week as "tEffectWeek2",
+    ticket2.t_introduction as "tIntroduction2",
+    ticket2.t_source_id as "tSourceId2",
+    ticket2.t_default_price as "tDefaultPrice2",
+    ticket2.t_status as "tStatus2",
+    ticket.factory_price,
+    ticket.suitable_start_time,
+    ticket.suitable_end_time
+  </sql>
+
+  <sql id="QueryList_Column_List">
+    ticket.id as "id",
+    ticket.t_company_id as "tCompanyId",
+    ticket.t_product_id as "tProductId",
+    ticket.t_ticket_type as "tTicketType",
+    ticket.t_type as "tType",
+    ticket.t_name as "tName",
+    ticket.t_limit_type as "tLimitType",
+    ticket.t_limit_condition as "tLimitCondition",
+    ticket.t_category as "tCategory",
+    ticket.t_traffic as "tTraffic",
+    ticket.t_market_price as "tMarketPrice",
+    ticket.t_peer_price as "tPeerPrice",
+    ticket.t_gather_price as "tGatherPrice",
+    ticket.t_price_add as "tPriceAdd",
+    ticket.t_price_reduce as "tPriceReduce",
+    ticket.t_stock as "tStock",
+    ticket.t_effect_week as "tEffectWeek",
+    ticket.t_introduction as "tIntroduction",
+    ticket.t_source_id as "tSourceId",
+    ticket.t_from_ticket_id as "tFromTicketId",
+    ticket.t_default_price as "tDefaultPrice",
+    ticket.t_status as "tStatus",
+    ticket.t_adult_num as "tAdultNum",
+    ticket.t_child_num as "tChildNum",
+    ticket.create_time as "createTime",
+    ticket.update_time as "updateTime",
+    ticket.factory_price,
+    ticket.suitable_start_time,
+    ticket.suitable_end_time
+  </sql>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_ticket
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.ticket.Ticket" useGeneratedKeys="true" keyProperty="id">
+    insert into ct_ticket (id, t_company_id, t_product_id,
+      t_ticket_type, t_type, t_name, 
+      t_limit_type, t_limit_condition, t_category, 
+      t_traffic, t_market_price, t_peer_price, t_gather_price, factory_price,
+      t_price_add, t_price_reduce, t_stock, 
+      t_effect_week, t_introduction, t_source_id,t_from_ticket_id, t_default_price,
+      t_status,t_adult_num,t_child_num, create_time, create_user,
+      update_time, update_user,suitable_start_time,suitable_end_time)
+    values (#{id,jdbcType=BIGINT}, #{tCompanyId,jdbcType=BIGINT}, #{tProductId,jdbcType=BIGINT},
+      #{tTicketType,jdbcType=INTEGER}, #{tType,jdbcType=INTEGER}, #{tName,jdbcType=VARCHAR}, 
+      #{tLimitType,jdbcType=INTEGER}, #{tLimitCondition,jdbcType=VARCHAR}, #{tCategory,jdbcType=VARCHAR}, 
+      #{tTraffic,jdbcType=INTEGER}, #{tMarketPrice,jdbcType=DECIMAL}, #{tPeerPrice,jdbcType=DECIMAL}, #{tGatherPrice,jdbcType=DECIMAL}, #{factoryPrice},
+      #{tPriceAdd,jdbcType=DECIMAL}, #{tPriceReduce,jdbcType=DECIMAL}, #{tStock,jdbcType=INTEGER}, 
+      #{tEffectWeek,jdbcType=VARCHAR}, #{tIntroduction,jdbcType=VARCHAR}, #{tSourceId,jdbcType=BIGINT}, #{tFromTicketId,jdbcType=BIGINT},#{tDefaultPrice,jdbcType=BIT},
+      #{tStatus,jdbcType=INTEGER},#{tAdultNum,jdbcType=INTEGER},#{tChildNum,jdbcType=INTEGER},
+       #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT},
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}, #{suitableStartTime,jdbcType=DATE},#{suitableEndTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.ticket.Ticket" useGeneratedKeys="true" keyProperty="id">
+    insert into ct_ticket
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tCompanyId != null">
+        t_company_id,
+      </if>
+      <if test="tProductId != null">
+        t_product_id,
+      </if>
+      <if test="tTicketType != null">
+        t_ticket_type,
+      </if>
+      <if test="tType != null">
+        t_type,
+      </if>
+      <if test="tName != null">
+        t_name,
+      </if>
+      <if test="tLimitType != null">
+        t_limit_type,
+      </if>
+      <if test="tLimitCondition != null">
+        t_limit_condition,
+      </if>
+      <if test="tCategory != null">
+        t_category,
+      </if>
+      <if test="tTraffic != null">
+        t_traffic,
+      </if>
+      <if test="tMarketPrice != null">
+        t_market_price,
+      </if>
+      <if test="tPeerPrice != null">
+        t_peer_price,
+      </if>
+      <if test="tGatherPrice != null">
+        t_gather_price,
+      </if>
+      <if test="tPriceAdd != null">
+        t_price_add,
+      </if>
+      <if test="tPriceReduce != null">
+        t_price_reduce,
+      </if>
+      <if test="tStock != null">
+        t_stock,
+      </if>
+      <if test="tEffectWeek != null">
+        t_effect_week,
+      </if>
+      <if test="tIntroduction != null">
+        t_introduction,
+      </if>
+      <if test="tSourceId != null">
+        t_source_id,
+      </if>
+      <if test="tFromTicketId != null">
+        t_from_ticket_id,
+      </if>
+      <if test="tDefaultPrice != null">
+        t_default_price,
+      </if>
+      <if test="tStatus != null">
+        t_status,
+      </if>
+
+      <if test="tAdultNum != null">
+        t_adult_num,
+      </if>
+      <if test="tChildNum != null">
+        t_child_num,
+      </if>
+
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tCompanyId != null">
+        #{tCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="tProductId != null">
+        #{tProductId,jdbcType=BIGINT},
+      </if>
+      <if test="tTicketType != null">
+        #{tTicketType,jdbcType=INTEGER},
+      </if>
+      <if test="tType != null">
+        #{tType,jdbcType=INTEGER},
+      </if>
+      <if test="tName != null">
+        #{tName,jdbcType=VARCHAR},
+      </if>
+      <if test="tLimitType != null">
+        #{tLimitType,jdbcType=INTEGER},
+      </if>
+      <if test="tLimitCondition != null">
+        #{tLimitCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="tCategory != null">
+        #{tCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="tTraffic != null">
+        #{tTraffic,jdbcType=INTEGER},
+      </if>
+      <if test="tMarketPrice != null">
+        #{tMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tPeerPrice != null">
+        #{tPeerPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tGatherPrice != null">
+        #{tGatherPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tPriceAdd != null">
+        #{tPriceAdd,jdbcType=DECIMAL},
+      </if>
+      <if test="tPriceReduce != null">
+        #{tPriceReduce,jdbcType=DECIMAL},
+      </if>
+      <if test="tStock != null">
+        #{tStock,jdbcType=INTEGER},
+      </if>
+      <if test="tEffectWeek != null">
+        #{tEffectWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="tIntroduction != null">
+        #{tIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="tSourceId != null">
+        #{tSourceId,jdbcType=BIGINT},
+      </if>
+      <if test="tFromTicketId != null">
+        #{tFromTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="tDefaultPrice != null">
+        #{tDefaultPrice,jdbcType=BIT},
+      </if>
+      <if test="tStatus != null">
+        #{tStatus,jdbcType=INTEGER},
+      </if>
+
+      <if test="tAdultNum != null">
+        #{tAdultNum,jdbcType=INTEGER},
+      </if>
+      <if test="tChildNum != null">
+        #{tChildNum,jdbcType=INTEGER},
+      </if>
+
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.ticket.Ticket">
+    update ct_ticket
+    <set>
+      <if test="tCompanyId != null">
+        t_company_id = #{tCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="tProductId != null">
+        t_product_id = #{tProductId,jdbcType=BIGINT},
+      </if>
+      <if test="tTicketType != null">
+        t_ticket_type = #{tTicketType,jdbcType=INTEGER},
+      </if>
+      <if test="tType != null">
+        t_type = #{tType,jdbcType=INTEGER},
+      </if>
+      <if test="tName != null">
+        t_name = #{tName,jdbcType=VARCHAR},
+      </if>
+      <if test="tLimitType != null">
+        t_limit_type = #{tLimitType,jdbcType=INTEGER},
+      </if>
+      <if test="tLimitCondition != null">
+        t_limit_condition = #{tLimitCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="tCategory != null">
+        t_category = #{tCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="tTraffic != null">
+        t_traffic = #{tTraffic,jdbcType=INTEGER},
+      </if>
+      <if test="tMarketPrice != null">
+        t_market_price = #{tMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tPeerPrice != null">
+        t_peer_price = #{tPeerPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tGatherPrice != null">
+        t_gather_price = #{tGatherPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="factoryPrice!=null">
+        factory_price = #{factoryPrice},
+      </if>
+      <if test="tPriceAdd != null">
+        t_price_add = #{tPriceAdd,jdbcType=DECIMAL},
+      </if>
+      <if test="tPriceReduce != null">
+        t_price_reduce = #{tPriceReduce,jdbcType=DECIMAL},
+      </if>
+      <if test="tStock != null">
+        t_stock = #{tStock,jdbcType=INTEGER},
+      </if>
+      <if test="tEffectWeek != null">
+        t_effect_week = #{tEffectWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="tIntroduction != null">
+        t_introduction = #{tIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="tSourceId != null">
+        t_source_id = #{tSourceId,jdbcType=BIGINT},
+      </if>
+      <if test="tFromTicketId != null">
+        t_from_ticket_id = #{tFromTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="tDefaultPrice != null">
+        t_default_price= #{tDefaultPrice,jdbcType=BIT},
+      </if>
+      <if test="tStatus != null">
+        t_status = #{tStatus,jdbcType=INTEGER},
+      </if>
+
+      <if test="tAdultNum != null">
+        t_adult_num = #{tAdultNum,jdbcType=INTEGER},
+      </if>
+      <if test="tChildNum != null">
+        t_child_num = #{tChildNum,jdbcType=INTEGER},
+      </if>
+      <if test="suitableStartTime != null" >
+        suitable_start_time = #{suitableStartTime,jdbcType=DATE},
+      </if>
+      <if test="suitableEndTime != null" >
+        suitable_end_time = #{suitableEndTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.ticket.Ticket">
+    update ct_ticket
+    set t_company_id = #{tCompanyId,jdbcType=BIGINT},
+      t_product_id = #{tProductId,jdbcType=BIGINT},
+      t_ticket_type = #{tTicketType,jdbcType=INTEGER},
+      t_type = #{tType,jdbcType=INTEGER},
+      t_name = #{tName,jdbcType=VARCHAR},
+      t_limit_type = #{tLimitType,jdbcType=INTEGER},
+      t_limit_condition = #{tLimitCondition,jdbcType=VARCHAR},
+      t_category = #{tCategory,jdbcType=VARCHAR},
+      t_traffic = #{tTraffic,jdbcType=INTEGER},
+      t_market_price = #{tMarketPrice,jdbcType=DECIMAL},
+      t_peer_price = #{tPeerPrice,jdbcType=DECIMAL},
+      t_gather_price = #{tGatherPrice,jdbcType=DECIMAL},
+      t_price_add = #{tPriceAdd,jdbcType=DECIMAL},
+      t_price_reduce = #{tPriceReduce,jdbcType=DECIMAL},
+      t_stock = #{tStock,jdbcType=INTEGER},
+      t_effect_week = #{tEffectWeek,jdbcType=VARCHAR},
+      t_introduction = #{tIntroduction,jdbcType=VARCHAR},
+      t_source_id = #{tSourceId,jdbcType=BIGINT},
+      t_from_ticket_id = #{tFromTicketId,jdbcType=BIGINT},
+      t_default_price =#{tDefaultPrice,jdbcType=BIT},
+      t_status = #{tStatus,jdbcType=INTEGER},
+
+      t_adult_num = #{tAdultNum,jdbcType=INTEGER},
+      t_child_num = #{tChildNum,jdbcType=INTEGER},
+
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryForOutTicketList" parameterType="com.jdy.b2b.api.model.ticket.Ticket"
+          resultMap="QueryListResultMap">
+    SELECT
+    <include refid="QueryList_Column_List"/>,
+    dic.d_name as dicName
+    FROM
+    ct_ticket ticket
+    left join sm_dictionaries dic on ticket.t_category = dic.id
+    <where>
+      dic.d_status = 0 and
+      ticket.t_source_id is null
+      <if test="id != null">
+        AND ticket.id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="tCompanyId != null">
+        AND ticket.t_company_id = #{tCompanyId,jdbcType=BIGINT}
+      </if>
+      <if test="tProductId != null">
+        AND ticket.t_product_id = #{tProductId,jdbcType=BIGINT}
+      </if>
+      <if test="tTicketType != null">
+        AND ticket.t_ticket_type = #{tTicketType,jdbcType=INTEGER}
+      </if>
+      <if test="tType != null">
+        AND ticket.t_type = #{tType,jdbcType=INTEGER}
+      </if>
+      <if test="tName != null and tName!=''">
+        AND ticket.t_name  like concat('%',#{tName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="tLimitType != null">
+        AND ticket.t_limit_type = #{tLimitType,jdbcType=INTEGER}
+      </if>
+      <if test="tLimitCondition != null">
+        AND ticket.t_limit_condition = #{tLimitCondition,jdbcType=VARCHAR}
+      </if>
+      <if test="tCategory != null">
+        AND ticket.t_category = #{tCategory,jdbcType=VARCHAR}
+      </if>
+      <if test="tTraffic != null">
+        AND ticket.t_traffic = #{tTraffic,jdbcType=INTEGER}
+      </if>
+      <if test="tMarketPrice != null">
+        AND ticket.t_market_price = #{tMarketPrice,jdbcType=DECIMAL}
+      </if>
+      <if test="tPeerPrice != null">
+        AND ticket.t_peer_price = #{tPeerPrice,jdbcType=DECIMAL}
+      </if>
+      <if test="tPriceAdd != null">
+        AND ticket.t_price_add = #{tPriceAdd,jdbcType=DECIMAL}
+      </if>
+      <if test="tPriceReduce != null">
+        AND ticket.t_price_reduce = #{tPriceReduce,jdbcType=DECIMAL}
+      </if>
+      <if test="tStock != null">
+        AND ticket.t_stock = #{tStock,jdbcType=INTEGER}
+      </if>
+      <if test="tEffectWeek != null">
+        AND ticket.t_effect_week = #{tEffectWeek,jdbcType=VARCHAR}
+      </if>
+      <if test="tIntroduction != null">
+        AND ticket.t_introduction = #{tIntroduction,jdbcType=VARCHAR}
+      </if>
+      <if test="tDefaultPrice != null">
+        AND ticket.t_default_price != #{tDefaultPrice,jdbcType=BIT}
+      </if>
+      <if test="tStatus != null">
+        AND ticket.t_status != #{tStatus,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        AND ticket.create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createUser != null">
+        AND ticket.create_user = #{createUser,jdbcType=BIGINT}
+      </if>
+      <if test="updateTime != null">
+        AND ticket.update_time = #{update_time,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateUser != null">
+        AND ticket.update_user = #{updateUser,jdbcType=BIGINT}
+      </if>
+    </where>
+    group by ticket.id
+    ORDER BY
+    ticket.create_time DESC
+  </select>
+
+  <insert id="saveTicketBash" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+
+    insert into ct_ticket (id, t_company_id, t_product_id,
+    t_ticket_type, t_type, t_name,
+    t_limit_type, t_limit_condition, t_category,
+    t_traffic, t_market_price, t_peer_price,t_gather_price,
+    t_price_add, t_price_reduce, t_stock,
+    t_effect_week, t_introduction, t_source_id,t_from_ticket_id,t_default_price,
+    t_status,t_adult_num,t_child_num,
+    create_time, create_user,
+    update_time, update_user)
+    values
+    <foreach collection="list" separator="," item="ticket">
+      (#{ticket.id,jdbcType=BIGINT}, #{ticket.tCompanyId,jdbcType=BIGINT}, #{ticket.tProductId,jdbcType=BIGINT},
+      #{ticket.tTicketType,jdbcType=INTEGER}, #{ticket.tType,jdbcType=INTEGER}, #{ticket.tName,jdbcType=VARCHAR},
+      #{ticket.tLimitType,jdbcType=INTEGER}, #{ticket.tLimitCondition,jdbcType=VARCHAR}, #{ticket.tCategory,jdbcType=VARCHAR},
+      #{ticket.tTraffic,jdbcType=INTEGER}, #{ticket.tMarketPrice,jdbcType=DECIMAL}, #{ticket.tPeerPrice,jdbcType=DECIMAL},#{ticket.tGatherPrice,jdbcType=DECIMAL},
+      #{ticket.tPriceAdd,jdbcType=DECIMAL}, #{ticket.tPriceReduce,jdbcType=DECIMAL}, #{ticket.tStock,jdbcType=INTEGER},
+      #{ticket.tEffectWeek,jdbcType=VARCHAR}, #{ticket.tIntroduction,jdbcType=VARCHAR}, #{ticket.tSourceId,jdbcType=BIGINT},#{ticket.tFromTicketId,jdbcType=BIGINT},
+      #{ticket.tDefaultPrice,jdbcType=BIT},#{ticket.tStatus,jdbcType=INTEGER},#{ticket.tAdultNum,jdbcType=INTEGER},#{ticket.tChildNum,jdbcType=INTEGER},
+       #{ticket.createTime,jdbcType=TIMESTAMP}, #{ticket.createUser,jdbcType=BIGINT},
+      #{ticket.updateTime,jdbcType=TIMESTAMP}, #{ticket.updateUser,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+
+
+  <select id="selectByPrimaryKey"  resultMap="QueryResultMap">
+    select
+    <include refid="Query_Column_List" />
+    FROM ct_ticket ticket
+    LEFT JOIN ct_ticket_set ticketset on ticket.id = ticketset.ts_set_id
+    LEFT JOIN ct_ticket ticket2 on ticketset.ts_single_id = ticket2.id
+    LEFT JOIN ct_ticket_area ticketarea on ticket.id = ticketarea.ta_ticket_id
+    LEFT JOIN ct_ticket_departure ticketdeparture on ticket.id = ticketdeparture.ticket_id
+    LEFT JOIN sr_departure departure on departure.id = ticketdeparture.departue_id
+
+    <where>
+      ticket.id = #{id,jdbcType=BIGINT}
+      <choose>
+        <when test="param2 == 0">
+          AND ( departure.d_status != 1 or departure.d_status is null)
+        </when >
+        <when test="param2 == 1">
+          AND ticket2.t_status != 1
+        </when >
+      </choose>
+    </where>
+  </select>
+
+  <select id="selectByIdOnly" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ct_ticket
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="queryAreaList" parameterType="long" resultMap="queryAreaListResultMap">
+    select area.ta_city from ct_ticket ticket
+    left join ct_ticket_area area
+    on ticket.id = area.ta_ticket_id
+    where ticket.t_product_id = #{id}
+  </select>
+
+  <select id="queryDefaultPrice" parameterType="long" resultType="java.lang.Long">
+    select id
+    from ct_ticket
+    where t_product_id = #{id}
+    and t_default_price = 1
+  </select>
+  <resultMap id="FrontTicketListMap" type="com.jdy.b2b.api.model.front.FrontTicket">
+    <result column="id" property="t_id"></result>
+    <result column="t_effect_week" property="t_weekly"></result>
+    <result column="t_peer_price" property="t_trade_price"></result>
+    <result column="t_market_price" property="t_price"></result>
+    <result column="t_stock" property="t_store"></result>
+  </resultMap>
+  <select id="frontTicketListOfSchedule" resultMap="FrontTicketListMap" parameterType="long">
+    SELECT
+     ct.id,
+  ct.t_product_id,
+  ct.t_effect_week,
+  ct.t_peer_price,
+  ct.t_market_price,
+  ifnull(ct2.t_stock,ct.t_stock)  t_stock
+FROM ct_ticket ct
+  JOIN ct_schedule_ticket cst ON ct.id = cst.st_ticket_id
+  LEFT JOIN ct_ticket ct2 ON ct.t_from_ticket_id = ct2.id
+WHERE cst.st_schedule_id = #{id} and ct.t_status = 0
+  </select>
+
+  <resultMap id="ticket4H5Map" extends="BaseResultMap" type="com.jdy.b2b.api.model.ticket.Ticket">
+    <result property="categoryName" column="category_name"/>
+    <result property="categoryId" column="category_id"/>
+  </resultMap>
+  <select id="ticketListOfSchedule" resultMap="ticket4H5Map">
+        SELECT DISTINCT
+     ct.id,ifnull(cst.t_stock,0)t_stock, ct.t_company_id, ct.t_product_id, ct.t_ticket_type, ct.t_type, ct.t_name, ct.t_limit_type, ct.t_limit_condition,
+    ct.t_category, ct.t_traffic, cst.t_market_price, ct.t_peer_price, ct.t_price_add, ct.t_price_reduce,
+     ct.t_effect_week, ct.t_introduction, ct.t_source_id, ct.t_status, ct.t_default_price,ct.create_time, ct.create_user,
+    ct.update_time, ct.update_user,sd.d_name category_name,sd.id category_id,ct.t_adult_num,ct.t_child_num
+   FROM ct_ticket ct
+   JOIN ct_schedule_ticket cst ON ct.id = cst.st_ticket_id
+  <if test='"preview"==from'>
+    JOIN sm_dictionaries sd on ct.t_category = sd.id
+  </if>
+  <if test='"preview"!=from'>
+    JOIN ct_product_group pg ON ct.id = pg.t_id
+    JOIN sm_dictionaries sd on pg.t_category_id = sd.id
+    JOIN sm_user_group ug ON pg.g_no = ug.g_no
+    JOIN sm_user u ON ug.u_account = u.u_wx_openid AND u.id = #{userId}
+  </if>
+<!--   LEFT JOIN ct_ticket ct2 ON ct.t_from_ticket_id = ct2.id -->
+WHERE cst.st_schedule_id = #{id} and ct.t_status = 0
+    <if test="areaProductFlag==1 and null != companyId">
+      and ct.t_company_id = #{companyId}
+    </if>
+    AND  ct.t_from_ticket_id is null
+	union all
+	SELECT DISTINCT
+     ct.id,ifnull(ct2.t_stock,ct.t_stock) t_stock, ct.t_company_id, ct.t_product_id, ct.t_ticket_type, ct.t_type, ct.t_name, ct.t_limit_type, ct.t_limit_condition,
+    ct.t_category, ct.t_traffic, ct.t_market_price, ct.t_peer_price, ct.t_price_add, ct.t_price_reduce,
+     ct.t_effect_week, ct.t_introduction, ct.t_source_id, ct.t_status, ct.t_default_price,ct.create_time, ct.create_user,
+    ct.update_time, ct.update_user,sd.d_name category_name,sd.id category_id,ct.t_adult_num,ct.t_child_num
+FROM ct_ticket ct
+  JOIN ct_schedule_ticket cst ON ct.id = cst.st_ticket_id
+LEFT JOIN ct_ticket ct2 ON ct.t_from_ticket_id = ct2.id
+  <if test='"preview"==from'>
+    JOIN sm_dictionaries sd on ct.t_category = sd.id
+  </if>
+  <if test='"preview"!=from'>
+    JOIN ct_product_group pg ON ct.id = pg.t_id
+    JOIN sm_dictionaries sd on pg.t_category_id = sd.id
+    JOIN sm_user_group ug ON pg.g_no = ug.g_no
+    JOIN sm_user u ON ug.u_account = u.u_wx_openid AND u.id = #{userId}
+  </if>
+<!--   LEFT JOIN ct_ticket ct2 ON ct.t_from_ticket_id = ct2.id -->
+	WHERE cst.st_schedule_id = #{id} and ct.t_status = 0
+    <if test="areaProductFlag==1 and null != companyId">
+      and ct.t_company_id = #{companyId}
+    </if>
+    AND  ct.t_from_ticket_id is not null
+  </select>
+
+  <select id="selectListByIds" resultMap="BaseResultMap" parameterType="map">
+    select t.*, st.t_stock as s_stock, st.t_market_price as s_market_price
+    from ct_ticket t, ct_schedule_ticket st where t.id in
+    <foreach collection="ticketIds" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+    and st.st_schedule_id = #{scheduleId} and st.st_ticket_id = t.id
+  </select>
+
+  <select id="querySingleTicketList" parameterType="long" resultMap="QueryListResultMap">
+    select
+    <include refid="QueryList_Column_List"/>
+    from ct_ticket setTicket
+    inner join ct_ticket_set ticketset on setTicket.id = ticketset.ts_set_id
+    inner join ct_ticket ticket on ticket.id = ticketset.ts_single_id
+    where setTicket.id = #{id}
+  </select>
+
+  <select id="getTicketList" parameterType="long" resultType="com.jdy.b2b.api.model.ticket.Ticket">
+    select DISTINCT d.id,d.d_name as tName
+    from ct_ticket t
+    left join sm_dictionaries d on t.t_category = d.id
+    where t.t_product_id = #{productId}
+  </select>
+  <select id="selectEffictiveTicketIdList" resultType="java.lang.Long" parameterType="ArrayList">
+    select id from ct_ticket where t_status = 0 and id IN
+    <foreach collection="list" item="item" separator="," open="(" close=")">
+      #{item}
+    </foreach>
+  </select>
+  <select id="selectEffictiveByPIdAndCatagroyId" resultType="java.lang.Long">
+    SELECT id from ct_ticket where t_product_id = #{productId} and t_category = #{categoryId,jdbcType=VARCHAR} AND t_company_id = #{companyId} AND t_status = 0
+  </select>
+  <select id="selectEffictiveTicketByPIdExcludeCategoryId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from ct_ticket t
+    where t.t_product_id = #{productId} and t.t_category != #{categoryId} AND t.t_status = 0
+  </select>
+
+  <select id="selectTicketListByProductId" parameterType="long" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from ct_ticket
+    where
+    t_product_id = #{productId}
+    and t_company_id = #{companyId}
+    and t_status = 0
+  </select>
+  <select id="selectGatherTicketList" parameterType="long" resultMap="BaseResultMap">
+    SELECT  <include refid="Base_Column_List"/> from ct_ticket
+    where t_from_ticket_id = #{id}
+  </select>
+
+  <select id="queryTicketListByCompanyId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from ct_ticket
+    where t_company_id = #{companyId}
+    and t_from_ticket_id in
+    <foreach collection="list" item="item" separator="," open="(" close=")">
+      #{item}
+    </foreach>
+
+  </select>
+
+    <update id="deleteByFromTicketId" parameterType="long" >
+    update ct_ticket set t_status = 2 where t_from_ticket_id = #{id}
+  </update>
+
+  <update id="updateTicketBash" parameterType="list">
+    <foreach collection="list" item="item" separator=";" >
+      update ct_ticket
+      <set>
+        <if test="item.tCompanyId != null">
+          t_company_id = #{item.tCompanyId,jdbcType=BIGINT},
+        </if>
+        <if test="item.tProductId != null">
+          t_product_id = #{item.tProductId,jdbcType=BIGINT},
+        </if>
+        <if test="item.tTicketType != null">
+          t_ticket_type = #{item.tTicketType,jdbcType=INTEGER},
+        </if>
+        <if test="item.tType != null">
+          t_type = #{item.tType,jdbcType=INTEGER},
+        </if>
+        <if test="item.tName != null">
+          t_name = #{item.tName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.tLimitType != null">
+          t_limit_type = #{item.tLimitType,jdbcType=INTEGER},
+        </if>
+        <if test="item.tLimitCondition != null">
+          t_limit_condition = #{item.tLimitCondition,jdbcType=VARCHAR},
+        </if>
+        <if test="item.tCategory != null">
+          t_category = #{item.tCategory,jdbcType=VARCHAR},
+        </if>
+        <if test="item.tTraffic != null">
+          t_traffic = #{item.tTraffic,jdbcType=INTEGER},
+        </if>
+        <if test="item.tMarketPrice != null">
+          t_market_price = #{item.tMarketPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.tPeerPrice != null">
+          t_peer_price = #{item.tPeerPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.tGatherPrice != null">
+          t_gather_price = #{item.tGatherPrice,jdbcType=DECIMAL},
+        </if>
+        <if test="item.tPriceAdd != null">
+          t_price_add = #{item.tPriceAdd,jdbcType=DECIMAL},
+        </if>
+        <if test="item.tPriceReduce != null">
+          t_price_reduce = #{item.tPriceReduce,jdbcType=DECIMAL},
+        </if>
+        <if test="item.tStock != null">
+          t_stock = #{item.tStock,jdbcType=INTEGER},
+        </if>
+        <if test="item.tEffectWeek != null">
+          t_effect_week = #{item.tEffectWeek,jdbcType=VARCHAR},
+        </if>
+        <if test="item.tIntroduction != null">
+          t_introduction = #{item.tIntroduction,jdbcType=VARCHAR},
+        </if>
+        <if test="item.tSourceId != null">
+          t_source_id = #{item.tSourceId,jdbcType=BIGINT},
+        </if>
+        <if test="item.tFromTicketId != null">
+          t_from_ticket_id = #{item.tFromTicketId,jdbcType=BIGINT},
+        </if>
+        <if test="item.tDefaultPrice != null">
+          t_default_price= #{item.tDefaultPrice,jdbcType=BIT},
+        </if>
+        <if test="item.tStatus != null">
+          t_status = #{item.tStatus,jdbcType=INTEGER},
+        </if>
+
+        <if test="item.tAdultNum != null">
+          t_adult_num = #{item.tAdultNum,jdbcType=INTEGER},
+        </if>
+        <if test="item.tChildNum != null">
+          t_child_num = #{item.tChildNum,jdbcType=INTEGER},
+        </if>
+
+        <if test="item.createTime != null">
+          create_time = #{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.createUser != null">
+          create_user = #{item.createUser,jdbcType=BIGINT},
+        </if>
+        <if test="item.updateTime != null">
+          update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateUser != null">
+          update_user = #{item.updateUser,jdbcType=BIGINT},
+        </if>
+      </set>
+      where id = #{item.id,jdbcType=BIGINT}
+    </foreach>
+  </update>
+
+  <select id="selectOldTicketIdsByCompanyIdAndScheduleId" resultType="long">
+      select st.st_ticket_id
+      from ct_ticket t
+      inner join ct_schedule_ticket st on t.id = st.st_ticket_id
+      where t.t_company_id = #{pcompanyId} and
+      st.st_schedule_id = #{id}
+  </select>
+    <select id="getUserCountByTouristsId" resultType="int">
+        SELECT
+        IFNULL(
+        SUM(t_adult_num + t_child_num),
+        0
+        )
+        FROM
+        `ct_ticket` t
+        INNER JOIN sl_order_tourist ot ON t.id = ot.ot_ticket_id
+        AND ot.id IN <foreach collection="list" open="(" close=")" separator="," item="t">#{t}</foreach>
+    </select>
+
+  <select id="getCategoryAndNameByTickets" resultType="java.util.Map">
+    SELECT
+      t.id ticketId,
+      t.t_category categoryId,
+      d.d_name categoryName
+    FROM ct_ticket t, sm_dictionaries d
+    WHERE t.id IN
+    <foreach collection="ticketIds" item="item" separator="," open="(" close=")">
+      #{item}
+    </foreach>
+    AND t.t_category = d.id
+  </select>
+</mapper>

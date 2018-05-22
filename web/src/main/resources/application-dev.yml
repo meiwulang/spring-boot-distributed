@@ -1,0 +1,90 @@
+#dev环境
+server:
+  port: 8080
+  context-path: /
+
+spring:
+  profiles: dev
+  application:
+    name: b2b-web
+  mvc:
+    static-path-pattern: /**
+    favicon:
+      enabled: false
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/templates/static/,classpath:/public/
+
+  oss:
+       pic: hz-java-test
+       endpoint: oss-cn-hangzhou.aliyuncs.com
+       key: LTAIU9PAlAGAyDfF
+       secret: NsdyXY8Tun5LxMpJ5oqX9BD1Fs4f6f
+
+  #电子合同
+  fadada:
+      url: http://test.api.fabigbig.com:8888/api/
+      appId: 400794
+      appSecret: fMAfqkHivFaV1rNUgCs3sffF
+      version: 2.0
+      companyName: 北京尚品国际旅行社有限公司
+      customerId: 60439D5EFEB4FC2469D0C3AE6CE3291F
+      returnUrl: http://b2b.test.fingercrm.cn/wap/m/download_check.html
+      notifyUrl: http://47.96.30.236:8200/front/order/m/electronicContract/callback
+      temporaryFileSavePath: F:\\
+
+  #shiro
+  shiro:
+    password:
+      algorithmName: md5
+      hashIterations: 3
+      originPassword: 123456
+
+  #login
+  login:
+    verifiCode:
+      time: 120000 #2分钟
+
+  #微信
+  wechat:
+      appId: wx4f8c668abdd46305
+      mchId: 1315049501
+      payKey: FingercrmTest06Pmd01Zxx02Xch2702
+      body: 尚品账单
+      feeType: CNY
+      spbillCreateIp: 183.159.145.122
+      notifyUrl: http://47.96.30.236:8200/wechat/callback
+      savePath: F://
+      publicid: gh_155170e9f6b2
+      getTokenUrl: http://zjdev.fingercrm.cn/dypc/zjdyout/getToken?openId=OPEN_ID&publicId=PUBLIC_ID
+      getConfigUrl: http://zjdev.fingercrm.cn/zjqd-web/channels/sp/wxjsApi.do
+
+  wechat2:
+      appId: wxa4c414d6c04ab427
+      mchId: 1322344601
+      payKey: FingercrmTest01Pmd01Zxx02Xch2702
+      body: 尚品账单
+      feeType: CNY
+      spbillCreateIp: 183.159.145.122
+      notifyUrl: http://47.96.30.236:8200/wechat/callback
+      savePath: F://
+      publicid: gh_155170e9f6b2
+
+  #分销注册地址和key
+  registerUrl: http://zjdev.fingercrm.cn/dypc/zjdyout/redirectZjqdWx.do
+  registerKey: L2NoYW5uZWxzL3BhcnRuZXIvbW50L2xvZ2luLmRv
+  mineKey: L2NoYW5uZWxzL3BhcnRuZXIvbW50L215SW5mby5kbw==
+  fxUrl: http://zjdev.fingercrm.cn
+
+  #accesstoken加密串
+  accessKey: 535bb3fdd47250f2dc7f2c617a835698
+
+  qqwry:
+    path: F://
+  distributionSystemUrl: http://sp.test.fingercrm.cn/distribution-system-management
+#各中心
+controllCenterUrl:  http://localhost:8888/api/controllCenter/
+systemCenterUrl:  http://localhost:9999/api/systemCenter/
+financeCenterUrl:  http://localhost:7777/api/financeCenter/
+reportsCenterUrl:  http://localhost:6666/api/reportsCenter/
+salesCenterUrl:  http://localhost:5555/api/salesCenter/
+messageServiceUrl: http://gbk.sms.webchinese.cn

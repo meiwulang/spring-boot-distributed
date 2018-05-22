@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.OrderMapperDiy">
+
+    <resultMap id="OrderDetailResultMap" extends="com.jdy.b2b.api.dao.OrderMapper.BaseResultMap"
+               type="com.jdy.b2b.api.model.diy.OrderDetailDTO">
+        <result property="pType" column="p_type"/>
+        <result property="pNo" column="p_no"/>
+        <result property="pName" column="p_name"/>
+        <result property="pDays" column="p_days"/>
+        <result property="salerPhone" column="salerPhone"/>
+        <result property="buyerPhone" column="buyerPhone"/>
+        <result property="sCalendar" column="s_calendar"/>
+
+    </resultMap>
+
+    <select id="orderDetail" resultMap="OrderDetailResultMap">
+        SELECT
+            d.*,
+            p.p_type,
+            p.p_no,
+            p.p_name,
+            p.p_days,
+            s.s_calendar,
+            u1.u_tel salerPhone,
+            u2.u_tel buyerPhone
+
+        FROM
+            sl_order d
+        INNER JOIN ct_product p ON p.id = d.o_product_id
+        INNER JOIN ct_schedule s ON s.id = d.o_schedule_id
+        LEFT JOIN sm_user u1 ON u1.id = d.o_saler_id
+        LEFT JOIN sm_user u2 ON u2.id = d.o_buyer_id
+        WHERE
+            d.id = #{id}
+    </select>
+
+</mapper>

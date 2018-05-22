@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.OrderLogsMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.OrderLogs">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ol_order_id" jdbcType="BIGINT" property="olOrderId" />
+    <result column="ol_company_name" jdbcType="VARCHAR" property="olCompanyName" />
+    <result column="ol_status" jdbcType="BIT" property="olStatus" />
+    <result column="ol_order_status" jdbcType="INTEGER" property="olOrderStatus" />
+    <result column="ol_operater" jdbcType="VARCHAR" property="olOperater" />
+    <result column="ol_operate_detail" jdbcType="VARCHAR" property="olOperateDetail" />
+    <result column="ol_remark" jdbcType="VARCHAR" property="olRemark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ol_order_id, ol_company_name, ol_status, ol_order_status, ol_operater, ol_operate_detail, 
+    ol_remark, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_order_logs
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sl_order_logs
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.OrderLogs">
+    insert into sl_order_logs (id, ol_order_id, ol_company_name, 
+      ol_status, ol_order_status, ol_operater, 
+      ol_operate_detail, ol_remark, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{id,jdbcType=BIGINT}, #{olOrderId,jdbcType=BIGINT}, #{olCompanyName,jdbcType=VARCHAR}, 
+      #{olStatus,jdbcType=BIT}, #{olOrderStatus,jdbcType=INTEGER}, #{olOperater,jdbcType=VARCHAR}, 
+      #{olOperateDetail,jdbcType=VARCHAR}, #{olRemark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.OrderLogs">
+    insert into sl_order_logs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="olOrderId != null">
+        ol_order_id,
+      </if>
+      <if test="olCompanyName != null">
+        ol_company_name,
+      </if>
+      <if test="olStatus != null">
+        ol_status,
+      </if>
+      <if test="olOrderStatus != null">
+        ol_order_status,
+      </if>
+      <if test="olOperater != null">
+        ol_operater,
+      </if>
+      <if test="olOperateDetail != null">
+        ol_operate_detail,
+      </if>
+      <if test="olRemark != null">
+        ol_remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="olOrderId != null">
+        #{olOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="olCompanyName != null">
+        #{olCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="olStatus != null">
+        #{olStatus,jdbcType=BIT},
+      </if>
+      <if test="olOrderStatus != null">
+        #{olOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="olOperater != null">
+        #{olOperater,jdbcType=VARCHAR},
+      </if>
+      <if test="olOperateDetail != null">
+        #{olOperateDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="olRemark != null">
+        #{olRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.OrderLogs">
+    update sl_order_logs
+    <set>
+      <if test="olOrderId != null">
+        ol_order_id = #{olOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="olCompanyName != null">
+        ol_company_name = #{olCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="olStatus != null">
+        ol_status = #{olStatus,jdbcType=BIT},
+      </if>
+      <if test="olOrderStatus != null">
+        ol_order_status = #{olOrderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="olOperater != null">
+        ol_operater = #{olOperater,jdbcType=VARCHAR},
+      </if>
+      <if test="olOperateDetail != null">
+        ol_operate_detail = #{olOperateDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="olRemark != null">
+        ol_remark = #{olRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.OrderLogs">
+    update sl_order_logs
+    set ol_order_id = #{olOrderId,jdbcType=BIGINT},
+      ol_company_name = #{olCompanyName,jdbcType=VARCHAR},
+      ol_status = #{olStatus,jdbcType=BIT},
+      ol_order_status = #{olOrderStatus,jdbcType=INTEGER},
+      ol_operater = #{olOperater,jdbcType=VARCHAR},
+      ol_operate_detail = #{olOperateDetail,jdbcType=VARCHAR},
+      ol_remark = #{olRemark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+</mapper>

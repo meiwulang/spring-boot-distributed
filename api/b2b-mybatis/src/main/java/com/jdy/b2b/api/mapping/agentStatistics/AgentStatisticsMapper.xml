@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.agentStatistics.AgentStatisticsMapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<resultMap id="AgentStatisticsResultMap" type="com.jdy.b2b.api.model.agentStatistics.AgentStatistics">
+		<result column="id" property="departmentId" jdbcType="BIGINT"/>
+		<result column="d_name" property="departmentName" jdbcType="VARCHAR"/>
+		<result column="num" property="num" jdbcType="INTEGER"/>
+		<result column="leal_name" property="principal" jdbcType="VARCHAR"/>
+		<result column="time" property="time" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<resultMap id="totalAgentNumGroupByDepartmentResultMap" type="com.jdy.b2b.api.model.agentStatistics.AgentStatistics" extends="AgentStatisticsResultMap">
+		<collection property="children" select="selectTotalAgentNumGroupByDepartment" column="{pId=id}"/>
+	</resultMap>
+
+	<select id="selectTotalAgentNumGroupByDepartment" resultMap="totalAgentNumGroupByDepartmentResultMap"
+			 parameterType="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsPram">
+		select department.id,department.d_name,leal_user.u_real_name leal_name, count(user.id) num from sm_department department
+			  LEFT JOIN sm_user leal_user ON department.id = leal_user.u_department_id AND leal_user.u_dtype = 1
+			  LEFT JOIN sm_user user ON department.id = user.u_department_id AND user.u_status = 0 AND user.u_type = 1
+-- 		and DATEDIFF(date_format(current_date,'%Y-%m-%d'),user.create_time)>0
+			  JOIN sm_company company ON department.company_id = company.id
+			  <where>
+				  company.c_type = 1
+				  AND department.d_status = 0
+					  <if test="departmentId!=null">
+						  AND department.id = #{departmentId,jdbcType=BIGINT}
+					  </if>
+
+					  <if test="companyId!=null">
+						AND company.id = #{companyId,jdbcType=BIGINT}
+					  </if>
+					  <if test="pId!=null">
+						  AND department.d_pid = #{pId,jdbcType=BIGINT}
+					  </if>
+
+			  </where>
+			GROUP BY department.id
+		ORDER BY num desc
+	</select>
+	
+
+
+	<resultMap id="NewAgentNumByTimeGroupByDepartmentResultMap" type="com.jdy.b2b.api.model.agentStatistics.AgentStatistics" extends="AgentStatisticsResultMap">
+		<collection property="children" select="selectTotalNewAgentNumByTimeGroupByDepartment" column="{pId=id,startDate=start_time,endDate=end_time}"/>
+	</resultMap>
+	<select id="selectTotalNewAgentNumByTimeGroupByDepartment"
+			resultMap="NewAgentNumByTimeGroupByDepartmentResultMap" parameterType="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsPram">
+		select #{startDate,jdbcType=TIMESTAMP} start_time,#{endDate,jdbcType=TIMESTAMP} end_time, department.id,department.d_name,leal_user.u_real_name leal_name, count(user.id) num from sm_department department
+		LEFT JOIN sm_user leal_user ON department.id = leal_user.u_department_id AND leal_user.u_dtype = 1
+		left JOIN sm_user user ON department.id = user.u_department_id AND user.u_status = 0 AND user.u_type = 1
+		<if test="startDate!=null">
+			AND DATEDIFF(DATE_FORMAT(user.create_time, '%Y-%m-%d'),  #{startDate,jdbcType=TIMESTAMP})&gt;=0
+		</if>
+		<if test="endDate!=null">
+			AND DATEDIFF(DATE_FORMAT(user.create_time, '%Y-%m-%d'),  #{endDate,jdbcType=TIMESTAMP})&lt;0
+		</if>
+		JOIN sm_company company ON department.company_id = company.id
+		<where>
+			company.c_type = 1
+			AND department.d_status = 0
+			<if test="departmentId!=null">
+				AND department.id = #{departmentId,jdbcType=BIGINT}
+			</if>
+			<if test="companyId!=null">
+				AND company.id = #{companyId,jdbcType=BIGINT}
+			</if>
+			<if test="pId!=null">
+				AND department.d_pid = #{pId,jdbcType=BIGINT}
+			</if>
+		</where>
+		GROUP BY department.id
+		ORDER BY num desc
+	</select>
+
+
+	<resultMap id="agentStatisticsOfAgentMap" type="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsOfAgent">
+		<result column="u_real_name" property="agentName"/>
+		<result column="create_time" property="createTime"/>
+		<collection property="children" select="selectChildren" column="{departmentId=u_department_id,wxId=u_wx_openid,startDate=startDate,endDate=endDate}"/>
+	</resultMap>
+	<select id="selectChildren" parameterType="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsPram"
+			resultMap="agentStatisticsOfAgentMap">
+		SELECT user.u_real_name ,user.u_wx_openid,user.u_department_id, #{startDate,jdbcType=TIMESTAMP} startDate, #{endDate,jdbcType=TIMESTAMP} endDate, user.create_time
+		from sm_user user WHERE u_department_id = #{departmentId,jdbcType=BIGINT}  AND  u_pid = #{wxId,jdbcType=VARCHAR}
+		and u_status = 0 AND u_type = 1
+		AND  u_level &gt; 1
+		<if test="startDate!=null">
+		AND DATEDIFF(DATE_FORMAT(create_time, '%Y-%m-%d'),  #{startDate,jdbcType=TIMESTAMP})&gt;=0
+		</if>
+		<if test="endDate!=null">
+		AND DATEDIFF(DATE_FORMAT(create_time, '%Y-%m-%d'),  #{endDate,jdbcType=TIMESTAMP})&lt;0
+		</if>
+	</select>
+	 <select id="selectotalAgentNumberInDepartmentGroupByAgent" parameterType="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsPram"
+			resultMap="agentStatisticsOfAgentMap">
+		 SELECT user.u_real_name ,user.u_wx_openid ,user.u_department_id, #{startDate,jdbcType=TIMESTAMP} startDate, #{endDate,jdbcType=TIMESTAMP} endDate,
+		 user.create_time
+		from sm_user user WHERE u_department_id = #{departmentId,jdbcType=BIGINT}  AND  u_level =1 and u_status = 0 AND u_type = 1
+	</select>
+
+
+
+	<resultMap id="agentStatisticsGroupByDepartmentMap" type="com.jdy.b2b.api.model.agentStatistics.AgentStatistics">
+		<result column="depart_id" property="departmentId" jdbcType="BIGINT"/>
+		<result column="d_name" property="departmentName" jdbcType="VARCHAR"/>
+		<result column="sum_today" property="num" jdbcType="INTEGER"/>
+		<result column="sum_total" property="totalNum" jdbcType="INTEGER"/>
+		<result column="ss_day" property="time" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<select id="agentStatisticsGroupByDepartment" parameterType="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsPram"
+			resultMap="agentStatisticsGroupByDepartmentMap">
+		select adr.depart_id,adr.ss_day,sum(adr.today_count) sum_today,sum(adr.history_count) sum_total,d.d_name
+		from sm_agents_daily_report adr
+		LEFT JOIN sm_department d ON adr.depart_id = d.id AND d.d_status = 0
+		<!-- 部门负责人先不管		LEFT JOIN sm_user u ON adr.depart_id = u.u_department_id AND u.u_dtype = 4 AND u.u_status = 0-->
+		WHERE 1=1
+		<if test="companyId!=null">
+			AND company_id = #{companyId,jdbcType=BIGINT}
+		</if>
+		<if test="startDate!=null">
+			AND DATEDIFF(DATE_FORMAT(ss_day, '%Y-%m-%d'), #{startDate,jdbcType=TIMESTAMP})&gt;=0
+		</if>
+		<if test="endDate!=null">
+			AND DATEDIFF(DATE_FORMAT(ss_day, '%Y-%m-%d'), #{endDate,jdbcType=TIMESTAMP})&lt;0
+		</if>
+		group by depart_id
+	</select>
+
+	<resultMap id="selectAgentsNumByDepartmentIdGroupByAgentMap" type="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsOfAgent">
+		<result column="u_real_name" property="agentName"/>
+		<result column="ss_day" property="createTime"/>
+		<result column="sum_today" property="num" jdbcType="INTEGER"/>
+		<result column="sum_total" property="totalNum" jdbcType="INTEGER"/>
+	</resultMap>
+	<select id="selectAgentsNumByDepartmentIdGroupByAgent" resultMap="selectAgentsNumByDepartmentIdGroupByAgentMap"
+			parameterType="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsPram">
+		select adr.depart_id,adr.ss_day,sum(adr.today_count) sum_today,sum(adr.history_count) sum_total,adr.user_id,u.u_real_name
+		from sm_agents_daily_report adr
+		LEFT JOIN sm_user u ON adr.depart_id = u.u_department_id AND u.u_dtype = 4 AND u.u_status = 0-->
+		WHERE adr.depart_id = #{departmentId,jdbcType=BIGINT}
+		<if test="startDate!=null">
+			AND DATEDIFF(DATE_FORMAT(ss_day, '%Y-%m-%d'), #{startDate,jdbcType=TIMESTAMP})&gt;=0
+		</if>
+		<if test="endDate!=null">
+			AND DATEDIFF(DATE_FORMAT(ss_day, '%Y-%m-%d'), #{endDate,jdbcType=TIMESTAMP})&lt;0
+		</if>
+		group by user_id
+	</select>
+
+
+	<!--SELECT user.u_real_name ,user.u_wx_openid pid,-->
+	<!--(SELECT count(1) FROM sm_user u-->
+	<!--WHERE-->
+	<!--find_in_set(u.u_wx_openid,getUserChildList(pid))-->
+	<!--<if test="startDate!=null">-->
+		<!--AND DATEDIFF(DATE_FORMAT(u.create_time, '%Y-%m-%d'),  #{startDate,jdbcType=TIMESTAMP})&gt;=0-->
+	<!--</if>-->
+	<!--<if test="endDate!=null">-->
+		<!--AND DATEDIFF(DATE_FORMAT(u.create_time, '%Y-%m-%d'),  #{endDate,jdbcType=TIMESTAMP})&lt;0-->
+	<!--</if>-->
+	<!--AND u.u_type = 1-->
+	<!--)-->
+	<!--num-->
+	<!--from sm_user user WHERE u_department_id = #{departmentId,jdbcType=BIGINT}  AND  u_level =1 and u_status = 0 AND u_type = 1 ORDER BY num desc-->
+
+
+
+
+
+
+
+	<resultMap id="selectAgentMap" type="com.jdy.b2b.api.model.agentStatistics.AgentStatistics">
+		<result column="department" property="departmentName" jdbcType="VARCHAR"/>
+		<result column="cName" property="companyName" jdbcType="VARCHAR"/>
+		<result column="uid" property="agentId" jdbcType="BIGINT"/>
+		<result property="agentName" column="u_real_name"/>
+		<result property="departmentId" column="u_department_id"/>
+		<result column="create_time" property="time" jdbcType="TIMESTAMP"/>
+		<result column="create_time" property="shortTime" jdbcType="TIMESTAMP"/>
+		<result column="uCompanyId" property="companyId" jdbcType="BIGINT"/>
+
+	</resultMap>
+
+	<select id="selectFirstLevelAgent" resultMap="selectAgentMap"
+			parameterType="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsPram">
+		select u.id uid,u.u_wx_openid,u.u_real_name,IFNULL(d.d_nick_name,d.d_name) department ,
+		u.u_department_id,u.create_time, #{startDate,jdbcType=TIMESTAMP} startDate,
+		#{endDate,jdbcType=TIMESTAMP} endDate,u.company_id uCompanyId,
+		c.c_name as cName
+		from sm_user u
+		JOIN sm_company c on u.company_id = c.id
+		JOIN sm_department d ON u.u_department_id = d.id
+		WHERE u.u_pid = u.u_wx_openid AND u_type = 1
+		<if test="companyIds!=null">
+			<bind name="likecIds" value="companyIds + '%'" />
+			AND c.c_pids like #{likecIds}
+		</if>
+		<if test="agentId!=null">
+			AND u.id = #{agentId,jdbcType=BIGINT}
+		</if>
+		<if test="departmentIds!=null">
+			<bind name="likedIds" value="departmentIds + '%'" />
+			AND d.d_pids like #{likedIds}
+		</if>
+	</select>
+
+	<select id="selectAgentsByFirstAgent" resultMap="selectAgentMap"
+			parameterType="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsPram">
+		select u.u_real_name,u.u_wx_openid,u.create_time, #{startDate,jdbcType=TIMESTAMP} startDate, #{endDate,jdbcType=TIMESTAMP} endDate FROM sm_user u
+		WHERE u.u_pid = #{wxId,jdbcType=VARCHAR} and u.u_wx_openid != #{wxId,jdbcType=VARCHAR} AND u_type = 1 and u_department_id is not null
+	</select>
+
+	<resultMap id="selectAgentMap1" type="com.jdy.b2b.api.model.agentStatistics.AgentStatistics">
+		<result column="d_name" property="departmentName" jdbcType="VARCHAR"/>
+		<result column="company_id" property="companyId" jdbcType="BIGINT"/>
+		<result column="cName" property="companyName" jdbcType="VARCHAR"/>
+		<result column="uid" property="agentId" jdbcType="BIGINT"/>
+		<result property="agentName" column="u_real_name"/>
+		<result property="departmentId" column="u_department_id"/>
+		<result column="create_time" property="time" jdbcType="TIMESTAMP"/>
+		<result column="create_time" property="shortTime" jdbcType="TIMESTAMP"/>
+		<result column="fistAgentId" property="firstAgentId" jdbcType="BIGINT"/>
+	</resultMap>
+
+	<select id="selectAgentsByFirstAgent1" resultMap="selectAgentMap1"
+			parameterType="com.jdy.b2b.api.model.agentStatistics.AgentStatisticsPram">
+		select u.u_real_name,u.u_wx_openid,u.create_time,getFirstLevelAgent(u.u_wx_openid) fistAgentId,u.company_id company_id,u.u_department_id u_department_id ,IFNULL(d.d_nick_name,d.d_name) d_name,c.c_name cName FROM sm_user u
+		JOIN sm_company c on u.company_id = c.id
+		JOIN sm_department d ON u.u_department_id = d.id
+		WHERE u_type = 1 and u_department_id is not null AND u.u_level > 1
+		<if test="companyIds!=null">
+			<bind name="likecIds" value="companyIds + '%'" />
+			AND c.c_pids like #{likecIds}
+		</if>
+		<if test="departmentIds!=null">
+			<bind name="likedIds" value="departmentIds + '%'" />
+			AND d.d_pids like #{likedIds}
+		</if>
+	</select>
+</mapper>

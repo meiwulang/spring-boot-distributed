@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.station.StationMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.station.Station">
+    <id column="st_id" jdbcType="INTEGER" property="stId" />
+    <result column="st_name" jdbcType="VARCHAR" property="stName" />
+    <result column="st_pym" jdbcType="VARCHAR" property="stPym" />
+    <result column="st_type" jdbcType="CHAR" property="stType" />
+    <result column="st_province" jdbcType="VARCHAR" property="stProvince" />
+    <result column="st_city" jdbcType="VARCHAR" property="stCity" />
+    <result column="st_county" jdbcType="VARCHAR" property="stCounty" />
+    <result column="st_org_id" jdbcType="INTEGER" property="stOrgId" />
+    <result column="st_site_name" jdbcType="VARCHAR" property="stSiteName" />
+    <result column="st_order" jdbcType="INTEGER" property="stOrder" />
+    <result column="st_status" jdbcType="CHAR" property="stStatus" />
+    <result column="st_time" jdbcType="INTEGER" property="stTime" />
+    <result column="st_u_id" jdbcType="INTEGER" property="stUId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    st_id, st_name, st_pym, st_type, st_province, st_city, st_county, st_org_id, st_site_name, 
+    st_order, st_status, st_time, st_u_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_station
+    where st_id = #{stId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sl_station
+    where st_id = #{stId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.station.Station" useGeneratedKeys="true" keyProperty="stId">
+    insert into sl_station (st_id, st_name, st_pym, 
+      st_type, st_province, st_city, 
+      st_county, st_org_id, st_site_name, 
+      st_order, st_status, st_time, 
+      st_u_id)
+    values (#{stId,jdbcType=INTEGER}, #{stName,jdbcType=VARCHAR}, #{stPym,jdbcType=VARCHAR}, 
+      #{stType,jdbcType=CHAR}, #{stProvince,jdbcType=VARCHAR}, #{stCity,jdbcType=VARCHAR}, 
+      #{stCounty,jdbcType=VARCHAR}, #{stOrgId,jdbcType=INTEGER}, #{stSiteName,jdbcType=VARCHAR}, 
+      #{stOrder,jdbcType=INTEGER}, #{stStatus,jdbcType=CHAR}, #{stTime,jdbcType=INTEGER}, 
+      #{stUId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.station.Station">
+    insert into sl_station
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stId != null">
+        st_id,
+      </if>
+      <if test="stName != null">
+        st_name,
+      </if>
+      <if test="stPym != null">
+        st_pym,
+      </if>
+      <if test="stType != null">
+        st_type,
+      </if>
+      <if test="stProvince != null">
+        st_province,
+      </if>
+      <if test="stCity != null">
+        st_city,
+      </if>
+      <if test="stCounty != null">
+        st_county,
+      </if>
+      <if test="stOrgId != null">
+        st_org_id,
+      </if>
+      <if test="stSiteName != null">
+        st_site_name,
+      </if>
+      <if test="stOrder != null">
+        st_order,
+      </if>
+      <if test="stStatus != null">
+        st_status,
+      </if>
+      <if test="stTime != null">
+        st_time,
+      </if>
+      <if test="stUId != null">
+        st_u_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stId != null">
+        #{stId,jdbcType=INTEGER},
+      </if>
+      <if test="stName != null">
+        #{stName,jdbcType=VARCHAR},
+      </if>
+      <if test="stPym != null">
+        #{stPym,jdbcType=VARCHAR},
+      </if>
+      <if test="stType != null">
+        #{stType,jdbcType=CHAR},
+      </if>
+      <if test="stProvince != null">
+        #{stProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="stCity != null">
+        #{stCity,jdbcType=VARCHAR},
+      </if>
+      <if test="stCounty != null">
+        #{stCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="stOrgId != null">
+        #{stOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="stSiteName != null">
+        #{stSiteName,jdbcType=VARCHAR},
+      </if>
+      <if test="stOrder != null">
+        #{stOrder,jdbcType=INTEGER},
+      </if>
+      <if test="stStatus != null">
+        #{stStatus,jdbcType=CHAR},
+      </if>
+      <if test="stTime != null">
+        #{stTime,jdbcType=INTEGER},
+      </if>
+      <if test="stUId != null">
+        #{stUId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.station.Station">
+    update sl_station
+    <set>
+      <if test="stName != null">
+        st_name = #{stName,jdbcType=VARCHAR},
+      </if>
+      <if test="stPym != null">
+        st_pym = #{stPym,jdbcType=VARCHAR},
+      </if>
+      <if test="stType != null">
+        st_type = #{stType,jdbcType=CHAR},
+      </if>
+      <if test="stProvince != null">
+        st_province = #{stProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="stCity != null">
+        st_city = #{stCity,jdbcType=VARCHAR},
+      </if>
+      <if test="stCounty != null">
+        st_county = #{stCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="stOrgId != null">
+        st_org_id = #{stOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="stSiteName != null">
+        st_site_name = #{stSiteName,jdbcType=VARCHAR},
+      </if>
+      <if test="stOrder != null">
+        st_order = #{stOrder,jdbcType=INTEGER},
+      </if>
+      <if test="stStatus != null">
+        st_status = #{stStatus,jdbcType=CHAR},
+      </if>
+      <if test="stTime != null">
+        st_time = #{stTime,jdbcType=INTEGER},
+      </if>
+      <if test="stUId != null">
+        st_u_id = #{stUId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where st_id = #{stId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.station.Station">
+    update sl_station
+    set st_name = #{stName,jdbcType=VARCHAR},
+      st_pym = #{stPym,jdbcType=VARCHAR},
+      st_type = #{stType,jdbcType=CHAR},
+      st_province = #{stProvince,jdbcType=VARCHAR},
+      st_city = #{stCity,jdbcType=VARCHAR},
+      st_county = #{stCounty,jdbcType=VARCHAR},
+      st_org_id = #{stOrgId,jdbcType=INTEGER},
+      st_site_name = #{stSiteName,jdbcType=VARCHAR},
+      st_order = #{stOrder,jdbcType=INTEGER},
+      st_status = #{stStatus,jdbcType=CHAR},
+      st_time = #{stTime,jdbcType=INTEGER},
+      st_u_id = #{stUId,jdbcType=INTEGER}
+    where st_id = #{stId,jdbcType=INTEGER}
+  </update>
+</mapper>

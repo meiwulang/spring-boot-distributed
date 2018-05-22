@@ -1,0 +1,57 @@
+@charset "utf-8";
+* {padding: 0;margin: 0;}
+body {background: #f5f5f3}
+ul, li {list-style-type: none;}
+a {text-decoration: none;color: #333;}
+img {border: none;width:100%;height:100%;}
+i, em {font-style: normal;}
+input, textarea {outline: none;}
+.m-right {float: right;margin-right:5px;font-size: 12px;color: #999;vertical-align: middle;font-family: '宋体';cursor: pointer}
+.Y-box {width: 100%;background: #ffffff;border-bottom: 3px solid #e90000}
+.Yam-top .logo { width: 300px;padding: 5px 0; float: left;}
+.Yam-top { width: 1000px;margin: auto}
+.Yam-top .top-nav { margin-left: 320px;}
+.Yam-top .top-t {font-size: 12px; height: 24px;line-height: 24px;padding-right: 10px;text-align: right;color: #aaaaaa;}
+.Yam-top .top-t a {color: #999}
+.Yam-top .top-m {display: inline-block;width: 100%;}
+.Yam-top .top-m .nav-list {float: right;font-size: 16px;font-family: 'MICROSOFT YAHEI';padding: 0px 20px;line-height: 60px;height: 60px;cursor: pointer}
+.Yam-top .top-m .nav-hover a {color: #be2020}
+.clear { clear: both; height: 1px; border: none !important; background: none !important;}
+
+
+/*底部*/
+.footer-box {font-size: 12px;color: #999999;height: 50px;line-height: 50px;margin: auto;margin-top: 30px;text-align: center;width: 1000px;border-top:1px solid #dddddd; padding-bottom: 20px;}
+
+/*返回顶部*/
+.return-top {width: 40px;position: fixed;bottom:50px;right: 20px;background: #fff;border:1px solid #dddddd;padding:5px;text-align: center;cursor: pointer;color: #999999;font-size: 14px;}
+.return-top .fa-angle-up{font-size: 26px}
+
+
+/*下拉搜索框样式*/
+.search-box .float-box {position: absolute;left: 0;top: 40px;z-index:99;background: #ffffff;width: 469px;border: 1px solid #DDDDDD;font-size: 12px;color: #333;font-family: '宋体';display: none}
+.search-box .float-box dd {line-height: 28px;padding: 2px 10px;cursor: pointer}
+.search-box .float-box .fb-select {background: #f6f6f6}
+.search-box .float-box .fb-r {float: right;color: #aaa}
+
+
+
+/*出发城市选择*/
+.search-box .city-box {width: 430px;min-height: 200px;background: #ffffff;border:1px solid #dddddd;
+    position: absolute;top:50px;left:20px;z-index: 20;display: none}
+.search-box .city-hover .city-box {display: block}
+.city-box {color: #666666;display: inline-block;padding: 10px}
+.city-box .city-title {display: inline-block;width: 100%;line-height: 36px;border-bottom: 1px solid #DDDDDD;font-size: 14px}
+.city-box .ct-hover {border: 1px solid #DDDDDD;border-bottom: none}
+.city-box .ct-l {float: left;padding: 0 15px;position: relative}
+.city-box .ct-l .l-bottom,.city-box .ct-l .l-top {position: absolute;width: 100%;height: 2px;left: 0;display: none}
+.city-box .ct-hover .l-bottom,.city-box .ct-hover .l-top {display: inline-block;}
+.city-box .ct-l .l-bottom {bottom:-1px;background: #ffffff;}
+.city-box .ct-l .l-top {top:-1px;background: #ff7c2b;}
+.city-box .city-info {line-height: 24px;text-align: left;font-size: 12px;font-family: '宋体';padding:5px 10px}
+.city-box .ci-l {display: inline-block;width: 100%;}
+.city-box .ci-l .item {padding: 3px 8px;white-space:nowrap;}
+.city-box .ci-l .hot-cls {color: #fba027}
+.city-box .ci-l .item:hover {background: #ff7c2b;color: #ffffff}
+.city-box .zm {margin-bottom: 5px}
+.city-box .zm .ci-box {width: 380px;float: right;word-break: normal}
+.city-box .zm .ci-title {font:14px 'Microsoft YaHei';color: #999999;line-height: 28px;width: 30px;text-align: center;display: inline-block}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>金豆云旅游</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'
+        );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="order_navbar">
+    <div class="box_wrapper clearfloat">
+        <div class="pull-left order_jdyLogo">
+            <img src="img/1_03.png" alt="">
+        </div>
+        <div class="pull-right">
+            <div class="pull-left">
+                <span>欢迎您!</span>
+                <span class="hotsoso" id="user_name">喵喵</span>
+            </div>
+            <span class="pull-left">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <div class="pull-left">
+                <span>无锡彩虹假期旅游有限公司</span>
+            </div>
+            <span class="pull-left">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <div class="pull-left">
+                <a href="#">管理中心</a>
+            </div>
+            <span class="pull-left">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <div class="pull-left">
+                <a href="#">安全退出</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="order_step success">
+    <div class="box_wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-xs-4 order_stepWriting">
+                    <span>1:填写订单信息</span>
+                </div>
+                <div class="col-md-4 col-xs-4 order_stepPayMethod">
+                    <span>2:选择支付方式</span>
+                </div>
+                <div class="col-md-4 col-xs-4 order_stepSuccess">
+                    <span>3:预定成功</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pay_success">
+    <div class="box_wrapper">
+        <div class="congratulation clearfloat">
+            <span class="pull-left ion_curret"></span>
+            <div class="pull-left">
+                <h3>恭喜你，预定成功</h3>
+                <p>你也可以在稍后的"买家中心订单管理"中打印出团单 或 发送短信 或 修改游客练习方式</p>
+            </div>
+        </div>
+        <div class="operations">
+            <div class="printer clearfloat">
+                <span class=" pull-left ion_printer"></span>
+                <div class="pull-left">
+                    <h4><a href="#">打印报名确认单</a></h4>
+                    <span class="fontGray">您可直接打印报名确认单</span>
+                </div>
+            </div>
+            <div class="email clearfloat">
+                <span class=" pull-left ion_emailSend"></span>
+                <div class="pull-left">
+                    <h4><a href="#">发送短信 </a><span class="priceColor_danger"> (短信发送成功)</span></h4>
+                    <span class="fontGray">需要手动点击发送短信通知游客,游客联系号码请填写正确手机号码</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer"></div>
+</body>
+<script src="js/lib/jquery-1.11.3.js"></script>
+<script src="js/lib/bootstrap.js"></script>
+<script id="link-js" type="text/javascript">
+    document.write(
+        '<script type="text/javascript" src="js/order/orderSuccess.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/statistics.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

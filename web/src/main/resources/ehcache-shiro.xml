@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache updateCheck="true" monitoring="autodetect"
+         maxBytesLocalHeap="400M">
+    <defaultCache></defaultCache>
+    <diskStore path="ehcache"/>
+    <!-- 登录记录缓存 锁定10分钟 -->
+    <cache name="passwordRetryCache" eternal="false"
+           timeToIdleSeconds="600" timeToLiveSeconds="0" overflowToDisk="true"
+           statistics="true">
+    </cache>
+
+    <cache name="authorizationCache" eternal="false"
+           timeToIdleSeconds="3600" timeToLiveSeconds="0" overflowToDisk="true"
+           statistics="true">
+    </cache>
+
+    <cache name="authenticationCache" eternal="false"
+           timeToIdleSeconds="3600" timeToLiveSeconds="0" overflowToDisk="true"
+           statistics="true">
+    </cache>
+
+
+    <cache name="shiro-activeSessionCache" eternal="false"
+           timeToIdleSeconds="3600" timeToLiveSeconds="0" overflowToDisk="true"
+           statistics="true">
+    </cache>
+
+    <cache name="shiro-kickout-session" eternal="false"
+           timeToIdleSeconds="3600" timeToLiveSeconds="0" overflowToDisk="true"
+           statistics="true">
+    </cache>
+
+    <cache name="currentUserCache" eternal="false"
+           timeToIdleSeconds="3600" timeToLiveSeconds="0" overflowToDisk="true"
+           statistics="true">
+    </cache>
+
+
+</ehcache>
+
+<!--服务启动后授权信息可以重新加载-->
+<!--<ehcache updateCheck="false" name="shiroCache">
+    <diskStore path="E:\ehcache" />
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="1200"
+            overflowToDisk="true"
+    />
+    <cache
+            name="shirocache"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToLiveSeconds="36000"
+            timeToIdleSeconds="3600"
+
+            overflowToDisk="true"
+            maxElementsOnDisk="0"
+           />
+</ehcache>-->

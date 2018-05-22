@@ -1,0 +1,51 @@
+.x-toolbar-custom{
+    border: 5px solid #ececec;
+}
+.label-custom{
+    font-size:14px;
+    font-family: "Microsoft Yahei";
+    overflow: hidden;
+    display: table-cell;
+}
+/*.x-mask{
+    background: rgba(0,0,0,.6);
+}*/
+.tab-button-custom{
+    background:#fff;
+    border:none;
+    border-bottom:3px solid #fff;
+    border-radius: 0;
+}
+.tab-button-custom.tab-button-custom-pressed{
+    border-bottom:3px solid #1E88E5;
+    background:#fff;
+}
+.tab-button-custom:hover{
+    background: #fff;
+}
+.tab-button-custom .x-btn-inner{
+    color:#1E88E5;
+    font-size:16px;
+    font-weight: normal;
+    line-height:30px;
+    padding:0 10px;
+    font-family:Microsoft Yahei;
+}
+
+.control-button-custom{
+    background:#009DD9;
+    border-radius: 5px;
+}
+.control-button-custom .fa{
+    color:#fff;
+    font-size:17px;
+    padding:0px 0px 5px 5px;
+}
+.control-button-custom .x-btn-inner{
+    color:#fff;
+    font-size:14px;
+    line-height:20px;
+    font-weight: normal;
+    padding:3px 12px 0px 10px;
+    font-family:Microsoft Yahei;
+}

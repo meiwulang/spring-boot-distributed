@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.hotel.HotelMapper">
+    <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.hotel.Hotel">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="company_id" jdbcType="BIGINT" property="companyId"/>
+        <result column="h_name" jdbcType="VARCHAR" property="hName"/>
+        <result column="h_short_name" jdbcType="VARCHAR" property="hShortName"/>
+        <result column="h_pym" jdbcType="VARCHAR" property="hPym"/>
+        <result column="h_country" jdbcType="VARCHAR" property="hCountry"/>
+        <result column="h_province" jdbcType="VARCHAR" property="hProvince"/>
+        <result column="h_city" jdbcType="VARCHAR" property="hCity"/>
+        <result column="h_area" jdbcType="VARCHAR" property="hArea"/>
+        <result column="h_adress" jdbcType="VARCHAR" property="hAdress"/>
+        <result column="h_additional" jdbcType="VARCHAR" property="hAdditional"/>
+        <result column="h_level" jdbcType="VARCHAR" property="hLevel"/>
+        <result column="h_introduce" jdbcType="VARCHAR" property="hIntroduce"/>
+        <result column="h_mapx" jdbcType="VARCHAR" property="hMapx"/>
+        <result column="h_mapy" jdbcType="VARCHAR" property="hMapy"/>
+        <result column="h_status" jdbcType="INTEGER" property="hStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="BIGINT" property="updateUser"/>
+    </resultMap>
+
+
+    <resultMap id="GetResultMap" type="com.jdy.b2b.api.model.hotel.HotelQueryDO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="company_id" jdbcType="BIGINT" property="companyId"/>
+        <result column="h_name" jdbcType="VARCHAR" property="hName"/>
+        <result column="h_short_name" jdbcType="VARCHAR" property="hShortName"/>
+        <result column="h_pym" jdbcType="VARCHAR" property="hPym"/>
+        <result column="h_country" jdbcType="VARCHAR" property="hCountry"/>
+        <result column="h_province" jdbcType="VARCHAR" property="hProvince"/>
+        <result column="h_city" jdbcType="VARCHAR" property="hCity"/>
+        <result column="h_area" jdbcType="VARCHAR" property="hArea"/>
+        <result column="h_adress" jdbcType="VARCHAR" property="hAdress"/>
+        <result column="h_additional" jdbcType="VARCHAR" property="hAdditional"/>
+        <result column="h_level" jdbcType="VARCHAR" property="hLevel"/>
+        <result column="h_introduce" jdbcType="VARCHAR" property="hIntroduce"/>
+        <result column="h_mapx" jdbcType="VARCHAR" property="hMapx"/>
+        <result column="h_mapy" jdbcType="VARCHAR" property="hMapy"/>
+        <result column="h_status" jdbcType="INTEGER" property="hStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="BIGINT" property="updateUser"/>
+        <result column="albumId" jdbcType="BIGINT" property="albumId"/>
+    </resultMap>
+
+    <resultMap id="CityListResultMap" type="com.jdy.b2b.api.model.scenicspot.HotelOrScenicAreaDO">
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="flag" jdbcType="INTEGER" property="flag"/>
+    </resultMap>
+
+    <resultMap id="AreaListResultMap" type="com.jdy.b2b.api.model.scenicspot.HotelOrScenicDO">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, company_id, h_name, h_short_name, h_pym, h_country, h_province, h_city, h_area, 
+    h_adress, h_additional, h_level, h_introduce, h_mapx, h_mapy, h_status, create_time, 
+    create_user, update_time, update_user
+  </sql>
+
+    <sql id="Get_Column_List">
+        hotel.id, hotel.company_id, hotel.h_name, hotel.h_short_name, hotel.h_pym, hotel.h_country, hotel.h_province, hotel.h_city, hotel.h_area,
+        hotel.h_adress, hotel.h_additional, hotel.h_level, hotel.h_introduce, hotel.h_mapx, hotel.h_mapy, hotel.h_status, hotel.create_time,
+        hotel.create_user, hotel.update_time, hotel.update_user,album.id as albumId
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="GetResultMap">
+        select
+        <include refid="Get_Column_List"/>
+        from sr_hotel hotel
+        left join sr_album album
+        on hotel.id = album.a_pid
+        where hotel.id = #{id,jdbcType=BIGINT}
+        and album.a_type = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sr_hotel
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.jdy.b2b.api.model.hotel.Hotel" useGeneratedKeys="true" keyProperty="id">
+    insert into sr_hotel (id, company_id, h_name, 
+      h_short_name, h_pym, h_country, 
+      h_province, h_city, h_area, 
+      h_adress, h_additional, h_level, 
+      h_introduce, h_mapx, h_mapy, 
+      h_status, create_time, create_user, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{hName,jdbcType=VARCHAR}, 
+      #{hShortName,jdbcType=VARCHAR}, #{hPym,jdbcType=VARCHAR}, #{hCountry,jdbcType=VARCHAR}, 
+      #{hProvince,jdbcType=VARCHAR}, #{hCity,jdbcType=VARCHAR}, #{hArea,jdbcType=VARCHAR}, 
+      #{hAdress,jdbcType=VARCHAR}, #{hAdditional,jdbcType=VARCHAR}, #{hLevel,jdbcType=VARCHAR}, 
+      #{hIntroduce,jdbcType=VARCHAR}, #{hMapx,jdbcType=VARCHAR}, #{hMapy,jdbcType=VARCHAR}, 
+      #{hStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.hotel.Hotel">
+        insert into sr_hotel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="companyId != null">
+                company_id,
+            </if>
+            <if test="hName != null">
+                h_name,
+            </if>
+            <if test="hShortName != null">
+                h_short_name,
+            </if>
+            <if test="hPym != null">
+                h_pym,
+            </if>
+            <if test="hCountry != null">
+                h_country,
+            </if>
+            <if test="hProvince != null">
+                h_province,
+            </if>
+            <if test="hCity != null">
+                h_city,
+            </if>
+            <if test="hArea != null">
+                h_area,
+            </if>
+            <if test="hAdress != null">
+                h_adress,
+            </if>
+            <if test="hAdditional != null">
+                h_additional,
+            </if>
+            <if test="hLevel != null">
+                h_level,
+            </if>
+            <if test="hIntroduce != null">
+                h_introduce,
+            </if>
+            <if test="hMapx != null">
+                h_mapx,
+            </if>
+            <if test="hMapy != null">
+                h_mapy,
+            </if>
+            <if test="hStatus != null">
+                h_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="companyId != null">
+                #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="hName != null">
+                #{hName,jdbcType=VARCHAR},
+            </if>
+            <if test="hShortName != null">
+                #{hShortName,jdbcType=VARCHAR},
+            </if>
+            <if test="hPym != null">
+                #{hPym,jdbcType=VARCHAR},
+            </if>
+            <if test="hCountry != null">
+                #{hCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="hProvince != null">
+                #{hProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="hCity != null">
+                #{hCity,jdbcType=VARCHAR},
+            </if>
+            <if test="hArea != null">
+                #{hArea,jdbcType=VARCHAR},
+            </if>
+            <if test="hAdress != null">
+                #{hAdress,jdbcType=VARCHAR},
+            </if>
+            <if test="hAdditional != null">
+                #{hAdditional,jdbcType=VARCHAR},
+            </if>
+            <if test="hLevel != null">
+                #{hLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="hIntroduce != null">
+                #{hIntroduce,jdbcType=VARCHAR},
+            </if>
+            <if test="hMapx != null">
+                #{hMapx,jdbcType=VARCHAR},
+            </if>
+            <if test="hMapy != null">
+                #{hMapy,jdbcType=VARCHAR},
+            </if>
+            <if test="hStatus != null">
+                #{hStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.hotel.Hotel">
+        update sr_hotel
+        <set>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="hName != null">
+                h_name = #{hName,jdbcType=VARCHAR},
+            </if>
+            <if test="hShortName != null">
+                h_short_name = #{hShortName,jdbcType=VARCHAR},
+            </if>
+            <if test="hPym != null">
+                h_pym = #{hPym,jdbcType=VARCHAR},
+            </if>
+            <if test="hCountry != null">
+                h_country = #{hCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="hProvince != null">
+                h_province = #{hProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="hCity != null">
+                h_city = #{hCity,jdbcType=VARCHAR},
+            </if>
+            <if test="hArea != null">
+                h_area = #{hArea,jdbcType=VARCHAR},
+            </if>
+            <if test="hAdress != null">
+                h_adress = #{hAdress,jdbcType=VARCHAR},
+            </if>
+            <if test="hAdditional != null">
+                h_additional = #{hAdditional,jdbcType=VARCHAR},
+            </if>
+            <if test="hLevel != null">
+                h_level = #{hLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="hIntroduce != null">
+                h_introduce = #{hIntroduce,jdbcType=VARCHAR},
+            </if>
+            <if test="hMapx != null">
+                h_mapx = #{hMapx,jdbcType=VARCHAR},
+            </if>
+            <if test="hMapy != null">
+                h_mapy = #{hMapy,jdbcType=VARCHAR},
+            </if>
+            <if test="hStatus != null">
+                h_status = #{hStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.hotel.Hotel">
+    update sr_hotel
+    set company_id = #{companyId,jdbcType=BIGINT},
+      h_name = #{hName,jdbcType=VARCHAR},
+      h_short_name = #{hShortName,jdbcType=VARCHAR},
+      h_pym = #{hPym,jdbcType=VARCHAR},
+      h_country = #{hCountry,jdbcType=VARCHAR},
+      h_province = #{hProvince,jdbcType=VARCHAR},
+      h_city = #{hCity,jdbcType=VARCHAR},
+      h_area = #{hArea,jdbcType=VARCHAR},
+      h_adress = #{hAdress,jdbcType=VARCHAR},
+      h_additional = #{hAdditional,jdbcType=VARCHAR},
+      h_level = #{hLevel,jdbcType=VARCHAR},
+      h_introduce = #{hIntroduce,jdbcType=VARCHAR},
+      h_mapx = #{hMapx,jdbcType=VARCHAR},
+      h_mapy = #{hMapy,jdbcType=VARCHAR},
+      h_status = #{hStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="queryHotelListForPage" parameterType="com.jdy.b2b.api.model.hotel.Hotel"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        sr_hotel
+        <where>
+            1=1
+            <if test="id != null">
+             AND id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="pcompanyId != null">
+                AND company_id = #{pcompanyId,jdbcType=BIGINT}
+            </if>
+            <trim prefix="AND (" suffix=")" prefixOverrides="OR | AND">
+                <if test="hName != null and  hName != ''">
+                    OR h_name like concat('%',#{hName,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="hPym != null and  hPym != ''">
+                    OR h_pym like concat('%',#{hPym,jdbcType=VARCHAR},'%')
+                </if>
+            </trim>
+            <if test="hShortName != null">
+                AND h_short_name = #{hShortName,jdbcType=VARCHAR}
+            </if>
+            <if test="hCountry != null">
+                AND h_country = #{hCountry,jdbcType=VARCHAR}
+            </if>
+            <if test="hProvince != null">
+                AND h_province = #{hProvince,jdbcType=VARCHAR}
+            </if>
+            <if test="hCity != null and  hCity != '' " >
+                AND h_city = #{hCity,jdbcType=VARCHAR}
+            </if>
+            <if test="hArea != null">
+                AND h_area = #{hArea,jdbcType=VARCHAR}
+            </if>
+            <if test="hAdress != null">
+                AND h_adress = #{hAdress,jdbcType=VARCHAR}
+            </if>
+            <if test="hAdditional != null">
+                AND h_additional = #{hAdditional,jdbcType=VARCHAR}
+            </if>
+            <if test="hLevel != null and  hLevel != ''">
+                AND h_level = #{hLevel,jdbcType=VARCHAR}
+            </if>
+            <if test="hIntroduce != null">
+                AND h_introduce = #{hIntroduce,jdbcType=VARCHAR}
+            </if>
+            <if test="hMapx != null">
+                AND h_mapx = #{hMapx,jdbcType=VARCHAR}
+            </if>
+            <if test="hMapy != null">
+                AND h_mapy = #{hMapy,jdbcType=VARCHAR}
+            </if>
+            <if test="hStatus != null">
+                AND h_status = #{hStatus,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                AND create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createUser != null">
+                AND create_user = #{createUser,jdbcType=BIGINT}
+            </if>
+            <if test="updateTime != null">
+                AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null">
+                AND update_user = #{updateUser,jdbcType=BIGINT}
+            </if>
+        </where>
+        ORDER BY
+        create_time DESC
+
+    </select>
+
+    <select id="queryHotelList"  resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        sr_hotel
+        <where>
+            <if test="cType!=2 and hotel.companyId != null">
+                AND company_id = #{hotel.companyId,jdbcType=BIGINT}
+            </if>
+            <if test="hotel.hStatus != null">
+                AND h_status = #{hotel.hStatus,jdbcType=INTEGER}
+            </if>
+        </where>
+        ORDER BY
+        create_time DESC
+    </select>
+
+    <select id="selectByName" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sr_hotel
+        where h_name = #{name}
+    </select>
+</mapper>

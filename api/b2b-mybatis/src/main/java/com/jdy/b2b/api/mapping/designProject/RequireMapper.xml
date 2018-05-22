@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.designProject.RequireMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.designProject.Require">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="d_id" jdbcType="BIGINT" property="dId" />
+      <result column="r_type" property="rType" jdbcType="INTEGER"/>
+      <result column="require_no" jdbcType="VARCHAR" property="requireNo" />
+    <result column="r_company_id" jdbcType="BIGINT" property="rCompanyId" />
+    <result column="r_start_city" jdbcType="VARCHAR" property="rStartCity" />
+    <result column="r_destination_citys" jdbcType="VARCHAR" property="rDestinationCitys" />
+    <result column="r_start_date_head" jdbcType="INTEGER" property="rStartDateHead" />
+    <result column="r_start_date_tail" jdbcType="INTEGER" property="rStartDateTail" />
+    <result column="r_play_days_min" jdbcType="INTEGER" property="rPlayDaysMin" />
+    <result column="r_play_days_max" jdbcType="INTEGER" property="rPlayDaysMax" />
+    <result column="r_adult_num" jdbcType="INTEGER" property="rAdultNum" />
+    <result column="r_child_num" jdbcType="INTEGER" property="rChildNum" />
+    <result column="r_baby_num" jdbcType="INTEGER" property="rBabyNum" />
+    <result column="r_per_budget" jdbcType="INTEGER" property="rPerBudget" />
+    <result column="r_optional_services" jdbcType="VARCHAR" property="rOptionalServices" />
+    <result column="r_other_require" jdbcType="VARCHAR" property="rOtherRequire" />
+    <result column="r_head_name" jdbcType="VARCHAR" property="rHeadName" />
+    <result column="r_head_sex" jdbcType="INTEGER" property="rHeadSex" />
+    <result column="r_head_phone" jdbcType="VARCHAR" property="rHeadPhone" />
+    <result column="r_head_wx" jdbcType="VARCHAR" property="rHeadWx" />
+    <result column="r_head_email" jdbcType="VARCHAR" property="rHeadEmail" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap id="RequireDTOMap" type="com.jdy.b2b.api.model.designProject.RequireDTO" extends="BaseResultMap">
+    <result column="projectId" property="projectId" jdbcType="BIGINT"/>
+    <result column="dStatus" property="dStatus" jdbcType="INTEGER"/>
+    <result column="saleId" property="saleId" jdbcType="BIGINT"/>
+    <result column="manageId" property="manageId" jdbcType="BIGINT"/>
+    <result column="saleName" property="saleName" jdbcType="VARCHAR"/>
+    <result column="salePhone" property="salePhone" jdbcType="VARCHAR"/>
+    <result column="manageName" property="manageName" jdbcType="VARCHAR"/>
+    <result column="submitTime" property="submitTime" jdbcType="TIMESTAMP"/>
+    <result column="takingTime" property="takingTime" jdbcType="TIMESTAMP"/>
+    <result column="productName" property="productName" jdbcType="VARCHAR"/>
+    <result column="productId" property="productId" jdbcType="BIGINT"/>
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, d_id, require_no, r_type, r_company_id,r_start_city, r_destination_citys, r_start_date_head,
+    r_start_date_tail, r_play_days_min, r_play_days_max, r_adult_num, r_child_num, r_baby_num, 
+    r_per_budget, r_optional_services, r_other_require, r_head_name, r_head_sex, r_head_phone, 
+    r_head_wx, r_head_email, create_time
+  </sql>
+  <sql id="require_r_Base_Column_List">
+    r.id, r.d_id, r.require_no, r.r_company_id, r.r_type, r.r_start_city, r.r_destination_citys, r.r_start_date_head, r.
+    r_start_date_tail, r.r_play_days_min, r.r_play_days_max, ifnull(r.r_adult_num,0) r_adult_num, ifnull(r.r_child_num,0) r_child_num, ifnull(r.r_baby_num,0) r_baby_num, r.
+    r_per_budget, r.r_optional_services, r.r_other_require, r.r_head_name, r.r_head_sex, r.r_head_phone, r.
+    r_head_wx, r.r_head_email, r.create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ct_require
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectRequireList" resultMap="RequireDTOMap" parameterType="com.jdy.b2b.api.model.designProject.RequireVO">
+    SELECT
+    <include refid="require_r_Base_Column_List"/>,ifnull(dp.id,d.last_p_id) projectId,d.d_status dStatus,d.create_time submitTime,d.answer_time takingTime
+    <if test="clientType == 1">
+      ,sale.id saleId,sale.u_real_name saleName,manager.id manageId,manager.u_real_name manageName,
+      p.p_name as productName,
+      p.id as productId
+    </if>
+    FROM  ct_design d
+    INNER JOIN ct_require r ON d.last_r_id = r.id
+    LEFT JOIN ct_design_project dp ON dp.r_id = r.id
+    <if test="clientType == 1">
+      INNER JOIN sm_user sale ON sale.id = d.create_user
+
+      LEFT JOIN sm_user manager ON manager.id = d.manager_id
+
+      LEFT JOIN ct_design_product cdp ON cdp.design_id = d.id AND cdp.status = 0
+      LEFT JOIN ct_product p ON p.id = cdp.product_id
+    </if>
+
+    <where>
+      <if test="clientType == 0">
+        and d.create_user = #{puserId}
+      </if>
+      <if test="clientType == 1">
+        <if test="puDataLimit == 0">
+          AND (manager.id = #{puserId} OR (d.manager_id IS NULL AND sale.company_id = #{companyId}))
+        </if>
+        <if test="puDataLimit == 1">
+          AND (manager.u_department_id = #{puDepartmentId} OR (d.manager_id IS NULL AND sale.company_id = #{companyId}))
+        </if>
+        <if test="puDataLimit == 2">
+          AND (manager.company_id = #{companyId} OR (d.manager_id IS NULL AND sale.company_id = #{companyId}))
+        </if>
+        <if test="puDataLimit == 3">
+          <if test="companyId != null">
+            AND (manager.company_id = #{companyId} OR (d.manager_id IS NULL AND sale.company_id = #{companyId}))
+          </if>
+        </if>
+      </if>
+      <if test="status != null">
+        and d.d_status = #{status}
+      </if>
+      <if test='searchKey != null and searchKey !=""'>
+        and locate(#{searchKey},concat(r.r_head_phone,',',r.r_head_name))>0
+      </if>
+      <if test="type != null">
+        and r.r_type = #{type}
+      </if>
+
+    </where>
+    ORDER BY d.create_time DESC
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_require
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.designProject.Require" useGeneratedKeys="true" keyProperty="id">
+    insert into ct_require (id, d_id, require_no, 
+      r_company_id,  r_start_city,r_type,
+      r_destination_citys, r_start_date_head, r_start_date_tail, 
+      r_play_days_min, r_play_days_max, r_adult_num, 
+      r_child_num, r_baby_num, r_per_budget, 
+      r_optional_services, r_other_require, r_head_name, 
+      r_head_sex, r_head_phone, r_head_wx, 
+      r_head_email, create_time)
+    values (#{id,jdbcType=BIGINT}, #{dId,jdbcType=BIGINT}, #{requireNo,jdbcType=VARCHAR}, 
+      #{rCompanyId,jdbcType=BIGINT},#{rStartCity,jdbcType=VARCHAR},#{rType,jdbcType=INTEGER},
+      #{rDestinationCitys,jdbcType=VARCHAR}, #{rStartDateHead,jdbcType=INTEGER}, #{rStartDateTail,jdbcType=INTEGER}, 
+      #{rPlayDaysMin,jdbcType=INTEGER}, #{rPlayDaysMax,jdbcType=INTEGER}, #{rAdultNum,jdbcType=INTEGER}, 
+      #{rChildNum,jdbcType=INTEGER}, #{rBabyNum,jdbcType=INTEGER}, #{rPerBudget,jdbcType=INTEGER}, 
+      #{rOptionalServices,jdbcType=VARCHAR}, #{rOtherRequire,jdbcType=VARCHAR}, #{rHeadName,jdbcType=VARCHAR}, 
+      #{rHeadSex,jdbcType=INTEGER}, #{rHeadPhone,jdbcType=VARCHAR}, #{rHeadWx,jdbcType=VARCHAR}, 
+      #{rHeadEmail,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.designProject.Require">
+    insert into ct_require
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dId != null">
+        d_id,
+      </if>
+      <if test="requireNo != null">
+        require_no,
+      </if>
+      <if test="rCompanyId != null">
+        r_company_id,
+      </if>
+      <if test="rType != null">
+        r_type,
+      </if>
+      <if test="rStartCity != null">
+        r_start_city,
+      </if>
+      <if test="rDestinationCitys != null">
+        r_destination_citys,
+      </if>
+      <if test="rStartDateHead != null">
+        r_start_date_head,
+      </if>
+      <if test="rStartDateTail != null">
+        r_start_date_tail,
+      </if>
+      <if test="rPlayDaysMin != null">
+        r_play_days_min,
+      </if>
+      <if test="rPlayDaysMax != null">
+        r_play_days_max,
+      </if>
+      <if test="rAdultNum != null">
+        r_adult_num,
+      </if>
+      <if test="rChildNum != null">
+        r_child_num,
+      </if>
+      <if test="rBabyNum != null">
+        r_baby_num,
+      </if>
+      <if test="rPerBudget != null">
+        r_per_budget,
+      </if>
+      <if test="rOptionalServices != null">
+        r_optional_services,
+      </if>
+      <if test="rOtherRequire != null">
+        r_other_require,
+      </if>
+      <if test="rHeadName != null">
+        r_head_name,
+      </if>
+      <if test="rHeadSex != null">
+        r_head_sex,
+      </if>
+      <if test="rHeadPhone != null">
+        r_head_phone,
+      </if>
+      <if test="rHeadWx != null">
+        r_head_wx,
+      </if>
+      <if test="rHeadEmail != null">
+        r_head_email,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dId != null">
+        #{dId,jdbcType=BIGINT},
+      </if>
+      <if test="requireNo != null">
+        #{requireNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rCompanyId != null">
+        #{rCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="rType != null">
+        #{rType,jdbcType=INTEGER},
+      </if>
+      <if test="rStartCity != null">
+        #{rStartCity,jdbcType=VARCHAR},
+      </if>
+      <if test="rDestinationCitys != null">
+        #{rDestinationCitys,jdbcType=VARCHAR},
+      </if>
+      <if test="rStartDateHead != null">
+        #{rStartDateHead,jdbcType=INTEGER},
+      </if>
+      <if test="rStartDateTail != null">
+        #{rStartDateTail,jdbcType=INTEGER},
+      </if>
+      <if test="rPlayDaysMin != null">
+        #{rPlayDaysMin,jdbcType=INTEGER},
+      </if>
+      <if test="rPlayDaysMax != null">
+        #{rPlayDaysMax,jdbcType=INTEGER},
+      </if>
+      <if test="rAdultNum != null">
+        #{rAdultNum,jdbcType=INTEGER},
+      </if>
+      <if test="rChildNum != null">
+        #{rChildNum,jdbcType=INTEGER},
+      </if>
+      <if test="rBabyNum != null">
+        #{rBabyNum,jdbcType=INTEGER},
+      </if>
+      <if test="rPerBudget != null">
+        #{rPerBudget,jdbcType=INTEGER},
+      </if>
+      <if test="rOptionalServices != null">
+        #{rOptionalServices,jdbcType=VARCHAR},
+      </if>
+      <if test="rOtherRequire != null">
+        #{rOtherRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="rHeadName != null">
+        #{rHeadName,jdbcType=VARCHAR},
+      </if>
+      <if test="rHeadSex != null">
+        #{rHeadSex,jdbcType=INTEGER},
+      </if>
+      <if test="rHeadPhone != null">
+        #{rHeadPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="rHeadWx != null">
+        #{rHeadWx,jdbcType=VARCHAR},
+      </if>
+      <if test="rHeadEmail != null">
+        #{rHeadEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.designProject.Require">
+    update ct_require
+    <set>
+      <if test="dId != null">
+        d_id = #{dId,jdbcType=BIGINT},
+      </if>
+      <if test="requireNo != null">
+        require_no = #{requireNo,jdbcType=VARCHAR},
+      </if>
+      <if test="rCompanyId != null">
+        r_company_id = #{rCompanyId,jdbcType=BIGINT},
+      </if>
+        <if test="rType != null">
+            r_type = #{rType,jdbcType = INTEGER},
+        </if>
+      <if test="rStartCity != null">
+        r_start_city = #{rStartCity,jdbcType=VARCHAR},
+      </if>
+      <if test="rDestinationCitys != null">
+        r_destination_citys = #{rDestinationCitys,jdbcType=VARCHAR},
+      </if>
+      <if test="rStartDateHead != null">
+        r_start_date_head = #{rStartDateHead,jdbcType=INTEGER},
+      </if>
+      <if test="rStartDateTail != null">
+        r_start_date_tail = #{rStartDateTail,jdbcType=INTEGER},
+      </if>
+      <if test="rPlayDaysMin != null">
+        r_play_days_min = #{rPlayDaysMin,jdbcType=INTEGER},
+      </if>
+      <if test="rPlayDaysMax != null">
+        r_play_days_max = #{rPlayDaysMax,jdbcType=INTEGER},
+      </if>
+      <if test="rAdultNum != null">
+        r_adult_num = #{rAdultNum,jdbcType=INTEGER},
+      </if>
+      <if test="rChildNum != null">
+        r_child_num = #{rChildNum,jdbcType=INTEGER},
+      </if>
+      <if test="rBabyNum != null">
+        r_baby_num = #{rBabyNum,jdbcType=INTEGER},
+      </if>
+      <if test="rPerBudget != null">
+        r_per_budget = #{rPerBudget,jdbcType=INTEGER},
+      </if>
+      <if test="rOptionalServices != null">
+        r_optional_services = #{rOptionalServices,jdbcType=VARCHAR},
+      </if>
+      <if test="rOtherRequire != null">
+        r_other_require = #{rOtherRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="rHeadName != null">
+        r_head_name = #{rHeadName,jdbcType=VARCHAR},
+      </if>
+      <if test="rHeadSex != null">
+        r_head_sex = #{rHeadSex,jdbcType=INTEGER},
+      </if>
+      <if test="rHeadPhone != null">
+        r_head_phone = #{rHeadPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="rHeadWx != null">
+        r_head_wx = #{rHeadWx,jdbcType=VARCHAR},
+      </if>
+      <if test="rHeadEmail != null">
+        r_head_email = #{rHeadEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.designProject.Require">
+    update ct_require
+    set d_id = #{dId,jdbcType=BIGINT},
+      require_no = #{requireNo,jdbcType=VARCHAR},
+      r_company_id = #{rCompanyId,jdbcType=BIGINT},
+      r_type = #{rType,jdbcType=INTEGER},
+      r_start_city = #{rStartCity,jdbcType=VARCHAR},
+      r_destination_citys = #{rDestinationCitys,jdbcType=VARCHAR},
+      r_start_date_head = #{rStartDateHead,jdbcType=INTEGER},
+      r_start_date_tail = #{rStartDateTail,jdbcType=INTEGER},
+      r_play_days_min = #{rPlayDaysMin,jdbcType=INTEGER},
+      r_play_days_max = #{rPlayDaysMax,jdbcType=INTEGER},
+      r_adult_num = #{rAdultNum,jdbcType=INTEGER},
+      r_child_num = #{rChildNum,jdbcType=INTEGER},
+      r_baby_num = #{rBabyNum,jdbcType=INTEGER},
+      r_per_budget = #{rPerBudget,jdbcType=INTEGER},
+      r_optional_services = #{rOptionalServices,jdbcType=VARCHAR},
+      r_other_require = #{rOtherRequire,jdbcType=VARCHAR},
+      r_head_name = #{rHeadName,jdbcType=VARCHAR},
+      r_head_sex = #{rHeadSex,jdbcType=INTEGER},
+      r_head_phone = #{rHeadPhone,jdbcType=VARCHAR},
+      r_head_wx = #{rHeadWx,jdbcType=VARCHAR},
+      r_head_email = #{rHeadEmail,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="historyRequireList" parameterType="long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from ct_require
+    where d_id = #{dId}
+  </select>
+    <select id="selectRequireDetailDTOById" resultMap="RequireDTOMap" parameterType="Long">
+      select
+      <include refid="require_r_Base_Column_List"/>,u.u_real_name saleName,u.u_tel salePhone
+      from ct_require r
+      INNER JOIN ct_design d ON d.id = r.d_id
+      INNER JOIN sm_user u ON u.id  = d.create_user
+      where r.id = #{rId}
+    </select>
+</mapper>

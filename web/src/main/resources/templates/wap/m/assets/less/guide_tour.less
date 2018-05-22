@@ -1,0 +1,126 @@
+@import './common.less';
+@import './lib/swiper.3.4.0.less';
+
+#wrap{
+	padding-bottom: 0;
+	.acti_header{
+		color: #333;
+		height: 45px;
+	    line-height: 45px;
+	    background-color: #fff;
+	    text-align: center;
+	    position: fixed;
+	    font-size: 16px;
+	    box-shadow: 0px 0px 1px #ccc;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    z-index: 10;
+		.lef{
+			position: absolute;
+		    width: 45px;
+		    height: 45px;
+		    left: 0;
+		    top: 0;
+		    background: url('@{img}/icon_arr_back.png') center center no-repeat;
+		    background-size: 9px auto;
+		}
+		
+	}
+	.main{
+		padding-top: 45px;
+		.gare{
+			margin-top: 10px;
+			dl{
+				background: #fff;
+				dt{
+					box-sizing: border-box;
+					margin-left: 15px;
+					border-bottom: 1px solid #e7e7e7;
+					height: 45px;
+					overflow: hidden;
+					.le{
+						line-height: 45px;
+						font-size: 14px;
+						color: #333;
+						
+						float: left;
+						
+					}
+					.jh{
+						text-align: center;
+						line-height: 45px;
+						float: right;
+						width: 76px;
+						height: 100%;
+						font-size: 12px;
+						background: #e7e7e7;
+						color: #868686;
+					}
+					.active{
+						color: #fff;
+						background: #84b6fb;
+					}
+				}
+				.dis{
+					display: none;
+				}
+				dd{
+					margin-left: 15px;
+					box-sizing: border-box;
+					
+				}
+				.faci{
+					border-bottom: 1px solid #e7e7e7;
+					overflow: hidden;
+					padding: 11px 0;
+					padding-right: 15px;
+					.lef{
+						float: left;
+						width: 20%;
+						color: #666;
+						p{
+							font-size: 14px;
+						}
+						span{
+							font-size: 11px;
+						}
+					}
+					.rig{
+						float: left;
+						width: 80%;
+						.tops{
+							font-size: 14px;
+							color: #333;
+						}
+						.bott{
+							margin-top: 3px;
+							font-size: 12px;
+							color: #666;
+						}
+					}
+				}
+				.faci:last-child{
+					border-bottom: none;
+				}
+			}
+		}
+		.cost{
+			margin-top: 10px;
+			background: #fff;
+			.tot{
+				height: 45px;
+				margin-left: 15px;
+				border-bottom: 1px solid #e7e7e7;
+				line-height: 45px;
+				font-size: 14px;
+				color: #333;
+			}
+			.cont{
+				box-sizing: border-box;
+				padding: 15px;
+			}
+		}
+
+	}
+}

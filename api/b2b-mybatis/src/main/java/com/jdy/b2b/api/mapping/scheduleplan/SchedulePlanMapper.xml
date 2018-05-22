@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.scheduleplan.SchedulePlanMapper">
+
+    <!--已删除但是有销售记录-->
+    <select id="queryProductList" resultType="long">
+        SELECT
+        sp.pid
+        FROM
+        (
+        SELECT DISTINCT
+        s.s_product_id AS pid
+        FROM
+        ct_schedule s
+        INNER JOIN ct_product p ON s.s_product_id = p.id
+        <where>
+            #{beginDate} &lt;= s.s_calendar
+            and s.s_calendar &lt;= #{endDate}
+            and p.company_id = #{companyId}
+            and p.p_status in (0,3)
+        </where>
+
+        union all
+
+        select DISTINCT
+        s.s_product_id AS pid
+        from ct_schedule s
+        inner join ct_product p on s.s_product_id = p.id
+        inner join sl_order slOrder on slOrder.o_product_id = p.id
+        where #{beginDate} &lt;= s.s_calendar
+        and s.s_calendar &lt;= #{endDate}
+        and p.company_id = #{companyId}
+        and p.p_status in(1,2)
+
+        ) sp
+        limit #{startNum},#{pageSize}
+
+    </select>
+
+    <select id="queryProductCount" resultType="long">
+        SELECT
+        count(1)
+        FROM
+        (
+        SELECT DISTINCT
+        s.s_product_id AS pid
+        FROM
+        ct_schedule s
+        INNER JOIN ct_product p ON s.s_product_id = p.id
+        WHERE
+        #{beginDate} &lt;= s.s_calendar
+        and s.s_calendar &lt;= #{endDate}
+        and p.company_id = #{companyId}
+        ) sp
+    </select>
+
+    <select id="selectSchedulePlanManageTotal" resultType="long">
+        SELECT
+        count(1)
+        FROM
+        ct_schedule s
+        inner join ct_product p on s.s_product_id = p.id
+        WHERE
+        #{beginDate} &lt;= s.s_calendar
+        and s.s_calendar &lt;= #{endDate}
+        and p.company_id = #{companyId}
+    </select>
+
+
+    <!--查询某商品-->
+    <select id="querySchedulePlanManageList" parameterType="list" resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanManageDO">
+        SELECT
+        p.id as productId,
+        p.p_no as pNO,
+        p.p_name as pName,
+        u.u_real_name as pManager,
+        p.p_days as pDays,
+        IFNULL(sum(o.o_people_num),0) as totalNums,
+        0 as flag
+        FROM
+        ct_product p
+        left join sm_user u on p.create_user = u.id
+        left  join ct_schedule s on p.id = s.s_product_id
+        left join sl_order o on s.id = o.o_schedule_id
+        where
+        p.id in
+        <foreach collection="pids" item="pid" open="(" separator="," close=")">
+            #{pid}
+        </foreach>
+        and #{beginDate} &lt;= s.s_calendar
+        and s.s_calendar &lt;= #{endDate}
+        and (o.o_status = 1 or o.o_status is null)
+        group by p.id
+
+        union all
+
+        SELECT
+        p.id as pid,
+        p.p_no as pNO,
+        p.p_name as pName,
+        u.u_real_name as pManager,
+        p.p_days as pDays,
+        IFNULL(sum(o.o_people_num),0) as totalNums,
+        1 as flag
+        FROM
+        ct_product p
+        left join sm_user u on p.create_user = u.id
+        left  join ct_schedule s on p.id = s.s_product_id
+        left join sl_order o on s.id = o.o_schedule_id
+        where
+        p.id in
+        <foreach collection="pids" item="pid" open="(" separator="," close=")">
+            #{pid}
+        </foreach>
+        and #{beginDate} &lt;= s.s_calendar
+        and s.s_calendar &lt;= #{endDate}
+        and (o.o_status = 3 or o.o_status is null)
+        group by p.id
+    </select>
+
+    <select id="queryAllProductIds" resultType="long" >
+        SELECT
+        s.s_product_id
+        FROM
+        ct_schedule s
+        inner join ct_product p on s.s_product_id = p.id
+        WHERE
+        #{beginDate} &lt;= s.s_calendar
+        and s.s_calendar &lt;= #{endDate}
+        and p.company_id = #{companyId}
+    </select>
+
+    <select id="querySchedulePlanManageCountData" resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanManageCountDO">
+        SELECT
+        IFNULL(sum(o.o_people_num),0) as totalNums,
+        0 as flag
+        FROM
+        ct_product p
+        left join sm_user u on p.create_user = u.id
+        left  join ct_schedule s on p.id = s.s_product_id
+        left join sl_order o on s.id = o.o_schedule_id
+        where
+        p.id in
+        <foreach collection="pids" item="pid" open="(" separator="," close=")">
+            #{pid}
+        </foreach>
+        and #{beginDate} &lt;= s.s_calendar
+        and s.s_calendar &lt;= #{endDate}
+        and o.o_status = 1
+
+        union all
+
+        SELECT
+        IFNULL(sum(o.o_people_num),0) as totalNums,
+        1 as flag
+        FROM
+        ct_product p
+        left join sm_user u on p.create_user = u.id
+        left  join ct_schedule s on p.id = s.s_product_id
+        left join sl_order o on s.id = o.o_schedule_id
+        where
+        p.id in
+        <foreach collection="pids" item="pid" open="(" separator="," close=")">
+            #{pid}
+        </foreach>
+        and #{beginDate} &lt;= s.s_calendar
+        and s.s_calendar &lt;= #{endDate}
+        and o.o_status = 3
+    </select>
+
+    <!--报表导出前查询数据-->
+    <select id="queryBeforeExport" parameterType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanManageDTO" resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanExportDO">
+        set @a = 0;
+        SELECT
+        p.id AS productId,
+        p.p_name AS pName,
+        d.id AS tId,
+        d.d_name AS tName,
+        s.s_calendar AS sCalendar,
+        count(t.id) AS ticketCounts,
+        o.o_status as oStatus,
+        @a:=@a+1 as rowTag
+        FROM
+        ct_product p
+        INNER JOIN ct_schedule s ON p.id = s.s_product_id
+        LEFT JOIN sl_order o ON o.o_schedule_id = s.id
+        LEFT JOIN sl_order_tourist ot ON ot.ot_order_id = o.id
+        LEFT JOIN ct_ticket t ON ot.ot_ticket_id = t.id
+        left join sm_dictionaries d on t.t_category = d.id
+        WHERE
+        o.o_status IN (1, 3)
+        AND #{beginDate} &lt;= s.s_calendar
+        AND s.s_calendar &lt;= #{endDate}
+        and p.company_id = #{companyId}
+        and p.id in (
+
+        SELECT DISTINCT
+        s.s_product_id AS pid
+        FROM
+        ct_schedule s
+        INNER JOIN ct_product p ON s.s_product_id = p.id
+        <where>
+            #{beginDate} &lt;= s.s_calendar
+            and s.s_calendar &lt;= #{endDate}
+            and p.company_id = #{companyId}
+            and p.p_status in (0,3)
+        </where>
+
+        union all
+
+        select DISTINCT
+        s.s_product_id AS pid
+        from ct_schedule s
+        inner join ct_product p on s.s_product_id = p.id
+        inner join sl_order slOrder on slOrder.o_product_id = p.id
+        where #{beginDate} &lt;= s.s_calendar
+        and s.s_calendar &lt;= #{endDate}
+        and p.company_id = #{companyId}
+        and p.p_status in(1,2)
+
+        )
+        GROUP BY
+        p.id,
+        d.id,
+        s.s_calendar,
+        o.o_status
+
+    </select>
+
+
+    <select id="getProductCountBeforeExport" parameterType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanManageDTO" resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanExportProductCountDO">
+
+        SELECT
+        result.productId,
+        count(1) as productCount
+
+        FROM
+        (
+        SELECT
+        p.id AS productId
+        FROM
+        ct_product p
+        inner JOIN ct_schedule s ON p.id = s.s_product_id
+        LEFT JOIN sl_order o ON o.o_schedule_id = s.id
+        LEFT JOIN sl_order_tourist ot ON ot.ot_order_id = o.id
+        LEFT JOIN ct_ticket t ON ot.ot_ticket_id = t.id
+        left join sm_dictionaries d on t.t_category = d.id
+        WHERE
+        o.o_status IN (1, 3)
+        AND #{beginDate} &lt;= s.s_calendar
+        AND s.s_calendar &lt;= #{endDate}
+        and p.company_id = #{companyId}
+        and p.id in (
+        SELECT DISTINCT
+        s.s_product_id AS pid
+        FROM
+        ct_schedule s
+        INNER JOIN ct_product p ON s.s_product_id = p.id
+        <where>
+            #{beginDate} &lt;= s.s_calendar
+            and s.s_calendar &lt;= #{endDate}
+            and p.company_id = #{companyId}
+            and p.p_status in (0,3)
+        </where>
+
+        union all
+
+        select DISTINCT
+        s.s_product_id AS pid
+        from ct_schedule s
+        inner join ct_product p on s.s_product_id = p.id
+        inner join sl_order slOrder on slOrder.o_product_id = p.id
+        where #{beginDate} &lt;= s.s_calendar
+        and s.s_calendar &lt;= #{endDate}
+        and p.company_id = #{companyId}
+        and p.p_status in (1,2)
+
+        )
+        GROUP BY
+        p.id,
+        d.id,
+        s.s_calendar,
+        o.o_status
+        ) result
+        GROUP BY
+        result.productId
+    </select>
+
+    <select id="getTicketIdList" parameterType="long" resultType="long">
+        select d.id from ct_ticket t
+        left join sm_dictionaries d on t.t_category = d.id
+        where t.t_product_id = #{productId}
+    </select>
+
+    <select id="getPlanList" parameterType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanManageDTO" resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanDO">
+        SELECT
+        s.s_calendar as sCallendar,
+        d.id as otTicketId,
+        d.d_name AS tName,
+        count(ot.ot_ticket_id) as peopleNum,
+        0 AS flag
+        FROM
+        ct_schedule s
+        LEFT JOIN sl_order o ON s.id = o.o_schedule_id
+        LEFT JOIN sl_order_tourist ot ON o.id = ot.ot_order_id
+        left join ct_ticket t on ot.ot_ticket_id = t.id
+        left join sm_dictionaries d on t.t_category = d.id
+        WHERE
+        s.s_product_id = #{trans.productId}
+        AND o.o_status = 1
+        and s.s_calendar &gt;=#{begin}
+        and s.s_calendar &lt;= #{end}
+        GROUP BY
+        s.s_calendar,
+        d.id
+
+        union all
+
+        SELECT
+        s.s_calendar as sCallendar,
+        d.id as otTicketId,
+        d.d_name AS tName,
+        count(ot.ot_ticket_id) as peopleNum,
+        1 AS flag
+        FROM
+        ct_schedule s
+        LEFT JOIN sl_order o ON s.id = o.o_schedule_id
+        LEFT JOIN sl_order_tourist ot ON o.id = ot.ot_order_id
+        left join ct_ticket t on ot.ot_ticket_id = t.id
+        left join sm_dictionaries d on t.t_category = d.id
+        WHERE
+        s.s_product_id = #{trans.productId}
+        AND o.o_status = 3
+        and s.s_calendar &gt;=#{begin}
+        and s.s_calendar &lt;= #{end}
+        GROUP BY
+        s.s_calendar,
+        d.id
+    </select>
+
+    <select id="getAllSumDOList" parameterType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanManageDTO"
+            resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanAllSumDO">
+        SELECT
+        d.id as ticketId,
+        1 AS flag,
+        count(ot.ot_ticket_id) AS peopleNum
+        FROM
+        ct_schedule s
+        LEFT JOIN sl_order o ON s.id = o.o_schedule_id
+        LEFT JOIN sl_order_tourist ot ON o.id = ot.ot_order_id
+        left join ct_ticket t on ot.ot_ticket_id = t.id
+        left join sm_dictionaries d on t.t_category = d.id
+        WHERE
+        s.s_calendar &gt;= #{beginDate}
+        AND s.s_calendar &lt;= #{endDate}
+        AND s.s_product_id = #{productId}
+        AND o.o_status = 3
+        GROUP BY
+        s.s_calendar,
+        d.id
+        UNION ALL
+        SELECT
+        d.id as ticketId,
+        0 AS flag,
+        count(ot.ot_ticket_id) AS peopleNum
+        FROM
+        ct_schedule s
+        LEFT JOIN sl_order o ON s.id = o.o_schedule_id
+        LEFT JOIN sl_order_tourist ot ON o.id = ot.ot_order_id
+        left join ct_ticket t on ot.ot_ticket_id = t.id
+        left join sm_dictionaries d on t.t_category = d.id
+        WHERE
+        s.s_calendar &gt;= #{beginDate}
+        AND s.s_calendar &lt;= #{endDate}
+        AND s.s_product_id = #{productId}
+        AND o.o_status = 1
+        GROUP BY
+        s.s_calendar,
+        d.id
+    </select>
+
+    <select id="planDetailList" parameterType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanDetailQueryDTO" resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanDetailQueryDO">
+        SELECT
+        o.o_buyer_id as userId,
+        o.o_buyer_name as uName,
+        u.u_tel as uTel,
+        d.d_name as dName,
+        ot.ot_name as touristName,
+        ot.ot_phone as touristTel,
+        ot.ot_lincese as touristID,
+        o.id as oId,
+        o.o_order_no as orderNO,
+        t.t_name as tName,
+        o.create_time as orderTime,
+        dict.d_name as tCategory,
+        0 as flag
+        FROM
+        ct_schedule s
+        LEFT JOIN sl_order o ON s.id = o.o_schedule_id
+        LEFT JOIN sl_order_tourist ot ON ot.ot_order_id = o.id
+        LEFT JOIN ct_ticket t ON ot.ot_ticket_id = t.id
+        LEFT JOIN sm_user u ON u.id = o.o_buyer_id
+        LEFT JOIN sm_department d ON u.u_department_id = d.id
+        left join sm_dictionaries dict on t.t_category = dict.id
+        WHERE
+        s.s_product_id = #{productId}
+        AND s.s_calendar = #{sCalendar}
+        AND o.o_status = 1
+
+        union all
+
+        SELECT
+        o.o_buyer_id as userId,
+        o.o_buyer_name as uName,
+        u.u_tel as uTel,
+        d.d_name as dName,
+        ot.ot_name as touristName,
+        ot.ot_phone as touristTel,
+        ot.ot_lincese as touristID,
+        o.id as oId,
+        o.o_order_no as orderNO,
+        t.t_name as tName,
+        o.create_time as orderTime,
+        dict.d_name as tCategory,
+        1 as flag
+        FROM
+        ct_schedule s
+        LEFT JOIN sl_order o ON s.id = o.o_schedule_id
+        LEFT JOIN sl_order_tourist ot ON ot.ot_order_id = o.id
+        LEFT JOIN ct_ticket t ON ot.ot_ticket_id = t.id
+        LEFT JOIN sm_user u ON u.id = o.o_buyer_id
+        LEFT JOIN sm_department d ON u.u_department_id = d.id
+        left join sm_dictionaries dict on t.t_category = dict.id
+        WHERE
+        s.s_product_id = #{productId}
+        AND s.s_calendar = #{sCalendar}
+        AND o.o_status = 3
+
+    </select>
+
+    <select id="planDetailListReserve" parameterType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanDetailQueryDTO" resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanDetailQueryDO">
+        SELECT
+        o.o_buyer_id as userId,
+        o.o_buyer_name as uName,
+        u.u_tel as uTel,
+        d.d_name as dName,
+        ot.ot_name as touristName,
+        ot.ot_phone as touristTel,
+        ot.ot_lincese as touristID,
+        o.id as oId,
+        o.o_order_no as orderNO,
+        t.t_name as tName,
+        o.create_time as orderTime,
+        dict.d_name as tCategory,
+        0 as flag
+        FROM
+        ct_schedule s
+        LEFT JOIN sl_order o ON s.id = o.o_schedule_id
+        LEFT JOIN sl_order_tourist ot ON ot.ot_order_id = o.id
+        LEFT JOIN ct_ticket t ON ot.ot_ticket_id = t.id
+        LEFT JOIN sm_user u ON u.id = o.o_buyer_id
+        LEFT JOIN sm_department d ON u.u_department_id = d.id
+        left join sm_dictionaries dict on t.t_category = dict.id
+        WHERE
+        s.s_product_id = #{productId}
+        AND s.s_calendar = #{sCalendar}
+        AND o.o_status = 1
+        <if test="ticketId!=null">
+            AND dict.id = #{ticketId}
+        </if>
+
+    </select>
+
+    <select id="getCalendarList"  resultType="java.time.LocalDate">
+        select DISTINCT s_calendar from ct_schedule where s_product_id = #{productId}
+        and s_calendar &gt;= #{beginDate}
+        AND s_calendar &lt;= #{endDate}
+        order by s_calendar asc limit #{startNum},#{pageSize}
+    </select>
+
+    <select id="getCalendarCount"  resultType="long">
+        select count(DISTINCT s_calendar) from ct_schedule where s_product_id = #{productId}
+        and s_calendar &gt;= #{beginDate}
+        AND s_calendar &lt;= #{endDate}
+        order by s_calendar asc
+    </select>
+
+    <select id="planDetailListPayed" parameterType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanDetailQueryDTO" resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanDetailQueryDO">
+        SELECT
+        o.o_buyer_id as userId,
+        o.o_buyer_name as uName,
+        u.u_tel as uTel,
+        d.d_name as dName,
+        ot.ot_name as touristName,
+        ot.ot_phone as touristTel,
+        ot.ot_lincese as touristID,
+        o.id as oId,
+        o.o_order_no as orderNO,
+        t.t_name as tName,
+        o.create_time as orderTime,
+        dict.d_name as tCategory,
+        1 as flag
+        FROM
+        ct_schedule s
+        LEFT JOIN sl_order o ON s.id = o.o_schedule_id
+        LEFT JOIN sl_order_tourist ot ON ot.ot_order_id = o.id
+        LEFT JOIN ct_ticket t ON ot.ot_ticket_id = t.id
+        LEFT JOIN sm_user u ON u.id = o.o_buyer_id
+        LEFT JOIN sm_department d ON u.u_department_id = d.id
+        left join sm_dictionaries dict on t.t_category = dict.id
+        WHERE
+        s.s_product_id = #{productId}
+        AND s.s_calendar = #{sCalendar}
+        AND o.o_status = 3
+        <if test="ticketId!=null">
+            AND dict.id = #{ticketId}
+        </if>
+    </select>
+
+    <select id="getCateListOfEverySchedule" parameterType="list" resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanCateExpendDO">
+        SELECT
+        dict.d_name as dName,
+        s.id AS scheduleId,
+        cd.category_id AS categoryId,
+        IFNULL(sum(cd.amount * cd.unit_price),0) AS cateExpend
+        FROM
+        sm_dictionaries dict
+        INNER JOIN sm_dictionaries_group dictGr ON dictGr.id = dict.d_group_id
+        LEFT JOIN ct_product_costing_category_detail cd ON dict.id = cd.category_id
+        INNER JOIN ct_product_costing_title ct ON ct.id = cd.product_costing_title_id
+        INNER JOIN ct_schedule s ON s.id = ct.rel_id
+        WHERE
+        ct.rel_id IN
+        <foreach collection="list"  item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY
+        s.id,
+        dict.id
+    </select>
+
+    <select id="newPlanList" parameterType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanQueryDTO"
+            resultType="com.jdy.b2b.api.model.scheduleplan.SchedulePlanQueryDO">
+        SELECT
+            s.id as scheduleId,
+            ss.group_no as groupOrderNo,
+            p.p_name as productName,
+            s.s_calendar as calendar,
+            count(ot.id) as peopleNum,
+            SUM(o.o_real_pay) as systemIncome
+        FROM
+            ct_schedule s
+        INNER JOIN ct_product p ON s.s_product_id = p.id
+        left join ct_product_assemble_company pac on p.id= pac.product_id
+        INNER JOIN sl_order o ON o.o_schedule_id = s.id
+        INNER JOIN sl_order_tourist ot ON ot.ot_order_id = o.id and ot.ot_status = 0
+        INNER JOIN ct_schedule_setting ss ON ss.schedule_id = s.id 
+        and (
+        <choose>
+	        <when test="pcompanyId != null">ss.company_id = #{pcompanyId}</when>
+	        <otherwise>ss.company_id is not null</otherwise>
+        </choose>
+         or (assemble_status =1 and ss.company_id = pac.company_id))
+        WHERE
+		o.o_status = 3
+        AND (
+            o.o_un_pay IS NULL
+            OR o.o_un_pay = 0
+        )
+        <if test="searchStr != null">
+            <bind name="searchStr" value="'%' +searchStr + '%'" />
+            AND CONCAT(IFNULL(p.p_name,''),IFNULL(ss.group_no,'')) LIKE #{searchStr}
+        </if>
+        <choose>
+            <when test="flag == 0">
+                and s.s_calendar &gt;= #{beginDate}
+                AND s.s_calendar &lt;= #{endDate}
+            </when>
+            <when test="flag == 1">
+                and s.s_return_calendar &gt;= #{beginDate}
+                AND s.s_return_calendar &lt;= #{endDate}
+            </when>
+        </choose>
+        GROUP BY
+            s.id,
+            ss.group_no,
+            p.p_name,
+            s.s_calendar
+        order by s.s_calendar asc
+
+    </select>
+
+
+</mapper>

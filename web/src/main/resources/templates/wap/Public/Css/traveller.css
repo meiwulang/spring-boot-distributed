@@ -1,0 +1,36 @@
+#pzprint {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:19cm;
+    height:28.2cm;
+    z-index:1;
+}
+
+body {margin:0px; text-align:center; background:#fff;}
+
+div {font-size:10pt;}
+
+.title {font-size:14pt; font-family:"微软雅黑", "黑体", "华文细黑", Arial, "Arial Narrow", Verdana; text-align:center; height: 30px; line-height: 30px; margin-top: 10px;}
+.ct_title {font-size:14pt; font-family:"微软雅黑", "黑体", "华文细黑", Arial, "Arial Narrow", Verdana; margin:5px; }
+
+
+.Tourist { width:19cm; font-size:10pt; margin-top: 10px;width: 720px;}
+.Tourist td { line-height:30px;}
+.border_td { text-align:center; vertical-align:middle;border-bottom:1px solid #333;}
+.Tourist td.line25 { line-height:22px; height:22px;}
+.STYLE3 {color: #000000; font-weight: bold; }
+.STYLE4 {color: #999}
+.STYLE5 {color: #000000}
+
+
+
+
+@media print{
+    .noprint {display:none}
+    .txt { font-size:8pt}
+    .div_RightMenu {display:none !important;}
+}
+
+
+

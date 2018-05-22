@@ -1,0 +1,212 @@
+@import './common.less';
+
+#wrap{
+	position: relative;
+	background: #f3f5f9;
+	padding-bottom: 0px;
+	.main{
+		.logo_bg{
+			position: relative;
+			height: 204px;
+			width: 100%;
+			text-align: center;
+			img{
+				background-image: none;
+				background-color: #f3f5f9;
+				width: 132px;
+				margin-top: 64px;
+			}
+			.gui{
+				position: absolute;
+				top: 15px;
+				right: 15px;
+				color: #666;
+			}
+			.guides{
+				display: none;
+			}
+		}
+		.bg_bottom{
+			z-index: -1;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			height: 176px;
+			background: url('@{img}/login/login_bg.png');
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+		.phon{
+			.mains{
+				padding: 0 27px;
+				padding-top: 33px;
+				box-sizing: border-box;
+				height: 59px;
+				width: 100%;
+				.mains_sun{
+					line-height: 23px;
+					padding-left: 10px;
+					box-sizing: border-box;
+					height: 27px;
+					border-bottom: 1px solid #c6c7c9;
+					label{
+						img{
+							background-image: none;
+							width: 12px;
+							height: 13px;
+						}
+					}
+					input{
+						background: #f3f5f9;
+						margin-left: 10px;
+						font-size: 12px;
+					}
+				}
+			}
+			.bind{
+				margin-top: 10px;
+				font-size: 12px;
+				color: #999;
+				height: 45px;
+				line-height: 45px;
+				padding-left: 36px;
+				box-sizing: border-box;
+				label{
+					float: left;
+					margin-top: 13px;
+					display: inline-block;
+					height: 15px;
+					width: 15px;
+					background: url('@{img}/order/icon_uncheck.png');
+					background-size: 100% 100%;
+				}
+				.labels{
+					background: url('@{img}/order/icon_check.png');
+					background-size: 100% 100%;
+				}
+			}
+			.buttons{
+				margin-top: 5px;
+				height: 96px;
+				width: 100%;
+				padding: 0 27px;
+				box-sizing: border-box;
+				.login_but,.login_phon{
+					border-radius: 5px;
+					font-size: 17px;
+					text-align: center;
+					line-height: 40px;
+					height: 40px;
+				}
+				.login_but{
+					background: #ffa600;
+					color: #fff;
+				}
+				.login_phon{
+					margin-top: 15px;
+					color: #999;
+					background: #fff;
+				}
+			}
+		}
+
+		.email{
+			display: none;
+			.mains{
+				padding: 0 27px;
+				padding-top: 33px;
+				box-sizing: border-box;
+				height: 59px;
+				width: 100%;
+				.mains_sun{
+					line-height: 23px;
+					padding-left: 10px;
+					box-sizing: border-box;
+					height: 27px;
+					border-bottom: 1px solid #c6c7c9;
+					label{
+						img{
+							background-image: none;
+							width: 12px;
+							height: 13px;
+						}
+						.ema{
+							width: 13px;
+							height: 10px;
+						}
+					}
+					input{
+						font-size: 12px;
+						background: #f3f5f9;
+						margin-left: 10px;
+					}
+					.ident{
+						height: 21px;
+						width: 72px;
+						box-sizing: border-box;
+						border: 1px solid #ffb833;
+						color: #ffb833;
+						text-align: center;
+						line-height: 20px;
+						font-size: 13px;
+						/*position: relative;*/
+						float: right;
+						border-radius: 3px;
+						opacity: 1;
+					}
+					.ident.disable{
+						opacity: 0.5;
+					}
+				}
+			}
+			.bind{
+				margin-top: 10px;
+				font-size: 12px;
+				color: #999;
+				height: 45px;
+				line-height: 45px;
+				padding-left: 36px;
+				box-sizing: border-box;
+				label{
+					float: left;
+					margin-top: 13px;
+					display: inline-block;
+					height: 15px;
+					width: 15px;
+					background: url('@{img}/order/icon_uncheck.png');
+					background-size: 100% 100%;
+				}
+				.labels{
+					background: url('@{img}/order/icon_check.png');
+					background-size: 100% 100%;
+				}
+			}
+			.buttons{
+				margin-top: 5px;
+				height: 96px;
+				width: 100%;
+				padding: 0 27px;
+				box-sizing: border-box;
+				.login_but,.login_phon{
+					border-radius: 5px;
+					font-size: 17px;
+					text-align: center;
+					line-height: 40px;
+					height: 40px;
+				}
+				.login_but{
+					background: #ffa600;
+					color: #fff;
+				}
+				.login_phon{
+					margin-top: 15px;
+					color: #999;
+					background: #fff;
+				}
+			}
+		}
+	}
+
+	
+
+}

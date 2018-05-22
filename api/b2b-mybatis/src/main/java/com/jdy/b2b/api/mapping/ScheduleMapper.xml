@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.ScheduleMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.Schedule">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="s_product_id" jdbcType="BIGINT" property="sProductId" />
+    <result column="s_schedule_no" jdbcType="VARCHAR" property="sScheduleNo" />
+    <result column="s_group_order_no" jdbcType="VARCHAR" property="sGroupOrderNo"/>
+    <result column="s_schedule_name" jdbcType="VARCHAR" property="sScheduleName" />
+    <result column="s_calendar" jdbcType="DATE" property="sCalendar" />
+    <result column="s_return_calendar" jdbcType="DATE" property="sReturnCalendar" />
+    <result column="s_week_day" jdbcType="INTEGER" property="sWeekDay" />
+    <result column="s_car_num" jdbcType="INTEGER" property="sCarNum" />
+    <result column="s_car_seats" jdbcType="INTEGER" property="sCarSeats" />
+    <result column="s_leave_time" jdbcType="TIME" property="sLeaveTime" />
+    <result column="s_stop_sale" jdbcType="INTEGER" property="sStopSale" />
+    <result column="s_stop_type" jdbcType="INTEGER" property="sStopType" />
+    <result column="s_sham_num" jdbcType="INTEGER" property="sShamNum" />
+    <result column="s_print" jdbcType="BIT" property="sPrint" />
+    <result column="s_sit_type" jdbcType="INTEGER" property="sSitType" />
+    <result column="s_group_num" jdbcType="INTEGER" property="sGroupNum" />
+    <result column="s_seat_hold" jdbcType="INTEGER" property="sSeatHold" />
+    <result column="s_seat_lock" jdbcType="INTEGER" property="sSeatLock" />
+    <result column="s_seat_sold" jdbcType="INTEGER" property="sSeatSold" />
+    <result column="s_seat_total" jdbcType="INTEGER" property="sSeatTotal" />
+    <result column="s_status" jdbcType="INTEGER" property="sStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, s_product_id, s_schedule_no, s_group_order_no , s_schedule_name, s_calendar, s_return_calendar,s_week_day, s_car_num,
+    s_car_seats, s_leave_time, s_stop_sale, s_stop_type, s_sham_num, s_print, s_sit_type, 
+    s_group_num, s_seat_hold, s_seat_lock, s_seat_sold, s_seat_total, s_status, create_time, 
+    create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ct_schedule
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_schedule
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.jdy.b2b.api.model.Schedule" keyProperty="id" useGeneratedKeys="true">
+    insert into ct_schedule (id, s_product_id, s_schedule_no, s_group_order_no,
+      s_schedule_name, s_calendar,s_return_calendar, s_week_day,
+      s_car_num, s_car_seats, s_leave_time, 
+      s_stop_sale, s_stop_type, s_sham_num, 
+      s_print, s_sit_type, s_group_num, 
+      s_seat_hold, s_seat_lock, s_seat_sold, 
+      s_seat_total, s_status, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{id,jdbcType=BIGINT}, #{sProductId,jdbcType=BIGINT}, #{sScheduleNo,jdbcType=VARCHAR}, #{sGroupOrderNo,jdbcType=VARCHAR},
+      #{sScheduleName,jdbcType=VARCHAR}, #{sCalendar,jdbcType=DATE},#{sReturnCalendar,jdbcType=DATE}, #{sWeekDay,jdbcType=INTEGER},
+      #{sCarNum,jdbcType=INTEGER}, #{sCarSeats,jdbcType=INTEGER}, #{sLeaveTime,jdbcType=TIME}, 
+      #{sStopSale,jdbcType=INTEGER}, #{sStopType,jdbcType=INTEGER}, #{sShamNum,jdbcType=INTEGER}, 
+      #{sPrint,jdbcType=BIT}, #{sSitType,jdbcType=INTEGER}, #{sGroupNum,jdbcType=INTEGER}, 
+      #{sSeatHold,jdbcType=INTEGER}, #{sSeatLock,jdbcType=INTEGER}, #{sSeatSold,jdbcType=INTEGER}, 
+      #{sSeatTotal,jdbcType=INTEGER}, #{sStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.Schedule" keyProperty="id" useGeneratedKeys="true">
+    insert into ct_schedule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sProductId != null">
+        s_product_id,
+      </if>
+      <if test="sScheduleNo != null">
+        s_schedule_no,
+      </if>
+      <if test="sScheduleName != null">
+        s_schedule_name,
+      </if>
+      <if test="sCalendar != null">
+        s_calendar,
+      </if>
+      <if test="sReturnCalendar != null">
+        s_return_calendar,
+      </if>
+      <if test="sWeekDay != null">
+        s_week_day,
+      </if>
+      <if test="sCarNum != null">
+        s_car_num,
+      </if>
+      <if test="sCarSeats != null">
+        s_car_seats,
+      </if>
+      <if test="sLeaveTime != null">
+        s_leave_time,
+      </if>
+      <if test="sStopSale != null">
+        s_stop_sale,
+      </if>
+      <if test="sStopType != null">
+        s_stop_type,
+      </if>
+      <if test="sShamNum != null">
+        s_sham_num,
+      </if>
+      <if test="sPrint != null">
+        s_print,
+      </if>
+      <if test="sSitType != null">
+        s_sit_type,
+      </if>
+      <if test="sGroupNum != null">
+        s_group_num,
+      </if>
+      <if test="sSeatHold != null">
+        s_seat_hold,
+      </if>
+      <if test="sSeatLock != null">
+        s_seat_lock,
+      </if>
+      <if test="sSeatSold != null">
+        s_seat_sold,
+      </if>
+      <if test="sSeatTotal != null">
+        s_seat_total,
+      </if>
+      <if test="sStatus != null">
+        s_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sProductId != null">
+        #{sProductId,jdbcType=BIGINT},
+      </if>
+      <if test="sScheduleNo != null">
+        #{sScheduleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sScheduleName != null">
+        #{sScheduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="sCalendar != null">
+        #{sCalendar,jdbcType=DATE},
+      </if>
+      <if test="sReturnCalendar != null">
+        #{sReturnCalendar,jdbcType=DATE},
+      </if>
+      <if test="sWeekDay != null">
+        #{sWeekDay,jdbcType=INTEGER},
+      </if>
+      <if test="sCarNum != null">
+        #{sCarNum,jdbcType=INTEGER},
+      </if>
+      <if test="sCarSeats != null">
+        #{sCarSeats,jdbcType=INTEGER},
+      </if>
+      <if test="sLeaveTime != null">
+        #{sLeaveTime,jdbcType=TIME},
+      </if>
+      <if test="sStopSale != null">
+        #{sStopSale,jdbcType=INTEGER},
+      </if>
+      <if test="sStopType != null">
+        #{sStopType,jdbcType=INTEGER},
+      </if>
+      <if test="sShamNum != null">
+        #{sShamNum,jdbcType=INTEGER},
+      </if>
+      <if test="sPrint != null">
+        #{sPrint,jdbcType=BIT},
+      </if>
+      <if test="sSitType != null">
+        #{sSitType,jdbcType=INTEGER},
+      </if>
+      <if test="sGroupNum != null">
+        #{sGroupNum,jdbcType=INTEGER},
+      </if>
+      <if test="sSeatHold != null">
+        #{sSeatHold,jdbcType=INTEGER},
+      </if>
+      <if test="sSeatLock != null">
+        #{sSeatLock,jdbcType=INTEGER},
+      </if>
+      <if test="sSeatSold != null">
+        #{sSeatSold,jdbcType=INTEGER},
+      </if>
+      <if test="sSeatTotal != null">
+        #{sSeatTotal,jdbcType=INTEGER},
+      </if>
+      <if test="sStatus != null">
+        #{sStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.Schedule">
+    update ct_schedule
+    <set>
+      <if test="sProductId != null">
+        s_product_id = #{sProductId,jdbcType=BIGINT},
+      </if>
+      <if test="sScheduleNo != null">
+        s_schedule_no = #{sScheduleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sScheduleName != null">
+        s_schedule_name = #{sScheduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="sCalendar != null">
+        s_calendar = #{sCalendar,jdbcType=DATE},
+      </if>
+      <if test="sReturnCalendar != null">
+        s_return_calendar = #{sReturnCalendar,jdbcType=DATE},
+      </if>
+      <if test="sWeekDay != null">
+        s_week_day = #{sWeekDay,jdbcType=INTEGER},
+      </if>
+      <if test="sCarNum != null">
+        s_car_num = #{sCarNum,jdbcType=INTEGER},
+      </if>
+      <if test="sCarSeats != null">
+        s_car_seats = #{sCarSeats,jdbcType=INTEGER},
+      </if>
+      <if test="sLeaveTime != null">
+        s_leave_time = #{sLeaveTime,jdbcType=TIME},
+      </if>
+      <if test="sStopSale != null">
+        s_stop_sale = #{sStopSale,jdbcType=INTEGER},
+      </if>
+      <if test="sStopType != null">
+        s_stop_type = #{sStopType,jdbcType=INTEGER},
+      </if>
+      <if test="sShamNum != null">
+        s_sham_num = #{sShamNum,jdbcType=INTEGER},
+      </if>
+      <if test="sPrint != null">
+        s_print = #{sPrint,jdbcType=BIT},
+      </if>
+      <if test="sSitType != null">
+        s_sit_type = #{sSitType,jdbcType=INTEGER},
+      </if>
+      <if test="sGroupNum != null">
+        s_group_num = #{sGroupNum,jdbcType=INTEGER},
+      </if>
+      <if test="sSeatHold != null">
+        s_seat_hold = #{sSeatHold,jdbcType=INTEGER},
+      </if>
+      <if test="sSeatLock != null">
+        s_seat_lock = #{sSeatLock,jdbcType=INTEGER},
+      </if>
+      <if test="sSeatSold != null">
+        s_seat_sold = #{sSeatSold,jdbcType=INTEGER},
+      </if>
+      <if test="sSeatTotal != null">
+        s_seat_total = #{sSeatTotal,jdbcType=INTEGER},
+      </if>
+      <if test="sStatus != null">
+        s_status = #{sStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+--     如果删除班期，先判断是否有人下单，如果有人下单，不允许删除班期
+    <if test="sStatus!=null and sStatus==2">
+       and not exists (
+          select o.id from sl_order o where  o_schedule_id = #{id} and o.o_people_num &gt; 0 and o_status != 4
+      )
+    </if>
+
+
+  </update>
+  <update id="updateByProductSelective" parameterType="com.jdy.b2b.api.model.Schedule">
+<!--     update ct_schedule -->
+<!--       set  s_return_calendar =date_add(s_calendar,interval #{day} day) -->
+<!--     where  s_product_id = #{productId} and departure_status= 0 -->
+    update ct_schedule s,ct_schedule_setting ss
+      set  s.s_return_calendar =date_add(s.s_calendar,interval #{day} day)
+    where  s.s_product_id = #{productId} and ss.departure_status= 0 and s.id=ss.schedule_id;
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.Schedule">
+    update ct_schedule
+    set s_product_id = #{sProductId,jdbcType=BIGINT},
+      s_schedule_no = #{sScheduleNo,jdbcType=VARCHAR},
+      s_schedule_name = #{sScheduleName,jdbcType=VARCHAR},
+      s_calendar = #{sCalendar,jdbcType=DATE},
+      s_return_calendar = #{sReturnCalendar,jdbcType=DATE},
+      s_week_day = #{sWeekDay,jdbcType=INTEGER},
+      s_car_num = #{sCarNum,jdbcType=INTEGER},
+      s_car_seats = #{sCarSeats,jdbcType=INTEGER},
+      s_leave_time = #{sLeaveTime,jdbcType=TIME},
+      s_stop_sale = #{sStopSale,jdbcType=INTEGER},
+      s_stop_type = #{sStopType,jdbcType=INTEGER},
+      s_sham_num = #{sShamNum,jdbcType=INTEGER},
+      s_print = #{sPrint,jdbcType=BIT},
+      s_sit_type = #{sSitType,jdbcType=INTEGER},
+      s_group_num = #{sGroupNum,jdbcType=INTEGER},
+      s_seat_hold = #{sSeatHold,jdbcType=INTEGER},
+      s_seat_lock = #{sSeatLock,jdbcType=INTEGER},
+      s_seat_sold = #{sSeatSold,jdbcType=INTEGER},
+      s_seat_total = #{sSeatTotal,jdbcType=INTEGER},
+      s_status = #{sStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="batchUpdateGroupOrderNo" parameterType="ArrayList">
+    <foreach collection="list" item="item" separator=";">
+      UPDATE ct_schedule SET s_group_order_no = #{item.sGroupOrderNo}
+      WHERE id = #{item.id}
+    </foreach>
+  </update>
+
+  <update id="updateGroupOrderNoBash" parameterType="ArrayList">
+    <foreach collection="list" item="item" separator=";">
+      UPDATE ct_schedule SET s_group_order_no = #{item.uNo}
+      WHERE id = #{item.id}
+    </foreach>
+  </update>
+    <update id="updateSeatSoldById">
+      UPDATE ct_schedule SET s_seat_sold = s_seat_sold - #{reduceNum} WHERE id = #{scheduleId}
+    </update>
+
+    <resultMap id="frontProductScheduleListMap" type="com.jdy.b2b.api.model.front.ProductScheduleDto">
+    <result property="p_days" column="p_days" jdbcType="INTEGER"></result>
+    <result property="p_name" column="p_name" jdbcType="VARCHAR"></result>
+    <result property="p_confirm" column="p_confirm" jdbcType="INTEGER"></result>
+    <result property="bl_num" column="s_schedule_no" jdbcType="VARCHAR"></result>
+    <result property="sGroupOrderNo" column="s_group_order_no" jdbcType="VARCHAR"/>
+    <result property="bl_seat_count" column="s_seat_total" jdbcType="INTEGER"></result>
+    <result property="bl_start_date" column="s_calendar" jdbcType="TIMESTAMP"></result>
+    <result property="bl_start_week" column="s_week_day" jdbcType="INTEGER"></result>
+    <result property="sold" column="s_seat_sold" jdbcType="INTEGER"></result>
+    <result property="hold" column="s_seat_hold" jdbcType="INTEGER"></result>
+    <result property="lock" column="s_seat_lock" jdbcType="INTEGER"></result>
+    <result property="sham" column="s_sham_num" jdbcType="INTEGER"></result>
+    <result property="s_group_num" column="s_group_num" jdbcType="INTEGER"></result>
+    <collection property="ticket" select="com.jdy.b2b.api.dao.ticket.TicketMapper.frontTicketListOfSchedule" column="cs_id"></collection>
+  </resultMap>
+
+  <select id="selectProductScheduleList" parameterType="com.jdy.b2b.api.model.front.ScheduleListRequestParam" resultMap="frontProductScheduleListMap">
+    SELECT
+      p.id p_id,
+      p.p_name,
+      p.p_no,
+      p.p_days,
+      p.p_confirm,
+      cs.s_calendar,
+      cs.s_seat_total,
+      cs.s_seat_sold ,
+      cs.s_seat_hold,
+      cs.s_seat_lock,
+      cs.s_sham_num,
+      cs.s_week_day,
+      cs.s_schedule_no,
+      cs.s_group_order_no,
+      cs.id cs_id,
+      cs.s_group_num
+    FROM ct_product p
+      INNER JOIN sm_company c ON p.company_id = c.id
+      INNER JOIN sm_market_area m ON c.id = m.ma_company_id
+      INNER JOIN ct_schedule cs ON p.id = cs.s_product_id
+
+    WHERE m.ma_city = (select name from cm_city where code = #{city_code,jdbcType=VARCHAR} limit 0,1)
+    <if test="p_id!=null">
+      p.id = #{p_id,jdbcType=BIGINT}
+    </if>
+    <if test="business != null">
+      AND p.p_brand = #{business,jdbcType=VARCHAR}
+    </if>
+    <if test="days != null">
+      AND p.p_days =  #{days,jdbcType=INTEGER}
+    </if>
+    <if test="type != null">
+      AND p.p_type = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="startDate != null">
+      AND
+      cs.s_calendar &gt; #{startDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="only_cluster != null and only_cluster == 1">
+      cs.s_seat_sold &gt; 0
+    </if>
+    <if test="only_cluster != null and only_cluster == 2">
+      cs.s_seat_sold &gt;> cs.s_group_num
+    </if>
+    <if test="province != null or  destination != null">
+      AND exists(
+      SELECT sc.ph_pid
+      FROM sr_scenic_spot  s
+      JOIN ct_trip_scenic sc ON sc.ph_scenic_id = s.id
+      WHERE sc.ph_pid = p.id
+      <if test="province != null">
+        AND s.s_province = #{province,jdbcType=VARCHAR}
+      </if>
+      <if test="destination != null">
+        AND s.s_custom_place = #{destination,jdbcType=VARCHAR}
+      </if>
+      )
+    </if>
+  </select>
+
+  <resultMap id="ScheduleCalendarListMap" type="com.jdy.b2b.api.model.front.ProductScheduleDto">
+    <result property="bl_num" column="s_schedule_no" jdbcType="VARCHAR"></result>
+    <result property="sGroupOrderNo" column="s_group_order_no" jdbcType="VARCHAR"/>
+    <result property="name" column="s_schedule_name" jdbcType="VARCHAR"></result>
+    <result property="bl_seat_count" column="s_seat_total" jdbcType="INTEGER"></result>
+    <result property="bl_start_date" column="s_calendar" jdbcType="TIMESTAMP"></result>
+    <result property="bl_start_week" column="s_week_day" jdbcType="INTEGER"></result>
+    <result property="sold" column="s_seat_sold" jdbcType="INTEGER"></result>
+    <result property="hold" column="s_seat_hold" jdbcType="INTEGER"></result>
+    <result property="lock" column="s_seat_lock" jdbcType="INTEGER"></result>
+    <result property="sham" column="s_sham_num" jdbcType="INTEGER"></result>
+    <result property="s_group_num" column="s_group_num" jdbcType="INTEGER"></result>
+    <result property="s_id" column="cs_id" jdbcType="BIGINT"></result>
+    <result property="calendar" column="calendar" jdbcType="VARCHAR"></result>
+    <result property="sLeaveTime" column="s_leave_time" jdbcType="TIMESTAMP"></result>
+    <result property="stopType" column="s_stop_type" jdbcType="INTEGER"></result>
+    <result property="stopSale" column="s_stop_sale" jdbcType="INTEGER"></result>
+    <collection property="backTicket" select="com.jdy.b2b.api.dao.ticket.TicketMapper.ticketListOfSchedule" column="{id=cs_id,userId=user_id,from=where_from,areaProductFlag=areaProductFlag,companyId=where_company}"></collection>
+  </resultMap>
+  <select id="selectScheduleCalendarList" parameterType="com.jdy.b2b.api.model.front.ScheduleCalendarRequestParam" resultMap="ScheduleCalendarListMap">
+      SELECT
+      (p.p_ascription AND p.company_id != #{companyId} and  #{from,jdbcType=VARCHAR} != 'preview') areaProductFlag,
+      DATE_FORMAT(s_calendar,'%Y-%m-%d') calendar,
+      cs.s_seat_total,
+      cs.s_seat_sold ,
+      cs.s_seat_hold,
+      cs.s_seat_lock,
+      cs.s_sham_num,
+      cs.s_week_day,
+      cs.id cs_id,
+      cs.s_schedule_no,
+      cs.s_group_order_no,
+      cs.s_schedule_name,
+      cs.s_stop_sale,
+      cs.s_stop_type,
+      cs.s_leave_time,
+      cs.s_calendar,
+      cs.s_group_num,
+      #{userId,jdbcType=BIGINT}  user_id,
+      #{from,jdbcType=VARCHAR} where_from,
+      #{companyId} where_company
+       FROM ct_schedule cs JOIN ct_product p on cs.s_product_id = p.id
+       WHERE cs.s_product_id = #{p_id,jdbcType=BIGINT}
+        AND DATEDIFF(DATE_FORMAT(s_calendar,'%Y-%m-%d'),#{startDate,jdbcType=VARCHAR})&gt;=0
+        AND DATEDIFF(DATE_FORMAT(s_calendar,'%Y-%m-%d'),#{endDate,jdbcType=VARCHAR})&lt;0
+        AND cs.s_status = 0
+  </select>
+  <resultMap id="scheduleNumDTOMap" type="com.jdy.b2b.api.model.ScheduleNumDTO">
+    <result column="date" property="date" jdbcType="VARCHAR"/>
+    <result column="num" property="num" jdbcType="INTEGER"/>
+  </resultMap>
+    <select id="selectExistNumByDate" resultMap="scheduleNumDTOMap">
+select s_calendar date,count(*) num from ct_schedule  where s_calendar IN (
+<foreach collection="cals" item="time" separator="," >
+  #{time}
+</foreach>
+)
+GROUP BY s_calendar
+    </select>
+  <resultMap id="createGroupOrderDTOMap" type="com.jdy.b2b.api.model.scheduleplan.CreateGroupOrderDTO">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="p_type" property="pType" jdbcType="INTEGER"/>
+    <result column="p_destination_pym" property="pDestinationPym" jdbcType="VARCHAR"/>
+    <result column="s_calendar" property="sCalendar" jdbcType="VARCHAR"/>
+    <result column="u_no" property="uNo" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <select id="selectNoGroupOrderNoSch" resultMap="createGroupOrderDTOMap">
+    SELECT
+      s.id,
+      p.p_type,
+      p.p_destination_pym ,
+      s.s_calendar ,
+      u.u_no
+    FROM ct_schedule s, ct_product p, sm_user u
+    WHERE s.s_product_id = p.id AND p.create_user = u.id
+    and s.s_status != 2
+  </select>
+
+  <select id="selectOldSchIdNOList" resultType="com.jdy.b2b.api.model.user.UserNoDTO">
+      select id,s_group_order_no as uNo from ct_schedule
+  </select>
+
+  <select id="guestList" parameterType="long" resultType="com.jdy.b2b.api.model.scheduleGroup.ScheduleGuestDO">
+    select
+    ot.id as id,
+   ot.ot_status as status,
+    d.d_name as tCategory,
+    t.t_name as tName,
+    ot.ot_name as touristName,
+    ot.ot_phone as touristTel,
+    t.t_market_price as tPrice,
+    slOrder.o_order_no as orderNo,
+    max(orderPay.create_time) AS payTime,
+    ot.ot_cancel_reason as cancelReason
+    from  sl_order slOrder
+    inner join sl_order_tourist ot on ot.ot_order_id = slOrder.id
+    left join sl_order_pay orderPay on orderPay.op_order_id = slOrder.id
+    inner join ct_ticket t on ot.ot_ticket_id = t.id
+    inner join sm_dictionaries d on d.id =t_category
+    INNER JOIN ct_schedule_setting ss on slOrder.o_group_order_no = ss.group_no
+    where ss.id = #{id}
+    AND slOrder.o_status = 3
+    GROUP BY
+	ot.id,
+	ot.ot_status,
+	d.d_name,
+	t.t_name,
+	ot.ot_name,
+	ot.ot_phone,
+	t.t_market_price,
+	slOrder.o_order_no,
+	ot.ot_cancel_reason
+  </select>
+
+  <select id="selectScheduleManagerList" resultType="com.jdy.b2b.api.model.scheduleplan.ScheduleManagerDO" parameterType="com.jdy.b2b.api.model.scheduleplan.ScheduleManagerQueryDTO">
+    <if test="costResultStatus != null ">
+      SELECT * FROM (
+    </if>
+    SELECT
+    f.id as scheduleSettingId,
+    a.id AS scheduleId,
+    b.id AS productId,
+    IFNULL(f.departure_status, 0) AS departureStatus,
+    IFNULL(f.start_date,a.s_calendar) AS outGroupTime,
+    a.s_group_num AS groupPeopleNum,
+    b.p_name AS routeName,
+    f.group_no AS groupNo,
+--     sum(e.o_people_num) AS touristsNum,
+    (SELECT COUNT(*) FROM sl_order_tourist t JOIN sl_order o on t.ot_order_id = o.id WHERE o.o_schedule_id = f.schedule_id and t.ot_status = 0 and o.o_status = 3 and t.ot_ext_status = 0 and o.order_neg_id IS NULL ) AS touristsNum,
+    b.p_days AS tripDays,
+    g.d_name AS destination,
+    b.p_type AS routeType,
+    c.u_real_name AS productManager,
+    d.u_real_name AS createGroupName,
+    a.create_time AS scheduleTime,
+    IFNULL(f.return_date,a.s_return_calendar) AS backGroupTime,
+    (select status from ct_product_costing_title t1 where t1.rel_id = a.id and t1.type = 2 ORDER BY id DESC limit 1)
+    costingStatus
+    FROM
+    ct_schedule a
+    JOIN ct_schedule_setting f on f.schedule_id = a.id
+    INNER JOIN ct_product b ON b.id = a.s_product_id
+    INNER JOIN sm_user c ON c.id = b.create_user
+    INNER JOIN sm_user d ON d.id = a.create_user
+    INNER JOIN sl_order e ON e.o_group_order_no = f.group_no and e.o_status = 3
+    LEFT JOIN sm_dictionaries g on g.id = b.p_destination
+    <where>
+      <if test="otStatus != null">AND f.departure_status = #{otStatus}</if>
+      <if test="puDataLimit != 3">AND f.company_id = #{pcompanyId}</if>
+      <if test="puDataLimit ==3 and companyId != null">AND f.company_id = #{companyId}</if>
+      <if test="departureStatus != null">AND IFNULL(f.departure_status, -1) = #{departureStatus}</if>
+      <if test="searchContent != null and searchContent != ''">
+        <bind name="nameLike" value="'%' + searchContent + '%'"/>
+        AND (b.p_name LIKE #{nameLike} OR f.group_no LIKE #{nameLike} OR b.p_no   LIKE #{nameLike} OR c.u_real_name LIKE #{nameLike} )
+      </if>
+      <if test="outGroupTimeBeginStr != null and outGroupTimeBeginStr != '' and outGroupTimeEndStr != null and outGroupTimeEndStr != ''">
+        <![CDATA[AND DATE_FORMAT(IFNULL(f.start_date,a.s_calendar),'%Y-%m-%d') >= #{outGroupTimeBeginStr} AND DATE_FORMAT(IFNULL(f.start_date,a.s_calendar),'%Y-%m-%d') <= #{outGroupTimeEndStr}]]>
+      </if>
+      <if test="backGroupTimeBeginStr != null and backGroupTimeBeginStr != '' and backGroupTimeEndStr != null and backGroupTimeEndStr != ''">
+        <![CDATA[AND DATE_FORMAT(IFNULL(f.return_date,a.s_return_calendar),'%Y-%m-%d') >= #{backGroupTimeBeginStr} AND DATE_FORMAT(IFNULL(f.return_date,a.s_return_calendar),'%Y-%m-%d') <= #{backGroupTimeEndStr}]]>
+      </if>
+
+      <if test="scheduleTimeBeginStr != null and scheduleTimeBeginStr != '' and scheduleTimeEndStr != null and scheduleTimeEndStr != ''">
+        <![CDATA[AND DATE_FORMAT(a.create_time,'%Y-%m-%d') >= #{scheduleTimeBeginStr} AND DATE_FORMAT(a.create_time,'%Y-%m-%d') <= #{scheduleTimeEndStr}]]>
+      </if>
+    </where>
+    GROUP BY f.id
+    <if test="costResultStatus != null ">
+      ) temppp WHERE costingStatus = #{costResultStatus}
+    </if>
+  </select>
+
+  <select id="selectTouristsListByScheduleId" resultType="com.jdy.b2b.api.model.scheduleplan.ScheduleTouristsDO" parameterType="com.jdy.b2b.api.model.scheduleplan.ScheduleTouristsQueryDTO">
+    SELECT
+      a.id AS orderId,
+      b.id as touristId,
+      a.create_user AS orderCreatorId,
+      g.u_real_name AS orderCreatorName,
+      k.d_name AS ticketPriceCategoryName,
+      b.ot_type AS ticketType,
+      b.ot_name AS touristName,
+      b.ot_phone AS touristPhone,
+      b.ot_licence_type AS licenseType,
+      b.ot_lincese AS licenseNo,
+      if(b.ot_status=1 , -1 , b.ot_ext_status) AS touristStatus,
+      IFNULL(c.d_name,d.sb_start_point) AS startPlace,
+      IFNULL(e.d_name,f.sb_start_point) AS backPlace,
+      a.o_order_no AS orderNo
+    FROM
+        sl_order a
+    INNER JOIN sl_order_tourist b on b.ot_order_id = a.id
+    INNER JOIN sm_user g on g.id = a.create_user
+    INNER JOIN ct_ticket h ON h.id = b.ot_ticket_id
+    INNER JOIN sm_dictionaries k ON k.id = h.t_category
+    INNER JOIN ct_schedule_setting ss on a.o_group_order_no = ss.group_no
+    LEFT JOIN sr_departure c on c.id = b.ot_leave_id AND b.ot_leave_type = 0
+    LEFT JOIN sr_shuttle_bus d on d.id = b.ot_leave_id AND b.ot_leave_type != 0
+    LEFT JOIN sr_departure e on e.id = b.ot_return_id AND b.ot_return_type = 0
+    LEFT JOIN sr_shuttle_bus f on f.id = b.ot_return_id AND b.ot_return_type != 0
+    WHERE ss.id = #{scheduleId} and a.order_neg_id IS NULL
+      AND a.o_status = 3
+  </select>
+</mapper>

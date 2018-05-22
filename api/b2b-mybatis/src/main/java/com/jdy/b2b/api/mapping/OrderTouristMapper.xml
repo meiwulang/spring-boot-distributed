@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.OrderTouristMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.OrderTourist">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ot_order_id" jdbcType="BIGINT" property="otOrderId" />
+    <result column="ot_ticket_id" jdbcType="BIGINT" property="otTicketId" />
+    <result column="ot_ticket_type" jdbcType="INTEGER" property="otTicketType" />
+    <result column="ot_rep" jdbcType="INTEGER" property="otRep" />
+    <result column="ot_type" jdbcType="INTEGER" property="otType" />
+    <result column="ot_name" jdbcType="VARCHAR" property="otName" />
+    <result column="ot_phone" jdbcType="VARCHAR" property="otPhone" />
+    <result column="ot_licence_type" jdbcType="INTEGER" property="otLicenceType" />
+    <result column="ot_lincese" jdbcType="VARCHAR" property="otLincese" />
+    <result column="ot_leave_id" jdbcType="BIGINT" property="otLeaveId" />
+    <result column="ot_leave_type" jdbcType="TINYINT" property="otLeaveType" />
+    <result column="ot_leave_price" jdbcType="DECIMAL" property="otLeavePrice" />
+    <result column="ot_return_id" jdbcType="BIGINT" property="otReturnId" />
+    <result column="ot_return_type" jdbcType="TINYINT" property="otReturnType" />
+    <result column="ot_return_price" jdbcType="DECIMAL" property="otReturnPrice" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="ot_status" jdbcType="INTEGER" property="otStatus" />
+    <result column="ot_ext_status" jdbcType="INTEGER" property="otExtStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ot_order_id, ot_ticket_id, ot_ticket_type, ot_type, ot_name, ot_phone, ot_licence_type, 
+    ot_lincese, ot_rep, ot_leave_id, ot_leave_type, ot_leave_price, ot_return_id, ot_return_type,
+    ot_return_price, create_time, create_user, update_time, update_user,ot_status,ot_ext_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_order_tourist
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+    <select id="selectOrderTourist" resultMap="BaseResultMap">
+      select
+        ot.*
+      from sl_order_tourist ot ,sl_order o
+      where ot.ot_order_id = o.id
+      and  o.o_order_no = #{orderNo,jdbcType=VARCHAR}
+      and ot.ot_rep = 1 limit 1
+    </select>
+    <select id="selectTouristTicket" resultType="com.jdy.b2b.api.model.orderRefund.TouristTicketDTO">
+      SELECT
+        t.id as touristId,
+        ticket.id as ticketId,
+        t.ot_name as touristName,
+        ticket.t_name as ticketName,
+        d.d_name as categoryName,
+        ticket.t_market_price as ticketPrice,
+        t.ot_lincese as licence
+      FROM sl_order_tourist t INNER JOIN ct_ticket ticket ON ticket.id = t.ot_ticket_id
+        INNER JOIN sm_dictionaries d ON ticket.t_category = d.id
+      where t.ot_order_id = #{orderId} and t.ot_status = 0 and t.ot_ext_status = 0
+
+    </select>
+  <select id="selectTouristTicketByIds" resultType="com.jdy.b2b.api.model.orderRefund.TouristTicketDTO">
+      SELECT
+        t.id as touristId,
+        (ticket.t_adult_num+ticket.t_child_num) as peopleNum,
+        ticket.id as ticketId,
+        t.ot_name as touristName,
+        ticket.t_name as ticketName,
+        d.id as categoryId,
+        d.d_name as categoryName,
+        opd.op_price as ticketPrice,
+        t.ot_licence_type as licence_type,
+        t.ot_lincese as licence,
+        slorder.o_schedule_id scheduleId
+      FROM 
+	    sl_order_tourist t 
+	    INNER JOIN ct_ticket ticket ON ticket.id = t.ot_ticket_id
+        INNER JOIN sl_order slorder ON  t.ot_order_id = slorder.id
+        INNER JOIN sm_dictionaries d ON ticket.t_category = d.id
+        INNER JOIN sl_order_price_detail opd ON opd.op_ticket_id = ticket.id AND opd.op_order_id = t.ot_order_id
+      where  t.ot_status = 0 AND t.id IN (
+      <foreach collection="list" item="id" separator="," >
+        #{id}
+      </foreach>
+      )
+  </select>
+  <select id="selectTouristTicketByOrderId" resultType="com.jdy.b2b.api.model.orderRefund.TouristTicketDTO">
+	SELECT
+		t.id as touristId,
+		(ticket.t_adult_num+ticket.t_child_num) as peopleNum,
+		ticket.id as ticketId,
+		t.ot_name as touristName,
+		ticket.t_name as ticketName,
+		d.d_name as categoryName,
+		opd.op_price as ticketPrice,
+        slorder.o_schedule_id scheduleId
+	FROM sl_order_tourist t INNER JOIN ct_ticket ticket ON ticket.id = t.ot_ticket_id
+	    INNER JOIN sl_order slorder ON  t.ot_order_id = slorder.id
+		INNER JOIN sm_dictionaries d ON ticket.t_category = d.id
+		INNER JOIN sl_order_price_detail opd ON opd.op_ticket_id = ticket.id AND opd.op_order_id = t.ot_order_id
+	where  t.ot_status = 0 AND t.ot_order_id=#{orderId}
+  </select>
+  <select id="selectPriceDetailsByTids" resultType="com.jdy.b2b.api.model.diy.OrderPriceDetailDTO">
+	SELECT
+		sum(t.op_child_num) opChildNum,
+		sum(t.op_adult_num) opAdultNum,
+		t.op_price_name opPriceName,
+		t.op_ticket_id opTicketId,
+		ot.ot_order_id opOrderId,
+		0 opNum,
+		0 opTotalPrice,
+		t.op_price opPrice,
+		0 opType,
+		0 opStatus
+	FROM
+		sl_order_tourist ot,
+		sl_order_price_detail t
+	WHERE
+		ot.ot_ticket_id = t.op_ticket_id
+		and
+		t.op_order_id=#{orderId}
+	AND ot.id in<foreach collection="tIds" open="(" close=")" separator="," item="t">#{t}</foreach>
+	GROUP BY
+		t.id
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sl_order_tourist
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.OrderTourist">
+    insert into sl_order_tourist (id, ot_order_id, ot_ticket_id, 
+      ot_ticket_type, ot_type, ot_name, 
+      ot_phone, ot_licence_type, ot_lincese, ot_rep,
+      ot_leave_id, ot_leave_type, ot_leave_price, 
+      ot_return_id, ot_return_type, ot_return_price, 
+      create_time, create_user, update_time, 
+      update_user,ot_status,ot_ext_status)
+    values (#{id,jdbcType=BIGINT}, #{otOrderId,jdbcType=BIGINT}, #{otTicketId,jdbcType=BIGINT}, 
+      #{otTicketType,jdbcType=INTEGER}, #{otType,jdbcType=INTEGER}, #{otName,jdbcType=VARCHAR}, 
+      #{otPhone,jdbcType=VARCHAR}, #{otLicenceType,jdbcType=INTEGER}, #{otLincese,jdbcType=VARCHAR},#{otRep,jdbcType=INTEGER},
+      #{otLeaveId,jdbcType=BIGINT}, #{otLeaveType,jdbcType=TINYINT}, #{otLeavePrice,jdbcType=DECIMAL}, 
+      #{otReturnId,jdbcType=BIGINT}, #{otReturnType,jdbcType=TINYINT}, #{otReturnPrice,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT},#{otStatus,jdbcType=INTEGER},#{otExtStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.OrderTourist" keyProperty="id" useGeneratedKeys="true">
+    insert into sl_order_tourist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="otOrderId != null">
+        ot_order_id,
+      </if>
+      <if test="otTicketId != null">
+        ot_ticket_id,
+      </if>
+      <if test="otTicketType != null">
+        ot_ticket_type,
+      </if>
+      <if test="otType != null">
+        ot_type,
+      </if>
+      <if test="otName != null">
+        ot_name,
+      </if>
+      <if test="otPhone != null">
+        ot_phone,
+      </if>
+      <if test="otLicenceType != null">
+        ot_licence_type,
+      </if>
+      <if test="otLincese != null">
+        ot_lincese,
+      </if>
+      <if test="otRep != null">
+        ot_rep,
+      </if>
+      <if test="otLeaveId != null">
+        ot_leave_id,
+      </if>
+      <if test="otLeaveType != null">
+        ot_leave_type,
+      </if>
+      <if test="otLeavePrice != null">
+        ot_leave_price,
+      </if>
+      <if test="otReturnId != null">
+        ot_return_id,
+      </if>
+      <if test="otReturnType != null">
+        ot_return_type,
+      </if>
+      <if test="otReturnPrice != null">
+        ot_return_price,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="otStatus != null">
+        ot_status,
+      </if>
+      <if test="otExtStatus != null">
+        ot_ext_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="otOrderId != null">
+        #{otOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="otTicketId != null">
+        #{otTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="otTicketType != null">
+        #{otTicketType,jdbcType=INTEGER},
+      </if>
+      <if test="otType != null">
+        #{otType,jdbcType=INTEGER},
+      </if>
+      <if test="otName != null">
+        #{otName,jdbcType=VARCHAR},
+      </if>
+      <if test="otPhone != null">
+        #{otPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="otLicenceType != null">
+        #{otLicenceType,jdbcType=INTEGER},
+      </if>
+      <if test="otLincese != null">
+        #{otLincese,jdbcType=VARCHAR},
+      </if>
+      <if test="otRep != null">
+        #{otRep,jdbcType=INTEGER},
+      </if>
+      <if test="otLeaveId != null">
+        #{otLeaveId,jdbcType=BIGINT},
+      </if>
+      <if test="otLeaveType != null">
+        #{otLeaveType,jdbcType=TINYINT},
+      </if>
+      <if test="otLeavePrice != null">
+        #{otLeavePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="otReturnId != null">
+        #{otReturnId,jdbcType=BIGINT},
+      </if>
+      <if test="otReturnType != null">
+        #{otReturnType,jdbcType=TINYINT},
+      </if>
+      <if test="otReturnPrice != null">
+        #{otReturnPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="otStatus != null">
+        #{otStatus,jdbcType=INTEGER},
+      </if>
+      <if test="otExtStatus != null">
+        #{otExtStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.OrderTourist">
+    update sl_order_tourist
+    <set>
+      <if test="otOrderId != null">
+        ot_order_id = #{otOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="otTicketId != null">
+        ot_ticket_id = #{otTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="otTicketType != null">
+        ot_ticket_type = #{otTicketType,jdbcType=INTEGER},
+      </if>
+      <if test="otType != null">
+        ot_type = #{otType,jdbcType=INTEGER},
+      </if>
+      <if test="otName != null">
+        ot_name = #{otName,jdbcType=VARCHAR},
+      </if>
+      <if test="otPhone != null">
+        ot_phone = #{otPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="otLicenceType != null">
+        ot_licence_type = #{otLicenceType,jdbcType=INTEGER},
+      </if>
+      <if test="otLincese != null">
+        ot_lincese = #{otLincese,jdbcType=VARCHAR},
+      </if>
+      <if test="otRep != null">
+        ot_rep = #{otRep,jdbcType=INTEGER},
+      </if>
+      <if test="otLeaveId != null">
+        ot_leave_id = #{otLeaveId,jdbcType=BIGINT},
+      </if>
+      <if test="otLeaveType != null">
+        ot_leave_type = #{otLeaveType,jdbcType=TINYINT},
+      </if>
+      <if test="otLeavePrice != null">
+        ot_leave_price = #{otLeavePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="otReturnId != null">
+        ot_return_id = #{otReturnId,jdbcType=BIGINT},
+      </if>
+      <if test="otReturnType != null">
+        ot_return_type = #{otReturnType,jdbcType=TINYINT},
+      </if>
+      <if test="otReturnPrice != null">
+        ot_return_price = #{otReturnPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="otStatus != null">
+        ot_status = #{otStatus,jdbcType=INTEGER},
+      </if>
+      <if test="otExtStatus != null">
+        ot_ext_status = #{otExtStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.OrderTourist">
+    update sl_order_tourist
+    set ot_order_id = #{otOrderId,jdbcType=BIGINT},
+      ot_ticket_id = #{otTicketId,jdbcType=BIGINT},
+      ot_ticket_type = #{otTicketType,jdbcType=INTEGER},
+      ot_type = #{otType,jdbcType=INTEGER},
+      ot_name = #{otName,jdbcType=VARCHAR},
+      ot_phone = #{otPhone,jdbcType=VARCHAR},
+      ot_licence_type = #{otLicenceType,jdbcType=INTEGER},
+      ot_lincese = #{otLincese,jdbcType=VARCHAR},
+      ot_rep = #{otRep,jdbcType=INTEGER},
+      ot_leave_id = #{otLeaveId,jdbcType=BIGINT},
+      ot_leave_type = #{otLeaveType,jdbcType=TINYINT},
+      ot_leave_price = #{otLeavePrice,jdbcType=DECIMAL},
+      ot_return_id = #{otReturnId,jdbcType=BIGINT},
+      ot_return_type = #{otReturnType,jdbcType=TINYINT},
+      ot_return_price = #{otReturnPrice,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      ot_status = #{otStatus,jdbcType=INTEGER},
+      ot_ext_status = #{otExtStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <update id="updateCancelTourist">
+      UPDATE sl_order_tourist SET ot_status = 1 , ot_cancel_reason = #{remark} WHERE
+      id iN (
+      <foreach collection="touristIds" item="id" separator=",">
+        #{id}
+      </foreach>
+      )
+    </update>
+
+  <update id="deleteList" parameterType="list">
+    UPDATE sl_order_tourist SET ot_ext_status = 1  WHERE
+    id iN (
+    <foreach collection="list" item="id" separator=",">
+      #{id}
+    </foreach>
+    )
+  </update>
+  <update id="updateExtStatus">
+    UPDATE sl_order_tourist SET ot_ext_status = #{extStatus}  WHERE
+    id iN (
+    <foreach collection="touristIds" item="id" separator=",">
+      #{id}
+    </foreach>
+    )
+  </update>
+
+  <select id="selectTouristCount" parameterType="long" resultType="java.lang.Integer">
+    select count(*) a from sl_order o
+    inner join sl_order_tourist ot on o.id = ot.ot_order_id
+    where ot.ot_status  = 0
+    and o.id = #{orderId}
+  </select>
+</mapper>

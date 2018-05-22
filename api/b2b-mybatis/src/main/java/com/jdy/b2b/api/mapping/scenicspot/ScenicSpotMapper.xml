@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.scenicspot.ScenicSpotMapper">
+    <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.scenicspot.ScenicSpot">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+
+        <result column="s_custom_place" jdbcType="VARCHAR" property="sCustomPlace"/>
+        <result column="company_id" jdbcType="BIGINT" property="companyId"/>
+        <result column="s_name" jdbcType="VARCHAR" property="sName"/>
+        <result column="s_sort_name" jdbcType="VARCHAR" property="sSortName"/>
+        <result column="s_pym" jdbcType="VARCHAR" property="sPym"/>
+        <result column="s_sort" jdbcType="BIGINT" property="sSort"/>
+        <result column="s_phone" jdbcType="VARCHAR" property="sPhone"/>
+        <result column="s_attribute" jdbcType="INTEGER" property="sAttribute"/>
+        <result column="s_country" jdbcType="VARCHAR" property="sCountry"/>
+        <result column="s_province" jdbcType="VARCHAR" property="sProvince"/>
+        <result column="s_city" jdbcType="VARCHAR" property="sCity"/>
+        <result column="s_area" jdbcType="VARCHAR" property="sArea"/>
+        <result column="s_adress" jdbcType="VARCHAR" property="sAdress"/>
+        <result column="s_additional" jdbcType="VARCHAR" property="sAdditional"/>
+        <result column="s_start_time" jdbcType="TIME" property="sStartTime"/>
+        <result column="s_end_time" jdbcType="TIME" property="sEndTime"/>
+        <result column="s_level" jdbcType="VARCHAR" property="sLevel"/>
+        <result column="s_introduce" jdbcType="VARCHAR" property="sIntroduce"/>
+        <result column="s_mapx" jdbcType="VARCHAR" property="sMapx"/>
+        <result column="s_mapy" jdbcType="VARCHAR" property="sMapy"/>
+        <result column="s_status" jdbcType="INTEGER" property="sStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="BIGINT" property="updateUser"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jdy.b2b.api.model.scenicspot.ScenicSpot">
+        <result column="s_detail" jdbcType="LONGVARCHAR" property="sDetail"/>
+    </resultMap>
+
+
+    <resultMap id="GetBaseResultMap" type="com.jdy.b2b.api.model.scenicspot.ScenicSpotQueryDO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+
+        <result column="s_custom_place" jdbcType="VARCHAR" property="sCustomPlace"/>
+        <result column="company_id" jdbcType="BIGINT" property="companyId"/>
+        <result column="s_name" jdbcType="VARCHAR" property="sName"/>
+        <result column="s_sort_name" jdbcType="VARCHAR" property="sSortName"/>
+        <result column="s_pym" jdbcType="VARCHAR" property="sPym"/>
+        <result column="s_sort" jdbcType="BIGINT" property="sSort"/>
+        <result column="s_phone" jdbcType="VARCHAR" property="sPhone"/>
+        <result column="s_attribute" jdbcType="INTEGER" property="sAttribute"/>
+        <result column="s_country" jdbcType="VARCHAR" property="sCountry"/>
+        <result column="s_province" jdbcType="VARCHAR" property="sProvince"/>
+        <result column="s_city" jdbcType="VARCHAR" property="sCity"/>
+        <result column="s_area" jdbcType="VARCHAR" property="sArea"/>
+        <result column="s_adress" jdbcType="VARCHAR" property="sAdress"/>
+        <result column="s_additional" jdbcType="VARCHAR" property="sAdditional"/>
+        <result column="s_start_time" jdbcType="TIME" property="sStartTime"/>
+        <result column="s_end_time" jdbcType="TIME" property="sEndTime"/>
+        <result column="s_level" jdbcType="VARCHAR" property="sLevel"/>
+        <result column="s_introduce" jdbcType="VARCHAR" property="sIntroduce"/>
+        <result column="s_mapx" jdbcType="VARCHAR" property="sMapx"/>
+        <result column="s_mapy" jdbcType="VARCHAR" property="sMapy"/>
+        <result column="s_status" jdbcType="INTEGER" property="sStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="BIGINT" property="updateUser"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="GetResultMapWithBLOBs" type="com.jdy.b2b.api.model.scenicspot.ScenicSpotQueryDO">
+        <result column="s_detail" jdbcType="LONGVARCHAR" property="sDetail"/>
+    </resultMap>
+    <resultMap id="GetInfoResultMap" type="com.jdy.b2b.api.model.scenicspot.ScenicSpotQueryDO" extends="GetResultMapWithBLOBs">
+        <result column="albumId" jdbcType="BIGINT" property="albumId"/>
+    </resultMap>
+
+
+    <resultMap id="CityListResultMap" type="com.jdy.b2b.api.model.scenicspot.HotelOrScenicAreaDO">
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="flag" jdbcType="INTEGER" property="flag"/>
+    </resultMap>
+
+    <resultMap id="AreaListResultMap" type="com.jdy.b2b.api.model.scenicspot.HotelOrScenicDO">
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id,s_custom_place, company_id, s_name, s_sort_name, s_pym, s_sort, s_phone, s_attribute, s_country,
+    s_province, s_city, s_area, s_adress, s_additional, s_start_time,s_end_time, s_level, s_introduce,
+    s_mapx, s_mapy, s_status, create_time, create_user, update_time, update_user
+  </sql>
+    <sql id="Blob_Column_List">
+    s_detail
+  </sql>
+
+    <sql id="Get_Column_List">
+        scenic.id,scenic.s_custom_place, scenic.company_id, scenic.s_name, scenic.s_sort_name, scenic.s_pym, scenic.s_sort, scenic.s_phone, scenic.s_attribute, scenic.s_country,
+        scenic.s_province, scenic.s_city, scenic.s_area, scenic.s_adress, scenic.s_additional, scenic.s_start_time,scenic.s_end_time, scenic.s_level, scenic.s_introduce,
+        scenic.s_mapx, scenic.s_mapy, scenic.s_status, scenic.create_time, scenic.create_user, scenic.update_time, scenic.update_user
+    </sql>
+    <sql id="Get_Blob_List">
+        scenic.s_detail
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="GetInfoResultMap">
+        select
+        <include refid="Get_Column_List"/>
+        ,
+        <include refid="Get_Blob_List"/>,
+        album.id as albumId
+        from sr_scenic_spot scenic
+        left join sr_album album
+        on scenic.id = album.a_pid
+        where scenic.id = #{id,jdbcType=BIGINT}
+        and album.a_type = 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sr_scenic_spot
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.jdy.b2b.api.model.scenicspot.ScenicSpot" useGeneratedKeys="true"
+            keyProperty="id">
+    insert into sr_scenic_spot (id, s_custom_place,company_id, s_name,
+      s_sort_name, s_pym, s_sort,
+      s_phone, s_attribute, s_country,
+      s_province, s_city, s_area,
+      s_adress, s_additional, s_start_time,s_end_time,
+      s_level, s_introduce, s_mapx,
+      s_mapy, s_status, create_time,
+      create_user, update_time, update_user,
+      s_detail)
+    values (#{id,jdbcType=BIGINT},#{sCustomPlace,jdbcType=VARCHAR}, #{companyId,jdbcType=BIGINT}, #{sName,jdbcType=VARCHAR},
+      #{sSortName,jdbcType=VARCHAR}, #{sPym,jdbcType=VARCHAR}, #{sSort,jdbcType=BIGINT},
+      #{sPhone,jdbcType=VARCHAR}, #{sAttribute,jdbcType=INTEGER}, #{sCountry,jdbcType=VARCHAR},
+      #{sProvince,jdbcType=VARCHAR}, #{sCity,jdbcType=VARCHAR}, #{sArea,jdbcType=VARCHAR},
+      #{sAdress,jdbcType=VARCHAR}, #{sAdditional,jdbcType=VARCHAR}, #{sStartTime,jdbcType=TIME},#{sEndTime,jdbcType=TIME},
+      #{sLevel,jdbcType=VARCHAR}, #{sIntroduce,jdbcType=VARCHAR}, #{sMapx,jdbcType=VARCHAR},
+      #{sMapy,jdbcType=VARCHAR}, #{sStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+      #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT},
+      #{sDetail,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.scenicspot.ScenicSpot">
+        insert into sr_scenic_spot
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sCustomPlace != null">
+                s_custom_place,
+            </if>
+            <if test="companyId != null">
+                company_id,
+            </if>
+            <if test="sName != null">
+                s_name,
+            </if>
+            <if test="sSortName != null">
+                s_sort_name,
+            </if>
+            <if test="sPym != null">
+                s_pym,
+            </if>
+            <if test="sSort != null">
+                s_sort,
+            </if>
+            <if test="sPhone != null">
+                s_phone,
+            </if>
+            <if test="sAttribute != null">
+                s_attribute,
+            </if>
+            <if test="sCountry != null">
+                s_country,
+            </if>
+            <if test="sProvince != null">
+                s_province,
+            </if>
+            <if test="sCity != null">
+                s_city,
+            </if>
+            <if test="sArea != null">
+                s_area,
+            </if>
+            <if test="sAdress != null">
+                s_adress,
+            </if>
+            <if test="sAdditional != null">
+                s_additional,
+            </if>
+            <if test="sStartTime != null">
+                s_start_time,
+            </if>
+            <if test="sEndTime != null">
+                s_end_time,
+            </if>
+            <if test="sLevel != null">
+                s_level,
+            </if>
+            <if test="sIntroduce != null">
+                s_introduce,
+            </if>
+            <if test="sMapx != null">
+                s_mapx,
+            </if>
+            <if test="sMapy != null">
+                s_mapy,
+            </if>
+            <if test="sStatus != null">
+                s_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="sDetail != null">
+                s_detail,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="sCustomPlace != null">
+                #{sCustomPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="sName != null">
+                #{sName,jdbcType=VARCHAR},
+            </if>
+            <if test="sSortName != null">
+                #{sSortName,jdbcType=VARCHAR},
+            </if>
+            <if test="sPym != null">
+                #{sPym,jdbcType=VARCHAR},
+            </if>
+            <if test="sSort != null">
+                #{sSort,jdbcType=BIGINT},
+            </if>
+            <if test="sPhone != null">
+                #{sPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="sAttribute != null">
+                #{sAttribute,jdbcType=INTEGER},
+            </if>
+            <if test="sCountry != null">
+                #{sCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="sProvince != null">
+                #{sProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="sCity != null">
+                #{sCity,jdbcType=VARCHAR},
+            </if>
+            <if test="sArea != null">
+                #{sArea,jdbcType=VARCHAR},
+            </if>
+            <if test="sAdress != null">
+                #{sAdress,jdbcType=VARCHAR},
+            </if>
+            <if test="sAdditional != null">
+                #{sAdditional,jdbcType=VARCHAR},
+            </if>
+            <if test="sStartTime != null">
+                #{sStartTime,jdbcType=TIME},
+            </if>
+            <if test="sEndTime != null">
+                #{sEndTime,jdbcType=TIME},
+            </if>
+            <if test="sLevel != null">
+                #{sLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="sIntroduce != null">
+                #{sIntroduce,jdbcType=VARCHAR},
+            </if>
+            <if test="sMapx != null">
+                #{sMapx,jdbcType=VARCHAR},
+            </if>
+            <if test="sMapy != null">
+                #{sMapy,jdbcType=VARCHAR},
+            </if>
+            <if test="sStatus != null">
+                #{sStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="sDetail != null">
+                #{sDetail,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.scenicspot.ScenicSpot">
+        update sr_scenic_spot
+        <set>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="sCustomPlace != null">
+                s_custom_place = #{sCustomPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="sName != null">
+                s_name = #{sName,jdbcType=VARCHAR},
+            </if>
+            <if test="sSortName != null">
+                s_sort_name = #{sSortName,jdbcType=VARCHAR},
+            </if>
+            <if test="sPym != null">
+                s_pym = #{sPym,jdbcType=VARCHAR},
+            </if>
+            <if test="sSort != null">
+                s_sort = #{sSort,jdbcType=BIGINT},
+            </if>
+            <if test="sPhone != null">
+                s_phone = #{sPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="sAttribute != null">
+                s_attribute = #{sAttribute,jdbcType=INTEGER},
+            </if>
+            <if test="sCountry != null">
+                s_country = #{sCountry,jdbcType=VARCHAR},
+            </if>
+            <if test="sProvince != null">
+                s_province = #{sProvince,jdbcType=VARCHAR},
+            </if>
+            <if test="sCity != null">
+                s_city = #{sCity,jdbcType=VARCHAR},
+            </if>
+            <if test="sArea != null">
+                s_area = #{sArea,jdbcType=VARCHAR},
+            </if>
+            <if test="sAdress != null">
+                s_adress = #{sAdress,jdbcType=VARCHAR},
+            </if>
+            <if test="sAdditional != null">
+                s_additional = #{sAdditional,jdbcType=VARCHAR},
+            </if>
+            <if test="sStartTime != null">
+                s_start_time = #{sStartTime,jdbcType=TIME},
+            </if>
+            <if test="sEndTime != null">
+                s_end_time = #{sEndTime,jdbcType=TIME},
+            </if>
+            <if test="sLevel != null">
+                s_level = #{sLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="sIntroduce != null">
+                s_introduce = #{sIntroduce,jdbcType=VARCHAR},
+            </if>
+            <if test="sMapx != null">
+                s_mapx = #{sMapx,jdbcType=VARCHAR},
+            </if>
+            <if test="sMapy != null">
+                s_mapy = #{sMapy,jdbcType=VARCHAR},
+            </if>
+            <if test="sStatus != null">
+                s_status = #{sStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="sDetail != null">
+                s_detail = #{sDetail,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jdy.b2b.api.model.scenicspot.ScenicSpot">
+    update sr_scenic_spot
+    set company_id = #{companyId,jdbcType=BIGINT},
+      s_custom_place = #{sCustomPlace,jdbcType=VARCHAR},
+      s_name = #{sName,jdbcType=VARCHAR},
+      s_sort_name = #{sSortName,jdbcType=VARCHAR},
+      s_pym = #{sPym,jdbcType=VARCHAR},
+      s_sort = #{sSort,jdbcType=BIGINT},
+      s_phone = #{sPhone,jdbcType=VARCHAR},
+      s_attribute = #{sAttribute,jdbcType=INTEGER},
+      s_country = #{sCountry,jdbcType=VARCHAR},
+      s_province = #{sProvince,jdbcType=VARCHAR},
+      s_city = #{sCity,jdbcType=VARCHAR},
+      s_area = #{sArea,jdbcType=VARCHAR},
+      s_adress = #{sAdress,jdbcType=VARCHAR},
+      s_additional = #{sAdditional,jdbcType=VARCHAR},
+      s_start_time = #{sStartTime,jdbcType=TIME},
+      s_end_time = #{sEndTime,jdbcType=TIME},
+      s_level = #{sLevel,jdbcType=VARCHAR},
+      s_introduce = #{sIntroduce,jdbcType=VARCHAR},
+      s_mapx = #{sMapx,jdbcType=VARCHAR},
+      s_mapy = #{sMapy,jdbcType=VARCHAR},
+      s_status = #{sStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      s_detail = #{sDetail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.scenicspot.ScenicSpot">
+    update sr_scenic_spot
+    set company_id = #{companyId,jdbcType=BIGINT},
+    s_custom_place = #{sCustomPlace,jdbcType=VARCHAR},
+      s_name = #{sName,jdbcType=VARCHAR},
+      s_sort_name = #{sSortName,jdbcType=VARCHAR},
+      s_pym = #{sPym,jdbcType=VARCHAR},
+      s_sort = #{sSort,jdbcType=BIGINT},
+      s_phone = #{sPhone,jdbcType=VARCHAR},
+      s_attribute = #{sAttribute,jdbcType=INTEGER},
+      s_country = #{sCountry,jdbcType=VARCHAR},
+      s_province = #{sProvince,jdbcType=VARCHAR},
+      s_city = #{sCity,jdbcType=VARCHAR},
+      s_area = #{sArea,jdbcType=VARCHAR},
+      s_adress = #{sAdress,jdbcType=VARCHAR},
+      s_additional = #{sAdditional,jdbcType=VARCHAR},
+      s_start_time = #{sStartTime,jdbcType=TIME},
+      s_end_time = #{sEndTime,jdbcType=TIME},
+      s_level = #{sLevel,jdbcType=VARCHAR},
+      s_introduce = #{sIntroduce,jdbcType=VARCHAR},
+      s_mapx = #{sMapx,jdbcType=VARCHAR},
+      s_mapy = #{sMapy,jdbcType=VARCHAR},
+      s_status = #{sStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="queryScenicListForPage" parameterType="com.jdy.b2b.api.model.scenicspot.ScenicSpot"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        sr_scenic_spot
+        <where>
+            <if test="id != null">
+                id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="pcompanyId != null">
+                AND company_id = #{pcompanyId,jdbcType=BIGINT}
+            </if>
+            <trim prefix="AND (" suffix=")" prefixOverrides="OR | AND">
+                <if test="sName != null and  sName != ''">
+                    OR s_name like concat('%',#{sName,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="sPym != null and  sPym != ''">
+                    OR s_pym like concat('%',#{sPym,jdbcType=VARCHAR},'%')
+                </if>
+            </trim>
+            <if test="sSortName != null">
+                AND s_sort_name = #{sSortName,jdbcType=VARCHAR}
+            </if>
+            <if test="sCustomPlace != null">
+                AND s_custom_place = #{sCustomPlace,jdbcType=VARCHAR}
+            </if>
+            <if test="sSort != null">
+                AND s_sort = #{sSort,jdbcType=BIGINT}
+            </if>
+            <if test="sPhone != null">
+                AND s_phone = #{sPhone,jdbcType=VARCHAR}
+            </if>
+            <if test="sAttribute != null">
+                AND s_attribute = #{sAttribute,jdbcType=INTEGER}
+            </if>
+            <if test="sCountry != null">
+                AND s_country = #{sCountry,jdbcType=VARCHAR}
+            </if>
+            <if test="sProvince != null">
+                AND s_province = #{sProvince,jdbcType=VARCHAR}
+            </if>
+            <if test="sCity != null and  sCity != ''">
+                AND s_city = #{sCity,jdbcType=VARCHAR}
+            </if>
+            <if test="sArea != null">
+                AND s_area = #{sArea,jdbcType=VARCHAR}
+            </if>
+            <if test="sAdress != null">
+                AND s_adress = #{sAdress,jdbcType=VARCHAR}
+            </if>
+            <if test="sAdditional != null">
+                AND s_additional = #{sAdditional,jdbcType=VARCHAR}
+            </if>
+            <if test="sStartTime != null">
+                AND s_start_time = #{sStartTime,jdbcType=TIME}
+            </if>
+            <if test="sEndTime != null">
+                AND s_end_time = #{sEndTime,jdbcType=TIME}
+            </if>
+            <if test="sLevel != null  and  sLevel != ''">
+                AND s_level = #{sLevel,jdbcType=VARCHAR}
+            </if>
+            <if test="sIntroduce != null">
+                AND s_introduce = #{sIntroduce,jdbcType=VARCHAR}
+            </if>
+            <if test="sMapx != null">
+                AND s_mapx = #{sMapx,jdbcType=VARCHAR}
+            </if>
+            <if test="sMapy != null">
+                AND s_mapy = #{sMapy,jdbcType=VARCHAR}
+            </if>
+            <if test="sStatus != null">
+                AND s_status = #{sStatus,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                AND create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createUser != null">
+                AND create_user = #{createUser,jdbcType=BIGINT}
+            </if>
+            <if test="updateTime != null">
+                AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null">
+                AND update_user = #{updateUser,jdbcType=BIGINT}
+            </if>
+            <if test="sDetail != null">
+                AND s_detail = #{sDetail,jdbcType=LONGVARCHAR}
+            </if>
+        </where>
+        ORDER BY s_sort
+        DESC
+    </select>
+
+    <select id="queryForCityListByOrgId"  resultMap="CityListResultMap">
+        SELECT
+        s_province as province,
+        1 as city,
+        1 AS flag
+        FROM
+        sr_scenic_spot
+        <where>
+            <if test="cType != 2">
+                company_id = #{companyId}
+            </if>
+        </where>
+        UNION ALL
+        SELECT
+        s_province as province,
+        s_city as city,
+        2 AS flag
+        FROM
+        sr_scenic_spot
+        <where>
+            <if test="cType != 2">
+                company_id = #{companyId}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="queryScenicList"  resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        sr_scenic_spot
+        <where>
+            <if test="cType!=2 and scenic.companyId != null">
+                AND company_id = #{scenic.companyId,jdbcType=BIGINT}
+            </if>
+            <if test="scenic.sStatus != null">
+                AND s_status = #{scenic.sStatus,jdbcType=INTEGER}
+            </if>
+        </where>
+        ORDER BY
+        create_time DESC
+    </select>
+
+    <select id="selectByName" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sr_scenic_spot
+        where s_name = #{name}
+    </select>
+</mapper>

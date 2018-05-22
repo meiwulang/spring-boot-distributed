@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>金豆云旅游</title>
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link href="Public/Css/icon/css/font-awesome.min.css" rel="stylesheet">
+
+	<script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/promotion.css?t='+_TimeStamp+'">'
+        );
+    </script>
+	<!--<link rel="stylesheet" type="text/css" href="css/wsupple.css"/>-->
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<script src="js/lib/jquery-1.11.3.js"></script>
+	<script src="js/lib/bootstrap.js"></script>
+	<script src="js/lib/echo.min.js"></script>
+	<script src="js/lib/doT.min.js"></script>
+	<script src="js/common/configs.js"></script>
+	<script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+
+<body>
+	<div id="head"> 
+		<div class="my_navbar">
+			<div class="box_wrapper clearfloat">
+				<div class="pull-left"> <span class="pull-left"> <a href="index.html ">金豆云首页</a></span></div>
+				<div class="pull-right navbar_aColor">
+					<div class="pull-left">
+						<a href="javascript:;">hi 欢迎来到金豆云!</a>
+					</div>
+					<span class="pull-left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; </span>
+					<div class="pull-left">
+						<a href="javascript:;" data-toggle="modal" data-target="#myModal" class="index_loginBtn">登录</a>
+						<a href="register0.html">注册</a>
+					</div>
+					<span class="pull-left">&nbsp; &nbsp;&nbsp;|&nbsp; &nbsp;&nbsp; </span>
+					<div class="pull-left"> 
+						<a href="javascript:;" class="favorite"><span class="glyphicon glyphicon-star ion_star"></span>我要收藏</a>
+					</div>
+					<span class="pull-left">&nbsp; &nbsp;&nbsp;|&nbsp; &nbsp;&nbsp; </span>
+					<div class="pull-left">
+						<a class="help"  target='_blank'>帮助中心</a>
+					</div>
+					<span class="pull-left">&nbsp; &nbsp;&nbsp;|&nbsp; &nbsp;&nbsp; </span>
+					<div class="pull-left">
+						<a class="market"  target='_blank'>应用市场</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="banner">
+		<ul>
+			<li class="active">
+				<a href="" style="background: url('img/promotion/wenan.png') center center no-repeat;"></a>
+			</li>
+			
+		</ul>
+	</div>
+	<div class="main_promotion">
+		
+		<div class="promot_content">
+			<!-- 品牌特卖 -->
+			<div class="brand_sale">
+				<div class="bg_img">
+					<img src="img/promotion/temai.png">
+				</div>
+				<div class="s_detail">
+					<ul class="clearfloat" id="ActiveListData"></ul>
+
+					<script id="ActiveListData-template" type="text/x-dot-template">
+						{{for(var i in it) { }}
+						<li class="pull-left">
+							<div class="redFloat">
+								<!-- 85折  浮动-->
+								<p>{{=it[i].discount}}</p>
+							</div>
+							<div class="title clearfloat">
+								
+								<!-- logo -->
+								<div class="logo_img pull-left">
+									{{? it[i].cb_logo_url}}
+									<img src="{{=it[i].cb_logo_url}}?x-oss-process=image/resize,m_fill,h_80,w_80">
+									{{??}}
+									<p class="imgBlack"></p>
+									{{?}}
+								</div>
+								<!-- 活动描述 -->
+								<div class="pull-left pro_describe">
+									<p class="p_name" title="{{=it[i].pp_title}}"><a href="product_list.html?act_id={{=it[i].pp_id}}">{{=it[i].pp_title}}</a></p>
+									<p class="p_type">{{=it[i].info}}</p>
+									<p class="p_time">活动时间：<span>{{=it[i].pp_start_date}} 至 {{=it[i].pp_end_date}}</span></p>
+									<p class="p_range">适用于 {{=it[i].pp_classes_start_date}} 至 {{=it[i].pp_classes_end_date}} 出团的产品</p>
+								</div>
+								<!-- 更多 -->
+								<div class="pull-right"><a href="product_list.html?act_id={{=it[i].pp_id}}&ptitle={{=it[i].pp_title}}">更多</a></div>
+							</div>
+
+							<!-- 活动产品 -->
+							
+							<div class="pro_cont clearfloat">
+								{{? it[i].p_list}}
+								{{for(var j in it[i].p_list) {}}
+								<div class="pruduct_info pull-left">
+									<div class="pro_img">
+										{{? it[i].p_list[j].p_cover}}
+										<a href="detail.html?p_id={{=it[i].p_list[j].p_id}}"><img src="{{=it[i].p_list[j].p_cover}}"></a>
+										{{??}}
+										<p class="imgBlack2"></p>
+										{{?}}
+									</div>
+									<h4 title="{{=it[i].p_list[j].p_name}}"><a href="detail.html?p_id={{=it[i].p_list[j].p_id}}">{{=it[i].p_list[j].p_name}}</a></h4>
+									<div class="purchase clearfloat">
+										<div class="price pull-left">
+											{{? it[i].p_list[j].ticket_min}}
+											<span style="font-size: 16px;">￥</span><span style="font-size: 23px;">{{=it[i].p_list[j].ticket_min}}</span>起
+											{{??}}
+											<span style="font-size: 18px;">暂无票价</span>
+											{{?}}
+										</div>
+										<div class="buy_imt pull-right"><a href="detail.html?p_id={{=it[i].p_list[j].p_id}}">立即抢购</a></div>
+									</div>
+								</div>
+								{{ } }}
+								{{?}}
+							</div>
+						</li>
+						{{ } }}
+					</script>
+				</div>
+				
+			</div>
+			<!-- 活动品牌馆 -->
+			<div class="brand_business">
+				<div class="bg_img">
+				</div>
+				<div class="b_detail">
+					<ul class="clearfloat" id="BrandListData"></ul>
+
+					<script id="BrandListData-template" type="text/x-dot-template">
+						{{for(var i in it) { }}
+						<li class="pull-left">
+							<div class="activity_infor">
+								<div class="brand_img">
+									{{? it[i].cb_logo_url}}
+									<img src="{{=it[i].cb_logo_url}}">
+									{{??}}
+									<p class="imgBlack1"></p>
+									{{?}}
+								</div>
+								<div class="pro_infor"><a href="product_list.html?act_id={{=it[i].pp_id}}&ptitle={{=it[i].pp_title}}">
+									<p class="b_name">{{=it[i].discount}}</p>
+									<p class="b_type">{{=it[i].info}}</p>
+									<p class="b_time">活动时间：<span>{{=it[i].pp_start_date}}至{{=it[i].pp_end_date}}</span></p>
+									<p class="b_range">适用于{{=it[i].pp_classes_start_date}}-{{=it[i].pp_classes_end_date}}出团的产品</p></a>
+								</div>
+								<div class="activity_description">
+									{{? it[i].pp_desc}}
+									<p>活动说明：</p>
+									{{=it[i].pp_desc}}
+									{{??}}
+									暂无活动说明
+									{{?}}
+								</div>
+							</div>
+							
+						</li>
+						{{ } }}
+					</script>
+				</div>
+				<ol class="pager" id="Pagination_b"></ol>
+			</div>
+			<!-- 优惠产品 -->
+			<div class="pro_pruduct">
+				<div class="bg_img">
+					<!-- <img src="img/promotion/youhui.png"> -->
+				</div>
+				<div class="p_detail">
+					<ul class="clearfloat" id="GoodsListData"></ul>
+
+					<script id="GoodsListData-template" type="text/x-dot-template">
+						{{for(var i in it) { }}
+						<li class="pull-left clearfloat">
+							<div class="redFloat"><span>{{=it[i].p_promotion.discount}}</span></div>
+							<div class="pull-left p_proimg">
+								
+								<div class="p_pimg">
+									<a href="detail.html?p_id={{=it[i].p_id}}">
+										{{? it[i].p_cover}}
+										<img src="{{=it[i].p_cover}}">
+										{{??}}
+										<p class="imgBlack3"></p>
+										{{?}}
+									</a>
+								</div>
+							</div>
+							<div class="time"><span>{{=it[i].p_promotion.s_day}}-{{=it[i].p_promotion.e_day}}</span></div>
+							<div class="pull-right p_detailinfor">
+								<h4 title="{{=it[i].p_name}}"><a href="detail.html?p_id={{=it[i].p_id}}">{{=it[i].p_name}}</a></h4>
+								<div class="clearfloat">
+									<div class="pro_type pull-left">{{=it[i].p_type_str}}/{{=it[i].p_days}}日</div>
+									<div class="pro_business pull-right">{{=it[i].business}}</div>
+								</div>
+								<div class="purchase clearfloat">
+									<div class="price pull-left"><span style="font-size: 12px;">￥</span><span style="font-size: 25px;">{{=it[i].ticket_min}}</span> 起</div>
+									<div class="buy_imt pull-right"><a href="detail.html?p_id={{=it[i].p_id}}">立即抢购</a></div>
+								</div>
+							</div>
+						</li>
+						{{ }}}
+					</script>
+				</div>
+				<ol class="pager" id="Pagination_p"></ol>
+			</div>
+		</div>
+	
+	</div>
+	<div id="footer"></div>
+	<div id="login_mask"> </div>
+	<script src="js/common/alert.js"></script>
+</body>
+<script id="link-js" type="text/javascript">
+    document.write(
+    	'<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+    	'<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/promotion.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/index_header.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/statistics.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

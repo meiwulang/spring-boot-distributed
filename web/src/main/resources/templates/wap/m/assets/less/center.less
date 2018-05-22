@@ -1,0 +1,158 @@
+@import './common.less';
+#wrap{
+	width: 100%;
+	.bg{
+		height: 159px;
+		width: 100%;
+		
+		&.seller{
+			background: url('@{img}/seller/c_bg.png') no-repeat;
+			background-size: 100% auto;
+		}
+		&.buyer{
+			background: url('@{img}/buyer/bg_b.png') no-repeat;
+			background-size: 100% auto;
+		}
+		}
+	.infor{
+		width: 90%;
+		height: 145px;
+		background-color: #fff;
+		margin: -84px auto 0;
+		padding: 0 10px;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		position: relative;
+		.img{
+			width: 66px;
+			height: 66px;
+			background-color: #fff; 
+			position: absolute;
+			top: 0%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
+		    -webkit-transform: translate(-50%, -50%);
+			-moz-transform: translate(-50%, -50%);
+			-o-transform: translate(-50%, -50%);
+			border-radius: 50%;
+			overflow: hidden;
+			z-index: 99;
+			img{
+				width: 61px;
+				height: 61px;
+				position: absolute;
+				top: 50%;
+			    left: 50%;
+			    transform: translate(-50%, -50%);
+			    -webkit-transform: translate(-50%, -50%);
+				-moz-transform: translate(-50%, -50%);
+				-o-transform: translate(-50%, -50%);
+			}
+		}
+		.bname{
+			margin: 50px 0 34px;
+			width: 100%;
+			text-align: center;
+			float: left;
+			font-size: 14px;
+			color: #333;
+			font-weight: 600;
+		}
+		.detail{
+			.pinfor{
+				float: left;
+				.pname{
+					font-size: 14px;
+					span{
+						color: #999;
+						font-size: 11px;
+					}
+				}
+				.phone{
+					font-size: 10px;
+					color: #999;
+				}
+			}
+			.go{
+				width: 80px;
+				height: 28px;
+				border: 1px solid black;
+				text-align: center;
+				line-height: 28px;
+				float: right;
+				font-size: 10px;
+			}
+		}
+	}
+	ul{
+		background-color: #fff;
+		margin-top: 10px;
+		padding: 0 0 0 20px;
+
+		li{
+			height: 46px;
+			border-bottom: 1px solid  #e7e7e7;
+			box-sizing: border-box;
+
+			a{
+				display: block;
+				height: 100%;
+				padding-right: 5px;
+				.icon{
+					float: left;
+					width: 20px;
+					height: 15px;
+					margin-top: 15px;
+					color: #fed944;
+				}
+				.tip{
+					float: left;
+					margin-top: 15px;
+					margin-left: 10px;
+					width: 89%;
+					background: url('@{img}/icon_arr_right.png') right center no-repeat;
+					background-size: 6px 11px;
+					font-size: 12px;
+				}
+			}
+		}
+		li:last-child{
+			border: 0;
+		}
+	}
+	.cike{
+		margin-top: 10px;
+		background: #fff;
+		text-align: center;
+		height: 35px;
+		line-height: 35px;
+		color: red;
+	}
+}
+#popup-info{
+	/*height: 60px;*/
+	
+	.lesse,.yer{
+		text-align: center;
+		position: relative;
+		line-height: 25px;
+		width: 50px;
+		height: 25px;
+		bottom: -20px;
+	}
+	.lesse{
+		left: 30px;
+		background: #e7e7e7;
+	}
+	.yer{
+		color: #fff;
+		background: #ffa600;
+		left: 120px;
+		bottom: 5px;
+	}
+}
+#nav{
+	li{
+		opacity: 1!important;
+	}
+}

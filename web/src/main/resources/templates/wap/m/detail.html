@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="assets/css/awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/detail.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->    
+</head>
+<body>
+<div id="wrap">
+	<div class="main">
+		<script id="tpl-detail" type="text/html">
+			
+			<div class="banner">
+				<div class="swiper-container">
+				    <div class="swiper-wrapper">
+				    
+				    	{ each slide_img as value i }
+				        <div class="swiper-slide">
+				        	<img src="{slide_img[i]}?x-oss-process=image/resize,m_fill,h_195,w_375" />
+				        </div>
+				        { /each }
+
+				    </div>
+				    <!-- 如果需要分页器 -->
+				    <div class="swiper-pagination bage"></div>
+				</div>
+				<div class="icons">
+					<a class="back" href="javascript:;"></a>
+					<!-- <a class="user"></a> -->
+					<!-- <a class="eye"></a> -->
+				</div>
+				<div class="type_num">
+					<span>{p_type_name}</span>
+					<span>编号：{p_num}</span>
+				</div>
+			</div>
+			<div class="base-info">
+				<h3>{ p_name }{ p_sname }</h3>
+				<div class="prices">
+					{if ticket_detail_min}
+					{ if ticket_detail_min['成人票'] }
+					<div class="price ms"><i>￥</i>{ ticket_detail_min['成人票'].price }<u>起/人</u>
+						<span class="priced"><span>同行价:</span><span class="fontw">￥{ ticket_detail_min['成人票'].trade_price }</span>起/人</span>
+					</div>
+					{ else if ticket_detail_min['儿童票'] }
+					<div class="price ms"><i>￥</i>{ ticket_detail_min['儿童票'].price }<u>起/人</u>
+						<span class="priced"><span>同行价:</span><span class="fontw">￥{ ticket_detail_min['儿童票'].trade_price }</span>起/人</span>
+					</div>
+					
+					{ else }
+					<div class="price ms"><i>￥</i>{ ticket_detail_min['套票'].price }<u>起/人</u>
+						<span class="priced"><span>同行价:</span><span class="fontw">￥{ ticket_detail_min['套票'].trade_price }</span>起/人</span>
+					</div>
+					
+					{ /if }
+					{else}
+						<div class="pricef">当前城市暂无票价</div>
+					{/if}
+					<div class="mation"><span>商家信息：{business}&#x3000;客服：{linkman} {meet_tel}</span><a href="tel:{meet_tel}"></a></div>
+					<div class="detail_play details-more">查看详细行程</div>
+				</div>
+				<!-- <div class="return">
+					返佣：一级 { p_brokerage1 }% 二级 { p_brokerage2 }% 三级 { p_brokerage3 }%
+				</div> -->
+				<!-- <div class="city clearfix">
+					<span>出发城市</span>
+					<span class="city-active">{ city_name }</span>
+					<span class="city-check">有<i class="city_num">{ start_place_detail.length }</i>个城市可以选择</span>
+				</div> -->
+				{ if p_promotion }
+				<div class="promotion clearfix">
+					<span class="titi">优惠活动</span>
+					<span class="promotion-active">{ p_promotion[0].pp_title }</span>
+					<span class="promotion-check">{ p_promotion.length }个活动</span>
+				</div>
+				{ /if }
+			</div>
+			<div class="date">
+
+				<div class="date-t clearfix">
+					<span>出发日期</span>
+
+					<a class="date-t-more" href="schedule.html?p_id={ p_id }&city_code={ city_code }">
+					<span class="grou">
+						<span></span>
+						成团标识
+					</span>查看更多出发日期</a>
+				</div>
+				<div class="date-list">
+					<ul class="clearfix">
+						{ each bus_list.list as value i }
+						{ if bus_list.list[i].t_price == '暂无报价' }
+						<li class="no-price">
+							<a href="javascript:;">
+						{ else }
+						<li>
+						{if bus_list.list[i].is_cluster == '1'}
+						<div class="nw"></div>
+						{/if}
+							<a href="schedule.html?p_id={ p_id }&city_code={ city_code }&year={ bus_list.list[i].date_year }&month={ bus_list.list[i].date_month }&day={ bus_list.list[i].date_day }">
+						
+						{ /if }
+
+								<div class="date-detail">
+									<span>{ bus_list.list[i].date_desc }</span>
+									<span>{ bus_list.list[i].week_desc }</span>
+								</div>
+								<div class="price">
+									{if bus_list.list[i].seat_num == '充足'}
+									<span class="cz">足</span>
+									{else if bus_list.list[i].seat_num == '售完'}
+									<span class="cz">满</span>
+									{else}
+									<span class="cz">{bus_list.list[i].num}</span>
+									{/if}
+									{ if bus_list.list[i].t_price != '暂无报价' }<i>¥</i>{ /if }
+									{ bus_list.list[i].t_price }<u>起</u>
+								</div>
+							</a>
+						</li>
+						{ /each }
+					</ul>
+				</div>
+			</div>
+			{ if share_user_flag }
+			<!-- <div class="contact">
+				<div class="img">
+					<img src="{ share_user.u_face }" />
+				</div>
+				<div class="txt">
+					<h3>{ share_user.u_realname }</h3>
+					<p><a href="tel:{ share_user.u_mobile }">{ share_user.u_mobile }</a></p>
+				</div>
+				<div class="btns">
+					<a class="instore" href="index.html">进入店铺</a>
+					<a class="question" href="#">在线资询</a>
+				</div>
+			</div> -->
+			{ /if }
+			
+				<div class="details">
+				{ if detail }
+					<div class="details-menu">
+						<div class="ul_ul">
+							<ul class="clearfix attrli details-menus">
+								{if detail.stroke}
+								<li class="active"><a href="#listroke">{ detail.stroke.title }</a></li>
+								{/if}
+
+								{if detail.feature}	
+								<li><a href="#lifeature">{ detail.feature.title }</a></li>
+								{/if}
+
+								{if detail.cost_in}	
+								<li><a href="#licost_in">{ detail.cost_in.title }</a></li>
+								{/if}
+
+								{if detail.cost_noin}	
+								<li><a href="#licost_noin">{ detail.cost_noin.title }</a></li>
+								{/if}
+
+								{if detail.notice}	
+								<li><a href="#linotice">{ detail.notice.title }</a></li>
+								{/if}
+
+								{if detail.visa}	
+								<li><a href="#livisa">{ detail.visa.title }</a></li>
+								{/if}
+							
+							</ul>
+						</div>
+					</div>
+					<div id="listroke"></div>
+					{ if detail && detail.stroke && detail.stroke.detail }
+					<div class="details-list">
+						<div class="line"></div>
+						{ each detail.stroke.detail as value i }
+						<dl>
+							<dt class="clearfix">
+								<i class="ii">D{ i + 1 }</i>
+								<span class="titlese">{ detail.stroke.detail[i].title }</span>
+							</dt>
+							<dd>
+							    {if detail.stroke.detail[i].source_remark}
+								<div class="item info clearfix">
+									<i class="icon"></i>
+									<div class="i-detail">{ detail.stroke.detail[i].source_remark }</div>
+								</div>
+								{/if}
+								<div class="item accom clearfix">
+									<i class="icon"></i>
+									<div class="i-detail clearfix">
+										<span>住宿：</span>
+										<p>
+											{if detail.stroke.detail[i].hotel && detail.stroke.detail[i].hotel.length > 0}
+												{ each detail.stroke.detail[i].hotel as value j }
+													{ detail.stroke.detail[i].hotel[j] } 
+												{ /each }
+											{/if}
+
+											{if detail.stroke.detail[i].hotel_remark && detail.stroke.detail[i].hotel_remark.length > 0}
+												{ detail.stroke.detail[i].hotel_remark } 
+											{/if}
+											{if detail.stroke.detail[i].hotel_remark && detail.stroke.detail[i].hotel && !detail.stroke.detail[i].hotel.length > 0 && !detail.stroke.detail[i].hotel_remark.length > 0}
+												住宿自理
+											{/if}
+										</p>
+									</div>
+								</div>
+								<div class="item diner clearfix">
+									<i class="icon"></i>
+									<div class="i-detail">
+										<span>餐饮：</span>
+										<p>
+											{if detail.stroke.detail[i].food && detail.stroke.detail[i].food.length > 0}
+												{ each detail.stroke.detail[i].food as value j }
+													{ detail.stroke.detail[i].food[j] } 
+												{ /each }
+											{/if}
+
+											{if detail.stroke.detail[i].food_remark && detail.stroke.detail[i].food_remark.length > 0}
+												{ detail.stroke.detail[i].food_remark } 
+											{/if}
+											{if detail.stroke.detail[i].food_remark && detail.stroke.detail[i].food && !detail.stroke.detail[i].food.length > 0 && !detail.stroke.detail[i].food_remark.length > 0}
+												用餐自理
+											{/if}
+										</p>
+									</div>
+								</div>
+								{ if detail.stroke.detail[i].pic_img }
+								<div class="item img-list clearfix">
+									<i class="icon"></i>
+									<div class="i-detail">
+										{ each detail.stroke.detail[i].pic_img as value j }
+										<img src="{ detail.stroke.detail[i].pic_img[j] }?x-oss-process=image/resize,m_mfit,h_90,w_90" />
+										{ /each }
+									</div>
+								</div>
+								{ /if }
+							</dd>
+						</dl>
+						{ /each }
+					</div>
+					<div class="details-more">查看详细行程</div>
+					<div class="detail_move detail_css deil">详细行程</div>
+					<div class="detail_css dei">简易行程</div>
+					{ /if }
+				</div>
+				<div id="lifeature"></div>
+				{ if detail.feature && detail.feature.detail }
+				<div class="detail-feature">
+					<h3>线路特色</h3>
+					<div class="con">{ detail.feature.detail }</div>
+				</div>
+				{ /if }
+				{if detail.cost_in || detail.cost_noin}
+				<div class="detail-cost">
+					<h3>费用信息</h3>
+					<div class="con">
+						<span id="licost_in"></span>
+						{ if detail.cost_in }
+						<h4 class="h4-cls">{ detail.cost_in.title }</h4>
+						<div>{ detail.cost_in.detail }</div>
+						{ /if }
+						<span id="licost_noin"></span>
+						{ if detail.cost_noin}
+						<h4 class="h4-cls">{ detail.cost_noin.title }</h4>
+						<div>{ detail.cost_noin.detail }</div>
+						{ /if }
+					</div>
+				</div>
+				{/if}
+				<div id="linotice"></div>
+				{ if detail.notice && detail.notice.detail }
+				<div class="detail-notice">
+					<h3>预定须知</h3>
+					<div class="con">{ detail.notice.detail }</div>
+				</div>
+				{ /if }
+				<div id="livisa"></div>
+				{ if detail.visa && detail.visa.detail }
+				<div class="detail-notice">
+					<h3>签证信息</h3>
+					<div class="con">{ detail.visa.detail }</div>
+				</div>
+				{ /if }
+			{ /if }
+			<div class="submit">
+				<div class="submit-contact clearfix">
+					<!-- <a class="question" href="#"><span>在线资询</span></a> -->
+					{ if meet_tel }<a class="tel" href="tel:{ meet_tel }"><span>联系我们</span></a>{ /if }
+				</div>
+				<div class="cope">
+					<a href="login.html">复制网店</a>
+				</div>
+				<div class="cops">
+					关注网店
+				</div>
+				<a href="schedule.html?p_id={ p_id }&city_code={ city_code }"  class="submit-btn">立即预订</a>
+			</div>
+			<div class="city-list">
+				<div class="city-list_header">
+					<a class="bg_ings"></a>
+					<span>出发城市</span>
+				</div>
+				<ul class="city_ul">
+					{ each start_place_detail as value i }
+					{if city_name == start_place_detail[i].name}
+					<li code="{ start_place_detail[i].code }" class="colors">{ start_place_detail[i].name }</li>
+					{else}
+					<li code="{ start_place_detail[i].code }" class="">{ start_place_detail[i].name }</li>
+					{/if}
+					{ /each }
+				</ul>
+			</div>
+			{if p_promotion}
+			<div class="activi">
+				<div class="acti_header">
+					<a class="bg_ing"></a>
+					<span>活动详情</span>
+				</div>
+				<ul class="acti_ul">
+				    {each p_promotion as value i}
+					<li>
+						<div class="tit_hea">
+							<span class="titless"> {p_promotion[i].pp_title} </span>
+						</div>
+						<div class="time">
+							<span class="contentss">{p_promotion[i].pp_start_date} 至 {p_promotion[i].pp_end_date}</span>
+						</div>
+					</li>
+					{/each}
+				</ul>
+			</div>
+			{/if}
+			{if detail && detail.stroke && detail.stroke.detail}
+				<div class="stroke_detail">
+					<div class="stroke_detail_son">
+						<div class="acti_header">
+							<a class="bg_ing"></a>
+							<span>详细行程</span>
+						</div>
+						<div class="detail_content">
+						<div class="content_tow">
+							<div class="line"></div>
+							{ each detail.stroke.detail as value i }
+							<dl>
+								<dt class="clearfix">
+									<i class="ii">D{ i + 1 }</i>
+									<span>{ detail.stroke.detail[i].title }</span>
+								</dt>
+								<dd>
+									{if detail.stroke.detail[i].detail}
+									<div class="item info clearfix">
+										<i class="icon"></i>
+										<div class="i-detail">{ detail.stroke.detail[i].detail }</div>
+									</div>
+									{/if}
+									<div class="item accom clearfix">
+										<i class="icon"></i>
+										<div class="i-detail clearfix">
+											<span>住宿：</span>
+											<p>
+												{if detail.stroke.detail[i].hotel && detail.stroke.detail[i].hotel.length > 0}
+													{ each detail.stroke.detail[i].hotel as value j }
+														{ detail.stroke.detail[i].hotel[j] } 
+													{ /each }
+												{/if}
+
+												{if detail.stroke.detail[i].hotel_remark && detail.stroke.detail[i].hotel_remark.length > 0}
+													{ detail.stroke.detail[i].hotel_remark } 
+												{/if}
+												{if detail.stroke.detail[i].hotel_remark && detail.stroke.detail[i].hotel && !detail.stroke.detail[i].hotel.length && !detail.stroke.detail[i].hotel_remark.length}
+													住宿自理
+												{/if}
+											</p>
+										</div>
+									</div>
+									<div class="item diner clearfix">
+										<i class="icon"></i>
+										<div class="i-detail">
+											<span>餐饮：</span>
+											<p>
+												{if detail.stroke.detail[i].food && detail.stroke.detail[i].food.length}
+													{ each detail.stroke.detail[i].food as value j }
+														{ detail.stroke.detail[i].food[j] } 
+													{ /each }
+												{/if}
+
+												{if detail.stroke.detail[i].food_remark && detail.stroke.detail[i].food_remark.length > 0}
+													{ detail.stroke.detail[i].food_remark } 
+												{/if}
+												{if detail.stroke.detail[i].food_remark && detail.stroke.detail[i].food && !detail.stroke.detail[i].food.length && !detail.stroke.detail[i].food_remark.length}
+													用餐自理
+												{/if}
+											</p>
+										</div>
+									</div>
+									{ if detail.stroke.detail[i].pic_img }
+									<div class="item img-list clearfix">
+										<i class="icon"></i>
+										<div class="i-detail">
+											{ each detail.stroke.detail[i].pic_img as value j }
+											<img src="{ detail.stroke.detail[i].pic_img[j] }?x-oss-process=image/resize,m_mfit,w_320" />
+											{ /each }
+										</div>
+									</div>
+									{ /if }
+								</dd>
+							</dl>
+							{ /each }
+						</div>
+						</div>
+					</div>
+				</div>
+				
+			{/if}
+		</script>
+	</div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/detail.build.js"></script>
+</html>

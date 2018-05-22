@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.BusHoldMapperDiy">
+
+    <insert id="insertBatch" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        insert into ct_bus_hold (id, b_bus_id, b_company_id,
+        b_seat, b_account, b_hold_hours,
+        create_time, create_user, update_time,
+        update_user)
+        values
+        <foreach collection="list" separator="," item="item">
+        (#{item.id,jdbcType=BIGINT}, #{item.bBusId,jdbcType=BIGINT}, #{item.bCompanyId,jdbcType=BIGINT},
+        #{item.bSeat,jdbcType=VARCHAR}, #{item.bAccount,jdbcType=VARCHAR}, #{item.bHoldHours,jdbcType=INTEGER},
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.createUser,jdbcType=BIGINT}, #{item.updateTime,jdbcType=TIMESTAMP},
+        #{item.updateUser,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+    <select id="listBusHolds" resultType="com.jdy.b2b.api.model.BusHold">
+        SELECT id,
+          b_bus_id as bBusId,
+          b_hold_hours as bHoldHours,
+          b_seat as bSeat,
+          create_time as createTime
+        FROM ct_bus_hold;
+    </select>
+    <select id="selectScheduleByHold" resultType="com.jdy.b2b.api.model.Schedule">
+        SELECT s.id, s.s_seat_hold as sSeatHold
+        from ct_schedule s, ct_bus b
+        where s.id = b.b_schedule_id and b.id = #{bBusId}
+    </select>
+</mapper>

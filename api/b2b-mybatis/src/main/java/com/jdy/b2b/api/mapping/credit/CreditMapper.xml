@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.credit.CreditMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.credit.Credit">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="c_supplier_id" jdbcType="BIGINT" property="cSupplierId" />
+    <result column="c_supplier_name" jdbcType="VARCHAR" property="cSupplierName" />
+    <result column="c_distributor_id" jdbcType="BIGINT" property="cDistributorId" />
+    <result column="c_distributor_name" jdbcType="VARCHAR" property="cDistributorName" />
+    <result column="c_credit_quota" jdbcType="DECIMAL" property="cCreditQuota" />
+    <result column="c_credit_balance" jdbcType="DECIMAL" property="cCreditBalance" />
+    <result column="c_credit_used" jdbcType="DECIMAL" property="cCreditUsed" />
+    <result column="c_settlement_cycle" jdbcType="INTEGER" property="cSettlementCycle" />
+    <result column="c_settlement_day" jdbcType="INTEGER" property="cSettlementDay" />
+    <result column="c_product_type" jdbcType="VARCHAR" property="cProductType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+
+  <resultMap id="QueryListResultMap" type="com.jdy.b2b.api.model.credit.CreditResultDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="c_supplier_name" jdbcType="VARCHAR" property="cSupplierName" />
+    <result column="c_distributor_name" jdbcType="VARCHAR" property="cDistributorName" />
+    <result column="c_credit_quota" jdbcType="DECIMAL" property="cCreditQuota" />
+    <result column="c_credit_balance" jdbcType="DECIMAL" property="cCreditBalance" />
+    <result column="c_credit_used" jdbcType="DECIMAL" property="cCreditUsed" />
+    <result column="c_settlement_cycle" jdbcType="INTEGER" property="cSettlementCycle" />
+    <result column="c_settlement_day" jdbcType="INTEGER" property="cSettlementDay" />
+    <result column="c_product_type" jdbcType="VARCHAR" property="cProductType" />
+
+    <result column="c_province" jdbcType="VARCHAR" property="cProvince" />
+    <result column="c_city" jdbcType="VARCHAR" property="cCity" />
+    <result column="c_area" jdbcType="VARCHAR" property="cArea" />
+    <result column="c_no" jdbcType="VARCHAR" property="cNo" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, c_supplier_id, c_supplier_name, c_distributor_id, c_distributor_name, c_credit_quota,
+    c_credit_balance, c_credit_used, c_settlement_cycle, c_settlement_day, c_product_type,
+    create_time, create_user, update_time, update_user
+  </sql>
+
+  <sql id="QueryList_Column_List">
+    credit.id, credit.c_supplier_name,credit.c_distributor_name, credit.c_credit_quota,
+    credit.c_credit_balance, c_credit_used,credit.c_settlement_cycle, credit.c_settlement_day, credit.c_product_type,
+    company.c_province, company.c_city,company.c_area, company.c_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fn_credit
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from fn_credit
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.credit.Credit" useGeneratedKeys="true" keyProperty="id">
+    insert into fn_credit (id, c_supplier_id, c_supplier_name, 
+      c_distributor_id, c_distributor_name, c_credit_quota, 
+      c_credit_balance, c_credit_used, c_settlement_cycle, 
+      c_settlement_day, c_product_type, create_time, 
+      create_user, update_time, update_user
+      )
+    values (#{id,jdbcType=BIGINT}, #{cSupplierId,jdbcType=BIGINT}, #{cSupplierName,jdbcType=VARCHAR}, 
+      #{cDistributorId,jdbcType=BIGINT}, #{cDistributorName,jdbcType=VARCHAR}, #{cCreditQuota,jdbcType=DECIMAL}, 
+      #{cCreditBalance,jdbcType=DECIMAL}, #{cCreditUsed,jdbcType=DECIMAL}, #{cSettlementCycle,jdbcType=INTEGER}, 
+      #{cSettlementDay,jdbcType=INTEGER}, #{cProductType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.credit.Credit">
+    insert into fn_credit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cSupplierId != null">
+        c_supplier_id,
+      </if>
+      <if test="cSupplierName != null">
+        c_supplier_name,
+      </if>
+      <if test="cDistributorId != null">
+        c_distributor_id,
+      </if>
+      <if test="cDistributorName != null">
+        c_distributor_name,
+      </if>
+      <if test="cCreditQuota != null">
+        c_credit_quota,
+      </if>
+      <if test="cCreditBalance != null">
+        c_credit_balance,
+      </if>
+      <if test="cCreditUsed != null">
+        c_credit_used,
+      </if>
+      <if test="cSettlementCycle != null">
+        c_settlement_cycle,
+      </if>
+      <if test="cSettlementDay != null">
+        c_settlement_day,
+      </if>
+      <if test="cProductType != null">
+        c_product_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cSupplierId != null">
+        #{cSupplierId,jdbcType=BIGINT},
+      </if>
+      <if test="cSupplierName != null">
+        #{cSupplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistributorId != null">
+        #{cDistributorId,jdbcType=BIGINT},
+      </if>
+      <if test="cDistributorName != null">
+        #{cDistributorName,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreditQuota != null">
+        #{cCreditQuota,jdbcType=DECIMAL},
+      </if>
+      <if test="cCreditBalance != null">
+        #{cCreditBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="cCreditUsed != null">
+        #{cCreditUsed,jdbcType=DECIMAL},
+      </if>
+      <if test="cSettlementCycle != null">
+        #{cSettlementCycle,jdbcType=INTEGER},
+      </if>
+      <if test="cSettlementDay != null">
+        #{cSettlementDay,jdbcType=INTEGER},
+      </if>
+      <if test="cProductType != null">
+        #{cProductType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.credit.Credit">
+    update fn_credit
+    <set>
+      <if test="cSupplierId != null">
+        c_supplier_id = #{cSupplierId,jdbcType=BIGINT},
+      </if>
+      <if test="cSupplierName != null">
+        c_supplier_name = #{cSupplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="cDistributorId != null">
+        c_distributor_id = #{cDistributorId,jdbcType=BIGINT},
+      </if>
+      <if test="cDistributorName != null">
+        c_distributor_name = #{cDistributorName,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreditQuota != null">
+        c_credit_quota = #{cCreditQuota,jdbcType=DECIMAL},
+      </if>
+      <if test="cCreditBalance != null">
+        c_credit_balance = #{cCreditBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="cCreditUsed != null">
+        c_credit_used = #{cCreditUsed,jdbcType=DECIMAL},
+      </if>
+      <if test="cSettlementCycle != null">
+        c_settlement_cycle = #{cSettlementCycle,jdbcType=INTEGER},
+      </if>
+      <if test="cSettlementDay != null">
+        c_settlement_day = #{cSettlementDay,jdbcType=INTEGER},
+      </if>
+      <if test="cProductType != null">
+        c_product_type = #{cProductType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.credit.Credit">
+    update fn_credit
+    set c_supplier_id = #{cSupplierId,jdbcType=BIGINT},
+      c_supplier_name = #{cSupplierName,jdbcType=VARCHAR},
+      c_distributor_id = #{cDistributorId,jdbcType=BIGINT},
+      c_distributor_name = #{cDistributorName,jdbcType=VARCHAR},
+      c_credit_quota = #{cCreditQuota,jdbcType=DECIMAL},
+      c_credit_balance = #{cCreditBalance,jdbcType=DECIMAL},
+      c_credit_used = #{cCreditUsed,jdbcType=DECIMAL},
+      c_settlement_cycle = #{cSettlementCycle,jdbcType=INTEGER},
+      c_settlement_day = #{cSettlementDay,jdbcType=INTEGER},
+      c_product_type = #{cProductType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryCreditPage" parameterType="com.jdy.b2b.api.model.credit.CreditDTO" resultMap="QueryListResultMap">
+    select
+    <include refid="QueryList_Column_List"/>
+    from fn_credit credit
+    inner join sm_company company
+    on credit.c_distributor_id = company.id
+    <where>
+      company.c_status =1
+      <if test="cSupplierId != null">
+        AND credit.c_supplier_id = #{cSupplierId,jdbcType=BIGINT}
+      </if>
+      <choose>
+        <when test="balanceState == 1">
+          AND credit.c_credit_balance &gt; 0
+        </when>
+        <when test="balanceState == 2">
+          AND credit.c_credit_balance &lt;= 0
+        </when>
+      </choose>
+      <if test="searchStr != null">
+        <bind name="searchStr" value="'%' +searchStr + '%'" />
+        AND CONCAT(IFNULL(credit.c_distributor_name,''),IFNULL(company.c_no,'')) LIKE #{searchStr}
+      </if>
+    </where>
+
+  </select>
+</mapper>

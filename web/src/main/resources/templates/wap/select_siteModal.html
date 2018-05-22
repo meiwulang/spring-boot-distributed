@@ -1,0 +1,203 @@
+<div class="select_site">
+
+    <!-- Modal -->
+    <div class="modal fade" id="selectSite_modal" tabindex="-1" role="dialog" aria-labelledby="selectSite_ModalLabel"  aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title clearfloat" id="selectSite_ModalLabel">
+                        <span class="pull-left"></span>&nbsp&nbsp<span>接送站点选择</span>
+                    </h4>
+                </div>
+
+                <div class="modal-detail clearfloat">
+                    <div class="modalGo pull-left">
+                        <div class="search clearfloat">
+                            <div class="pull-left">
+                                <span class="pull-left"></span>&nbsp&nbsp去程
+                            </div>
+                            <div class="pull-right clearfloat">
+                                <input type="text" id="gobuskey" placeholder="&nbsp快速搜索" /><span class="pull-right" id="searchgobus"></span>
+                            </div>
+                        </div>
+                        <div class="tabAdd tabAddG">
+                            <ul class="clearfix">
+                                <li class="active"><span>全部</span></li>
+                                <li><span>始发站</span><span></span></li>
+                                <li><span>班车站</span><span></span></li>
+                                <li><span>顺路站</span><span></span></li>
+                            </ul>
+                        </div>
+                        <div class="container-fluid goLine_list">
+                            <div class="row top">
+                                <div class="col-md-2 col-xs-2">
+                                    <span>上车时间</span>
+                                </div>
+                                <div class="col-md-8 col-xs-8 gostation">
+                                    <span>上车站点</span>
+                                </div>
+                                <div class="col-md-2 col-xs-2">
+                                    <span>接送费用</span>
+                                </div>
+                            </div>
+                            <ul id='shopstationData_go'></ul>
+                            
+                            <script id="shopstationData_go-template" type="text/x-dot-template">
+                     
+                            {{? it}}
+                                {{ for(var i in it) { }}
+                                    {{? it[i].site_name}}
+                                    <li class="row even" data-type="{{=it[i].st_type}}">
+                                        <div class="col-md-12 col-xs-12">
+                                            集合地：<span>{{=it[i].site_name}}</span>
+                                        </div>
+                                    </li>
+                                    {{?}}
+                                    {{ for(var j in it[i].data) { }}
+                                    <li class="row odd nostop" data-id="{{=it[i].data[j].id}}" data-sname="{{=it[i].data[j].station_name}}" data-price="{{=it[i].data[j].price}}" data-type="{{=it[i].data[j].st_type}}">
+                                        <div class="col-md-2 col-xs-2 clearfloat">
+                                            <i class="fa fa-circle-o fao pull-left" aria-hidden="true"></i> 
+                                            {{? it[i].data[j].go_time}}
+                                            <span class="blTime">{{=it[i].data[j].go_time}}</span>
+                                            {{?}}
+                                        </div>
+                                        <div class="col-md-8 col-xs-8">
+                                            <div class="radioAndName clearfloat">
+                                                {{? it[i].data[j].st_type == '始发站'}}
+                                                <span class="station shi pull-left"></span>
+                                                {{?? it[i].data[j].st_type == '班车站'}}
+                                                <span class="station ban pull-left"></span>
+                                                {{?? it[i].data[j].st_type == '顺路站'}}
+                                                <span class="station shun pull-left"></span>
+                                                {{?}}
+                                                <span title="{{=it[i].data[j].station_name}}">{{=it[i].data[j].station_name}}</span>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-2 col-xs-2 js_price">
+                                            {{? it[i].data[j].price}}
+                                            <span class="danger-color">￥{{=it[i].data[j].price}}</span>
+                                            {{??}}
+                                            <span class="danger-color">--</span>
+                                            {{?}}
+                                        </div>
+                                    </li>
+                                    {{ } }}
+                                {{ } }}
+                            {{?}}
+                            </script>
+                        </div>
+                    </div>
+                    <div class="modalBack pull-right">
+                        <div class="search clearfloat">
+                            <div class="pull-left">
+                                <span class="pull-left"></span>&nbsp&nbsp返程
+                            </div>
+                            <div class="pull-right clearfloat">
+                                <input type="text" id="backbuskey" placeholder="&nbsp快速搜索" /><span class="pull-right" id="searchbackbus"></span>
+                            </div>
+                        </div>
+                        <div class="tabAdd tabAddB">
+                            <ul class="clearfix">
+                                <li class="active"><span>全部</span></li>
+                                <li><span>始发站</span><span></span></li>
+                                <li><span>班车站</span><span></span></li>
+                                <li><span>顺路站</span><span></span></li>
+                            </ul>
+                        </div>
+                        <div class="container-fluid goLine_list">
+                        <div class="row top">
+                            <!-- <div class="col-md-2 col-xs-2">
+                                <span>上车时间</span>
+                            </div> -->
+                            <div class="col-md-10 col-xs-10 gostation">
+                                <span>上车站点</span>
+                            </div>
+                            <div class="col-md-2 col-xs-2">
+                                <span>接送费用</span>
+                            </div>
+                        </div>
+                        <ul id="shopstationData_back"></ul>
+                        <script id="shopstationData_back-template" type="text/x-dot-template">
+                        {{? it.length>0}}
+                            {{ for(var i in it) { }}
+                                {{? it[i].site_name}}
+                                <li class="row even" data-type="{{=it[i].st_type}}">
+                                    <div class="col-md-12 col-xs-12">
+                                        集合地：<span>{{=it[i].site_name}}</span>
+                                    </div>
+                                    
+                                </li>
+                                {{?}}
+                                {{ for(var j in it[i].data) { }}
+                                <li class="row odd nostop" data-id="{{=it[i].data[j].id}}" data-sname="{{=it[i].data[j].station_name}}" data-price="{{=it[i].data[j].price}}" data-type="{{=it[i].data[j].st_type}}">
+                                    <!-- <div class="col-md-2 col-xs-2 clearfloat">
+                                        <i class="fa fa-circle-o fao pull-left" aria-hidden="true"></i> 
+                                        {{? it[i].data[j].go_time}}
+                                        <span>{{=it[i].data[j].go_time}}</span>
+                                        {{?}}
+                                    </div> -->
+                                    <div class="col-md-10 col-xs-10">
+                                        <i class="fa fa-circle-o fao pull-left" aria-hidden="true"></i> 
+                                        <div class="radioAndName clearfloat">
+                                            {{? it[i].data[j].st_type == '始发站'}}
+                                            <span class="station shi pull-left"></span>
+                                            {{?? it[i].data[j].st_type == '班车站'}}
+                                            <span class="station ban pull-left"></span>
+                                            {{?? it[i].data[j].st_type == '顺路站'}}
+                                            <span class="station shun pull-left"></span>
+                                            {{?}}
+                                            <span title="{{=it[i].data[j].station_name}}">{{=it[i].data[j].station_name}}</span>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-2 col-xs-2 js_price">
+                                        {{? it[i].data[j].price}}
+                                        <span class="danger-color">￥{{=it[i].data[j].price}}</span>
+                                        {{??}}
+                                        <span class="danger-color">--</span>
+                                        {{?}}
+                                    </div>
+                                </li>
+                                {{ } }}
+                            {{ } }}
+                        {{?}}
+                        </script>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer clearfloat">
+                <div class="pull-left">
+                    <div class="clearfloat sel_show">
+                        <div class="go_detail pull-left clearfloat">
+                            <span class="pull-left"></span>&nbsp&nbsp<span class="orange_color pull-left">去程 :&nbsp&nbsp</span><span class="contSelGo pull-left" data-sname="" data-price="0" data-id="" data-type=""></span>
+                        </div>
+                        <div class="go_detail pull-left clearfloat">
+                            <span class="pull-left"></span>&nbsp&nbsp<span class="green_color pull-left">返程 :&nbsp&nbsp</span><span class="contSelBack pull-left" data-sname="" data-price="0" data-id="" data-type=""></span>
+                        </div>
+                    </div>
+                    <div class="pull-left quickBtns clearfloat">
+                        <div class="pull-left clearfloat">
+                                <i class="fa fa-circle-o fao pull-left" id="c1" aria-hidden="true"></i>&nbsp仅当前游客使用
+                        </div>
+                        <div class="pull-left clearfloat">
+                                <i class="fa fa-circle-o fao pull-left" id="c2" aria-hidden="true"></i>&nbsp仅相同票价点游客使用
+                        </div>
+                        <div class="pull-left clearfloat">
+                                <i class="fa fa-circle-o fao pull-left" id="c3" aria-hidden="true"></i>&nbsp应用到所有游客
+                        </div>
+
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <div class="priceDiv">接送单价：<span class="danger-color">￥<span class="price" id="allprice">0</span></span></div>
+                    <div class="pull-right batch_nextBtn" id="bancheok">确认</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/order/sitemodal.js?t=20170718"></script>

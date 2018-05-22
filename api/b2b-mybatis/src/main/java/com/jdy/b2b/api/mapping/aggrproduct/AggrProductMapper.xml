@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.aggrproduct.AggrProductMapper">
+
+	<select id="areaProductList" resultType="map">
+		SELECT DISTINCT
+			p.id id,
+			p.p_no pNo,
+			c.c_name companyName,
+			p.p_name pName,
+			p.p_days pDays,
+			p.p_contacts pContacts,
+			p.p_type pType,
+			p.update_time pUpdateTime,
+			p.p_status pStatus,
+			p.p_sort pSort,
+			cti.template_title templateTitle
+		<include refid="areaProductListFrom"/>
+		<include refid="areaProductListWhere"/>
+		ORDER BY
+			p.p_sort DESC,
+			p.id
+		LIMIT #{startNum} ,#{pageSize}
+	</select>
+	<select id="areaProductListSize" resultType="int">
+		SELECT  COUNT( DISTINCT	p.id)
+		<include refid="areaProductListFrom"/>
+		<include refid="areaProductListWhere"/>
+	</select>
+	<select id="localProductList" resultType="map">
+		SELECT
+			a.id id,
+			a.company_id companyId,
+			a.p_no pNo,
+			case a.p_from
+			when 0 then CONCAT('【自营研发】',a.p_name)
+			when 1 then CONCAT('【散拼】',a.p_name)
+			when 2 then CONCAT('【自营定制】',a.p_name)
+			when 3 then CONCAT('【单项资源】',a.p_name)
+			when 4 then CONCAT('【途忆旅拍】',a.p_name)
+			else a.p_name
+			END as pName,
+			a.p_short_name pShortName,
+			a.p_brand pBrand,
+			a.p_type pType,
+			a.p_contacts pContacts,
+			a.p_days pDays,
+			a.p_qq pQq,
+			a.p_phone pPhone,
+			a.p_recommend pRecommend,
+			a.p_confirm pCconfirm,
+			a.p_status pStatus,p_sort pSort,
+			a.p_pay_way pPayWay,
+			a.p_pay_amount pPayAmount,
+			a.create_time createTime,
+			a.create_user createUser,
+			a.update_time updateTime,
+			a.update_user updateUser,
+			a.p_pym pPym,p_from pFrom,
+			a.p_from_name pFromName,
+			a.p_destination pDestination,
+			a.p_destination_pym pDestinationPym,
+			a.offline_sign_status offlineSignStatus,
+			a.p_ascription pAscription,
+			sc.c_name companyName,
+			(SELECT
+			c.template_title
+			FROM
+			ct_product_contract_template b
+			INNER JOIN sm_contract_template_info c ON c.id = b.t_id
+			AND c.company_id = #{pcompanyId,jdbcType=BIGINT}
+			WHERE b.pid = a.id) templateTitle,
+			link.u_real_name AS assembleLinkUserName,
+			link.id  AS  assembleLinkUser
+
+		FROM ct_product a
+	    INNER JOIN sm_company sc ON sc.id=a.company_id
+		left join ct_product_assemble_company assebleCompany ON assebleCompany.product_id = a.id and assebleCompany.company_id = #{pcompanyId}
+		left join sm_user link ON link.id = assebleCompany.assemble_link_user
+		<include refid="listWhere" />
+		ORDER BY p_sort DESC,
+		id DESC
+		LIMIT #{startNum} ,#{pageSize}	
+	</select>
+	<select id="localProductListSize" resultType="int">
+		SELECT count(1)
+		FROM ct_product a
+		LEFT JOIN ct_product_contract_template b on b.pid = a.id
+		LEFT JOIN sm_contract_template_info c on c.id = b.t_id
+		<include refid="listWhere" />	
+	</select>
+	
+	<insert id="createProduct">
+	
+	</insert>
+	
+	<insert id="createLocalProduct">
+	
+	</insert>
+	<sql id="areaProductListFrom">
+	FROM 
+	  sm_company c
+	INNER JOIN ct_product p ON c.id=p.company_id
+	INNER JOIN ct_product_assemble_company pac ON pac.product_id=p.id
+		<!-- 		有权限集结 -->
+		AND pac.company_id = #{pcompanyId}
+	INNER JOIN ct_schedule s ON s.s_product_id=p.id
+	INNER JOIN ct_schedule_ticket st ON s.id=st.st_schedule_id
+	INNER JOIN ct_ticket t ON t.id= st.st_ticket_id
+	INNER JOIN ct_ticket_departure td ON td.ticket_id=t.id
+	INNER JOIN sr_departure d ON d.id= td.departue_id
+	LEFT JOIN ct_product_contract_template b ON b.pid = p.id
+	LEFT JOIN sm_contract_template_info cti ON cti.id = b.t_id
+
+
+	</sql>
+	<sql id="areaProductListWhere">
+		<where>
+			<!-- 		有区域产品标识 且已发布-->
+			  p.p_ascription=1	
+			AND p.p_status=0
+			<!-- 		产品类型 -->
+			<if test="pType != null">
+			AND p.p_type=#{pType}
+			</if>
+			<!-- 		产品所属公司 -->
+			<if test="companyId != null">
+			AND p.company_id = #{companyId}
+			</if>
+			AND p.company_id != #{pcompanyId}
+			<!-- 		产品名称 -->
+			<if test="pName !=null">
+			AND LOCATE (#{pName},p.p_name) >0
+			</if>
+			<!-- 		出发地 -->
+			<if test="startStation != null">
+			AND LOCATE(#{startStation},d.d_name)>0
+			</if>
+			<!-- 		存在有效票 -->
+			AND t.t_status=0
+			AND s.s_seat_total>0
+			<!-- 		存在有效班期 -->
+			AND s.s_status=0
+			AND CONCAT(DATE_FORMAT(s.s_calendar,'%Y-%c-%d '),TIME_FORMAT(s.s_leave_time,'%H:%i:%s'))>DATE_FORMAT(NOW(),'%Y-%c-%d %H:%i:%s')
+		</where>
+	</sql>
+		<sql id="listWhere">
+		<where>
+			1=1
+			AND EXISTS (
+			 SELECT id FROM ct_ticket WHERE t_company_id=#{pcompanyId,jdbcType=BIGINT} AND t_product_id=a.id
+			)
+			AND a.company_id != #{pcompanyId,jdbcType=BIGINT}
+			AND p_ascription=1
+			<choose>
+				<when test="pStatus != null">
+					AND p_status = #{pStatus,jdbcType=INTEGER}
+				</when>
+				<otherwise>AND p_status != 1</otherwise>
+			</choose>
+			<!-- 数据级别0:用户级 1:部门级2:单位级3:系统级 -->
+<!-- 			<choose> -->
+<!-- 				<when test="puDataLimit != 3"> -->
+<!-- 					AND a.company_id = #{pcompanyId,jdbcType=BIGINT} -->
+<!-- 				</when> -->
+
+<!-- 				<when test="puDataLimit == 3"> -->
+<!-- 					<choose> -->
+<!-- 						<when test="companyId != null">AND a.company_id = #{companyId,jdbcType=BIGINT}</when> -->
+<!-- 						<otherwise></otherwise> -->
+<!-- 					</choose> -->
+<!-- 				</when> -->
+<!-- 				<otherwise></otherwise> -->
+<!-- 			</choose> -->
+			<if test="pType != null">
+				AND p_type = #{pType,jdbcType=INTEGER}
+			</if>
+			<if test="pPym != null">
+				<bind name="pPymLike" value="'%'+pPym+'%'" />
+				AND p_pym like #{pPymLike,jdbcType=VARCHAR}
+			</if>
+			<if test="pName != null">
+				<bind name="pNameLike" value="'%'+pName+'%'" />
+				AND (p_name like #{pNameLike,jdbcType=VARCHAR} OR p_short_name like
+				#{pNameLike,jdbcType=VARCHAR} )
+			</if>
+		</where>
+	</sql>
+</mapper>

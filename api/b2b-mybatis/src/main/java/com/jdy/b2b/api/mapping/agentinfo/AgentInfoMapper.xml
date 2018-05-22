@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.agentinfo.AgentInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.agentinfo.AgentInfoDTO">
+    <result column="openId" jdbcType="VARCHAR" property="openId" />
+    <result column="realName" jdbcType="VARCHAR" property="realName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="followers" jdbcType="VARCHAR" property="followers" />
+    <result column="ids" jdbcType="VARCHAR" property="ids" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result property="orderCount" column="orderCount" />
+  	<result property="moneyCount" column="moneyCount" />
+  </resultMap>
+  <resultMap type="com.jdy.b2b.api.model.agentinfo.AgentInfoDTO" id="DetailResultMap" extends="BaseResultMap">
+  <association property="orderInfo" column="{minDate=minDate,maxDate=maxDate,ids=ids}"  select="getOrderInfo">
+  	<result property="orderCount" column="orderCount" />
+  	<result property="moneyCount" column="moneyCount" />
+  </association>
+  </resultMap>
+  <select id="list" resultMap="BaseResultMap" parameterType="com.jdy.b2b.api.model.agentinfo.AgentInfo">
+	<include refid="listSql"/>
+	LIMIT  #{startNum} ,#{pageSize}
+  </select>
+  <select id="count" resultType="int" parameterType="com.jdy.b2b.api.model.agentinfo.AgentInfo">
+  	select count(1) from (<include refid="listSql"/>) a
+  </select>
+  <select id="export" resultMap="DetailResultMap" parameterType="com.jdy.b2b.api.model.agentinfo.AgentInfo">
+	<include refid="listSql"/>
+  </select>
+  <sql id="listSql">
+	SELECT
+		u.u_wx_openid openId,
+		u.id,
+		u.u_real_name realName,
+		u.u_tel phone,
+		SUM(r.ss_num) followers,
+		SUM(r.ss_orders) orderCount,
+		SUM(r.ss_amount)moneyCount
+	FROM
+	sm_user u,
+	sl_sales_report_daliy r
+	WHERE
+	u.id=r.ss_userid
+	<if test="searchStr !=null">
+		<bind name="searchStrLike" value="'%'+searchStr+'%'"/>
+		AND (u.u_real_name like #{searchStrLike} OR  u.u_tel like #{searchStrLike})
+	</if>
+	<if test="companyId !=null">
+		AND u.company_id = #{companyId}
+	</if>
+	<if test="minDate != -1">
+	AND DATEDIFF(r.ss_day,#{minDate})  &gt;=0
+	</if>
+	<if test="maxDate != -1">
+	AND DATEDIFF(r.ss_day,#{maxDate}) &lt;=0
+	</if>
+	GROUP BY u.id
+  </sql>
+  <select id="getOrderInfo" resultType="com.jdy.b2b.api.model.agentinfo.OrderInfoDTO">
+	SELECT
+		COUNT(id) orderCount,
+		IFNULL( SUM(o_market_price),"0.00") moneyCount
+	FROM
+		sl_order
+	WHERE
+		o_status=3
+		AND o_buyer_id IN (${ids})
+	<if test="minDate != -1">
+	AND DATEDIFF(update_time,#{minDate})  &gt;=0
+	</if>
+	<if test="maxDate != -1">
+	AND DATEDIFF(update_time,#{maxDate}) &lt;=0
+	</if>
+  </select>
+  <select id="getIds" resultType="String">
+	SELECT
+		GROUP_CONCAT(u1.id, ",", u2.id, ",", u3.id) ids
+	FROM
+		sm_user AS u1,
+		sm_user AS u2,
+		sm_user AS u3
+	WHERE
+		u1.id = #{id}
+	AND u1.u_type = 1
+	AND u2.u_type = 1
+	AND u3.u_type = 1
+	AND u2.u_pid = u1.u_wx_openid
+	AND u3.u_pid = u2.u_wx_openid  
+  </select>
+	<select id="detail"  resultType="java.util.LinkedHashMap">
+	SELECT
+		date_format(update_time,'%Y-%m-%d') orderDate,
+		SUM(o_real_pay) moneyCount
+	FROM
+		sl_order
+	WHERE
+		o_status=3
+		<choose>
+		<when test="ids != null">
+		AND o_buyer_id IN (${ids})
+		</when>
+		<otherwise></otherwise>
+		</choose>
+	AND DATEDIFF(update_time,#{minDate}) &gt;=0
+	AND DATEDIFF(update_time,#{maxDate}) &lt;=0
+	group by date_format(update_time, "%Y%c%d")	
+	</select>  
+	<delete id="deleteByDate">
+	DELETE FROM `sl_sales_report_daliy` WHERE ss_day=#{date}
+	</delete>
+	<select id="getAllUsers" resultType="java.util.LinkedHashMap">
+		SELECT
+			u1.id userId,
+			u1.u_wx_openid wxId
+		FROM
+			sm_user u1
+		WHERE
+			u1.u_type = 1
+	</select>
+	<select id="getUserWxIdByPid" resultType="Map">
+		SELECT
+			GROUP_CONCAT(u1.id) userId,
+			GROUP_CONCAT(u1.u_wx_openid)wxId
+		FROM
+			sm_user u1
+		WHERE
+			u1.u_pid IN <foreach collection="pids" item="t" open="(" close=")" separator=",">#{t}</foreach>
+			AND
+			u1.u_level !=1
+			<if test="yesterday != null">
+			AND DATEDIFF(create_time, #{yesterday}) = 0
+			</if>
+	</select>
+	<insert id="insertTosaleReportDaliy" >
+		INSERT INTO `sl_sales_report_daliy` (`ss_userid`, `ss_day`, `ss_num`, `ss_orders`, `ss_amount`,`create_time`) VALUES
+		<foreach collection="list" item="t" separator=",">
+			(#{t.userId},#{t.day},#{t.num},#{t.orders},#{t.amount},#{t.createTime})
+		</foreach>
+	</insert>
+	<resultMap type="com.jdy.b2b.api.model.agentinfo.UserOrderInfoDTO" id="UserOrderReportMapper">
+	<result column="userId" jdbcType="BIGINT" property="userId"/>
+	<result column="day" jdbcType="VARCHAR" property="day" />
+	<result column="num" jdbcType="VARCHAR" property="num" />
+	<result column="orders" jdbcType="VARCHAR" property="orders" />
+	<result column="amount" jdbcType="VARCHAR" property="amount" />
+	</resultMap>
+	<select id="getUsersOrderSub" resultMap="UserOrderReportMapper">
+	SELECT
+		#{userId} userId,
+		#{subTime} `day`,
+		#{userNum} `num`,
+		COUNT(id) orders,
+		IFNULL(SUM(o_real_pay), "0.00") amount
+	FROM
+		sl_order
+	WHERE
+		o_status=3
+	AND o_buyer_id IN (${userIds})
+	AND date_format(update_time,'%Y%m%d')=#{subTime}
+	</select>
+	<select id="getWxIdById" resultType="String">
+	SELECT u_wx_openid from sm_user  WHERE id =#{id}
+	</select>
+	<delete id="deleteReportByDate">
+	DELETE FROM `sl_sales_report_daliy` WHERE ss_day='#{date}'
+	</delete>
+</mapper>

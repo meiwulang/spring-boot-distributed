@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>芒果卉旅游</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'
+        );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/lib/jquery-1.11.3.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/echo.min.js"></script>
+    <script src="js/lib/doT.min.js"></script>
+    <script src="js/common/configs.js"></script>
+    <script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+<body>
+<div id="header"></div>
+<div class="company_info">
+    <div class="box_wrapper container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-xs-8">
+                <div class="main_info">
+                    <div class="title_bg"></div>
+                    <div class="company_summary clearfloat">
+                        <div class="pull-left company_logo">
+                            <img src="" alt="" id="orglogo"/>
+                        </div>
+                        <div class="pull-left company_summaryDetails">
+                            <h4 id="orgname"></h4>
+                            <div class="company_name"></div>
+                            <div class="company_link">
+                                <p><span>总部地址: </span><span id="address"></span></p>
+                                <p><span>联&nbsp;&nbsp;系&nbsp;人: </span><span id="contact"></span></p>
+                                <p><span>联系电话: </span><span id="telephone"></span></p>
+                                <p><span>服务电话: </span><span id="telephoneS"></span></p>
+                                <p><span>传&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;真: </span><span id="fax"></span></p>
+                                <p><span>省市区县: </span><span id="area"></span></p>
+                                <p><span>相关产品: </span><span id="productType"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="detail_info">
+                    <li>
+                        <div class="title">
+                            <div class="skew_mark">
+                                <div class="top_border"></div>
+                                <div class="bottom_border"></div>
+                            </div>
+                            <span>商家介绍</span>
+                        </div>
+                        <div class="content_detail"></div>
+                    </li>
+                    <!--<li>-->
+                        <!--<div class="title">-->
+                            <!--<div class="skew_mark">-->
+                                <!--<div class="top_border"></div>-->
+                                <!--<div class="bottom_border"></div>-->
+                            <!--</div>-->
+                            <!--<span>MAP</span>-->
+                        <!--</div>-->
+                        <!--<div class="company_map">-->
+                            <!--<img src="" alt=""/>-->
+                        <!--</div>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<div class="line_title">-->
+                            <!--<div class="skew_mark">-->
+                                <!--<div class="top_border"></div>-->
+                                <!--<div class="bottom_border"></div>-->
+                            <!--</div>-->
+                            <!--<span>在线咨询</span>-->
+                        <!--</div>-->
+                        <!--<div class="line_consult">-->
+                            <!--<div>-->
+                                <!--<p class="line_title">线路咨询</p>-->
+                                <!--<ul class="clearfloat">-->
+                                    <!--<li class="pull-left">-->
+                                        <!--<a href="#">-->
+                                            <!--<i class="qq_logo"></i>-->
+                                            <!--<span>在线咨询</span>-->
+                                        <!--</a>-->
+                                    <!--</li>-->
+                                    <!--<li class="pull-left">-->
+                                        <!--<a href="#">-->
+                                            <!--<i class="qq_logo offLine"></i>-->
+                                            <!--<span>在线咨询</span>-->
+                                        <!--</a>-->
+                                    <!--</li>-->
+                                    <!--<li class="pull-left">-->
+                                        <!--<a href="#">-->
+                                            <!--<i class="qq_logo"></i>-->
+                                            <!--<span>在线咨询</span>-->
+                                        <!--</a>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<p class="line_title">线路咨询</p>-->
+                                <!--<ul class="clearfloat">-->
+                                    <!--<li class="pull-left">-->
+                                        <!--<a href="#">-->
+                                            <!--<i class="qq_logo"></i>-->
+                                            <!--<span>在线咨询</span>-->
+                                        <!--</a>-->
+                                    <!--</li>-->
+                                    <!--<li class="pull-left">-->
+                                        <!--<a href="#">-->
+                                            <!--<i class="qq_logo offLine"></i>-->
+                                            <!--<span>在线咨询</span>-->
+                                        <!--</a>-->
+                                    <!--</li>-->
+                                    <!--<li class="pull-left">-->
+                                        <!--<a href="#">-->
+                                            <!--<i class="qq_logo"></i>-->
+                                            <!--<span>在线咨询</span>-->
+                                        <!--</a>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+            <div class="col-md-4 col-xs-4">
+                <div class="happiness_share">
+                    <div class="title">
+                        <div class="skew_mark">
+                            <div class="top_border"></div>
+                            <div class="bottom_border"></div>
+                        </div>
+                        <span>分享快乐</span>
+                    </div>
+                    <div class="content">
+                        <img src="" alt="" id="qcode"/>
+                        <h4>手机扫一扫</h4>
+                        <p>快速分享给朋友,快乐就是这么简单</p>
+                    </div>
+                </div>
+                <!--<div class="news_pic">
+                    <a href="#"><img src="" alt=""/></a>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div id="footer"></div>
+<div id="login_mask"></div>
+</body>
+<script id="link-js" type="text/javascript">
+    document.write(
+        '<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/company.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

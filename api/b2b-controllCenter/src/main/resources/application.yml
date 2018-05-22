@@ -1,0 +1,12 @@
+connection:
+  path:
+    maxHop: 6
+
+spring:
+  profiles:
+    active: @profiles.active@
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true

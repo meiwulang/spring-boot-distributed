@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>定制游</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/made_message.css"> 
+</head>
+<body>
+<div id="wrap">
+	<div class="header_img">
+		<img src="assets/img/mades/made1.png" alt="">
+	</div>
+	<div class="froms">
+		<div class="basic">
+			<h3 class="bas">出游基本信息</h3>
+			<div class="basic_list">
+				<div class="sun">
+					<label class="sun-lef" for="">定制类型</label>
+					<div class="sun-rig">
+						<select name="" id="typer">
+							<option value="0">个人定制</option>
+							<option value="1">企业定制</option>
+						</select>
+					</div>
+				</div>
+				<div class="sun cit">
+					<label for="">出发城市</label>
+					<div class="citys"></div>
+				</div>
+				<div class="sun cit">
+					<label for="">目的地</label>
+					<div class="city-end"></div>
+				</div>
+				<div class="sun sta-end">
+					<label for="">出发日期</label>
+					<input class="tims" type="date"><span>至</span><input class="time" type="date">
+				</div>
+				<div class="sun days">
+					<label class="sun-lef" for="">出游天数</label>
+					<div class="sun-rig">
+						<div class="saer">
+							<span class="cle"></span>
+							<input class="day-sta" value="0" type="text">
+							<span class="add"></span>
+						</div>
+						<i class="chon">至</i>
+						<div class="end">
+							<span class="cle"></span>
+							<input class="day-end" value="0" type="text">
+							<span class="add"></span>
+						</div>
+					</div>
+						
+				</div>
+				<div class="sun peop">
+					<label for="">出游人数</label>
+					<div class="peops">
+						<div class="bor">
+							<div class="bors">
+								<input class="peop_o" type="tel">
+							</div>
+							<span class="spans">成人</span><span class="ten">12岁以上为成年人</span>
+						</div>
+						<div class="bor">
+							<div class="bors">
+								<input class="peop_t" type="tel">
+							</div>
+							<span class="spans">儿童</span><span class="ten">2-12岁为儿童</span>
+						</div>
+						<div class="bor">
+							<div class="bors">
+								<input class="peop_s" type="tel">
+							</div>
+							<span class="spans">婴儿</span><span class="ten">2岁以下为婴儿</span>
+						</div>
+					</div>
+				</div>
+				<div class="sun ys">
+					<label for="">人均预算</label>
+					<input class="pricese" type="tel" value="" placeholder="请输入您的人均预算"><span>元</span>
+				</div>
+				<div class="change">
+					<h3 class="cha">需要提供什么?（多选）</h3>
+					<div class="fa-ul">
+						<ul>
+							<li typ="线路设计">线路设计</li>
+							<li typ="机票">机票</li>
+							<li typ="用车">用车</li>
+							<li typ="导游">导游</li>
+							<li typ="酒店">酒店</li>
+							<li typ="签证">签证</li>
+							<li typ="门票">门票</li>
+							<li typ="用餐">用餐</li>
+						</ul>
+					</div>
+				</div>
+				<div class="demand">
+					<h3 class="dem">其他需求</h3>
+					<textarea class="deman" placeholder="请告诉我们您还有什么需要补充，50字以上，500字以内哦~" name="" id="deman"></textarea>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="link">
+		<h3 class="bott">游客联系人信息</h3>
+		<div class="links">
+			<div class="ess">
+				<label for="">姓名</label>
+				<div class="ess-rig">
+					<input class="namer" placeholder="必填，方便我们与游客联系" type="text">
+				</div>
+			</div>
+			<div class="ess">
+				<label for="">性别</label>
+				<div class="ess-rig">
+					<select name="" id="sex">
+						<option value="0">男</option>
+						<option value="1">女</option>
+					</select>
+				</div>
+			</div>
+			<div class="ess">
+				<label for="">手机</label>
+				<div class="ess-rig">
+					<input class="phon" placeholder="必填，方便我们与游客联系" type="tel">
+				</div>
+			</div>
+			<div class="ess">
+				<label for="">微信号</label>
+				<div class="ess-rig">
+					<input class="vx" placeholder="必填，方便我们与游客联系" type="text">
+				</div>
+			</div>
+			<div class="ess">
+				<label for="">邮箱</label>
+				<div class="ess-rig">
+					<input class="emai" placeholder="必填，方便我们与游客联系" type="text">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="btn">提交定制</div>
+	<!-- 切换城市 -->
+    <div class="citylist">
+    <script id="tpl-citylist" type="text/html">
+        <div class="citylist-tbar">
+			<a class="back" href="javascript:;"></a>
+			<span>切换城市</span>
+		</div>
+    	<div class="citylist-con">
+			<dl>
+				<dt>当前定位城市</dt>
+				<dd>
+					<ul>
+						<li id="locate" code="{ currentCity.code }">{ currentCity.name }</li>
+					</ul>
+				</dd>
+			</dl>
+			{ each cityList as value i }
+			<a name="{ i }"></a>
+			<dl>
+				<dt>{i}</dt>
+				<dd>
+					<ul class="change-city">
+						{ each cityList[i] as value j }
+						<li code="{ cityList[i][j].code }">{ cityList[i][j].name }</li>
+						{ /each }
+					</ul>
+				</dd>
+			</dl>
+			{ /each }
+		</div>
+		<div class="city-letter">
+			<ul>
+				{ each letterList as value i }
+				<li><a href="#{ letterList[i] }">{ letterList[i] }</a></li>
+				{ /each }
+			</ul>
+		</div>	
+	</script>
+    </div>
+	
+	<!-- 出发城市 -->
+    <div class="city-list">
+		<div class="city-list_header">
+			<a class="bg_ings"></a>
+			<span>目的地</span>
+		</div>
+		<div class="city-list_headers">
+			<div class="whiter">
+				<div class="fas">
+					<div class="imgser">Search</div>
+				</div>
+				
+				<input type="text" name="">
+				<div class="pos">
+					<script id="city-tem" type="text/html">
+						{if body && body.length && body.length > 0}
+						
+						<ul>
+						{each body as value i}
+							
+								
+								<li name="{body[i].data}">{body[i].data}</li>
+								
+							
+						{/each}
+						</ul>
+						
+						{else}
+						
+							<div style="text-align: center;color: #999;height: 40px;line-height: 40px;">没有搜索到数据</div>
+						
+						{/if}
+					</script>
+				</div>
+			</div>
+		</div>
+		<div class="city-cont">
+			<p class="city-tex">已选目的地城市</p>
+			<ul class="city_uls">
+				<li class="colors cle">暂无选择</li>
+			</ul>
+		</div>
+		<div class="city-btn">确定</div>
+	</div>
+</div>
+<!-- <div id="nav">
+	<ul class="clearfix">
+		<li class="nav_index"><a href="index.html">首页</a></li>
+		<li class="nav_order"><a href="order_list.html">订单</a></li>
+		<li class="nav_made active"><a href="javascript:;">定制游</a></li>
+		<li class="nav_user"><a href="javascript:;">我的</a></li>
+	</ul>
+</div> -->
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/made_message.build.js"></script>
+</html>

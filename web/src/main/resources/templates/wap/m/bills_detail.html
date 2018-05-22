@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>账单详情</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/bills_detail.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->    
+</head>
+<body>
+<div id="wrap">
+	<div class="acti_header">信用账单<a class="lef" href="javascript:;"></a></div>
+	<div class="main">
+	<script id="tpl-condition" type="text/html">
+		{if data}
+		<div class="tab">
+			<ul>
+				<li><a href="javascript:;" class="active">账单明细</a></li>
+				<li><a href="javascript:;">还款记录</a></li>
+			</ul>
+		</div>
+		{if data.credit_items}
+			<div class="bar">
+				<div class="bar_son">
+					<div class="bar_top">
+						<span class="date">账单日：{data.credit_items.cb_bill_date}</span>
+						<span class="state">已还：{data.credit_items.cb_repay_amount}</span>
+					</div>
+					<div class="bar_bott">
+						<span class="dates">{data.credit_items.org_name} </span>
+						<span class="states">￥{data.credit_items.cb_bill_amount}</span>
+					</div>
+				</div>
+			</div>
+		{/if}
+		<div class="content_one cons">
+			{if data.credit_items.credit_items}
+			{each data.credit_items.credit_items as value i}
+			<dl>
+				<dt>
+					<span class="title">{data.credit_items.credit_items[i].o_name}</span>
+					<span class="prce"><i>￥</i>{data.credit_items.credit_items[i].money}</span>
+				</dt>
+				{each data.credit_items.credit_items[i].list as value j}
+				<dd>
+					<a href="/order_detail.html?n={data.credit_items.credit_items[i].list[j].crl_trade_no}&order_type={ order_type }">
+						<span class="titles"><span class="time">{data.credit_items.credit_items[i].list[j].crl_start_date}</span>[{data.credit_items.credit_items[i].list[j].crl_uname}]
+							{data.credit_items.credit_items[i].list[j].crl_subject} ;共{data.credit_items.credit_items[i].list[j].crl_onum} 人
+						</span>
+						<span class="prces"><i></i>{data.credit_items.credit_items[i].list[j].crl_amount}</span>
+					</a>
+				</dd>
+				{/each}
+				
+			</dl>
+			{/each}
+			{/if}
+		</div>
+		<div class="content_two display cons">
+			{if data.credit_items.pay_items}
+			
+			<dl>
+			{each data.credit_items.pay_items as value i}
+				<dt>
+					<div class="titles">
+						<span class="title">{data.credit_items.pay_items[i].crl_uname}({data.credit_items.pay_items[i].crl_create_time})</span>
+						<span class="prce"><i>￥</i>{data.credit_items.pay_items[i].crl_amount}</span>
+					</div>
+					{if data.credit_items.pay_items[i].remark}
+					<div class="bz">备注：{data.credit_items.pay_items[i].remark}</div>
+					{/if}
+				</dt>
+			{/each}	
+			</dl>
+			
+			{/if}
+		</div>
+		{else}
+		<p class="zw">暂无数据！</p>
+		{/if}
+	</script>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/bills_detail.build.js"></script>
+</html>

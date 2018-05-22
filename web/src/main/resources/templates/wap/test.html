@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="change-num" v="999.99">0</div>
+	<div class="change-num" v="800.99">0</div>
+	<div class="change-num" v="10">0</div>
+	<div class="change-num" v="199">0</div>
+	<div class="change-num" v="999999.99">0</div>
+	<div class="change-num" v="0">0</div>
+</body>
+<script type="text/javascript" src="js/lib/jquery-1.11.3.js"></script>
+<script type="text/javascript">
+	$.fn.NumChange = function(){
+		$(this).each(function(){
+			var $here = $(this);
+			var goal = $here.attr('v');
+			var start = parseFloat($here.text());
+			var step = parseInt(goal/200);
+			if( step < 1 ){
+				step = 1;
+			}
+			start += step;
+			if( start > goal ){
+				start = goal;
+			}
+			var t = setTimeout(function(){
+				$here.text(start);
+				if( start < goal ){
+					$here.NumChange();
+				}
+				clearTimeout(t);
+			},1);
+		})
+	}
+	$('.change-num').NumChange();
+</script>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/center.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/awesome.min.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->   
+</head>
+<body>
+<div id="wrap">
+	<div class="main">
+		<script id="tpl-userinfo" type="text/html">
+		<div class="bg seller buyer"></div>
+		<div class="infor">
+			<div class="img">
+				<img src="">
+			</div>
+			<p class="bname">{ org_name }</p>
+			<div class="detail">
+				<div class="pinfor">
+					<p class="pname">{ u_realname }<span>（{ org_type }）</span></p>
+					<p class="phone">{ u_mobile }</p>
+				</div>
+				{ if org_type == '分销商' }
+				{ else }
+				<div class="go">
+					<a>
+						进入买家中心
+					</a>
+				</div>
+				{ /if }
+			</div>
+		</div>
+		
+		<ul class="lists seller_c">
+			<li>
+				<a class="order clearfix" href="order_list.html?order_type=seller">
+					<i class="icon fa fa-cubes" aria-hidden="true"></i>
+					<div class="tip">卖家订单</div>
+				</a>
+			</li>
+			<li>
+				<a class="order clearfix" href="credit.html?order_type=seller">
+					<i class="icon fa fa-credit-card" aria-hidden="true"></i>
+					<div class="tip">信用账单</div>
+				</a>
+			</li>
+			<li>
+				<a class="order clearfix" href="plan_list.html?order_type=seller">
+					<i class="icon fa fa-file-powerpoint-o" aria-hidden="true"></i>
+					<div class="tip">出团计划</div>
+				</a>
+			</li>
+			<li class="guidese">
+				<a class="order clearfix" href="guide_list.html">
+					<i class="icon fa fa-file-text-o" aria-hidden="true"></i>
+					<div class="tip">导游报账</div>
+				</a>
+			</li>
+		</ul>
+
+		<ul class="lists buyer_c">
+			<li>
+				<a class="order clearfix" href="order_list.html?order_type=buyer">
+					<i class="icon fa fa-cubes" aria-hidden="true"></i>
+					<div class="tip">买家订单</div>
+				</a>
+			</li>
+			<li>
+				<a class="order clearfix" href="credit.html?order_type=buyer">
+					<i class="icon fa fa-credit-card" aria-hidden="true"></i>
+					<div class="tip">信用账单</div>
+				</a>
+			</li>
+		</ul>
+		<div class="cike">切换账号</div>
+		</script>
+	</div>
+</div>
+<div id="nav">
+	<ul class="clearfix">
+		<li class="nav_index"><a href="index.html">首页</a></li>
+		<li class="nav_order"><a href="order_list.html">订单</a></li>
+		<li class="nav_user active"><a href="javascript:;">我的</a></li>
+	</ul>
+</div>
+</body>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/center.build.js?1"></script>
+</html>

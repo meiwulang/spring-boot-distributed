@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>计划列表</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/plan_list.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> --> 
+</head>
+<body>
+<div id="wrap">
+  <div class="acti_header">计划列表
+    <a class="lef" href="javascript:;"></a>
+    <a class="rig" href="javascript:;"></a>
+  </div>
+  <div class="main">
+    <div class="main_dl">
+      <script id="tpl-condition" type="text/html">
+      {if !(!list || list.length == 0) }
+        {each list as value i}
+          <dl>
+            <dt>{i}</dt>
+            {each list[i] as value j}
+            <dd>
+            <a href="/plan_detail.html?id={list[i][j].team_id}">
+              <div class="tit">{list[i][j].team_p_name}</div>
+              <div class="cont">
+                <div class="lefts">
+                  <span class="tim"><span></span>{list[i][j].team_num}</span>
+                  <span class="tim tims"><span></span>{list[i][j].team_start_date}至{list[i][j].team_end_date}</span>
+                </div>
+                <div class="rights">
+                  <p>{list[i][j].team_saled}人</p>
+                  <span>{list[i][j].team_adult}大{list[i][j].team_children}小</span>
+                </div>
+              </div>
+            </a>
+            </dd>
+            {/each}
+          </dl>
+        {/each}
+      {else}
+      <p class="cxs">没有查询到数据！</p>
+      {/if}
+      </script>
+    </div>
+    <div class="sear">
+      <div class="acti_he">搜索
+        <a class="lef_two" href="javascript:;"></a>
+        <a class="rig_two" href="javascript:;">清空</a>
+      </div>
+      <div class="butt butts">确认查询</div>
+      <div class="station">
+        <div class="station_son">
+          <div class="station_dis">
+            <label class="ric" for="">出团日期</label>
+            <input placeholder="选择团队日期" type="date" class="dates">
+            <span class="downs"></span>
+          </div>
+        </div>
+        <div class="station_son">
+          <div class="station_dis">
+            <label for="">快捷搜索</label>
+            <input class="datese" placeholder="团号、产品名称、导游" type="text">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/plan_list.build.js"></script>
+</html>

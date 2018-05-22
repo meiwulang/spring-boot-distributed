@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>忘记密码 - 芒果卉旅游</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'
+        );
+    </script>
+
+	<!--[if lt IE 9]>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+	<script src="js/lib/jquery-1.11.3.js"></script>
+	<script src="js/lib/bootstrap.js"></script>
+	<script src="js/common/configs.js"></script>
+	<script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+
+<body>
+	<div class="my_navbar">
+		<div class="box_wrapper clearfloat">
+			<div class="pull-left">
+				<span class="pull-left"> <a href="index.html">芒果卉首页</a></span>
+			</div>
+		</div>
+	</div>
+	<div class="register_login" id="register_log">
+		<div class="box_wrapper clearfloat">
+			<div class="pull-left jdy_logo">
+				<a href="index.html"><img src="img/1_03.png" alt="" /></a>
+			</div>
+			<div class="pull-right">
+				<span>已有芒果卉账号？</span>
+				<button class="login_btn" onClick="window.location.href='index.html'">登录</button>
+			</div>
+		</div>
+	</div>
+	<div class="register_navbar" id="register_nav">
+		<div class="box_wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-4 col-xs-4 write_basic">
+						<div class="hexagonal active" id="fist_background">
+							<div class="hexagonalTop"></div>
+							<div class="hexagonalMiddle"></div>
+							<div class="hexagonalBottom"></div>
+							<span class="step_sign">01</span>
+
+							<div class="linkLine"></div>
+							<p class="step_title">验证身份</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-xs-4 write_service">
+						<div class="hexagonal" id="two_background">
+							<div class="hexagonalTop"></div>
+							<div class="hexagonalMiddle"></div>
+							<div class="hexagonalBottom"></div>
+							<span class="step_sign">02</span>
+
+							<div class="linkLine"></div>
+							<p class="step_title">重置密码</p>
+						</div>
+					</div>
+					<div class="col-md-4 col-xs-4 submit_audit">
+						<div class="hexagonal" id="submit_audit">
+							<div class="hexagonalTop"></div>
+							<div class="hexagonalMiddle"></div>
+							<div class="hexagonalBottom"></div>
+							<span class="step_sign">03</span>
+
+							<div class="linkLine"></div>
+							<p class="step_title">完成</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="page">
+		<form action="" name="myForm" class="register_firstForm">
+			<div class="box_wrapper" id="jdy_one">
+				<div class="form_box">
+					<div class="form-group clearfloat">
+						<label for="input_mobieRegister" class="col-sm-1 col-xs-1 control-label">手机号码:</label>
+
+						<div class="pull-left">
+							<div class="input-group">
+								<input type="text" name="input_mobieRegister" class="form-control" id="input_mobieRegister" placeholder="请输入手机号">
+
+								<div class="input-group-addon get_yzm">
+									<button id="submit" type="button">获取短信验证码</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-5 col-xs-5 input_warn hint" id="hin">
+							<span class="warnColor">*</span><span>请输入正确的11位手机号</span>
+
+							<p></p>
+						</div>
+					</div>
+					<div class="form-group clearfloat">
+						<label for="input_yzmRegister" class="col-sm-1 col-xs-1 control-label">验&nbsp;&nbsp;证&nbsp;&nbsp;码:</label>
+
+						<div class="pull-left">
+							<div class="input-group yzm_register">
+								<input type="text" class="form-control" id="input_yzmRegister" placeholder="请输入六位验证码" size="4" maxlength="6">
+							</div>
+						</div>
+						<div class="col-sm-5 col-xs-5 input_warn">
+							<span class="warnColor">*</span><span>请输入正确的短信验证码</span>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<div class="form_center">
+						<button id="sub" type="button">下一步</button>
+					</div>
+				</div>
+			</div>
+	</div>
+
+	<!--！！！！！！注册第二步！！！！！！-->
+	<div class="box_wrapper jdy_resisterBusinessForm" id="jdy_two">
+		<div class="form_box">
+		<div class="form-group clearfloat">
+			<label for="input_passwordRegister" class="col-sm-1 col-xs-1 control-label">输入新密码:</label>
+
+			<div class="pull-left">
+				<div class="input-group">
+					<input type="password" name="input_passwordRegister" class="form-control" id="input_passwordRegister" placeholder="请输入6~20位密码">
+				</div>
+			</div>
+			<div class="col-sm-5 col-xs-5 input_warn hint" id="passwordReg">
+				<span class="warnColor">*</span><span>请输入6~20位密码!(数字或字母)</span>
+
+				<p></p>
+			</div>
+		</div>
+		<div class="form-group clearfloat">
+			<label for="input_passwordConfirm" class="col-sm-1 col-xs-1 control-label">请确认密码:</label>
+
+			<div class="pull-left">
+				<div class="input-group">
+					<input type="password" name="input_passwordConfirm" class="form-control" id="input_passwordConfirm" placeholder="请再次输入密码">
+				</div>
+			</div>
+			<div class="col-sm-5 col-xs-5 input_warn hint" id="repassword">
+				<span class="warnColor">*</span><span>确认密码要和输入密码保持一致</span>
+
+				<p></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form_center">
+				<button type="button" onClick="gostep(1);">返回上一步</button>
+				<button type="button" id="reg">确定</button>
+			</div>
+		</div>
+	</div>
+
+	</div>
+
+	</form>
+
+	</div>
+
+	<div id="jdy_there">
+		<p>修改成功！
+			<div class="showT">
+				<span id="time">5</span>s 后将跳转到首页，或
+			</div>点击<a href="index.html">立刻跳转</a>
+		</p>
+	</div>
+	<div id="register_modal"></div>
+	<div id="footer">
+
+	</div>
+
+	<script src="js/lib/Popt.js"></script>
+	<script src="js/common/alert.js"></script>
+
+</body>
+<script id="link-js" type="text/javascript">
+    document.write(
+    	'<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/forgetpwd.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

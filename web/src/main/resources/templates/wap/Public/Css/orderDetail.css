@@ -1,0 +1,471 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft YaHei';
+    font-size: 12px;
+}
+ul,li{
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+i,em {
+    font-style: normal;
+}
+.clear{
+    clear: both;
+}
+body {
+    background:#F6F6F6;
+}
+.main{
+    width: 1000px;
+    margin: 0 auto;
+}
+.order-detail{
+    margin: 15px;
+    background:#fff;
+}
+.order-detail .detail-content{
+    width: 100%;
+    border: 1px solid #dddddd;
+    /*box-shadow: 2px 2px 2px #dddddd;*/
+    margin: 0 auto;
+}
+.order-detail .detail-content .detail-nav{
+    border-bottom: 1px solid #dddddd;
+    z-index: 100;
+}
+.order-detail .detail-content .detail-nav a{
+    display: inline-block;
+    padding: 10px 30px;
+    font-size: 16px;
+    color: #666;
+}
+.order-detail .detail-content .detail-nav .a-hover{
+    color: #009DD9;
+    border-bottom: 2px solid #009DD9;
+    z-index: 101;
+    margin-bottom: -1px;
+}
+.order-detail .detail-content .detail-info{
+    margin-bottom: 20px;
+}
+.order-detail .detail-content .detail-info .title{
+    color: #333;
+    background: #f9f9f9;
+    padding:0 10px;
+    padding-bottom: 8px;
+}
+.order-detail .title-info{
+    display: inline-block;
+    width: 65px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    background: #008000;
+    color: #ffffff;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+.order-detail .detail-content .detail-info .status{
+    padding-bottom: 10px;
+    background: #f9f9f9;
+    padding:0 10px;
+}
+.order-detail .detail-content .detail-info .status .status-info{
+    color: #666666;
+}
+.order-detail .status-info i{
+    font-style: normal;
+    color: #008000;
+    font-weight: bold;
+}
+.order-detail .detail-content .detail-info .status .order-num{
+    float: right;
+    color: #666666;
+}
+.order-detail .detail-content .detail-info .status .order-num i{
+    font-style: normal;
+    font-size: 12px;
+}
+.order-detail .detail-content .detail-info .ordering-table tr .td-first{
+    border-top: 3px solid #eeeeee;
+}
+.order-detail .detail-content .detail-info .ordering-table tr td{
+    color: #333333;
+    padding:6px;
+    border-bottom: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+    padding-left: 10px;
+}
+.order-detail .detail-content .detail-info .ordering-table tr td button{
+    background: #FF6600;
+    color: #ffffff;
+    width: 70px;
+    line-height: 28px;
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.order-detail .detail-content .detail-info .ordering-table tr td button:hover{
+    background: #E15A00;
+}
+.order-detail .detail-content .detail-info .ordering-table tr .td-odd{
+    background: #f9f9f9;
+    text-align: center;
+}
+.order-detail .detail-content .contact{
+    margin-bottom: 30px;
+}
+.order-detail .contact-title{
+    font-size: 16px;
+    color: #666666;
+    line-height: 40px;
+    background: #f9f9f9;
+    border-top: 2px solid #999;
+    padding-left: 20px;
+    border-bottom: 1px solid #dddddd;
+}
+.order-detail .detail-content .contact .contact-table tr td{
+    color: #333333;
+    line-height: 30px;
+    border-bottom: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+    padding-left: 10px;
+}
+.order-detail .detail-content .contact .contact-table tr .td-odd{
+    text-align: center;
+}
+.order-detail .detail-content .contact .contact-table tr .money-color{
+    color: #FF8237;
+    position: relative;
+}
+.order-detail .detail-content .contact .contact-table tr .money-color i{
+    font-style: normal;
+    color: #009DD9;
+    cursor: pointer;
+    padding-left: 5px;
+}
+.look_ticket{
+    font-style: normal;
+    color: #009DD9;
+    cursor: pointer;
+    padding-left: 5px;
+    float: right;
+    padding-right: 30px;
+}
+.order-detail .detail-content .contact .money-table{
+    border: 1px solid #dddddd;
+    position: absolute;
+    top: -163px;
+    left: -110px;
+    background: #ffffff;
+}
+.order-detail .detail-content .contact .money-table tr th{
+    border-right: 1px solid #dddddd;
+    line-height: 25px;
+    background: #F9F9F9;
+}
+.order-detail .detail-content .contact .money-table tr td {
+    border-top: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    width: 90px;
+    color: #666666;
+    line-height: 25px;
+    font-size: 12px;
+    text-align: center;
+}
+.order-detail .detail-content .contact .money-table tr .td-right{
+    width: 80px;
+    border-right: none;
+    text-align: right;
+    padding-right: 10px;
+    color: red;
+}
+
+.account,.opaJory{
+    margin:auto;
+    background: #ffffff;
+    border:1px solid #dddddd;
+    width:100%;
+    padding-bottom: 20px;
+}
+.account .account-title,.opaJory-title{
+    font-size: 16px;
+    color: #666666;
+    line-height: 40px;
+    background: #f9f9f9;
+    border-top: 2px solid #999;
+    padding-left: 20px;
+    border-bottom: 1px solid #dddddd;
+}
+.account table,.opaJory table{
+    width:98%;
+    margin:auto;
+    border-collapse: collapse;
+}
+.account table thead tr th,.opaJory table thead tr th{
+    text-align: center;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+    padding:10px;
+}
+.account table tbody tr td,.opaJory table tbody tr td{
+    text-align: center;
+    padding:5px 0px;
+}
+
+.detail-content .detail-title {padding:10px 0;background:#F9F9F9;position: relative}
+.detail-content .title-text {font: 16px 'Microsoft Yahei'}
+.affirm-btn {margin-left:5px;}
+.quit-cls {width:120px;height: 120px;position: absolute;right: -20px;top:0}
+.quit-cls img {width:100%;height: 100%}
+
+/*游客信息样式*/
+.tour-info .tour-title {border-top: 2px solid #999;color: #666;font-size: 16px;line-height: 40px;padding-left: 20px;padding-right: 20px;background: #f9f9f9;/*position: relative;*/border-bottom: 1px solid #dddddd;}
+.tour-info{padding-bottom:20px;}
+.tour-info .fa-puzzle-piece{font-size: 24px;color: #009DDA;padding-right: 5px;}
+.tour-info .tour-list {position: relative;border-bottom: 1px dotted #dddddd;padding-bottom: 10px;}
+.tour-info .tour-list input,.tour-info .tour-list select { height:26px;width:90%;margin-top: 8px;}
+.tour-info .tl-left {position: absolute;left: 10px;top: 10px;width:100px;}
+.tour-info .tl-left span {display: inline-block;width:100%;text-align: center;font: 12px '宋体';padding:6px 0;color:#999999;}
+.tour-info .tl-left .tl-txt {font-family: \5fae\8f6f\96c5\9ed1;font-size: 18px;font-weight: 700;color:#999;}
+.tour-info .tl-right {padding-top: 5px;}
+.tour-info .tlr-from {display: inline-block;/*padding: 5px;*/vertical-align: top;text-align: center}
+.tour-info .msg-from {padding-top: 3px;font: 12px '宋体';color:red;}
+.tour-info .tlr-txt {font:12px '宋体';color:#999999;display: inline-block;padding-right: 5px;}
+.tour-info .vip-from {height: 26px;line-height: 26px;color: #666;border: 1px solid #ddd;padding-left: 5px;padding-right: 5px;}
+.tour-info .ipt-name { width: 80px;}
+.tour-info .ipt-phone { width: 110px;}
+.tour-info .ipt-card { width: 170px;}
+.tour-info .map-id,.tour-info .map_site,.tour-info .site-select { font:12px '宋体';color:#666}
+.tour-info .map-id { padding-top: 3px;}
+.tour-info .site-select { color: #0685b8;cursor: pointer}
+.tour-info .fa-map-marker { color:#009DDA;font-size: 14px;}
+.tour-info .f-div {height:40px;line-height: 40px}
+.tour-info .ticket-money {width:80px;text-align: center;color:#FF6600;font-weight: bold}
+.tour-info .traffic-cls {font-size: 12px;color:#999999;font-family: '宋体';cursor: pointer}
+.tour-info .traffic-cls .fa {font-size: 14px}
+.tour-info .site-bus {font: 12px '宋体';height:40px;line-height: 40px;color:#999;width:230px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.tour-info .linkman {font:12px '宋体';}
+/*.tour-info .vip-btn {/!*position:absolute;right:5px;top:7px;*!/float: right;margin-top:7px;}*/
+.vf-btn {display:inline-block;border-radius:3px;margin-left: 5px;background:#FF6600;color:#fff;cursor: pointer;width:80px;height:26px;line-height: 26px;text-align: center}
+.vf-btn:hover {background:#E15A00}
+.vf-blue {color: #3476a8;cursor: pointer}
+.vf-blue:hover {color:#ff4500;text-decoration: underline}
+.tour-info .from-input {display:inline-block;height:20px;line-height: 20px}
+.tour-info .span-name {width:100px;line-height: 20px}
+.tour-info .span-phone {width:130px}
+.tour-info .span-card-type {padding: 0px 10px;}
+.tour-info .span-card {width:190px}
+.tour-info .tr-title {height:30px;line-height: 30px;border-bottom: 1px solid #dddddd}
+.tour-info .tt-td {float: left;text-align: center;font-weight: bold}
+
+.tour-info .td-bus {width: 70px;}
+.tour-info .td-ticket {width: 140px;}
+.tour-info .td-name {width: 80px;}
+.tour-info .td-mob {width: 90px;}
+.tour-info .td-card-type {width: 90px;}
+.tour-info .td-card {width: 160px;}
+.tour-info .td-site {width: 240px;}
+.tour-info .tour-list .td-site {text-align: left;padding-left: 10px;}
+.tour-info .td-price {width: 100px;}
+.tour-info .td-oper {width: 100px;}
+
+
+/*大交通信息*/
+/*#transPlane span{ right:95px;!important}
+#ticketPlane span{ right:185px;!important}
+#sitePlane span{ right:275px;!important}*/
+#rollBack{ font-size: 10px;color:#ff4500;cursor:pointer;}
+.traffic-main {background: #f8fafc;width:98%;margin: auto;margin-top:10px }
+.traffic-main .table-route{color: #999;text-align: center;width:100%}
+.traffic-main .table-route td .img-plane{display: inline-block;height: 10px;background: url("../img/gentuan_icon.png") no-repeat 0px -300px;}
+.traffic-main td {text-align: center;padding: 5px;border-bottom: 1px dotted #dddddd}
+.traffic-main .but-cls td {border:none}
+.traffic-main .trt-goto { width:60px;background:#38B7D6;color:#ffffff;position: relative;letter-spacing:6px;border:none}
+.trt-goto .xj-icon {display: inline-block;border-left: 3px solid #e3e3e3;border-bottom:30px solid transparent;position: absolute;right: -3px;top:0;}
+.traffic-main .trt-date { width:100px;color:#999}
+.traffic-main .trt-city { width:120px;color:#999}
+.traffic-main .trt-fly { width:80px;color:#999}
+.traffic-main .trt-fly .fa { color: #38B7D6;margin-right: 10px;font-size: 16px}
+.traffic-main .trt-ssite { width:180px;font-weight: bold;color:#999}
+.traffic-main .trt-icon { width:180px;background:url('/Public/Images/Home/ziyo_icon.png') no-repeat -90px -247px;}
+.traffic-main .trt-esite { width:180px;font-weight: bold;color:#999}
+.traffic-main .trt-seat { width:160px;color:#999}
+.traffic-main .trt-opear { width:70px;color:#0685b8;cursor: pointer}
+.o_remark {width: 600px; border:1px solid #ccc;padding: 4px}
+
+.price-detail-box {display: none;width: 460px;}
+.ticket-detail-box {display: none;width: 460px;}
+.money-table {background:#fff;width:800px;border-collapse: collapse;border-spacing: 0;empty-cells: show;}
+.money-table tr td {padding: 5px;border:1px solid #ddd}
+.money-table .th {color: #000000;text-align: center;font-weight: bold;background:#F9F9F9}
+.money-table .td-right {text-align: right}
+#submitOrder,#waitPay{padding:0;font-size:12px;color:#ffffff;border-radius: 3px;text-align:center;background-color: #FF6600;display: inline-block;float:right;margin:7px;width: 80px;height: 25px;line-height: 25px;}
+.order-detail .detail-content .detail-nav .btn-cls{padding:0;font-weight:bolder;font-size:12px;color:#fff;border-radius: 3px;text-align:center;background-color: #009DD9;display: inline-block;float:right;margin:7px 5px 7px 5px;width: 80px;height: 25px;line-height: 25px;}
+#LogDetail{width:440px;font-size: 12px;background: #ffffff;padding:10px;}
+#LogDetail ul li{padding:5px;border-bottom: 1px dashed #ddd;margin: 5px auto;}
+#LogDetail ul li span{font-weight: bolder;}
+.hide-detail{ background: #F9F9F9;}
+#changeSite{ cursor: pointer;color:#ff4500;}
+.site_type .fa{ background:red;padding:3px;color:#ffffff;font-size: 9px;cursor: pointer;margin-right: 5px;border-radius: 50%}
+
+.tour-btn { float: right;}
+.ticket-type-cls {color:#999999;font-family: '宋体'}
+.check-label {cursor: pointer}
+.check-id {margin-right: 5px;vertical-align: middle}
+
+.Team-cls {width:100%;border:1px solid #dddddd}
+.team-table {margin:0;width:100%}
+.team-table tr td {padding: 5px;border: 1px solid #dddddd}
+.team-table .tt-title {width:100px;text-align: center;background:#F9F9F9}
+.team-table .to-cls {display: inline-block;width:100%}
+.team-table .a-cls { color: #009DD9}
+.team-table .a-cls:hover {color:red}
+.check-all {cursor: pointer}
+.check-all:hover {color:red}
+
+#header{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+#header .main-header{
+    width: 1000px;
+    margin: 0 auto;
+}
+#header .logo{
+    float: left;
+}
+#header .nav{
+    float: right;
+}
+#header .nav .a-list{
+    padding-right: 20px;
+    line-height: 50px;
+    color: #333;
+}
+#header .nav .logout {
+    color: #004d82;
+}
+#header .nav .logout:hover {
+    text-decoration: underline;
+}
+.footer-box {font-size: 12px;color: #999999;height: 50px;line-height: 50px;margin: auto;margin-top: 30px;text-align: center;width: 1000px;border-top:1px solid #dddddd; padding-bottom: 20px;}
+
+.site-info{
+    display: inline-block;
+    width: 240px;
+}
+
+.site-info .td-gotime,.site-info .td-backtime{
+    /*width: 80px;*/
+    height:40px;
+    overflow: hidden;
+    margin-right: 5px;
+}
+
+.site-info .td-gotime input,.site-info .td-backtime input{
+    width: 50px;
+}
+
+.site-info .td-goname,.site-info .td-backname{
+    width:130px;
+    overflow: hidden;
+}
+
+.site-info .td-goname .from-input,.site-info .td-backname .from-input{
+    width:120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.site-info .td-goname input,.site-info .td-backname input{
+    width:120px;
+}
+
+.site-info u{
+    display: inline-block;
+    width:40px;
+    height: 20px;
+    line-height:20px;
+    text-decoration: none;
+}
+.v_name{
+    border-bottom: 1px dotted  #dddddd;
+    overflow: hidden;
+    height: 60px;
+}
+.name_left{
+    padding-top: 15px;
+    height:100%;
+    line-height: 20px;
+    width:160px;
+    text-align: center;
+    float: left;
+}
+.name_left span:nth-child(1){
+    font-size: 16px;
+}
+.name_left .t_type{
+    color: #999999;
+    position: absolute;
+    padding-left: 5px;
+}
+.name_right{
+    text-align: center;
+    height:40px;
+    line-height: 40px;
+    width:160px;
+    float: right;
+    color:#FF6600;
+    font-weight: bold
+}
+.tour-info .linkmob {font:12px '宋体';}
+.tt_one{
+    width: 540px;
+}
+.from-site {
+    text-align: left !important;
+}
+
+
+.sub_order{
+    display: inline-block;
+    background-color: #fd6666;
+    font-size:10px;
+    padding:3px 8px 3px 8px;
+    color:#ffffff;
+    margin-left:10px;
+    border-radius: 4px;
+}
+
+
+.set_time{
+    color:red;
+    font-size:18px;
+}
+
+.set_time_title{
+    margin-left:10px;
+}
+
+.order_tip{
+    background-color: rgba(255, 225, 165, 0.31);
+    height:60px;
+    border:1px solid rgba(192, 192, 192, 0.5);
+    margin-bottom: 10px;
+
+}
+
+.order_tip .main_content{
+    line-height:60px;
+    font-size:18px;
+    margin-left:20px;
+}

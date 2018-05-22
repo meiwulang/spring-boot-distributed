@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.reports.SalerCountMapper">
+    <!--分销商汇总报表-->
+    <resultMap id="SalerCountResultMap" type="com.jdy.b2b.api.model.reports.SalerCountDO">
+        <result column="companyId" jdbcType="BIGINT" property="companyId" />
+        <result column="cName" jdbcType="VARCHAR" property="cName" />
+        <result column="province" jdbcType="VARCHAR" property="province" />
+        <result column="city" jdbcType="VARCHAR" property="city" />
+        <result column="area" jdbcType="VARCHAR" property="area" />
+        <result column="orderCounts" jdbcType="INTEGER" property="orderCounts" />
+        <result column="buyerCounts" jdbcType="INTEGER" property="buyerCounts" />
+        <result column="productCounts" jdbcType="INTEGER" property="productCounts" />
+        <result column="peopleNum" jdbcType="INTEGER" property="peopleNum" />
+        <result column="marketAmount" jdbcType="DECIMAL" property="marketAmount" />
+        <result column="totalAmount" jdbcType="DECIMAL" property="totalAmount" />
+        <result column="adultNum" jdbcType="INTEGER" property="adultAmount" />
+        <result column="childNum" jdbcType="INTEGER" property="childAmount" />
+    </resultMap>
+    <!--供应商汇总报表-->
+    <select id="salerCountReportsList" parameterType="com.jdy.b2b.api.model.reports.SalerCountQueryDTO" resultMap="SalerCountResultMap">
+        SELECT
+        company.id AS companyId,
+        company.c_name AS cName,
+        company.c_province AS province,
+        company.c_city AS city,
+        company.c_area AS area,
+        count(
+        DISTINCT singleOrder.orderId
+        ) AS orderCounts,
+        count(
+        DISTINCT singleOrder.buyerId
+        ) AS buyerCounts,
+        count(
+        DISTINCT singleOrder.productId
+        ) AS productCounts,
+        SUM(singleOrder.peopleNum) AS peopleNum,
+        SUM(singleOrder.marketAmount) AS marketAmount,
+        SUM(singleOrder.totalAmount) AS totalAmount,
+        SUM(adultOrder.adultNum) AS adultNum,
+        SUM(childOrder.childNum) AS childNum
+        FROM
+        sm_company company
+        LEFT JOIN (
+        SELECT
+        slOrder.id AS orderId,
+        user2.company_id AS buyerId,
+        user1.company_id AS salerId,
+        slOrder.o_product_id AS productId,
+        slOrder.o_people_num AS peopleNum,
+        slOrder.o_market_price AS marketAmount,
+        slOrder.o_total_price AS totalAmount,
+        SCHEDULE .s_calendar AS calendar,
+        slOrder.create_time AS createTime
+        FROM
+        sl_order slOrder
+        LEFT JOIN ct_schedule SCHEDULE ON slOrder.o_schedule_id = SCHEDULE .id
+        LEFT JOIN sm_user user1 ON slOrder.o_saler_id = user1.id
+        LEFT JOIN sm_user user2 ON slOrder.o_buyer_id = user2.id
+        ) singleOrder ON singleOrder.salerId = company.id
+        LEFT JOIN (
+        SELECT
+        slOrder.id,
+        count(1) adultNum
+        FROM
+        sl_order slOrder
+        LEFT JOIN sl_order_tourist tourist ON slOrder.id = tourist.ot_order_id
+        WHERE
+        tourist.ot_type = 0
+        GROUP BY
+        slOrder.id
+        ) adultOrder ON singleOrder.orderId = adultOrder.id
+        LEFT JOIN (
+        SELECT
+        slOrder.id,
+        count(1) childNum
+        FROM
+        sl_order slOrder
+        LEFT JOIN sl_order_tourist tourist ON slOrder.id = tourist.ot_order_id
+        WHERE
+        tourist.ot_type = 1
+        GROUP BY
+        slOrder.id
+        ) childOrder ON singleOrder.orderId = childOrder.id
+        <where>
+            <if test="province != null and privince!=''">
+                AND company.c_province = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null and city !=''">
+                AND company.c_city = #{city,jdbcType=VARCHAR}
+            </if>
+            <if test="area != null and area!=''">
+                AND company.c_area = #{area,jdbcType=VARCHAR}
+            </if>
+            <if test="searchStr != null">
+                <bind name="salerNameStr" value="'%' +searchStr + '%'" />
+                AND company.c_name like #{salerNameStr,jdbcType=VARCHAR}
+            </if>
+            <choose>
+                <when test="dateType == 1">
+                    <if test="minDate != null">
+                        AND schedule.s_calendar &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND schedule.s_calendar &lt;= #{maxDate}
+                    </if>
+                </when>
+                <when test="dateType == 2">
+                    <if test="minDate != null">
+                        AND singleOrder.createTime &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND singleOrder.createTime &lt;= #{maxDate}
+                    </if>
+                </when>
+            </choose>
+        </where>
+
+        GROUP BY
+        company.id
+    </select>
+
+    <!--查询统计信息-->
+    <select id="queryAllSalerCount" parameterType="com.jdy.b2b.api.model.reports.SalerCountQueryDTO" resultMap="SalerCountResultMap">
+        SELECT
+        count(
+        DISTINCT singleOrder.orderId
+        ) AS orderCounts,
+        count(
+        DISTINCT singleOrder.buyerId
+        ) AS buyerCounts,
+        count(
+        DISTINCT singleOrder.productId
+        ) AS productCounts,
+        SUM(singleOrder.peopleNum) AS peopleNum,
+        SUM(singleOrder.marketAmount) AS marketAmount,
+        SUM(singleOrder.totalAmount) AS totalAmount,
+        SUM(adultOrder.adultNum) AS adultNum,
+        SUM(childOrder.childNum) AS childNum
+        FROM
+        sm_company company
+        LEFT JOIN (
+        SELECT
+        slOrder.id AS orderId,
+        user2.company_id AS buyerId,
+        user1.company_id AS salerId,
+        slOrder.o_product_id AS productId,
+        slOrder.o_people_num AS peopleNum,
+        slOrder.o_market_price AS marketAmount,
+        slOrder.o_total_price AS totalAmount,
+        SCHEDULE .s_calendar AS calendar,
+        slOrder.create_time AS createTime
+        FROM
+        sl_order slOrder
+        LEFT JOIN ct_schedule SCHEDULE ON slOrder.o_schedule_id = SCHEDULE .id
+        LEFT JOIN sm_user user1 ON slOrder.o_saler_id = user1.id
+        LEFT JOIN sm_user user2 ON slOrder.o_buyer_id = user2.id
+        ) singleOrder ON singleOrder.salerId = company.id
+        LEFT JOIN (
+        SELECT
+        slOrder.id,
+        count(1) adultNum
+        FROM
+        sl_order slOrder
+        LEFT JOIN sl_order_tourist tourist ON slOrder.id = tourist.ot_order_id
+        WHERE
+        tourist.ot_type = 0
+        GROUP BY
+        slOrder.id
+        ) adultOrder ON singleOrder.orderId = adultOrder.id
+        LEFT JOIN (
+        SELECT
+        slOrder.id,
+        count(1) childNum
+        FROM
+        sl_order slOrder
+        LEFT JOIN sl_order_tourist tourist ON slOrder.id = tourist.ot_order_id
+        WHERE
+        tourist.ot_type = 1
+        GROUP BY
+        slOrder.id
+        ) childOrder ON singleOrder.orderId = childOrder.id
+        <where>
+            <if test="province != null and privince!=''">
+                AND company.c_province = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null and city !=''">
+                AND company.c_city = #{city,jdbcType=VARCHAR}
+            </if>
+            <if test="area != null and area!=''">
+                AND company.c_area = #{area,jdbcType=VARCHAR}
+            </if>
+            <if test="searchStr != null">
+                <bind name="salerNameStr" value="'%' +searchStr + '%'" />
+                AND company.c_name like #{salerNameStr,jdbcType=VARCHAR}
+            </if>
+            <choose>
+                <when test="dateType == 1">
+                    <if test="minDate != null">
+                        AND schedule.s_calendar &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND schedule.s_calendar &lt;= #{maxDate}
+                    </if>
+                </when>
+                <when test="dateType == 2">
+                    <if test="minDate != null">
+                        AND singleOrder.createTime &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND singleOrder.createTime &lt;= #{maxDate}
+                    </if>
+                </when>
+            </choose>
+        </where>
+    </select>
+
+
+</mapper>

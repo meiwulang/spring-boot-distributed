@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.OrderMapperDiy">
+
+    <resultMap id="SearchOrdersResultMap" extends="com.jdy.b2b.api.dao.OrderMapper.BaseResultMap"
+               type="com.jdy.b2b.api.model.diy.OrderListDTO">
+        <result property="pType" column="p_type"/>
+        <result property="pNo" column="p_no"/>
+        <result property="pName" column="p_name"/>
+        <result property="pDays" column="p_days"/>
+        <result property="ascription" column="p_ascription"/>
+
+        <result property="sCalendar" column="s_calendar"/>
+        <result property="sCalendarBack" column="return_date"/>
+        <result property="leaveCity" column="leave_city"/>
+        <result property="sGroupOrderNo" column="group_no"/>
+        <result property="sLeaveTime" column="s_leave_time"/>
+
+        <result property="salerPhone" column="salerPhone"/>
+        <result property="buyerPhone" column="buyerPhone"/>
+        <result property="buyerStype" column="buyerStype"/>
+        <result property="salerProvince" column="salerProvince"/>
+        <result property="salerCity" column="salerCity"/>
+        <result property="buyerProvince" column="buyerProvince"/>
+        <result property="buyerCity" column="buyerCity"/>
+        <result property="createrURealName" column="u_real_name"/>
+        
+        <result property="buyerName" column="o_buyer_name"/>
+        <result property="buyerDepartName" column="buyerDepartName"/>
+        <result property="salerName" column="o_saler_name"/>
+        <result property="salerDepartName" column="salerDepartName"/>
+        <result property="firstPay" column="o_first_pay"/>
+        <result property="unPay" column="o_un_pay"/>
+        <result property="allPay" column="o_real_price"/>
+        <result property="wxPayNum" column="wxPayNum"/>
+        <result property="orderType" column="orderType"/>
+
+        <result property="refundRecordStatus" column="refundRecordStatus"/>
+        <result property="groupDeleteStatus" column="groupDeleteStatus"/>
+        <result property="groupStatus" column="groupStatus"/>
+
+        <result property="lastAlterTicketId" column="lastAlterTicketId"/>
+        <result property="lastAlterTicketStatus" column="lastAlterTicketStatus"/>
+        <result property="touristContactInfo" column="touristContactInfo"/>
+
+        <collection property="priceDetails" ofType="com.jdy.b2b.api.model.OrderPriceDetail">
+            <id property="id" column="pd_id"/>
+            <result column="op_order_id" property="opOrderId"/>
+            <result column="op_price_name" property="opPriceName"/>
+            <result column="op_num" property="opNum"/>
+            <result column="op_price" property="opPrice"/>
+            <result column="op_total_price" property="opTotalPrice"/>
+            <result column="op_adult_num" property="opAdultNum"/>
+            <result column="op_child_num" property="opChildNum"/>
+        </collection>
+        <collection property="pays" ofType="com.jdy.b2b.api.model.OrderPay">
+            <id property="id" column="pay_id"/>
+            <result column="op_order_id" property="opOrderId"/>
+            <result column="op_pay_no" property="opPayNo"/>
+            <result column="op_pay_amount" property="opPayAmount"/>
+            <result column="op_pay_method" property="opPayMethod"/>
+            <result column="op_comments" property="opComments"/>
+            <result column="op_oprater" property="opOprater"/>
+            <result column="op_pay_time" property="opPayTime"/>
+            <result column="o_isMerge" property="oIsmerge"/>
+        </collection>
+    </resultMap>
+    
+    <select id="selectOrderIds" resultType="java.lang.Long">
+        SELECT d.id
+        <include refid="fromSql"/>
+        <include refid="whereSql"/>
+        GROUP BY d.id
+        ORDER BY d.id desc
+    </select>
+
+    <select id="selectOrdersByIds" resultMap="SearchOrdersResultMap">
+        SELECT
+        <include refid="searchContents"/>
+        <include refid="fromSql"/>
+        WHERE d.id in
+        <foreach item="item" index="index" collection="ids"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY d.id desc
+    </select>
+
+    <select id="searchOrders" resultMap="SearchOrdersResultMap">
+        SELECT
+        <include refid="searchContents"/>
+        <include refid="fromSql"/>
+        <include refid="whereSql"/>
+        GROUP BY d.id
+        ORDER BY d.id desc
+    </select>
+
+    <sql id="searchContents">
+        d.*,
+        p.p_type,
+        p.p_no,
+        case p.p_from
+        when 0 then CONCAT('【自营研发】',p.p_name)
+        when 1 then CONCAT('【散拼】',p.p_name)
+        when 2 then CONCAT('【自营定制】',p.p_name)
+        when 3 then CONCAT('【单项资源】',p.p_name)
+        when 4 then CONCAT('【途忆旅拍】',p.p_name)
+        else p.p_name
+        END as p_name,
+        p.p_days,
+        (p.p_ascription and p.company_id != d.o_saler_company_id) p_ascription,
+        ifnull(css.start_date,s.s_calendar) s_calendar,
+        ifnull(css.return_date,NULL) return_date,
+        s.s_leave_time,
+        css.group_no,
+
+        css.status as groupDeleteStatus,
+        css.departure_status as groupStatus,
+
+        u1.u_tel salerPhone,
+        u2.u_tel buyerPhone,
+        u2.u_stype buyerStype,
+        (
+        SELECT
+        dp.d_city
+        FROM
+        ct_schedule_ticket st,
+        ct_ticket_departure ct,
+        sr_departure dp
+        WHERE
+        d.o_schedule_id = st.st_schedule_id
+        AND st.st_ticket_id = ct.ticket_id
+        AND ct.departue_id = dp.id
+        LIMIT 1
+        ) leave_city,
+
+        <if test="export != null and export == true">
+            c1.c_province salerProvince,
+            c1.c_city salerCity,
+            c2.c_province buyerProvince,
+            c2.c_city buyerCity,
+            creater.u_real_name,<!-- 订单创建人 -->
+            GROUP_CONCAT(DISTINCT soy.op_pay_no) wxPayNum,
+            bsd.d_name buyerDepartName,
+            ssd.d_name salerDepartName,
+        </if>
+
+        pd.id as pd_id,
+        pd.op_order_id,
+        pd.op_price_name,
+        pd.op_num,
+        pd.op_price,
+        pd.op_total_price,
+        pd.op_adult_num,
+        pd.op_child_num,
+
+        soy.id as pay_id,
+        soy.op_order_id,
+        soy.op_pay_no,
+        soy.op_pay_amount,
+        soy.op_pay_method,
+        soy.op_comments,
+        soy.op_oprater,
+        soy.op_pay_time,
+        soy.o_isMerge,
+
+        (select r.status from sl_order_refunds_record r where r.order_id = d.id ORDER BY r.id DESC LIMIT 1) as refundRecordStatus,
+        alterTicket.id AS lastAlterTicketId ,
+        alterTicket.status as lastAlterTicketStatus,
+        (SELECT concat(ifnull(sot.ot_name,''),',',ifnull(sot.ot_phone,'')) from sl_order_tourist sot where sot.ot_order_id=d.id LIMIT 1) as touristContactInfo /*游客联系人，导出显示*/
+    </sql>
+
+    <sql id="fromSql">
+        FROM
+        sl_order d
+        INNER JOIN ct_product p ON p.id = d.o_product_id
+        <if test="pBrand != null">
+            AND p.p_brand = #{pBrand}
+        </if>
+        <if test="pTypes != null and !pTypes.isEmpty">
+            AND p.p_type IN
+            <foreach item="item" index="index" collection="pTypes"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="productIds != null and !productIds.isEmpty">
+            AND p.id IN
+            <foreach item="item" index="index" collection="productIds"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="ascription !=null" >
+            and p.p_ascription = #{ascription}
+        </if>
+
+        INNER JOIN ct_schedule s ON s.id = d.o_schedule_id
+        INNER JOIN ct_schedule_setting css ON css.group_no = d.o_group_order_no
+        LEFT JOIN sl_order_price_detail pd ON pd.op_order_id = d.id
+        LEFT JOIN sl_order_tourist ot ON ot.ot_order_id = d.id and ot.ot_status = 0
+        LEFT JOIN sm_user u1 ON u1.id = d.o_saler_id
+        LEFT JOIN sm_user u2 ON u2.id = d.o_buyer_id
+        <if test="dateType == 3"> <!-- 支付时间 -->
+          INNER JOIN sl_order_pay soy ON soy.op_order_id = d.id
+        </if>
+        <if test="dateType != 3"> <!-- 不是支付时间 -->
+            LEFT JOIN sl_order_pay soy ON soy.op_order_id = d.id
+        </if>
+
+        <if test="export != null and export == true">
+            LEFT JOIN sm_company c1 ON c1.id = u1.company_id
+            LEFT JOIN sm_company c2 ON c2.id = u2.company_id
+            LEFT JOIN sm_user creater ON creater.id = d.create_user
+       		LEFT JOIN sm_department ssd ON ssd.id = u1.u_department_id
+       		LEFT JOIN sm_department bsd ON bsd.id = u2.u_department_id
+        </if>
+        LEFT JOIN sl_order_alter_ticket_record alterTicket ON  alterTicket.id = (select max(atr.id) FROM sl_order_alter_ticket_record atr WHERE atr.order_id = d.id)
+        LEFT JOIN sl_order_alter_ticket_record alterSub on alterSub.order_id = d.id
+        LEFT JOIN sl_order_refunds_record ref on ref.order_id = d.id
+    </sql>
+
+    <sql id="whereSql">
+        <where>
+        <if test="oStatus != null and oStatus == 11"><!--待确认订单特殊处理-->
+            d.o_status in (1,3)
+        </if>
+        <if test="oStatus != null and oStatus != 11">
+            d.o_status = #{oStatus}
+        </if>
+        <if test="oSalerId != null">
+            AND d.o_saler_id = #{oSalerId}
+        </if>
+        <if test="salerCompanyIds != null">
+            AND d.o_saler_company_id IN
+            <foreach item="item" index="index" collection="salerCompanyIds"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <!-- 可删除 在 JOIN 的 ON 中已经加入筛选-->
+        <if test="oBuyerId != null">
+            AND d.o_buyer_id = #{oBuyerId}
+        </if>
+        <!-- 可删除 在 JOIN 的 ON 中已经加入筛选-->
+        <if test="oBuyerCompanyId != null">
+            AND d.o_buyer_company_id = #{oBuyerCompanyId}
+        </if>
+        <if test="dateType == 1 and dateStart != null and dateEnd != null"> <!-- 出团时间 -->
+            AND s.s_calendar BETWEEN #{dateStart} and #{dateEnd}
+        </if>
+        <if test="dateType == 2 and dateStart != null and dateEnd != null"> <!-- 下单时间 -->
+            AND d.create_time BETWEEN #{dateStart} and #{dateEnd}
+        </if>
+        <if test="dateType == 3 and dateStart != null and dateEnd != null"> <!-- 支付时间 -->
+            AND soy.op_pay_time BETWEEN #{dateStart} and #{dateEnd}
+        </if>
+        <if test="searchKey != null and searchKey != ''">
+            AND CONCAT(d.o_order_no,ifnull(alterSub.neg_order_no,''),ifnull(alterSub.new_order_no,''),ifnull(ref.neg_order_no,''),p.p_name,p.p_no,IFNULL(ot.ot_name,''),IFNULL(ot.ot_phone,'')) like
+            CONCAT('%',#{searchKey},'%')
+        </if>
+        <if test="oProductId != null">
+            AND d.o_product_id = #{oProductId}
+        </if>
+        <if test="oPayMethod != null">
+            AND d.o_pay_method = #{oPayMethod}
+        </if>
+        <if test="withOutContract!=null and withOutContract">
+           and exists(select * from sm_sign_contract_info sign where sign.order_no =d.o_order_no)
+        </if>
+        <if test="oType != null">
+            and d.o_type = #{oType}
+        </if>
+        <if test="offlineStatuses != null">
+            AND d.offline_status IN
+            <foreach item="item" index="index" collection="offlineStatuses"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="unPay != null and unPay == 1">
+            and d.o_un_pay > 0
+        </if>
+        <if test="unPay != null and unPay == -1">
+            and (d.o_un_pay = 0 or d.o_un_pay is null)
+        </if>
+        <if test="contractStatus != null and contractStatus == 2">
+            and d.o_status in (1,3)
+        </if>
+        <if test="refundStatus != null">
+            and d.refund_status = #{refundStatus}
+        </if>
+        <if test="alterTicketStatus != null">
+            and alterTicket.status = #{alterTicketStatus}
+        </if>
+        <if test="searchSrcOrder == 1">
+            and d.src_order_id is null
+        </if>
+        </where>
+    </sql>
+    
+    <select id="selectOrderNumofStatuses" resultType="com.jdy.b2b.api.model.diy.OrderStatusNumberDTO">
+        SELECT
+        (CASE
+        WHEN
+        (a.offline_status = 0 AND a.o_status = 1)
+        THEN 20 <!--已预订+待确认-->
+        WHEN
+        (a.offline_status = 3 AND a.o_status = 3)
+        THEN 21 <!--已首款+待确认-->
+        WHEN
+        (a.o_status = 3 AND a.o_un_pay > 0)
+        THEN 10
+        ELSE
+        a.o_status
+        END) AS status,
+        count(*) number
+        FROM
+        (
+        SELECT
+        d.id,
+        d.o_status,
+        d.o_un_pay,
+        d.o_source,
+        d.o_type,
+        d.offline_status,
+        d.refund_status
+        <include refid="fromSql"/>
+        <include refid="whereSql"/>
+        GROUP BY
+        d.id
+        ) a
+        GROUP BY
+        status
+
+    </select>
+
+    <resultMap id="RecentOrderInfoResultMap" type="com.jdy.b2b.api.model.diy.OrderStaticsDTO">
+        <result property="amount" column="amount"/>
+        <result property="num" column="num"/>
+    </resultMap>
+
+    <select id="recentOrderInfo" resultMap="RecentOrderInfoResultMap">
+        SELECT
+            COUNT(d.id) num,
+            IFNULL(SUM(d.o_real_price), 0) amount
+        FROM
+            sl_order d
+        WHERE
+            d.o_status = 3
+        AND d.update_time BETWEEN #{dateStart} and #{dateEnd}
+        and d.o_saler_company_id in
+        <foreach item="item" index="index" collection="companyIds"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectOrderByOrderNo" resultMap="com.jdy.b2b.api.dao.OrderMapper.BaseResultMap">
+        SELECT
+            *
+        FROM
+            sl_order d
+        WHERE
+            d.o_order_no = #{orderNo}
+        LIMIT 1
+    </select>
+    
+    <select id="selectOrdersSelective" resultMap="com.jdy.b2b.api.dao.OrderMapper.BaseResultMap">
+        select * from sl_order d
+        where d.o_status != 4
+        <if test="oScheduleId != null">
+            and d.o_schedule_id = #{oScheduleId}
+        </if>
+    </select>
+
+    <select id="selectSubOrderIds"  resultType="java.lang.Long">
+      SELECT d.id from sl_order d where d.src_order_id in
+        <foreach item="item" index="index" collection="ids"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

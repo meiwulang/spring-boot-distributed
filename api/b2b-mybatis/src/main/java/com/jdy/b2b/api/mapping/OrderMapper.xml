@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="o_order_no" jdbcType="VARCHAR" property="oOrderNo" />
+    <result column="o_product_id" jdbcType="BIGINT" property="oProductId" />
+    <result column="o_schedule_id" jdbcType="BIGINT" property="oScheduleId" />
+    <result column="o_confirm_time" jdbcType="TIMESTAMP" property="oConfirmTime" />
+    <result column="o_group_order_no" jdbcType="VARCHAR" property="oGroupOrderNo"/>
+    <result column="o_external_no" jdbcType="VARCHAR" property="oExternalNo" />
+    <result column="o_contract_no" jdbcType="VARCHAR" property="oContractNo" />
+    <result column="o_remark" jdbcType="VARCHAR" property="oRemark" />
+    <result column="o_saler_company_id" jdbcType="BIGINT" property="oSalerCompanyId" />
+    <result column="o_saler_company_name" jdbcType="VARCHAR" property="oSalerCompanyName" />
+    <result column="o_saler_id" jdbcType="BIGINT" property="oSalerId" />
+    <result column="o_saler_name" jdbcType="VARCHAR" property="oSalerName" />
+    <result column="o_buyer_company_id" jdbcType="BIGINT" property="oBuyerCompanyId" />
+    <result column="o_buyer_company_name" jdbcType="VARCHAR" property="oBuyerCompanyName" />
+    <result column="o_buyer_id" jdbcType="BIGINT" property="oBuyerId" />
+    <result column="o_buyer_name" jdbcType="VARCHAR" property="oBuyerName" />
+    <result column="o_servicer" jdbcType="VARCHAR" property="oServicer" />
+    <result column="o_servicer_phone" jdbcType="VARCHAR" property="oServicerPhone" />
+    <result column="o_people_num" jdbcType="INTEGER" property="oPeopleNum" />
+    <result column="o_bed_num" jdbcType="INTEGER" property="oBedNum" />
+    <result column="o_room_adjust" jdbcType="DECIMAL" property="oRoomAdjust" />
+    <result column="o_market_price" jdbcType="DECIMAL" property="oMarketPrice" />
+    <result column="o_preferential_amount" jdbcType="DECIMAL" property="oPreferentialAmount" />
+    <result column="o_settlement_references" jdbcType="DECIMAL" property="oSettlementReferences" />
+    <result column="o_total_price" jdbcType="DECIMAL" property="oTotalPrice" />
+    <result column="o_real_price" jdbcType="DECIMAL" property="oRealPrice" />
+    <result column="o_real_pay" jdbcType="DECIMAL" property="oRealPay" />
+    <result column="o_to_pay" jdbcType="DECIMAL" property="oToPay" />
+    <result column="o_pay_method" jdbcType="INTEGER" property="oPayMethod" />
+    <result column="o_pay_time" jdbcType="TIMESTAMP" property="oPayTime" />
+    <result column="o_isMerge" jdbcType="TINYINT" property="oIsmerge" />
+    <result column="o_plan" jdbcType="BIT" property="oPlan" />
+    <result column="o_status" jdbcType="INTEGER" property="oStatus" />
+    <result column="o_invalid_time" jdbcType="TIMESTAMP" property="oInvalidTime" />
+    <result column="o_invoice_amount" jdbcType="DECIMAL" property="oInvoiceAmount" />
+    <result column="o_bus_seat" jdbcType="VARCHAR" property="oBusSeat" />
+    <result column="o_source" jdbcType="TINYINT" property="oSource" />
+    <result column="o_synchro" jdbcType="BIT" property="oSynchro" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="o_first_pay" property="oFirstPay" />
+    <result column="o_un_pay" property="oUnPay" />
+    <result column="o_type" property="oType" />
+    <result column="refund_amount" property="refundAmount" />
+    <result column="refund_status" property="refundStatus" />
+    <result column="offline_status" property="offlineStatus" />
+    <result column="alter_ticket_id" property="alterTicketId" />
+    <result column="order_neg_id" property="orderNegId" />
+    <result column="src_order_id" property="srcOrderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, o_order_no, o_product_id, o_schedule_id, o_confirm_time,o_group_order_no, o_external_no, o_contract_no,
+    o_remark, o_saler_company_id, o_saler_company_name, o_saler_id, o_saler_name, o_buyer_company_id, 
+    o_buyer_company_name, o_buyer_id, o_buyer_name, o_servicer, o_servicer_phone, o_people_num, 
+    o_bed_num, o_room_adjust, o_market_price, o_preferential_amount, o_settlement_references, 
+    o_total_price, o_real_price, o_real_pay, o_to_pay,o_un_pay,o_first_pay, o_pay_method, o_pay_time, o_isMerge, o_plan, o_status,
+    o_invalid_time, o_invoice_amount, o_bus_seat, o_source, o_synchro, create_time, create_user, update_time,
+    update_user,o_type,offline_status,refund_amount,refund_status,alter_ticket_id,order_neg_id,src_order_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sl_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.Order" useGeneratedKeys="true" keyProperty="id">
+    insert into sl_order (id, o_order_no, o_product_id,
+      o_schedule_id, o_confirm_time, o_external_no,
+      o_contract_no, o_remark, o_saler_company_id,
+      o_saler_company_name, o_saler_id, o_saler_name,
+      o_buyer_company_id, o_buyer_company_name, o_buyer_id,
+      o_buyer_name, o_servicer, o_servicer_phone,
+      o_people_num, o_bed_num, o_room_adjust,
+      o_market_price, o_preferential_amount, o_settlement_references,
+      o_total_price, o_real_price, o_real_pay,
+      o_pay_method, o_pay_time, o_isMerge, o_plan,
+      o_status, o_invalid_time, o_invoice_amount,
+      o_bus_seat, o_source, o_synchro, create_time, create_user,
+      update_time, update_user,o_type, offline_status,alter_ticket_id,order_neg_id,src_order_id)
+    values (#{id,jdbcType=BIGINT}, #{oOrderNo,jdbcType=VARCHAR}, #{oProductId,jdbcType=BIGINT},
+      #{oScheduleId,jdbcType=BIGINT}, #{oConfirmTime,jdbcType=TIMESTAMP}, #{oExternalNo,jdbcType=VARCHAR},
+      #{oContractNo,jdbcType=VARCHAR}, #{oRemark,jdbcType=VARCHAR}, #{oSalerCompanyId,jdbcType=BIGINT},
+      #{oSalerCompanyName,jdbcType=VARCHAR}, #{oSalerId,jdbcType=BIGINT}, #{oSalerName,jdbcType=VARCHAR},
+      #{oBuyerCompanyId,jdbcType=BIGINT}, #{oBuyerCompanyName,jdbcType=VARCHAR}, #{oBuyerId,jdbcType=BIGINT},
+      #{oBuyerName,jdbcType=VARCHAR}, #{oServicer,jdbcType=VARCHAR}, #{oServicerPhone,jdbcType=VARCHAR},
+      #{oPeopleNum,jdbcType=INTEGER}, #{oBedNum,jdbcType=INTEGER}, #{oRoomAdjust,jdbcType=DECIMAL},
+      #{oMarketPrice,jdbcType=DECIMAL}, #{oPreferentialAmount,jdbcType=DECIMAL}, #{oSettlementReferences,jdbcType=DECIMAL},
+      #{oTotalPrice,jdbcType=DECIMAL}, #{oRealPrice,jdbcType=DECIMAL}, #{oRealPay,jdbcType=DECIMAL},
+      #{oPayMethod,jdbcType=INTEGER}, #{oPayTime,jdbcType=TIMESTAMP}, #{oIsmerge,jdbcType=TINYINT}, #{oPlan,jdbcType=BIT},
+      #{oStatus,jdbcType=INTEGER}, #{oInvalidTime,jdbcType=TIMESTAMP}, #{oInvoiceAmount,jdbcType=DECIMAL},
+      #{oBusSeat,jdbcType=VARCHAR}, #{oSource,jdbcType=TINYINT}, #{oSynchro,jdbcType=BIT},
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT},
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT},
+       #{oType,jdbcType=INTEGER}, #{offlineStatus,jdbcType=INTEGER},#{alterTicketId,jdbcType=BIGINT},
+       #{orderNegId,jdbcType=BIGINT},#{srcOrderId,jdbcType=BIGINT}
+       )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.Order" useGeneratedKeys="true" keyProperty="id">
+    insert into sl_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="oOrderNo != null">
+        o_order_no,
+      </if>
+      <if test="oProductId != null">
+        o_product_id,
+      </if>
+      <if test="oScheduleId != null">
+        o_schedule_id,
+      </if>
+      <if test="oConfirmTime != null">
+        o_confirm_time,
+      </if>
+      <if test="oGroupOrderNo != null">
+        o_group_order_no,
+      </if>
+      <if test="oExternalNo != null">
+        o_external_no,
+      </if>
+      <if test="oContractNo != null">
+        o_contract_no,
+      </if>
+      <if test="oContractAgreement != null">
+        o_contract_agreement,
+      </if>
+      <if test="oRemark != null">
+        o_remark,
+      </if>
+      <if test="oSalerCompanyId != null">
+        o_saler_company_id,
+      </if>
+      <if test="oSalerCompanyName != null">
+        o_saler_company_name,
+      </if>
+      <if test="oSalerId != null">
+        o_saler_id,
+      </if>
+      <if test="oSalerName != null">
+        o_saler_name,
+      </if>
+      <if test="oBuyerCompanyId != null">
+        o_buyer_company_id,
+      </if>
+      <if test="oBuyerCompanyName != null">
+        o_buyer_company_name,
+      </if>
+      <if test="oBuyerId != null">
+        o_buyer_id,
+      </if>
+      <if test="oBuyerName != null">
+        o_buyer_name,
+      </if>
+      <if test="oServicer != null">
+        o_servicer,
+      </if>
+      <if test="oServicerPhone != null">
+        o_servicer_phone,
+      </if>
+      <if test="oPeopleNum != null">
+        o_people_num,
+      </if>
+      <if test="oBedNum != null">
+        o_bed_num,
+      </if>
+      <if test="oRoomAdjust != null">
+        o_room_adjust,
+      </if>
+      <if test="oMarketPrice != null">
+        o_market_price,
+      </if>
+      <if test="oPreferentialAmount != null">
+        o_preferential_amount,
+      </if>
+      <if test="oSettlementReferences != null">
+        o_settlement_references,
+      </if>
+      <if test="oTotalPrice != null">
+        o_total_price,
+      </if>
+      <if test="oRealPrice != null">
+        o_real_price,
+      </if>
+      <if test="oRealPay != null">
+        o_real_pay,
+      </if>
+      <if test="oToPay != null">
+        o_to_pay,
+      </if>
+      <if test="oPayMethod != null">
+        o_pay_method,
+      </if>
+      <if test="oPayTime != null">
+        o_pay_time,
+      </if>
+      <if test="oIsmerge != null">
+        o_isMerge,
+      </if>
+      <if test="oPlan != null">
+        o_plan,
+      </if>
+      <if test="oStatus != null">
+        o_status,
+      </if>
+      <if test="oInvalidTime != null">
+        o_invalid_time,
+      </if>
+      <if test="oInvoiceAmount != null">
+        o_invoice_amount,
+      </if>
+      <if test="oBusSeat != null">
+        o_bus_seat,
+      </if>
+      <if test="oSource != null">
+        o_source,
+      </if>
+      <if test="oSynchro != null">
+        o_synchro,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="oFirstPay != null">
+        o_first_pay,
+      </if>
+      <if test="oUnPay != null">
+        o_un_pay,
+      </if>
+      <if test="oType != null">
+        o_type,
+      </if>
+      <if test="offlineStatus != null">
+        offline_status,
+      </if>
+      <if test="alterTicketId != null">
+        alter_ticket_id,
+      </if>
+      <if test="orderNegId != null">
+        order_neg_id,
+      </if>
+      <if test="srcOrderId != null">
+        src_order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="oOrderNo != null">
+        #{oOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="oProductId != null">
+        #{oProductId,jdbcType=BIGINT},
+      </if>
+      <if test="oScheduleId != null">
+        #{oScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="oConfirmTime != null">
+        #{oConfirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oGroupOrderNo != null">
+        #{oGroupOrderNo},
+      </if>
+      <if test="oExternalNo != null">
+        #{oExternalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="oContractNo != null">
+        #{oContractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="oContractAgreement != null">
+        #{oContractAgreement,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="oRemark != null">
+        #{oRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="oSalerCompanyId != null">
+        #{oSalerCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="oSalerCompanyName != null">
+        #{oSalerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="oSalerId != null">
+        #{oSalerId,jdbcType=BIGINT},
+      </if>
+      <if test="oSalerName != null">
+        #{oSalerName,jdbcType=VARCHAR},
+      </if>
+      <if test="oBuyerCompanyId != null">
+        #{oBuyerCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="oBuyerCompanyName != null">
+        #{oBuyerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="oBuyerId != null">
+        #{oBuyerId,jdbcType=BIGINT},
+      </if>
+      <if test="oBuyerName != null">
+        #{oBuyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="oServicer != null">
+        #{oServicer,jdbcType=VARCHAR},
+      </if>
+      <if test="oServicerPhone != null">
+        #{oServicerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="oPeopleNum != null">
+        #{oPeopleNum,jdbcType=INTEGER},
+      </if>
+      <if test="oBedNum != null">
+        #{oBedNum,jdbcType=INTEGER},
+      </if>
+      <if test="oRoomAdjust != null">
+        #{oRoomAdjust,jdbcType=DECIMAL},
+      </if>
+      <if test="oMarketPrice != null">
+        #{oMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oPreferentialAmount != null">
+        #{oPreferentialAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="oSettlementReferences != null">
+        #{oSettlementReferences,jdbcType=DECIMAL},
+      </if>
+      <if test="oTotalPrice != null">
+        #{oTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oRealPrice != null">
+        #{oRealPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oRealPay != null">
+        #{oRealPay,jdbcType=DECIMAL},
+      </if>
+      <if test="oToPay != null">
+        #{oToPay,jdbcType=DECIMAL},
+      </if>
+      <if test="oPayMethod != null">
+        #{oPayMethod,jdbcType=INTEGER},
+      </if>
+      <if test="oPayTime != null">
+        #{oPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oIsmerge != null">
+        #{oIsmerge,jdbcType=TINYINT},
+      </if>
+      <if test="oPlan != null">
+        #{oPlan,jdbcType=BIT},
+      </if>
+      <if test="oStatus != null">
+        #{oStatus,jdbcType=INTEGER},
+      </if>
+      <if test="oInvalidTime != null">
+        #{oInvalidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oInvoiceAmount != null">
+        #{oInvoiceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="oBusSeat != null">
+        #{oBusSeat,jdbcType=VARCHAR},
+      </if>
+      <if test="oSource != null">
+        #{oSource,jdbcType=VARCHAR},
+      </if>
+      <if test="oSynchro != null">
+        #{oSynchro,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="oFirstPay != null">
+        #{oFirstPay},
+      </if>
+      <if test="oUnPay != null">
+        #{oUnPay},
+      </if>
+      <if test="oType != null">
+        #{oType,jdbcType=INTEGER},
+      </if>
+      <if test="offlineStatus != null">
+        #{offlineStatus,jdbcType=INTEGER},
+      </if>
+      <if test="alterTicketId != null">
+        #{alterTicketId,jdbcType=BIGINT},
+      </if>
+
+      <if test="orderNegId != null">
+        #{orderNegId,jdbcType=BIGINT},
+      </if>
+      <if test="srcOrderId != null">
+        #{srcOrderId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.Order">
+    update sl_order
+    <set>
+      <if test="oOrderNo != null">
+        o_order_no = #{oOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="oProductId != null">
+        o_product_id = #{oProductId,jdbcType=BIGINT},
+      </if>
+      <if test="oScheduleId != null">
+        o_schedule_id = #{oScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="oConfirmTime != null">
+        o_confirm_time = #{oConfirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oGroupOrderNo != null">
+        o_group_order_no = #{oGroupOrderNo},
+      </if>
+      <if test="oExternalNo != null">
+        o_external_no = #{oExternalNo,jdbcType=VARCHAR},
+      </if>
+      <if test="oContractNo != null">
+        o_contract_no = #{oContractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="oContractAgreement != null">
+        o_contract_agreement = #{oContractAgreement,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="oRemark != null">
+        o_remark = #{oRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="oSalerCompanyId != null">
+        o_saler_company_id = #{oSalerCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="oSalerCompanyName != null">
+        o_saler_company_name = #{oSalerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="oSalerId != null">
+        o_saler_id = #{oSalerId,jdbcType=BIGINT},
+      </if>
+      <if test="oSalerName != null">
+        o_saler_name = #{oSalerName,jdbcType=VARCHAR},
+      </if>
+      <if test="oBuyerCompanyId != null">
+        o_buyer_company_id = #{oBuyerCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="oBuyerCompanyName != null">
+        o_buyer_company_name = #{oBuyerCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="oBuyerId != null">
+        o_buyer_id = #{oBuyerId,jdbcType=BIGINT},
+      </if>
+      <if test="oBuyerName != null">
+        o_buyer_name = #{oBuyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="oServicer != null">
+        o_servicer = #{oServicer,jdbcType=VARCHAR},
+      </if>
+      <if test="oServicerPhone != null">
+        o_servicer_phone = #{oServicerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="oPeopleNum != null">
+        o_people_num = #{oPeopleNum,jdbcType=INTEGER},
+      </if>
+      <if test="oBedNum != null">
+        o_bed_num = #{oBedNum,jdbcType=INTEGER},
+      </if>
+      <if test="oRoomAdjust != null">
+        o_room_adjust = #{oRoomAdjust,jdbcType=DECIMAL},
+      </if>
+      <if test="oMarketPrice != null">
+        o_market_price = #{oMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oPreferentialAmount != null">
+        o_preferential_amount = #{oPreferentialAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="oSettlementReferences != null">
+        o_settlement_references = #{oSettlementReferences,jdbcType=DECIMAL},
+      </if>
+      <if test="oTotalPrice != null">
+        o_total_price = #{oTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oRealPrice != null">
+        o_real_price = #{oRealPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="oRealPay != null">
+        o_real_pay = #{oRealPay,jdbcType=DECIMAL},
+      </if>
+      <if test="oToPay != null">
+        o_to_pay = #{oToPay,jdbcType=DECIMAL},
+      </if>
+      <if test="oPayMethod != null">
+        o_pay_method = #{oPayMethod,jdbcType=INTEGER},
+      </if>
+      <if test="oPayTime != null">
+        o_pay_time = #{oPayTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oIsmerge != null">
+        o_isMerge = #{oIsmerge,jdbcType=TINYINT},
+      </if>
+      <if test="oPlan != null">
+        o_plan = #{oPlan,jdbcType=BIT},
+      </if>
+      <if test="oStatus != null">
+        o_status = #{oStatus,jdbcType=INTEGER},
+      </if>
+      <if test="oInvalidTime != null">
+        o_invalid_time = #{oInvalidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="oInvoiceAmount != null">
+        o_invoice_amount = #{oInvoiceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="oBusSeat != null">
+        o_bus_seat = #{oBusSeat,jdbcType=VARCHAR},
+      </if>
+      <if test="oSource != null">
+        o_source = #{oSource,jdbcType=TINYINT},
+      </if>
+      <if test="oSynchro != null">
+        o_synchro = #{oSynchro,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="oFirstPay != null">
+        o_first_pay = #{oFirstPay},
+      </if>
+      <if test="oUnPay != null">
+        o_un_pay = #{oUnPay},
+      </if>
+      <if test="oType != null">
+        o_type = #{oType,jdbcType=INTEGER},
+      </if>
+      <if test="offlineStatus != null">
+        offline_status = #{offlineStatus,jdbcType=INTEGER},
+      </if>
+      <if test="refundStatus != null">
+        refund_status = #{refundStatus,jdbcType=INTEGER},
+      </if>
+      <if test="refundAmount != null">
+        refund_amount = #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="alterTicketId != null">
+        alter_ticket_id = #{alterTicketId,jdbcType=BIGINT},
+      </if>
+
+
+      <if test="orderNegId != null">
+        order_neg_id = #{orderNegId,jdbcType=BIGINT},
+      </if>
+      <if test="srcOrderId != null">
+        src_order_id = #{srcOrderId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.Order">
+    update sl_order
+    set o_order_no = #{oOrderNo,jdbcType=VARCHAR},
+      o_product_id = #{oProductId,jdbcType=BIGINT},
+      o_schedule_id = #{oScheduleId,jdbcType=BIGINT},
+      o_confirm_time = #{oConfirmTime,jdbcType=TIMESTAMP},
+      o_external_no = #{oExternalNo,jdbcType=VARCHAR},
+      o_contract_no = #{oContractNo,jdbcType=VARCHAR},
+      o_remark = #{oRemark,jdbcType=VARCHAR},
+      o_saler_company_id = #{oSalerCompanyId,jdbcType=BIGINT},
+      o_saler_company_name = #{oSalerCompanyName,jdbcType=VARCHAR},
+      o_saler_id = #{oSalerId,jdbcType=BIGINT},
+      o_saler_name = #{oSalerName,jdbcType=VARCHAR},
+      o_buyer_company_id = #{oBuyerCompanyId,jdbcType=BIGINT},
+      o_buyer_company_name = #{oBuyerCompanyName,jdbcType=VARCHAR},
+      o_buyer_id = #{oBuyerId,jdbcType=BIGINT},
+      o_buyer_name = #{oBuyerName,jdbcType=VARCHAR},
+      o_servicer = #{oServicer,jdbcType=VARCHAR},
+      o_servicer_phone = #{oServicerPhone,jdbcType=VARCHAR},
+      o_people_num = #{oPeopleNum,jdbcType=INTEGER},
+      o_bed_num = #{oBedNum,jdbcType=INTEGER},
+      o_room_adjust = #{oRoomAdjust,jdbcType=DECIMAL},
+      o_market_price = #{oMarketPrice,jdbcType=DECIMAL},
+      o_preferential_amount = #{oPreferentialAmount,jdbcType=DECIMAL},
+      o_settlement_references = #{oSettlementReferences,jdbcType=DECIMAL},
+      o_total_price = #{oTotalPrice,jdbcType=DECIMAL},
+      o_real_price = #{oRealPrice,jdbcType=DECIMAL},
+      o_real_pay = #{oRealPay,jdbcType=DECIMAL},
+      o_pay_method = #{oPayMethod,jdbcType=INTEGER},
+      o_pay_time = #{oPayTime,jdbcType=TIMESTAMP},
+      o_isMerge = #{oIsmerge,jdbcType=TINYINT},
+      o_plan = #{oPlan,jdbcType=BIT},
+      o_status = #{oStatus,jdbcType=INTEGER},
+      o_invalid_time = #{oInvalidTime,jdbcType=TIMESTAMP},
+      o_invoice_amount = #{oInvoiceAmount,jdbcType=DECIMAL},
+      o_bus_seat = #{oBusSeat,jdbcType=VARCHAR},
+      o_source = #{oSource,jdbcType=TINYINT},
+      o_synchro = #{oSynchro,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      o_type = #{oType,jdbcType=INTEGER},
+      refund_status = #{refundStatus,jdbcType=INTEGER},
+      refund_amount = #{refundAmount,jdbcType=DECIMAL},
+      offline_status = #{offlineStatus,jdbcType=INTEGER},
+      alter_ticket_id = #{alterTicketId,jdbcType=BIGINT},
+
+      order_neg_id = #{orderNegId,jdbcType=BIGINT},
+      src_order_id = #{srcOrderId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="OrderWithOrderPayMap" type="com.jdy.b2b.api.model.bill.OrderWithOrderPay" extends="BaseResultMap">
+    <result column="c_phone" property="phone" jdbcType="VARCHAR"/>
+    <result column="s_calendar" property="startDate" jdbcType="TIMESTAMP"/>
+    <result column="p_days" property="days" jdbcType="INTEGER"/>
+    <result column="pname" property="productName" jdbcType="VARCHAR"/>
+    <collection property="orderPayList" columnPrefix="pay_" ofType="com.jdy.b2b.api.model.OrderPay" >
+      <id column="id" jdbcType="BIGINT" property="id" />
+      <result column="amount" jdbcType="DECIMAL" property="opPayAmount" />
+      <result column="method" jdbcType="INTEGER" property="opPayMethod" />
+      <result column="oprater" jdbcType="VARCHAR" property="opOprater" />
+      <result column="time" jdbcType="TIMESTAMP" property="createTime"/>
+    </collection>
+  </resultMap>
+  <select id="selectOrderWithOrderPayListByBillId" resultMap="OrderWithOrderPayMap">
+    select o.*,pay.id pay_id,pay.op_pay_amount pay_amount ,pay.op_oprater pay_oprater,pay.op_pay_method pay_method,pay.create_time pay_time, c.c_phone,schedule.s_calendar ,p.p_days,p.p_name pname
+    from fn_bill_detail bd JOIN sl_order_pay pay ON bd.db_order_pay_id = pay.id JOIN sl_order o ON pay.op_order_id = o.id
+    JOIN ct_schedule schedule ON o.o_schedule_id = schedule.id JOIN ct_product p ON schedule.s_product_id = p.id
+    JOIN sm_company c ON o.o_buyer_company_id = c.id WHERE bd.db_bill_id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+  <select id="selectChildrenSaleInfo" resultMap="departmentSaleInfoDTOMap" parameterType="com.jdy.b2b.api.model.department.DepartmentSaleCountVO">
+      SELECT
+        user.u_pid,
+        user.u_real_name userName,
+        count(o.id) orderNum,
+        ifnull(sum(o.o_real_pay),0) amount,
+        user.u_wx_openid,
+        user.u_department_id,
+        #{startDate} as startDate,
+        #{endDate} as endDate
+      FROM sm_user user
+        LEFT JOIN sl_order o ON o.o_buyer_id = user.id and o.o_status = 3
+        <if test="startDate != null">
+          and o.update_time >= #{startDate}
+        </if>
+        <if test="endDate != null">
+          and o.update_time &lt; #{endDate}
+        </if>
+      WHERE user.u_department_id = #{uDepartmentCode}  AND  user.u_pid = #{wxId}
+            AND u_status = 0 AND u_type = 1
+            AND u_level > 1
+      GROUP BY user.id
+  </select>
+
+  <resultMap id="departmentSaleInfoDTOMap" type="com.jdy.b2b.api.model.department.DepartmentSaleInfoDTO" >
+    <result column="userName" property="userName" jdbcType="VARCHAR"/>
+    <result column="amount" property="amount" jdbcType="DECIMAL"/>
+    <result column="orderNum" property="orderNum" jdbcType="INTEGER"/>
+    <collection property="children" select="selectChildrenSaleInfo" column="{uDepartmentCode=u_department_id,wxId=u_wx_openid,startDate=startDate,endDate=endDate}"/>
+  </resultMap>
+
+
+    <select id="selectSaleInfoByDepartmentCode"
+            parameterType="com.jdy.b2b.api.model.department.DepartmentSaleCountVO"
+            resultMap="departmentSaleInfoDTOMap">
+      <!--SELECT
+      count(c.id) orderNum,
+      ifnull(sum(c.o_real_pay),0) amount,
+      a.u_real_name userName
+      FROM
+      sm_user a
+      INNER JOIN sm_user b on FIND_IN_SET(b.u_wx_openid,getUserChildList(a.u_wx_openid))
+      LEFT JOIN sl_order c on c.o_buyer_id  = b.id and c.o_status = 3
+      <if test="startDate != null">
+        and c.update_time >= #{startDate}
+      </if>
+      <if test="endDate != null">
+        and c.update_time &lt; #{endDate}
+      </if>
+      where a.u_department_id = #{uDepartmentCode} and a.u_level = 1 and a.u_type = 1
+      group by a.id
+      order BY amount DESC;-->
+
+      SELECT
+      user.u_real_name userName,
+      count(o.id) orderNum,
+      ifnull(sum(o.o_real_pay),0) amount,
+      user.u_wx_openid,
+      user.u_department_id,
+      #{startDate} as startDate,
+      #{endDate} as endDate
+      FROM sm_user user
+      LEFT JOIN sl_order o ON o.o_buyer_id = user.id and o.o_status = 3
+      <if test="startDate != null">
+        and o.update_time >= #{startDate}
+      </if>
+      <if test="endDate != null">
+        and o.update_time &lt; #{endDate}
+      </if>
+      WHERE u_department_id = #{uDepartmentCode}
+      AND u_level = 1 AND u_status = 0 AND u_type = 1
+      GROUP BY user.id
+      order by amount
+
+    </select>
+  <select id="selectExistGroupOrderNoByTime" resultMap="BaseResultMap" parameterType="java.util.Date">
+      select o.o_product_id,o.o_group_order_no from sl_order o
+        INNER JOIN ct_schedule s ON o.o_schedule_id = s.id and s.s_calendar = #{date}
+      GROUP BY o.o_product_id,o.o_group_order_no
+  </select>
+
+  <select id="selectOrderByOrderNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sl_order
+    where o_order_no = #{orderNo}
+  </select>
+
+  <resultMap id="payNeedInfoResultMap" type="com.jdy.b2b.api.model.PayNeedInfo">
+    <result column="orderId" property="orderId"/>
+    <result column="orderStatus" property="orderStatus"/>
+    <result column="orderSource" property="orderSource"/>
+    <result column="toPay" property="toPay"/>
+    <result column="firstPay" property="firstPay"/>
+    <result column="secondPay" property="secondPay"/>
+    <result column="realPay" property="realPay"/>
+    <result column="productId" property="productId"/>
+    <result column="openId" property="openId"/>
+    <result column="payMethod" property="payMethod"/>
+    <result column="oType" property="oType"/>
+    <result column="offlineStatus" property="offlineStatus"/>
+    <collection property="orderCardList" javaType="list" ofType="com.jdy.b2b.api.model.OrderCard">
+      <result column="cardNo" property="cardNo"/>
+      <result column="cardPass" property="cardPass"/>
+      <result column="validTime" property="validTime"/>
+    </collection>
+  </resultMap>
+
+  <select id="selectPayNeedInfoByOrderNo" resultMap="payNeedInfoResultMap" parameterType="java.lang.String">
+    SELECT
+      a.id AS orderId,
+      a.o_status AS orderStatus,
+      a.o_source AS orderSource,
+      a.o_to_pay AS toPay,
+      a.o_first_pay AS firstPay,
+      a.o_un_pay AS secondPay,
+      a.o_real_pay AS realPay,
+      a.o_pay_method AS payMethod,
+      a.o_type AS oType,
+      a.offline_status AS offlineStatus,
+      b.id AS productId,
+      c.card_no AS cardNo,
+      c.card_pass AS cardPass,
+      c.valid_time AS validTime,
+      u.u_wx_openid AS openId
+    FROM
+      sl_order a
+    INNER JOIN ct_product b on b.id = a.o_product_id
+    INNER JOIN sm_user u on a.create_user = u.id
+    LEFT JOIN sl_order_card c on c.order_id = a.id
+    WHERE a.o_order_no = #{orderNo}
+  </select>
+    <select id="selectOldOrderIdNoList" resultType="com.jdy.b2b.api.model.user.UserNoDTO">
+      select id,o_group_order_no as uNo from sl_order
+    </select>
+
+  <update id="updateGroupOrderNoBash" parameterType="ArrayList">
+    <foreach collection="list" item="item" separator=";">
+      UPDATE sl_order SET o_group_order_no = #{item.uNo}
+      WHERE id = #{item.id}
+    </foreach>
+  </update>
+    <update id="updateRefundStatusById">
+      UPDATE sl_order SET refund_status = 1 WHERE id = #{orderId}
+    </update>
+    <select id="exportCancelTourists" resultType="map">
+		SELECT a.*,b.payTime 
+		FROM
+			(SELECT 
+				d.d_name category,IF(t.t_type=0,"成人票","儿童票") type,ot.ot_name otName,ot_phone otPhone,t.t_market_price price,o.o_order_no orderNo,ot.ot_status `status`,
+				IFNULL(ot_cancel_reason,"")reason,o.id orderId,
+				if(ot.ot_licence_type=0,"身份证","护照") licenceType,ot.ot_lincese licence,
+				IFNULL(lsd.d_name,"") leaveStation,IFNULL(rsd.d_name,"") returnStation
+			FROM
+			sl_order o,
+			ct_ticket t ,
+			sm_dictionaries d,
+			sl_order_tourist ot
+		     LEFT JOIN sr_departure lsd ON ot.ot_leave_id=lsd.id
+		     LEFT JOIN sr_departure rsd ON ot.ot_return_id =rsd.id
+			WHERE 
+				o.id=ot.ot_order_id 
+			AND d.id=t.t_category
+			AND t.id=ot.ot_ticket_id
+			AND o.o_schedule_id=#{scheduleId} 
+			AND ot_status=1) a 
+		LEFT JOIN 
+			(SELECT DATE_FORMAT(op.create_time,'%Y-%c-%d %H:%i:%s') payTime,o.id orderId 
+			FROM sl_order o ,sl_order_pay op 
+			WHERE 
+			o.o_schedule_id=#{scheduleId} 
+			AND o.id=op.op_order_id LIMIT 1) b
+		ON a.orderId=b.orderId
+	
+	</select>
+	<select id="getNeedToDealCount" resultType="int">
+	SELECT
+	COUNT(DISTINCT ss.id) needToDealCount
+	FROM
+		sl_order o,
+		ct_schedule s LEFT JOIN ct_schedule_setting ss ON s.id=ss.schedule_id,
+		sl_order_tourist ot
+	WHERE
+		o.o_schedule_id = s.id
+	AND o.id = ot_order_id
+	and o.o_status = 3
+	AND ss.departure_status=4
+	AND ot.ot_status = 0
+	</select>
+
+  <select id="selectByOrder" parameterType="long" resultType="string">
+    select c.c_name
+    from sl_order o
+    inner join ct_product p on o.o_product_id  = p.id
+    inner join sm_company c on p.company_id = c.id
+    where o.id = #{orderId}
+  </select>
+
+  <select id="selectWechatPayInfoByOrderNo" resultType="com.jdy.b2b.api.model.WechatPayRecord" parameterType="java.lang.String">
+    SELECT
+        a.create_user AS userId,
+        b.u_real_name AS userName,
+        c.p_name AS productDesc
+    FROM
+        sl_order a
+    INNER JOIN sm_user b on b.id = a.create_user
+    INNER JOIN ct_product c ON c.id = a.o_product_id
+    WHERE
+        a.o_order_no = #{orderNo}
+  </select>
+</mapper>

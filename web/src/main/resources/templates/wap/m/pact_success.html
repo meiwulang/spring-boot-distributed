@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="assets/css/pact_success.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> --> 
+</head>
+<body>
+<div id="wrap">
+	<div class="main">
+	<script id="tpl-list" type="text/html">
+		<div class="bear">
+			<img class="zf" src="assets/img/order/mations.png" alt="">
+		</div>
+		<div class="contents">
+			<div class="mation">
+				订单信息
+			</div>
+			<div class="con_bott">
+			
+				{if order_detail.o_product_name}
+				<p>{order_detail.o_product_name}</p>
+				{/if}
+				{if order_detail.o_number}
+				<div class="list">
+					<span class="tit">订单编号：</span><span>{order_detail.o_number}</span>
+				</div>
+				{/if}
+				{if order_detail.o_days}
+				<div class="list">
+					<span class="tit">行程天数：</span><span>{order_detail.o_days}</span>
+				</div>
+				{/if}
+				{if order_detail.o_start_date&&order_detail.o_end_date}
+				<div class="list">
+					<span class="tit">行程时间：</span><span>{order_detail.o_start_date} 至 {order_detail.o_end_date}</span>
+				</div>
+				{/if}
+				
+				<div class="list flo">
+					<span class="tit">总&#x3000;&#x3000;额：</span>
+					{if order_detail.o_buy_real}
+					<span class="pric nos">¥{order_detail.o_buy_real}</span>
+					{/if}
+					{if order_detail.o_settle_real}
+					<span class="pric yes">¥{order_detail.o_settle_real}</span>
+					{/if}
+				</div>
+				<div class="list">
+					<span class="tit">游客信息：</span><span>{order_detail.o_vip_name} ({order_detail.o_vip_mob})</span>
+				</div>
+			</div>
+		</div>
+		<div class="tis">
+			<h4>提示：</h4>
+			<div>该电子合同为下单用户与尚品平台签署协议，为保障游客权益，请务必提醒游客签署电子合同，感谢您的配合。</div>
+			<h4 style="margin-top: 5px;">签署流程：</h4>
+			<div>游客打开收到的短信链接，按照指示签署即可</div>
+		</div>
+	</div>
+	</script>
+</div>
+<div class="bottom_index">
+	查看订单详情
+</div>
+</body>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/pact_success.build.js"></script>
+</html>

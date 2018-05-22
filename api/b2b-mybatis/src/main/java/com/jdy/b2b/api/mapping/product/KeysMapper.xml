@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.product.KeysMapper">
+	<resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.product.Keys">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="company_id" jdbcType="BIGINT" property="companyId" />
+		<result column="k_name" jdbcType="VARCHAR" property="kName" />
+		<result column="k_color" jdbcType="VARCHAR" property="kColor" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="create_user" jdbcType="BIGINT" property="createUser" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="update_user" jdbcType="BIGINT" property="updateUser" />
+		<result column="k_status" jdbcType="INTEGER" property="status" />
+		<result column="l_sort" jdbcType="INTEGER" property="lSort" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, company_id, k_name, k_color,k_status, create_time, create_user,
+		update_time, update_user,l_sort
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sm_keys
+		where id = #{id,jdbcType=BIGINT} and k_status = 0
+	</select>
+	<select id="selectByPrimaryKeyAndCompanyId" resultType="Map">
+		select
+		id, company_id as companyId,k_name as lName,k_color as lColor,k_status as
+		lStatus, create_time, create_user, update_time, update_user,l_sort as
+		lSort
+		from sm_keys
+		where id = #{id,jdbcType=BIGINT} AND company_id =
+		#{companyId,jdbcType=BIGINT} and k_status = 0
+	</select>
+	<select id="queryByNameAndColor" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sm_keys
+		where k_name = #{name,jdbcType=VARCHAR} and
+		k_color=#{color,jdbcType=VARCHAR} and k_status = 0 limit 1
+	</select>
+
+	<select id="selectKeysByProductId" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sm_keys where id IN ( SELECT pk_key_id FROM sm_product_keys WHERE
+		pk_product_id = #{productId,jdbcType=BIGINT}) order by l_sort desc
+	</select>
+
+	<select id="selectKeysByCompanyId" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sm_keys WHERE company_id = #{companyId,jdbcType=BIGINT}
+		<if test="kName != null">
+			<bind name="likeName" value="'%' + kName + '%'" />
+			AND k_name like #{likeName,jdbcType=VARCHAR}
+		</if>
+		AND k_status = 0 order by l_sort desc
+		limit #{startNum} , #{pageSize}
+	</select>
+	<select id="countKeysByCompanyId" resultType="int">
+		SELECT count(1) FROM sm_keys WHERE company_id =
+		#{companyId,jdbcType=BIGINT}
+		<if test="kName != null">
+			<bind name="likeName" value="'%' + kName + '%'" />
+			AND k_name like #{likeName,jdbcType=VARCHAR}
+		</if>
+		and k_status = 0 order by l_sort desc
+	</select>
+
+	<update id="deleteByPrimaryKeyAndCompanyId">
+		update sm_keys set k_status = 1
+		where id = #{id,jdbcType=BIGINT} and company_id =
+		#{companyId,jdbcType=BIGINT}
+	</update>
+	<insert id="insert" parameterType="com.jdy.b2b.api.model.product.Keys">
+		insert into sm_keys (id, company_id, k_name,
+		k_color, create_time, create_user,
+		update_time, update_user,l_sort,k_status)
+		values (#{id,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT},
+		#{kName,jdbcType=VARCHAR},
+		#{kColor,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{updateUser,jdbcType=BIGINT},#{lSort,jdbcType=INTEGER},#{status,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jdy.b2b.api.model.product.Keys"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into sm_keys
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="kName != null">
+				k_name,
+			</if>
+			<if test="kColor != null">
+				k_color,
+			</if>
+			<if test="status != null">
+				k_status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUser != null">
+				create_user,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUser != null">
+				update_user,
+			</if>
+			<if test="lSort != null">
+				l_sort,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="companyId != null">
+				#{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="kName != null">
+				#{kName,jdbcType=VARCHAR},
+			</if>
+			<if test="kColor != null">
+				#{kColor,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=BIGINT},
+			</if>
+			<if test="lSort != null">
+				#{lSort,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.product.Keys">
+		update sm_keys
+		<set>
+			<if test="companyId != null">
+				company_id = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="kName != null">
+				k_name = #{kName,jdbcType=VARCHAR},
+			</if>
+			<if test="kColor != null">
+				k_color = #{kColor,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser,jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser,jdbcType=BIGINT},
+			</if>
+			<if test="status != null">
+				k_status=#{status,jdbcType=INTEGER},
+			</if>
+			<if test="lSort != null">
+				l_sort=#{lSort,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+		<if test="companyId != null">
+			and company_id = #{companyId,jdbcType=BIGINT}
+		</if>
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.product.Keys">
+		update sm_keys
+		set company_id = #{companyId,jdbcType=BIGINT},
+		k_name = #{kName,jdbcType=VARCHAR},
+		k_color = #{kColor,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		create_user = #{createUser,jdbcType=BIGINT},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		update_user = #{updateUser,jdbcType=BIGINT},
+		k_status=#{status,jdbcType=INTEGER},
+		l_sort=#{lSort,jdbcType=INTEGER}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="queryByproductIdAndStatus" resultType="map">
+		SELECT
+		b.id,
+		k_name as kName,
+		k_color kColor
+		FROM
+		sm_product_keys a,
+		sm_keys b
+		WHERE
+		a.pk_product_id = #{productId}
+		AND a.pk_key_id = b.id
+		<if test="status != null">
+			AND b.k_status = #{status}
+		</if>
+		order by l_sort desc ,b.id
+	</select>
+</mapper>

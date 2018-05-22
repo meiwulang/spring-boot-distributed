@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.SmsMapperDiy">
+
+    <select id="selectList" resultMap="com.jdy.b2b.api.dao.SmsMapper.BaseResultMap">
+        select * from sl_sms
+        where s_order_id = #{sOrderId}
+        <if test="sStatus != null and sStatus != ''">
+            and s_status = #{sStatus}
+        </if>
+    </select>
+    
+</mapper>

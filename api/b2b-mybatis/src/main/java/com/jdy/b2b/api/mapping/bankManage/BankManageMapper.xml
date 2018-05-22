@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.bankManage.BankManageMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.bankManage.BankManage">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="b_company_id" jdbcType="BIGINT" property="bCompanyId" />
+    <result column="b_company_name" jdbcType="VARCHAR" property="bCompanyName" />
+    <result column="b_short_name" jdbcType="VARCHAR" property="bShortName" />
+    <result column="b_bbid" jdbcType="BIGINT" property="bBbid" />
+    <result column="b_bank_name" jdbcType="VARCHAR" property="bBankName" />
+    <result column="b_bank_no" jdbcType="VARCHAR" property="bBankNo" />
+    <result column="b_bank_people" jdbcType="VARCHAR" property="bBankPeople" />
+    <result column="b_type" jdbcType="BIT" property="bType" />
+    <result column="b_licence_type" jdbcType="INTEGER" property="bLicenceType" />
+    <result column="b_lincese" jdbcType="VARCHAR" property="bLincese" />
+    <result column="b_currency" jdbcType="VARCHAR" property="bCurrency" />
+    <result column="b_status" jdbcType="BIT" property="bStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <!--列表-->
+  <resultMap id="QueryListResultMap" type="com.jdy.b2b.api.model.bankManage.BankManageQueryDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="b_company_name" jdbcType="VARCHAR" property="bCompanyName" />
+    <result column="b_short_name" jdbcType="VARCHAR" property="bShortName" />
+    <result column="b_bank_no" jdbcType="VARCHAR" property="bBankNo" />
+    <result column="b_bank_people" jdbcType="VARCHAR" property="bBankPeople" />
+    <result column="b_type" jdbcType="BIT" property="bType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="b_bbid" jdbcType="BIGINT" property="bBbid" />
+    <result column="b_currency" jdbcType="VARCHAR" property="bCurrency" />
+    <result column="b_licence_type" jdbcType="INTEGER" property="bLicenceType" />
+    <result column="b_lincese" jdbcType="VARCHAR" property="bLincese" />
+
+    <result column="b_name" jdbcType="VARCHAR" property="bHeadBankName" />
+    <result column="bb_name" jdbcType="VARCHAR" property="bBankBranchName" />
+  </resultMap>
+  <!--编辑-->
+  <resultMap id="GetInfoResultMap" type="com.jdy.b2b.api.model.bankManage.BankManageQueryDO" extends="QueryListResultMap">
+    <result column="bProvince" jdbcType="VARCHAR" property="bProvince" />
+    <result column="bCity" jdbcType="VARCHAR" property="bCity" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, b_company_id, b_company_name, b_short_name, b_bbid, b_bank_name, b_bank_no, b_bank_people, 
+    b_type, b_licence_type, b_lincese, b_currency, b_status, create_time, create_user, 
+    update_time, update_user
+  </sql>
+
+  <sql id="QueryList_Column_List">
+    manage.id, manage.b_company_name, manage.b_short_name, manage.b_bank_no, manage.b_bank_people,
+    manage.b_type,create_time, manage.b_bbid, manage.b_currency, manage.b_licence_type, manage.b_lincese,
+    bank.b_name,branch.bb_name
+  </sql>
+  <sql id="GetInfo_Column_List">
+    manage.id, manage.b_company_name, manage.b_short_name, manage.b_bank_no, manage.b_bank_people,
+    manage.b_type,create_time, manage.b_bbid, manage.b_currency, manage.b_licence_type, manage.b_lincese,
+    bank.b_name,branch.bb_name,province.name as bProvince,city.name as  bCity
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fn_bank_manage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from fn_bank_manage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.bankManage.BankManage" useGeneratedKeys="true" keyProperty="id">
+    insert into fn_bank_manage (id, b_company_id, b_company_name, 
+      b_short_name, b_bbid, b_bank_name, 
+      b_bank_no, b_bank_people, b_type, 
+      b_licence_type, b_lincese, b_currency, 
+      b_status, create_time, create_user, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{bCompanyId,jdbcType=BIGINT}, #{bCompanyName,jdbcType=VARCHAR}, 
+      #{bShortName,jdbcType=VARCHAR}, #{bBbid,jdbcType=BIGINT}, #{bBankName,jdbcType=VARCHAR}, 
+      #{bBankNo,jdbcType=VARCHAR}, #{bBankPeople,jdbcType=VARCHAR}, #{bType,jdbcType=BIT}, 
+      #{bLicenceType,jdbcType=INTEGER}, #{bLincese,jdbcType=VARCHAR}, #{bCurrency,jdbcType=VARCHAR},
+      #{bStatus,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.bankManage.BankManage">
+    insert into fn_bank_manage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bCompanyId != null">
+        b_company_id,
+      </if>
+      <if test="bCompanyName != null">
+        b_company_name,
+      </if>
+      <if test="bShortName != null">
+        b_short_name,
+      </if>
+      <if test="bBbid != null">
+        b_bbid,
+      </if>
+      <if test="bBankName != null">
+        b_bank_name,
+      </if>
+      <if test="bBankNo != null">
+        b_bank_no,
+      </if>
+      <if test="bBankPeople != null">
+        b_bank_people,
+      </if>
+      <if test="bType != null">
+        b_type,
+      </if>
+      <if test="bLicenceType != null">
+        b_licence_type,
+      </if>
+      <if test="bLincese != null">
+        b_lincese,
+      </if>
+      <if test="bCurrency != null">
+        b_currency,
+      </if>
+      <if test="bStatus != null">
+        b_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bCompanyId != null">
+        #{bCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="bCompanyName != null">
+        #{bCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="bShortName != null">
+        #{bShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="bBbid != null">
+        #{bBbid,jdbcType=BIGINT},
+      </if>
+      <if test="bBankName != null">
+        #{bBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bBankNo != null">
+        #{bBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bBankPeople != null">
+        #{bBankPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="bType != null">
+        #{bType,jdbcType=BIT},
+      </if>
+      <if test="bLicenceType != null">
+        #{bLicenceType,jdbcType=INTEGER},
+      </if>
+      <if test="bLincese != null">
+        #{bLincese,jdbcType=VARCHAR},
+      </if>
+      <if test="bCurrency != null">
+        #{bCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="bStatus != null">
+        #{bStatus,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.bankManage.BankManage">
+    update fn_bank_manage
+    <set>
+      <if test="bCompanyId != null">
+        b_company_id = #{bCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="bCompanyName != null">
+        b_company_name = #{bCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="bShortName != null">
+        b_short_name = #{bShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="bBbid != null">
+        b_bbid = #{bBbid,jdbcType=BIGINT},
+      </if>
+      <if test="bBankName != null">
+        b_bank_name = #{bBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bBankNo != null">
+        b_bank_no = #{bBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bBankPeople != null">
+        b_bank_people = #{bBankPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="bType != null">
+        b_type = #{bType,jdbcType=BIT},
+      </if>
+      <if test="bLicenceType != null">
+        b_licence_type = #{bLicenceType,jdbcType=INTEGER},
+      </if>
+      <if test="bLincese != null">
+        b_lincese = #{bLincese,jdbcType=VARCHAR},
+      </if>
+      <if test="bCurrency != null">
+        b_currency = #{bCurrency,jdbcType=VARCHAR},
+      </if>
+      <if test="bStatus != null">
+        b_status = #{bStatus,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.bankManage.BankManage">
+    update fn_bank_manage
+    set b_company_id = #{bCompanyId,jdbcType=BIGINT},
+      b_company_name = #{bCompanyName,jdbcType=VARCHAR},
+      b_short_name = #{bShortName,jdbcType=VARCHAR},
+      b_bbid = #{bBbid,jdbcType=BIGINT},
+      b_bank_name = #{bBankName,jdbcType=VARCHAR},
+      b_bank_no = #{bBankNo,jdbcType=VARCHAR},
+      b_bank_people = #{bBankPeople,jdbcType=VARCHAR},
+      b_type = #{bType,jdbcType=BIT},
+      b_licence_type = #{bLicenceType,jdbcType=INTEGER},
+      b_lincese = #{bLincese,jdbcType=VARCHAR},
+      b_currency = #{bCurrency,jdbcType=VARCHAR},
+      b_status = #{bStatus,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+<!--编辑时获取银行卡信息-->
+  <select id="getBankManageInfo" parameterType="long" resultMap="GetInfoResultMap">
+    select
+    <include refid="GetInfo_Column_List"/>
+    from fn_bank_manage manage
+    inner join  sl_bank_branch branch
+    on manage.b_bbid = branch.bb_id
+    inner join sl_bank bank
+    on branch.bb_ba_id = bank.id
+    inner join cm_bank_city province
+    on province.id = branch.bb_p_id
+    inner join cm_bank_city city
+    on city.id = branch.bb_c_id
+    <where>
+      bank.b_status = 1
+      and province.status = 1
+      and city.status = 1
+      and manage.id = #{id}
+    </where>
+
+  </select>
+<!--获取列表-->
+  <select id="queryBankManagePage" parameterType="com.jdy.b2b.api.model.bankManage.BankManageQueryDTO" resultMap="QueryListResultMap">
+    select
+    <include refid="QueryList_Column_List"/>
+    from fn_bank_manage manage
+    inner join  sl_bank_branch branch
+    on manage.b_bbid = branch.bb_id
+    inner join sl_bank bank
+    on branch.bb_ba_id = bank.id
+    <where>
+      manage.b_status = 0
+      <if test="searchStr != null">
+        <bind name="searchStr" value="'%' +searchStr + '%'" />
+        AND CONCAT(IFNULL(manage.b_company_name,''),IFNULL(manage.b_short_name,'')) LIKE #{searchStr}
+      </if>
+    </where>
+  </select>
+</mapper>

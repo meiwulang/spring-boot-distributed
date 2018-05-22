@@ -1,0 +1,63 @@
+@import './common.less';
+
+#wrap{
+	height: 100%;
+	.success{
+		display: none;
+		.header{
+			height: 175px;
+			width: 100%;
+			background: url('@{img}/mades/madess.png') no-repeat;
+			background-size: 100% 100%;
+		}
+		.cont{
+			background-color: #fff;
+			margin-top: 10px;
+			.tit{
+				font-size: 14px;
+				color: #333;
+				border-bottom: 1px solid #e7e7e7;
+				box-sizing: border-box;
+				margin-left: 15px;
+				height: 42px;
+				line-height: 42px;
+			}
+			.conts{
+				padding: 10px 15px;
+			}
+
+		}
+	}
+	.err{
+		display: none;
+		height: 100%;
+		overflow: hidden;
+		background-color: #fff;
+		.err-header{
+			margin-top: 80px;
+			height: 112px;
+			width: 100%;
+			background: url('@{img}/mades/madeerr.png') center no-repeat;
+			background-size: 234px 100%;
+		}
+		.sory{
+			height: 60px;
+			line-height: 60px;
+			text-align: center;
+			color: #bababa;
+			font-size: 16px;
+		}
+	}
+	.back_index{
+		display: inline-block;
+		height: 42px;
+		width: 100%;
+		background-color: #fc2a35;
+		color: #fff;
+		line-height: 42px;
+		text-align: center;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+	}
+}

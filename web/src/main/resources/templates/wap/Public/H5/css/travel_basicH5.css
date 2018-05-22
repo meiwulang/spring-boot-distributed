@@ -1,0 +1,5215 @@
+*{
+    font-family: "microsoft YaHei";
+}
+p{
+    margin:0;
+}
+a{
+    color: #000;
+}
+a:hover{
+    color: #000;
+}
+ul>li{
+    list-style: none;
+}
+.float_left{
+     float: left;
+ }
+.float_right{
+    float: right;
+}
+.clearfloat:after{
+    display: block;
+    content: "";
+    clear:both;
+}
+.danger_color{
+    color: #FF0000;
+}
+.gray_color{
+    color: #D1D1D1;
+}
+.yellow_color{
+    color: #F9D550;
+}
+/*旅游顾问头像*/
+.default-logo, .default-logo .logo {
+    width: 46px; height: 46px;
+    border: 1px solid lightgrey;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size:cover;
+}
+.default-logo {
+    margin: 17px 10px 17px 15px;
+    background: url("http://img400.jdytrip.cn/2017/0358b7f49f158fe.png?x-oss-process=image/resize,m_mfit,h_32,w_32") no-repeat center 6px;
+}
+.default-logo .logo {
+    width:100%; height: 100%;
+}
+/*旅游顾问头像*/
+.h5xq_xin{
+    width: 15%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    float: left;
+
+}
+.sanjiao{
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 30px;
+    background:rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 20px;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    z-index: 999999;
+}
+.sstj{
+padding: 0 15px;
+}
+.sstj1{
+padding: 0 15px;
+}
+.sstj2{
+    font-size: 12px;
+    color: red;
+padding: 0 15px;
+}
+.sstj_1{
+    background: #f9d550;
+    width: 45%;
+    float: left;
+    line-height: 35px;
+    border: 0;
+
+}
+.sstj_2{
+    line-height: 35px;
+    border: 0;
+    width: 45%;
+    float: right;
+
+}
+.sstj div{
+    width: 33.3%;
+    padding: 0 5px;
+    text-align: center;
+    box-sizing: border-box
+}
+.sstj span{
+    width: 100%;
+    display: inline-block;
+    background: #f9d550;
+    position: relative;
+    line-height: 25px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
+.sstj span:after{
+    content: "×";
+    position: absolute;
+    font-size: 12px;
+    right: 2px;
+    top: 2px;
+    line-height: 12px
+}
+.sstj_1{
+
+}
+.h5xq_xinli{
+    width: 35px;
+    height: 35px;
+    background: url("../img/h5xq.jpg") no-repeat;
+    background-size: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 35px
+
+}
+.h5xq_xinli a{
+    color: #000 !important;
+    text-decoration: none !important;
+}
+.h5xq_xinliactive{
+    background: url("../img/h5xq2.jpg") no-repeat;
+    background-size: 100%;
+}
+.h5xq_xinliactive a{
+    color: #fff !important;
+    text-decoration: none !important;
+}
+.h5xq_xin2{
+    width: 85%;
+    float: right;
+    margin-bottom: 8%;
+}
+.h5xq_xin2p1{
+    display: inline-block;
+    width: 100%;
+    padding: 0 8px;
+    line-height: 25px;
+    font-size: 14px;
+    background-color: #000;
+    color: #fad64d;
+    transform: skew(-20deg);
+}
+.h5xq_xin2p1 span{
+     transform: skew(20deg);
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    padding: 0 4px;
+}
+.clear2:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+.h5xq_xin2{
+    font-size: 14px;
+    line-height: 20px;
+}
+.h5xq_xin2 img{
+    width: 100% !important;
+    margin: 8px 0;
+}
+.h5xq_xin2p2{
+    width: 15%;
+    float: left
+}
+.h5xq_xin2p3{
+    width: 85%;
+    float: right;
+}
+.h5xq_xin2p3 span{
+    margin-right: 10px
+}
+/*6*/
+/*H5��ҳ*/
+/*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*/
+.h5_index{
+
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+.navbar_info{
+    background: #FAD64D;
+    height:80px;
+}
+.ion_contactPersonPic{
+    margin:17px 10px 17px 15px ;
+    width:46px;
+    height:46px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #000;
+}
+.navbar_info .info_box{
+    margin-top:15px;
+}
+.navbar_info .info_box p{
+    margin:0;
+}
+.ion_contactPersonPic img{
+    width:46px;
+    height:46px;
+}
+.navbar_info{
+    font-size: 12px;
+}
+.navbar_info .name{
+    font-size: 16px;
+    font-weight:700;
+
+}
+.navbar_info .mark{
+    display: inline-block;
+    color:#FAD64D;
+    border-radius: 4px;
+    background: #000;
+    margin-left:5px;
+    height:21px;
+    line-height: 21px;
+}
+.top_advertisement{
+    height:190px;
+}
+.top_advertisement .carousel-inner .item {
+    overflow: hidden;
+    height:190px;
+}
+.top_advertisement .carousel-inner .item img{
+    width:100%;
+}
+.top_advertisement .carousel-indicators li{
+    border-radius: 50%;
+    background: #1C1B20;
+}
+.top_advertisement .carousel-indicators .active{
+    background: #FAD64D;
+
+}
+.travel_line{
+    background: #ffffff;
+    padding:0 15px;
+}
+.travel_line .item{
+    width:25%;
+    text-align: center;
+}
+.icon_exit{
+    display: inline-block;
+    width:40px;
+    height:40px;
+    background-size: 40px 40px;
+    margin-top:20px;
+    margin-bottom: 5px;
+    background-image: url(../img/ion_03.png);
+}
+.filter_firstListli{
+    overflow: auto
+}
+.icon_domestic{
+    display: inline-block;
+    width:40px;
+    height:40px;
+    background-size: 40px 40px;
+    margin-top:20px;
+    margin-bottom: 5px;
+    background-image: url(../img/ion_05.png);
+}
+.icon_liner{
+    display: inline-block;
+    width:40px;
+    height:40px;
+    background-size: 40px 40px;
+    margin-top:20px;
+    margin-bottom: 5px;
+    background-image: url(../img/ion_07.png);
+}
+.icon_around{
+    display: inline-block;
+    width:40px;
+    height:40px;
+    background-size: 40px 40px;
+    margin-top:20px;
+    margin-bottom: 5px;
+    background-image: url(../img/ion_10.png);
+}
+.travel_line a{
+    color: #000000;
+    text-decoration: none;
+}
+.travel_line a:hover{
+    color: #000000;
+}
+.soso{
+    padding:10px 15px;
+    background: #F3F3F3;
+}
+.soso>div{
+    background:#fff;
+    height:30px;
+    line-height: 30px;
+    border-radius: 3px;
+    padding:0 10px;
+}
+.soso>div>input{
+    border:0;
+    height:30px;
+
+
+}
+.soso>div>input:focus{
+    outline: none;
+}
+.ion_magnifier{
+    margin-top: 7px;
+    margin-right: 10px;
+    display: inline-block;
+    width:15px;
+    height:15px;
+    background-size: 15px 15px;
+    background-image: url(../img/ion_magnifier_19.png);
+}
+.icon_crown{
+    display: inline-block;
+    width:18px;
+    height:18px;
+    margin-right:10px;
+    background-size: 18px 18px;
+    background-image: url(../img/icon_sa_11.png);
+}
+.product_details>h4{
+    font-size: 16px;
+}
+.h5_index .product_details{
+    padding:0 15px;
+    border-bottom: 1px solid #EBEBEB;
+}
+.h5_index .products_list{
+    margin:0;
+    padding:0;
+}
+.h5_index .products_list>li{
+    border-bottom: 1px solid #EBEBEB;
+    padding:15px;
+    position:relative;
+}
+.h5_index .products_list>li:last-child{
+    border-bottom:0;
+}
+.products_list h5 a{
+    color: #000;
+}
+.h5_index .products_list .img{
+    width:30%;
+    height:80px;
+
+}
+.h5_index .products_list .img img{
+    width:95px;
+    height:80px;
+
+}
+.products_list a{
+    color: #000000;
+}
+.products_list a:focus{
+    color: #000000;
+}
+.h5_index .products_list .content{
+    width:70%;
+}
+.products_list h5 a:focus{
+    color: #000;
+}
+.h5_index .products_list p{
+    margin:0;
+}
+.yellow_price{
+    display: inline-block;
+    height: 25px;
+    background: #FAD64D;
+    position: relative;
+    top:-5px;
+    padding:0 5px;
+    border-radius: 3px;
+}
+.yellow_price .big_font{
+    font-size: 18px;
+    color:white;
+}
+.promotion_font{
+
+    font-size: 10px;
+    padding-left: 5px;
+    color: #fff;
+}
+.promotion{
+    position: relative;
+    background: rgba(255,0,0,0.55);
+    border-radius:0px;
+    width: 60px;
+    margin-top:15px;
+}
+.promotion_win{
+    display: none;
+    padding:5px 10px;
+    position: absolute;
+    box-sizing: border-box;
+    background-image: url("../img/bg.png");
+    width: 200px;
+    min-height: 90px;
+   background-size: 100% 100%;
+    left:190px;
+    bottom: 20px;
+}
+
+.detail .navbar_img{
+    width:100%;
+    height:170px;
+}
+.detail .navbar_img img{
+    width:100%;
+    height:170px;
+}
+.detail .navbar_tip{
+    height:35px;
+    line-height: 35px;
+    color:#FAD64D;
+    background: #000000;
+    padding: 0 15px;
+    font-size: 14px;
+}
+.icon_location{
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -2px;
+    height:16px;
+    width: 14px;
+    background-size: 14px 16px;
+    background-repeat: no-repeat;
+    background-image: url(../img/ion_travel_07.png);
+}
+.detail .travel_detailTop{
+    padding: 20px 15px;
+    background: #ffffff;
+}
+.travel_detailTop .big_font{
+    font-size: 16px;
+}
+.travel_detailTop h4{
+    margin:0;
+}
+.travel_name a{
+    color: #000000;
+    font-size: 16px;
+}
+.travel_name a:hover{
+    color: #000000;
+}
+.travel_detailTop .bottom{
+    height:30px;
+    line-height: 30px;
+}
+.travel_detailTop .bottom>.danger_color{
+    margin-right:10px;
+}
+.ion_correct{
+    display: inline-block;
+    width:18px;
+    height:18px;
+    vertical-align: middle;
+    margin-top: -2px;
+    background-size: 18px 18px;
+    background-image: url(../img/ion_travel_11.png);
+}
+.promotion_tip{
+    border-top: 1px solid #FDF3C8;
+    background: #FEFBED;
+    border-bottom: 10px solid #F3F3F3;
+}
+.promotion_tip .item{
+    height: 35px;
+    padding:0 15px;
+    line-height: 35px;
+    border-bottom: 1px solid #FDF3C8;
+}
+.icon_hot{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    margin-top: -2px;
+    background-size: 16px 16px;
+    vertical-align: middle;
+    background-image: url(../img/icon_recommend_11.png);
+}
+.icon_recommend{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    margin-top: -2px;
+    background-size: 16px 16px;
+    vertical-align: middle;
+    background-image: url(../img/icon_recommend_14.png);
+}
+.padding_box{
+    padding:0 15px;
+}
+.list{
+    height:40px;
+    line-height: 40px;
+    border: 1px solid #F4F4F4;
+}
+.icon_right{
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background-size: 10px 20px;
+    margin-top: 10px;
+    margin-left: 15px;
+    background-image: url(../img/drop_right_07.png);
+
+}
+.classPrice_list{
+    margin:10px 0 0 15px;
+    padding:0;
+    position: absolute;
+    left:-100px;
+    height:50px;
+    overflow: hidden;
+    width:300%;
+
+}
+.list_box{
+    position: relative;
+    background: #fff;
+    width:100%;
+    overflow: hidden;
+    padding:10px 0 10px 15px;
+    border-bottom: 10px solid #F3F3F3;
+
+}
+
+.classPrice_list>li{
+    line-height: 20px;
+    background: #F3F3F3;
+    margin-right:10px;
+    padding:5px 15px;
+    text-align: center;
+    border-radius: 3px;
+}
+.detail .navbar_info{
+    background: #ffffff;
+    height: 97px;
+    border-bottom: 10px solid #F3F3F3;
+    padding-bottom: 17px;
+}
+.detail .navbar_info .btns{
+    padding:17px 17px 0 0;
+}
+.detail .ion_contactPersonPic{
+    border-radius: 0;
+}
+.shop_inner{
+    border:0;
+    padding:3px 5px;
+    background: #FAD64D;
+    margin-bottom: 7px;
+}
+.consult_adviser{
+    border:0;
+    padding:3px 5px;
+    background: #F3F3F3;
+}
+.activity_infoPage{
+    border-bottom: 1px solid #F3F3F3;
+}
+.activity_infoPage div{
+    display: inline-block;
+    width:32%;
+    text-align: center;
+    font-size: 16px;
+}
+.activity_infoPage span{
+    height:40px;
+    line-height: 40px;
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+}
+.activity_infoPage div.active span{
+    border-bottom: 2px solid #FAD64D;
+}
+.info_contentSelectBox{
+    border-bottom: 10px solid #F3F3F3;
+}
+.detail .info_contentSelectBox .content_first{
+    padding:15px;
+    max-height: 50px;
+    overflow: hidden;
+
+
+}
+.info_contentSelectBox>.btn{
+    width: 100%;
+    /*margin-top: 10px;*/
+    text-align: center;
+}
+.detail .ion_dropdown{
+
+    display: inline-block;
+    width:18px;
+    height:18px;
+    background-size: 18px 18px;
+    background-image: url(../img/icon_dropDown_17.png);
+}
+.padding_title{
+    height: 40px;
+    line-height: 40px;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom: 1px solid #F3F3F3;
+}
+.line_detailsInfo{
+    padding:0 15px;
+}
+.line_detailsInfo>div{
+    border-bottom: 1px solid #F3F3F3;
+}
+.line_detailsInfo>div:last-child{
+    border-bottom:0;
+}
+.line_detailsInfo .first{
+    padding:20px 0;
+}
+.line_detailsInfo .first .box{
+    width:15%;
+}
+.line_detailsInfo .first .navbar_daysInfo{
+    display: inline-block;
+    top:0;
+}
+.ion_day{
+    margin-right:  30px;
+    margin-left:  20px;
+}
+.words_infoFirst>div:first-child{
+    width:15%;
+}
+.words_infoFirst>div:last-child{
+    width:85%;
+}
+.hexagonalTop{
+    width:0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 9px solid #FAD64D;
+}
+.hexagonalMiddle{
+    width:30px;
+    height: 18px;
+    background-color: #FAD64D;
+}
+.hexagonalBottom{
+    width:0;
+    border-top: 9px solid #FAD64D;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.hexagonal{
+    position: relative;
+    margin-bottom:10px;
+
+}
+.days_sign{
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    font-weight: 700;
+
+}
+
+.days_linkLine{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height:36px;
+    background: #ECECEC;
+    width: 1px;
+    z-index: -1;
+}
+.hexagonal:last-child .days_linkLine{
+    height: 0;
+}
+
+
+.hexagonal.active .hexagonalTop{
+    width:0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 9px solid #000000;
+}
+.hexagonal.active .hexagonalMiddle{
+    width:30px;
+    height: 18px;
+    background-color: #000000;
+}
+.hexagonal.active .hexagonalBottom{
+    width:0;
+    border-top: 9px solid #000000;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.hexagonal.active .days_sign{
+    color: #FAD64D;
+}
+.dayInfoDetail{
+    width:85%;
+}
+.dayInfoDetail .title{
+    font-weight: 700;
+    margin-left: 6px;
+    transform: skew(-20deg);
+    padding: 3px 10px;
+    background: #000;
+    display: inline-block;
+}
+.dayInfoDetail .title>span{
+    display: inline-block;
+    transform: skew(20deg);
+    color: #FAD64D;
+}
+.line_detailsInfo .travel_img{
+    width:100%;
+    height:160px;
+}
+.line_detailsInfo .travel_img img{
+    width:100%;
+    height:160px;
+}
+.line_detailsInfo .next{
+    padding:20px 0;
+}
+.cost_description{
+    padding:20px;
+}
+.cost_description>li>span:first-child{
+    width: 6%;
+}
+.cost_description>li>span:last-child{
+    width: 94%;
+}
+.bottom_btns{
+    height:50px;
+
+}
+.bottom_btns>div:first-child{
+    width:60%;
+    background: #F3F3F3;
+
+}
+.bottom_btns>div:first-child>div{
+    text-align: center;
+    height: 50px;
+    width: 40%;
+}
+.bottom_btns a{
+    color: #000000;
+}
+.bottom_btns a:hover{
+    color: #000000;
+}
+.bottom_btns>.online_order{
+    width:40%;
+    height: 50px;
+    border:0;
+    line-height: 50px;
+    background: #FAD64D;
+    font-size: 18px;
+    font-weight: 700;
+}
+.bottom_btns>.online_order:focus{
+    outline: none;
+}
+.bottom_btns .icon_tel{
+    display: inline-block;
+    margin-top: 7px;
+    width: 18px;
+    height:18px;
+    background-size: 18px 18px;
+    background-image: url(../img/ion_travel_15.png);
+}
+.bottom_btns .icon_contact{
+    display: inline-block;
+    margin-top: 7px;
+    width: 18px;
+    height:18px;
+    background-size: 18px 18px;
+    background-image: url(../img/ion_travel_18.png);
+}
+
+.bottom_btns p{
+    margin:0;
+
+}
+/***ģ̬��***/
+.modal-overlay {
+    display: none;
+    /*visibility: hidden;*/
+    position:fixed ;
+    /* ʹ�þ��Զ�λ��̶���λ  */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-data {
+    width: 82%;
+    margin: 110px auto;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 1001;
+}
+.modal-data>p {
+    background: black;
+    color: #FAD64D;
+    padding: 10px 20px;
+    height: 45px;
+    width: 100%;
+    font-size: 16px;
+}
+.modal-data .modal-close {
+    color: white;
+}
+.modal-data input {
+    width: 88%;
+    height: 45px;
+    border-radius: 5px;
+    padding: 0 10px;
+    border: 1px solid rgb(208, 208, 208);
+    outline: medium;
+}
+.modal-name {
+    margin: 25px 0px 10px;
+}
+.modal-phone {
+    margin-bottom: 40px;
+}
+.modal-data button {
+    width: 88%;
+    border-radius: 5px;
+    height: 45px;
+    padding: 0 10px;
+    font-size: 16px;
+    outline: medium;
+}
+.call-me {
+    border: 0;
+    background: #FAD64D;
+    margin-bottom: 10px;
+}
+.call-adviser {
+    border: 0;
+    background: rgb(224, 224, 224);
+    margin-bottom: 20px;
+}
+/*�б�ҳ��*/
+/*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*
+*/
+.list_page{
+
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+}
+.product_soso{
+    height: 40px;
+    line-height: 40px;
+    background: #F9D550;
+    text-align: center;
+}
+.product_soso>span{
+    display: inline-block;
+}
+.ion_left{
+    margin-top: 10px;
+    display: inline-block;
+    width:10px;
+    height:20px;
+    vertical-align: middle;
+    background-size: 10px 20px;
+    background-image: url(../img/ion_left_03.png);
+}
+.product_soso>div{
+    padding-left: 10px;
+    display: inline-block;
+    width:80%;
+    background: #fff;
+    border-radius: 3px;
+    height:30px; margin: 0 auto;
+    margin-top: 5px;
+    line-height: 30px;
+
+}
+.product_soso>div>input{
+    width:80%;
+    border: 0;
+    height:30px;
+    font-size: 14px;
+}
+.product_soso>div>input{
+    outline: none;
+}
+.list_page .travelItem_detailIntro{
+    margin:0;
+    padding:10px;
+}
+.travelItem_detailIntro>li{
+    padding:15px;
+    border-bottom: 1px solid #E8E8E8;
+    position: relative;
+}
+/*.travelItem_detailIntro>li:last-child{*/
+/*border-bottom: 0;*/
+/*}*/
+.list_page .travelItem_pic{
+    width:26%;
+    height:90px;
+}
+.list_page .travelItem_pic img{
+    width:100%;
+    height:90px;
+}
+.list_page .Item_detailIntro{
+    width:74%;
+    padding-left: 10px;
+}
+.list_page .Item_detailIntro h4{
+    font-size: 14px;
+    margin:0;
+}
+.list_page .Item_detailIntro>p{
+    margin:10px 0;
+}
+.special_price{
+    color:#fff;
+    background: #E94D46;
+    border:1px solid #E94D46;
+    font-size: 12px;
+    padding:0 3px;
+    border-radius: 3px;
+}
+.quality_select{
+    color:#fff;
+    background: #449FEE;
+    border:1px solid #449FEE;
+    font-size: 12px;
+    padding:0 3px;
+    border-radius: 3px;
+}
+.immediate_confirm{
+    color:#FEA045;
+    background: #fff;
+    border:1px solid #FEA045;
+    font-size: 12px;
+    padding:0 3px;
+    border-radius: 3px;
+}
+.travelItem_detailIntro .big_font{
+    font-size: 14px;
+}
+.travelItem_detailIntro p span {
+    font-size: 12px;
+    padding: 0 3px 2px 3px;
+    border-radius: 3px;
+    margin:0 2px 0 0;
+}
+/*ɸѡҳ��1*/
+/*
+*
+*
+*
+*
+*
+*
+*/
+.filter{
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin-left: 100%;
+}
+.filter.active{
+    display: block;
+}
+.filter .mask{
+    /*width:22%;*/
+    position: absolute;
+    top:0;
+    bottom:0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,.5);
+}
+.filter .filter_box{
+    width:78%;
+
+    position: fixed;
+    top:0;
+    left:22%;
+    bottom:0;
+    background: #fff;
+}
+.filter_firstList{
+    width:100%;
+}
+.ion_right{
+    display: inline-block;
+    width:8px;
+    height:12px;
+    margin-top: 14px;
+    background-size: 8px 12px;
+    background-image: url("../img/ion_right_03.png");
+}
+.filter_firstList{
+    margin: 0;
+    padding:0 15px;
+}
+.filter_firstList .title{
+    height:40px;
+    line-height: 40px;
+    padding:0 5px;
+}
+.filter_firstList .destination{
+    margin:0;
+    padding:0;
+    /*border-bottom: 1px solid #E8E8E8;*/
+}
+.filter_firstList .destination{
+    margin:0;
+    padding:0;
+
+}
+.filter .line{
+    /*height:1px;*/
+    display: block;
+    margin: 0 auto;
+    margin-top: 5px;
+    height:1px;
+    width:95%;
+    background: #E8E8E8;
+    /*padding: 0 5px;*/
+    /*overflow: hidden;*/
+}
+
+.filter_firstList .destination>li{
+    width:78px;
+    padding:0 5px;
+    text-align: center;
+}
+.filter_firstList .destination>li>span{
+    width:100%;
+    display: inline-block;
+    background: #F2F2F2;
+    line-height: 25px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+
+}
+.filter_firstList .destination .active span{
+    background: #F9D550;
+}
+.filter_firstList .title>.yellow_color{
+    margin-right: 5px;
+}
+.destination_departure{
+    padding:20px 20px;
+    text-align: center;
+    /*margin-top: 20px;*/
+}
+.destination_departure>div{
+    width:40%;
+}
+.destination_departure>span{
+    height:40px;
+    line-height: 40px;
+}
+.destination_departure input{
+    width:100%;
+    height:40px;
+    line-height: 40px;
+    border:1px solid #E8E8E8;
+}
+.destination_departure>span{
+    width:20%;
+    color: #C0C0C0;
+
+}
+/*ɸѡҳ��2*/
+/*
+*
+*
+*
+*
+*
+*
+*/
+.filter_second{
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    /*margin-left: 100%;*/
+}
+.filter_second.active{
+    display: block;
+}
+.filter_second .mask{
+    /*width:22%;*/
+    position: absolute;
+    top:0;
+    bottom:0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,.5);
+}
+.filter_second .filter_box{
+    width:78%;
+
+    position: fixed;
+    top:0;
+    left:22%;
+    bottom:0;
+    background: #fff;
+}
+.filter_second .title{
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    padding: 0 15px;
+}
+.filter_second .ion_left{
+    display: inline-block;
+    width: 10px;
+    height: 16px;
+    background-size: 10px 16px;
+    margin-top: 12px;
+    background-image: url(../img/ion-left_03.png);
+}
+.filter_second .destination{
+    margin:0;
+    padding:0 20px;
+}
+.filter_second .destination>li{
+    width:33.3%;
+    padding:0 5px;
+    text-align: center;
+}
+.filter_second .destination>li>span{
+    width:100%;
+    display: inline-block;
+    background: #F2F2F2;
+    line-height: 25px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+
+}
+.filter_second .destination .active span{
+    background: #F9D550;
+}
+.filter_second .destination>li>span {
+
+    margin-bottom: 20px;
+
+}
+.filter_box .btns{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.clear_btn{
+    width: 35%;
+    border:0;
+    height:40px;
+    line-height: 40px;
+    background: #F2F2F2;
+}
+.confirm_btn{
+    width: 65%;
+    border:0;
+    height:40px;
+    line-height: 40px;
+    background: #F9D550;
+    text-align: center;
+}
+.filter_box .btns button{
+    display: inline-block;
+}
+.filter_box .btns button:focus{
+    outline: none;
+}
+/*��¼ҳ��*/
+/*
+*
+*
+*
+*
+*
+*
+*
+*/
+
+.login .login_bg{
+    width:100%;
+    height:220px;
+    margin-bottom: 40px;
+}
+.login .login_bg img{
+    width:100%;
+    height:220px;
+}
+.login .form_group{
+    margin:10px 30px;
+    border:1px solid #F0F0F0;
+    height: 40px;
+    line-height: 40px;
+}
+.login .form_group input{
+    outline: none;
+    background: #fff;
+    height: 38px;
+    line-height: 38px;
+    border:0;
+    width:80%;
+    position: relative;
+    top:-4px;
+}
+.icon_person{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: 16px 16px;
+    margin:12px 10px 0 10px;
+    background-image: url(../img/login_05.png);
+}
+.icon_pwd{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: 16px 16px;
+    margin:12px 10px 0 10px;
+    background-image: url(../img/login_08.png);
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+.login button{
+    text-align: center;
+}
+.login .btn_box{
+    padding:30px ;
+}
+.login_btn{
+
+    padding: 0;
+    width:100%;
+    border:0;
+    background: #F9D550;
+    height:40px;
+    line-height: 40px;
+}
+/*�̼Ҵ�ȫҳ��*/
+/*
+*
+*
+*
+*
+*
+*
+*/
+.company_info{
+    /*position: fixed;*/
+    /*top:0;*/
+    /*left:0;*/
+    /*right:0;*/
+    /*bottom: 0;*/
+}
+.company_summary{
+    padding:20px 15px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.company_info .company_logo{
+    width:20%;
+
+}
+.company_info .company_logo img{
+    height:69px;
+    width:100%;
+}
+.company_info .company_summaryDetails{
+    width: 80%;
+    padding-left: 10px;
+    font-size: 12px;
+}
+.company_summaryDetails h4{
+    margin:5px 0;
+}
+.company_name{
+    color: #B2B2B2;
+}
+.company_link>p{
+    margin-bottom: 5px;
+}
+.company_info .detail_info{
+    margin: 0;
+    padding:0;
+}
+.company_info .detail_info .title{
+    height:30px;
+    line-height: 30px;
+    padding-left:15px;
+    border-bottom: 1px solid #E0E0E0;
+}
+.company_info .detail_info .content_detail{
+    padding:20px 15px;
+}
+.detail_info li{
+    border-bottom: 10px solid #F2F2F2;
+}
+.detail_info .intro_img img{
+    width: 100%;
+    height:160px;
+}
+.company_info .detail_info .map{
+    border:0;
+}
+.company_map{
+    padding: 20px 15px;
+}
+.company_map img{
+    width: 100%;
+    height:160px;
+}
+.line_consult{
+    padding:15px;
+}
+.line_consult .line_title{
+    color:#A5A5A5;
+    font-size: 12px;
+    margin:10px 0;
+}
+.line_consult li {
+    padding: 0 5px;
+    line-height: 25px;
+    height: 25px;
+    border-radius: 2px;
+    font-size: 12px;
+    border: 1px solid #eaeaea;
+    margin-right: 10px;
+}
+.qq_logo{
+    vertical-align: middle;
+    display: inline-block;
+    width: 15px;
+    position: relative;
+    top: -2px;
+    height: 15px;
+    background-size: 15px 15px;
+    background-image: url(../img/qqLogoLink_03.png);
+}
+.qq_logo.offLine{
+    vertical-align: middle;
+    display: inline-block;
+    width: 15px;
+    position: relative;
+    top: -2px;
+    height: 15px;
+    background-size: 15px 15px;
+    background-image: url(../img/offLine_07.png);
+}
+.line_consult ul{
+    margin:0;
+    padding:0;
+}
+.line_consult>div li{
+    margin-bottom: 10px;
+}
+.line_consult>div{
+
+    border-bottom: 1px solid #F0F0F0;
+}
+.line_consult>div:last-child{
+    margin-bottom: 0;
+    border-bottom: 0;
+}
+.line_consult a{
+    color: #000000;
+}
+.line_consult a:hover{
+    color: #000000;
+}
+@media (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    /*H5��ҳ*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .h5_index{
+
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+    }
+    .navbar_info{
+        background: #FAD64D;
+        height:80px;
+    }
+    .ion_contactPersonPic{
+        margin:17px 10px 17px 15px ;
+        width:46px;
+        height:46px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #000;
+    }
+    .navbar_info .info_box{
+        margin-top:15px;
+    }
+    .navbar_info .info_box p{
+        margin:0;
+    }
+    .ion_contactPersonPic img{
+        width:46px;
+        height:46px;
+    }
+    .navbar_info{
+        font-size: 12px;
+    }
+    .navbar_info .name{
+        font-size: 16px;
+        font-weight:700;
+
+    }
+    .navbar_info .mark{
+        display: inline-block;
+       color:#FAD64D;
+        border-radius: 4px;
+        background: #000;
+        margin-left:5px;
+        height:21px;
+        line-height: 21px;
+    }
+    .top_advertisement{
+        height:190px;
+    }
+    /*.top_advertisement .carousel-inner .item img{
+        height:190px;
+    }*/
+    .top_advertisement .carousel-indicators li{
+        border-radius: 50%;
+        background: #1C1B20;
+    }
+    .top_advertisement .carousel-indicators .active{
+        background: #FAD64D;
+
+    }
+    .travel_line{
+        background: #ffffff;
+        padding:0 15px;
+    }
+    .travel_line .item{
+        width:25%;
+        text-align: center;
+    }
+    .icon_exit{
+        display: inline-block;
+        width:40px;
+        height:40px;
+        background-size: 40px 40px;
+        margin-top:20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_03.png);
+    }
+    .icon_domestic{
+        display: inline-block;
+        width:40px;
+        height:40px;
+        background-size: 40px 40px;
+        margin-top:20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_05.png);
+    }
+    .icon_liner{
+        display: inline-block;
+        width:40px;
+        height:40px;
+        background-size: 40px 40px;
+        margin-top:20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_07.png);
+    }
+    .icon_around{
+        display: inline-block;
+        width:40px;
+        height:40px;
+        background-size: 40px 40px;
+        margin-top:20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_10.png);
+    }
+    .travel_line a{
+          color: #000000;
+        text-decoration: none;
+      }
+    .travel_line a:hover{
+        color: #000000;
+    }
+    .soso{
+        padding:10px 15px;
+        background: #F3F3F3;
+    }
+    .soso>div{
+        background:#fff;
+        height:30px;
+        line-height: 30px;
+        border-radius: 3px;
+        padding:0 10px;
+    }
+    .soso>div>input{
+        border:0;
+        height:30px;
+
+
+    }
+    .soso>div>input:focus{
+        outline: none;
+    }
+    .ion_magnifier{
+        margin-top: 7px;
+        margin-right: 10px;
+        display: inline-block;
+        width:15px;
+        height:15px;
+        background-size: 15px 15px;
+        background-image: url(../img/ion_magnifier_19.png);
+    }
+    .icon_crown{
+        display: inline-block;
+        width:18px;
+        height:18px;
+        margin-right:10px;
+        background-size: 18px 18px;
+        background-image: url(../img/icon_sa_11.png);
+    }
+    .product_details>h4{
+        font-size: 16px;
+    }
+    .h5_index .product_details{
+        padding:0 15px;
+        border-bottom: 1px solid #EBEBEB;
+    }
+    .h5_index .products_list{
+        margin:0;
+        padding:0;
+    }
+    .h5_index .products_list>li{
+        border-bottom: 1px solid #EBEBEB;
+        padding:15px;
+        position:relative;
+    }
+    .h5_index .products_list>li>.clearfloat {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+    .h5_index .products_list>li:last-child{
+        border-bottom:0;
+    }
+    .products_list h5 a{
+        color: #000;
+    }
+    .h5_index .products_list .img{
+        width:30%;
+        height:80px;
+
+    }
+    .h5_index .products_list .img img{
+        width:95px;
+        height:80px;
+
+    }
+    .products_list a{
+        color: #000000;
+    }
+    .products_list a:focus{
+        color: #000000;
+    }
+    .h5_index .products_list .content{
+        width:70%;
+    }
+    .products_list h5 a:focus{
+        color: #000;
+    }
+    .h5_index .products_list p{
+        margin:0;
+    }
+    .yellow_price{
+        display: inline-block;
+        height: 25px;
+        background: #FAD64D;
+        position: relative;
+        top:-5px;
+        padding:0 5px;
+        border-radius: 3px;
+    }
+    .yellow_price .big_font{
+        font-size: 18px;
+
+
+    }
+    /*����ҳ*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .detail .navbar_img{
+        width:100%;
+        height:170px;
+    }
+    .detail .navbar_img img{
+        width:100%;
+        height:170px;
+    }
+    .detail .navbar_tip{
+        height:35px;
+        line-height: 35px;
+        color:#FAD64D;
+        background: #000000;
+        padding: 0 15px;
+    }
+    .icon_location{
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -2px;
+        height:16px;
+        width: 14px;
+        background-size: 14px 16px;
+        background-repeat: no-repeat;
+        background-image: url(../img/ion_travel_07.png);
+    }
+    .detail .travel_detailTop{
+        padding: 20px 15px;
+        background: #ffffff;
+    }
+    .travel_detailTop .big_font{
+        font-size: 16px;
+    }
+    .travel_detailTop h4{
+        margin:0;
+    }
+    .travel_name a{
+        color: #000000;
+        font-size: 16px;
+    }
+    .travel_name a:hover{
+        color: #000000;
+    }
+    .travel_detailTop .bottom{
+        height:30px;
+        line-height: 30px;
+    }
+    .travel_detailTop .bottom>.danger_color{
+        margin-right:10px;
+    }
+    .ion_correct{
+        display: inline-block;
+        width:18px;
+        height:18px;
+        vertical-align: middle;
+        margin-top: -2px;
+        background-size: 18px 18px;
+        background-image: url(../img/ion_travel_11.png);
+    }
+    .promotion_tip{
+        border-top: 1px solid #FDF3C8;
+        background: #FEFBED;
+        border-bottom: 10px solid #F3F3F3;
+    }
+    .promotion_tip .item{
+        height: 35px;
+        padding:0 15px;
+        line-height: 35px;
+        border-bottom: 1px solid #FDF3C8;
+    }
+    .icon_hot{
+        display: inline-block;
+        width:16px;
+        height:16px;
+        margin-top: -2px;
+        background-size: 16px 16px;
+        vertical-align: middle;
+        background-image: url(../img/icon_recommend_11.png);
+    }
+    .icon_recommend{
+        display: inline-block;
+        width:16px;
+        height:16px;
+        margin-top: -2px;
+        background-size: 16px 16px;
+        vertical-align: middle;
+        background-image: url(../img/icon_recommend_14.png);
+    }
+    .padding_box{
+        padding:0 15px;
+    }
+    .list{
+        height:40px;
+        line-height: 40px;
+        border: 1px solid #F4F4F4;
+    }
+    .icon_right{
+        display: inline-block;
+        width: 10px;
+        height: 20px;
+        background-size: 10px 20px;
+        margin-top: 10px;
+        margin-left: 15px;
+        background-image: url(../img/drop_right_07.png);
+
+    }
+
+    .list_box{
+        background: #fff;
+
+        overflow: hidden;
+        padding:10px 0 10px 15px;
+        border-bottom: 10px solid #F3F3F3;
+    }
+    .classPrice_list{
+        /*width:1000%;*/
+        position: relative;
+        left:0;
+        margin:0;
+        padding:0;
+        display: inline-block;
+    }
+    .classPrice_list>li{
+        line-height: 20px;
+        background: #F3F3F3;
+        margin-right:10px;
+        padding:5px 15px;
+        text-align: center;
+        border-radius: 3px;
+    }
+    .detail .navbar_info{
+        background: #ffffff;
+        height: 97px;
+        border-bottom: 10px solid #F3F3F3;
+        padding-bottom: 17px;
+    }
+    .detail .navbar_info .btns{
+        padding:17px 17px 0 0;
+    }
+    .detail .ion_contactPersonPic{
+        border-radius: 0;
+    }
+    .shop_inner{
+        border:0;
+        padding:3px 5px;
+        background: #FAD64D;
+        margin-bottom: 7px;
+    }
+    .consult_adviser{
+        border:0;
+        padding:3px 5px;
+        background: #F3F3F3;
+    }
+    .activity_infoPage{
+        border-bottom: 1px solid #F3F3F3;
+    }
+    .activity_infoPage div{
+           display: inline-block;
+           width:23%;
+           text-align: center;
+           font-size: 16px;
+       }
+    .activity_infoPage span{
+        height:40px;
+        line-height: 40px;
+        display: inline-block;
+        border-bottom: 2px solid transparent;
+    }
+    .activity_infoPage div.active span{
+        border-bottom: 2px solid #FAD64D;
+    }
+    .info_contentSelectBox{
+        border-bottom: 10px solid #F3F3F3;
+    }
+    .detail .info_contentSelectBox .content_first{
+        padding:15px;
+
+    }
+    .content_first>div{
+        margin-top: 10px;
+        text-align: center;
+    }
+    .detail .ion_dropdown{
+
+        display: inline-block;
+        width:18px;
+        height:18px;
+        background-size: 18px 18px;
+        background-image: url(../img/icon_dropDown_17.png);
+    }
+    .padding_title{
+        height: 40px;
+        line-height: 40px;
+        padding-left: 15px;
+        font-size: 16px;
+        border-bottom: 1px solid #F3F3F3;
+    }
+    .line_detailsInfo{
+        padding:0 15px;
+    }
+    .line_detailsInfo>div{
+        border-bottom: 1px solid #F3F3F3;
+    }
+    .line_detailsInfo>div:last-child{
+        border-bottom:0;
+    }
+    .line_detailsInfo .first{
+        padding:20px 0;
+    }
+    .line_detailsInfo .first .box{
+        width:15%;
+    }
+    .line_detailsInfo .first .navbar_daysInfo{
+       display: inline-block;
+    }
+    .ion_day{
+        margin-right:  30px;
+        margin-left:  20px;
+    }
+    .words_infoFirst>div:first-child{
+        width:15%;
+    }
+    .words_infoFirst>div:last-child{
+        width:85%;
+    }
+    .hexagonalTop{
+        width:0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 9px solid #FAD64D;
+    }
+    .hexagonalMiddle{
+        width:30px;
+        height: 18px;
+        background-color: #FAD64D;
+    }
+    .hexagonalBottom{
+        width:0;
+        border-top: 9px solid #FAD64D;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+    .hexagonal{
+        position: relative;
+        margin-bottom:10px;
+    }
+    .days_sign{
+        position:absolute;
+        top:50%;
+        left:50%;
+        margin-left: -10px;
+        margin-top: -10px;
+        font-weight: 700;
+
+    }
+
+    .days_linkLine{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+       height:36px;
+        background: #ECECEC;
+        width: 1px;
+        z-index: -1;
+    }
+    .hexagonal:last-child .days_linkLine{
+          height: 0;
+    }
+
+
+    .hexagonal.active .hexagonalTop{
+        width:0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 9px solid #000000;
+    }
+    .hexagonal.active .hexagonalMiddle{
+        width:30px;
+        height: 18px;
+        background-color: #000000;
+    }
+    .hexagonal.active .hexagonalBottom{
+        width:0;
+        border-top: 9px solid #000000;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+    .hexagonal.active .days_sign{
+        color: #FAD64D;
+    }
+    .dayInfoDetail{
+        width:85%;
+    }
+    .dayInfoDetail .title{
+        font-weight: 700;
+        margin-left: 6px;
+        transform: skew(-20deg);
+        padding: 3px 10px;
+        background: #000;
+        display: inline-block;
+    }
+    .dayInfoDetail .title>span{
+        display: inline-block;
+        transform: skew(20deg);
+        color: #FAD64D;
+    }
+    .line_detailsInfo .travel_img{
+        width:100%;
+        height:160px;
+    }
+    .line_detailsInfo .travel_img img{
+        width:100%;
+        height:160px;
+    }
+    .line_detailsInfo .next{
+        padding:20px 0;
+    }
+    .cost_description{
+        padding:20px;
+    }
+    .cost_description>li>span:first-child{
+        width: 6%;
+    }
+    .cost_description>li>span:last-child{
+        width: 94%;
+    }
+    .bottom_btns{
+        height:50px;
+
+    }
+    .bottom_btns>div:first-child{
+        width:60%;
+        background: #F3F3F3;
+
+    }
+    .bottom_btns>div:first-child>div{
+      text-align: center;
+        height: 50px;
+        width: 40%;
+    }
+    .bottom_btns a{
+        color: #000000;
+    }
+    .bottom_btns a:hover{
+        color: #000000;
+    }
+    .bottom_btns>.online_order{
+        width:40%;
+        height: 50px;
+        border:0;
+        line-height: 50px;
+        background: #FAD64D;
+        font-size: 18px;
+        font-weight: 700;
+    }
+    .bottom_btns>.online_order:focus{
+        outline: none;
+    }
+    .bottom_btns .icon_tel{
+        display: inline-block;
+        margin-top: 7px;
+        width: 18px;
+        height:18px;
+        background-size: 18px 18px;
+        background-image: url(../img/ion_travel_15.png);
+    }
+    .bottom_btns .icon_contact{
+        display: inline-block;
+        margin-top: 7px;
+        width: 18px;
+        height:18px;
+        background-size: 18px 18px;
+        background-image: url(../img/ion_travel_18.png);
+    }
+
+    .bottom_btns p{
+        margin:0;
+
+    }
+   /***ģ̬��***/
+    .modal-overlay {
+        /*visibility: hidden;*/
+        position:fixed ;
+        /* ʹ�þ��Զ�λ��̶���λ  */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .modal-data {
+        width: 82%;
+        margin: 110px auto;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 5px;
+        text-align: center;
+        z-index: 1001;
+    }
+    .modal-data>p {
+        background: black;
+        color: #FAD64D;
+        padding: 10px 20px;
+        height: 45px;
+        width: 100%;
+        font-size: 16px;
+    }
+    .modal-data .modal-close {
+        color: white;
+    }
+    .modal-data input {
+        width: 88%;
+        height: 45px;
+        border-radius: 5px;
+        padding: 0 10px;
+        border: 1px solid rgb(208, 208, 208);
+        outline: medium;
+    }
+    .modal-name {
+        margin: 25px 0px 10px;
+    }
+    .modal-phone {
+        margin-bottom: 40px;
+    }
+    .modal-data button {
+        width: 88%;
+        border-radius: 5px;
+        height: 45px;
+        padding: 0 10px;
+        font-size: 16px;
+        outline: medium;
+    }
+    .call-me {
+        border: 0;
+        background: #FAD64D;
+        margin-bottom: 10px;
+    }
+    .call-adviser {
+        border: 0;
+        background: rgb(224, 224, 224);
+        margin-bottom: 20px;
+    }
+    /*�б�ҳ��*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .list_page{
+
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+    }
+    .product_soso{
+        height: 40px;
+        line-height: 40px;
+        background: #F9D550;
+        text-align: center;
+    }
+    .product_soso>span{
+        display: inline-block;
+    }
+    .ion_left{
+        margin-top: 10px;
+        display: inline-block;
+        width:10px;
+        height:20px;
+        vertical-align: middle;
+        background-size: 10px 20px;
+        background-image: url(../img/ion_left_03.png);
+    }
+    .product_soso>div{
+        padding-left: 10px;
+        display: inline-block;
+        width:80%;
+        background: #fff;
+        border-radius: 3px;
+        height:30px; margin: 0 auto;
+        margin-top: 5px;
+        line-height: 30px;
+
+    }
+    .product_soso>div>input{
+        width:80%;
+        border: 0;
+        height:30px;
+        font-size: 14px;
+    }
+    .product_soso>div>input{
+        outline: none;
+    }
+    .list_page .travelItem_detailIntro{
+        margin:0;
+        padding:10px;
+    }
+    .travelItem_detailIntro>li{
+        padding:15px;
+        border-bottom: 1px solid #E8E8E8;
+    }
+    /*.travelItem_detailIntro>li:last-child{*/
+        /*border-bottom: 0;*/
+    /*}*/
+    .list_page .travelItem_pic{
+        width:26%;
+        height:90px;
+    }
+    .list_page .travelItem_pic img{
+        width:100%;
+        height:90px;
+    }
+    .list_page .Item_detailIntro{
+        width:74%;
+        padding-left: 10px;
+    }
+    .list_page .Item_detailIntro h4{
+        font-size: 14px;
+        height: 40px;
+        line-height: 20px;
+        overflow: hidden;
+        margin:0;
+    }
+    .list_page .Item_detailIntro>p{
+        margin:10px 0;
+    }
+    .special_price{
+        color:#fff;
+        background: #E94D46;
+        border:1px solid #E94D46;
+        font-size: 12px;
+        padding:0 3px;
+        border-radius: 3px;
+    }
+    .quality_select{
+        color:#fff;
+        background: #449FEE;
+        border:1px solid #449FEE;
+        font-size: 12px;
+        padding:0 3px;
+        border-radius: 3px;
+    }
+    .immediate_confirm{
+        color:#FEA045;
+        background: #fff;
+        border:1px solid #FEA045;
+        font-size: 12px;
+        padding:0 3px;
+        border-radius: 3px;
+    }
+    .travelItem_detailIntro .big_font{
+        font-size: 14px;
+    }
+    /*ɸѡҳ��1*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+     .filter{
+        display: none;
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+         margin-left: 100%;
+    }
+     .filter.active{
+        display: block;
+    }
+    .filter .mask{
+        /*width:22%;*/
+        position: absolute;
+        top:0;
+        bottom:0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,.5);
+    }
+    .filter .filter_box{
+        width:78%;
+
+        position: absolute;
+        top:0;
+        left:22%;
+        bottom:0;
+        background: #fff;
+    }
+    .filter_firstList{
+        width:100%;
+    }
+    .ion_right{
+        display: inline-block;
+        width:8px;
+        height:12px;
+        margin-top: 14px;
+        background-size: 8px 12px;
+        background-image: url("../img/ion_right_03.png");
+    }
+    .filter_firstList{
+        margin: 0;
+        padding:0 15px;
+    }
+    .filter_firstList .title{
+        height:40px;
+        line-height: 40px;
+        padding:0 5px;
+    }
+    .filter_firstList .destination{
+        margin:0;
+        padding:0;
+        /*border-bottom: 1px solid #E8E8E8;*/
+    }
+    .filter_firstList .destination{
+        margin:0;
+        padding:0;
+        overflow: hidden;
+
+
+
+    }
+    .filter .line{
+        /*height:1px;*/
+        display: block;
+        margin: 0 auto;
+        margin-top: 5px;
+        height:1px;
+        width:95%;
+        background: #E8E8E8;
+        /*padding: 0 5px;*/
+        /*overflow: hidden;*/
+    }
+
+    .filter_firstList .destination>li{
+        width:78px;
+        padding:0 5px;
+        text-align: center;
+    }
+    .filter_firstList .destination>li>span{
+        width:100%;
+        display: inline-block;
+        background: #F2F2F2;
+        line-height: 25px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+
+    }
+    .filter_firstList .destination .active span{
+        background: #F9D550;
+    }
+    .filter_firstList .title>.yellow_color{
+        margin-right: 5px;
+    }
+    .destination_departure{
+        padding:20px 20px;
+        text-align: center;
+        /*margin-top: 20px;*/
+    }
+    .destination_departure>div{
+        width:40%;
+    }
+    .destination_departure>span{
+        height:40px;
+        line-height: 40px;
+    }
+    .destination_departure input{
+        width:100%;
+        height:40px;
+        line-height: 40px;
+        border:1px solid #E8E8E8;
+    }
+    .destination_departure>span{
+        width:20%;
+        color: #C0C0C0;
+
+    }
+
+    /*ɸѡҳ��2*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .filter_second{
+        display: none;
+        position: fixed;
+
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        /*margin-left: 100%;*/
+    }
+    .filter_second.active{
+        display: block;
+    }
+    .filter_second .mask{
+        /*width:22%;*/
+        position: absolute;
+        top:0;
+        bottom:0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,.5);
+    }
+    .filter_second .filter_box{
+        width:78%;
+
+        position: fixed;
+        top:0;
+        left:22%;
+        bottom:0;
+        background: #fff;
+    }
+    .filter_second .title{
+        height:40px;
+        line-height: 40px;
+        text-align: center;
+        padding: 0 15px;
+    }
+    .filter_second .ion_left{
+        display: inline-block;
+        width: 10px;
+        height: 16px;
+        background-size: 10px 16px;
+        margin-top: 12px;
+        background-image: url(../img/ion-left_03.png);
+    }
+    .filter_second .destination{
+        margin:0;
+        padding:0 20px;
+    }
+    .filter_second .destination>li{
+        width:33.3%;
+        padding:0 5px;
+        text-align: center;
+    }
+    .filter_second .destination>li>span{
+        width:100%;
+        display: inline-block;
+        background: #F2F2F2;
+        line-height: 25px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+
+    }
+    .filter_second .destination .active span{
+        background: #F9D550;
+    }
+    .filter_second .destination>li>span {
+
+        margin-bottom: 20px;
+
+    }
+    .filter_box .btns{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .clear_btn{
+        width: 35%;
+        border:0;
+        height:40px;
+        line-height: 40px;
+        background: #F2F2F2;
+    }
+    .confirm_btn{
+        width: 65%;
+        border:0;
+        height:40px;
+        line-height: 40px;
+        background: #F9D550;
+        text-align: center;
+    }
+    .filter_box .btns button{
+        display: inline-block;
+    }
+    .filter_box .btns button:focus{
+        outline: none;
+    }
+    /*��¼ҳ��*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+
+    .login .login_bg{
+        width:100%;
+        height:220px;
+        margin-bottom: 40px;
+    }
+    .login .login_bg img{
+        width:100%;
+        height:220px;
+    }
+    .login .form_group{
+        margin:10px 30px;
+        border:1px solid #F0F0F0;
+        height: 40px;
+        line-height: 40px;
+    }
+    .login .form_group input{
+        outline: none;
+        background: #fff;
+        height: 38px;
+        line-height: 38px;
+        border:0;
+        width:80%;
+        position: relative;
+        top:-4px;
+    }
+    .icon_person{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-size: 16px 16px;
+        margin:12px 10px 0 10px;
+        background-image: url(../img/login_05.png);
+    }
+    .icon_pwd{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-size: 16px 16px;
+        margin:12px 10px 0 10px;
+        background-image: url(../img/login_08.png);
+    }
+    input:-webkit-autofill,
+    textarea:-webkit-autofill,
+    select:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px white inset;
+    }
+    .login button{
+        text-align: center;
+    }
+    .login .btn_box{
+        padding:30px ;
+    }
+    .login_btn{
+
+        padding: 0;
+        width:100%;
+        border:0;
+        background: #F9D550;
+        height:40px;
+        line-height: 40px;
+    }
+    /*�̼Ҵ�ȫҳ��*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .company_info{
+        /*position: fixed;*/
+        /*top:0;*/
+        /*left:0;*/
+        /*right:0;*/
+        /*bottom: 0;*/
+    }
+    .company_summary{
+        padding:20px 15px;
+        border-bottom: 1px solid #F2F2F2;
+    }
+    .company_info .company_logo{
+        width:20%;
+
+    }
+    .company_info .company_logo img{
+        height:69px;
+        width:100%;
+    }
+    .company_info .company_summaryDetails{
+        width: 80%;
+        padding-left: 10px;
+        font-size: 12px;
+    }
+    .company_summaryDetails h4{
+        margin:5px 0;
+    }
+    .company_name{
+        color: #B2B2B2;
+    }
+    .company_link>p{
+        margin-bottom: 5px;
+    }
+    .company_info .detail_info{
+        margin: 0;
+        padding:0;
+    }
+    .company_info .detail_info .title{
+        height:30px;
+        line-height: 30px;
+        padding-left:15px;
+        border-bottom: 1px solid #E0E0E0;
+    }
+    .company_info .detail_info .content_detail{
+        padding:20px 15px;
+    }
+    .detail_info li{
+        border-bottom: 10px solid #F2F2F2;
+    }
+    .detail_info .intro_img img{
+        width: 100%;
+        height:160px;
+    }
+    .company_info .detail_info .map{
+        border:0;
+    }
+    .company_map{
+        padding: 20px 15px;
+    }
+    .company_map img{
+        width: 100%;
+        height:160px;
+    }
+    .line_consult{
+        padding:15px;
+    }
+    .line_consult .line_title{
+        color:#A5A5A5;
+        font-size: 12px;
+        margin:10px 0;
+    }
+    .line_consult li {
+        padding: 0 5px;
+        line-height: 25px;
+        height: 25px;
+        border-radius: 2px;
+        font-size: 12px;
+        border: 1px solid #eaeaea;
+        margin-right: 10px;
+    }
+    .qq_logo{
+        vertical-align: middle;
+        display: inline-block;
+        width: 15px;
+        position: relative;
+        top: -2px;
+        height: 15px;
+        background-size: 15px 15px;
+        background-image: url(../img/qqLogoLink_03.png);
+    }
+    .qq_logo.offLine{
+        vertical-align: middle;
+        display: inline-block;
+        width: 15px;
+        position: relative;
+        top: -2px;
+        height: 15px;
+        background-size: 15px 15px;
+        background-image: url(../img/offLine_07.png);
+    }
+    .line_consult ul{
+        margin:0;
+        padding:0;
+    }
+    .line_consult>div li{
+        margin-bottom: 10px;
+    }
+    .line_consult>div{
+
+        border-bottom: 1px solid #F0F0F0;
+    }
+    .line_consult>div:last-child{
+        margin-bottom: 0;
+        border-bottom: 0;
+    }
+    .line_consult a{
+        color: #000000;
+    }
+    .line_consult a:hover{
+        color: #000000;
+    }
+}
+@media (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+/* ����iphone5 */
+    /*H5��ҳ*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .h5_index{
+
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+    }
+    .navbar_info{
+        background: #FAD64D;
+        height:80px;
+    }
+    .ion_contactPersonPic{
+        margin:17px 10px 17px 15px ;
+        width:46px;
+        height:46px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #000;
+    }
+    .navbar_info .info_box{
+        margin-top:15px;
+    }
+    .navbar_info .info_box p{
+        margin:0;
+    }
+    .ion_contactPersonPic img{
+        width:46px;
+        height:46px;
+    }
+    .navbar_info{
+        font-size: 12px;
+    }
+    .navbar_info .name{
+        font-size: 16px;
+        font-weight:700;
+
+    }
+    .navbar_info .mark{
+        display: inline-block;
+        color:#FAD64D;
+        border-radius: 4px;
+        background: #000;
+        margin-left:5px;
+        height:21px;
+        line-height: 21px;
+        padding: 0;
+    }
+    .top_advertisement{
+        height:175px;
+    }
+    .top_advertisement .carousel-inner .item img{
+        height:175px;
+    }
+    .top_advertisement .carousel-indicators li{
+        border-radius: 50%;
+        background: #1C1B20;
+    }
+    .top_advertisement .carousel-indicators .active{
+        background: #FAD64D;
+
+    }
+    .travel_line{
+        background: #ffffff;
+        padding:0 15px;
+    }
+    .travel_line .item{
+        width:25%;
+        text-align: center;
+    }
+    .icon_exit{
+        display: inline-block;
+        width:40px;
+        height:40px;
+        background-size: 40px 40px;
+        margin-top:20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_03.png);
+    }
+    .icon_domestic{
+        display: inline-block;
+        width:40px;
+        height:40px;
+        background-size: 40px 40px;
+        margin-top:20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_05.png);
+    }
+    .icon_liner{
+        display: inline-block;
+        width:40px;
+        height:40px;
+        background-size: 40px 40px;
+        margin-top:20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_07.png);
+    }
+    .icon_around{
+        display: inline-block;
+        width:40px;
+        height:40px;
+        background-size: 40px 40px;
+        margin-top:20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_10.png);
+    }
+    .travel_line a{
+        color: #000000;
+        text-decoration: none;
+    }
+    .travel_line a:hover{
+        color: #000000;
+    }
+    .soso{
+        padding:10px 15px;
+        background: #F3F3F3;
+    }
+    .soso>div{
+        background:#fff;
+        height:30px;
+        line-height: 30px;
+        border-radius: 3px;
+        padding:0 10px;
+    }
+    .soso>div>input{
+        border:0;
+        height:30px;
+
+
+    }
+    .soso>div>input:focus{
+        outline: none;
+    }
+    .ion_magnifier{
+        margin-top: 7px;
+        margin-right: 10px;
+        display: inline-block;
+        width:15px;
+        height:15px;
+        background-size: 15px 15px;
+        background-image: url(../img/ion_magnifier_19.png);
+    }
+    .icon_crown{
+        display: inline-block;
+        width:18px;
+        height:18px;
+        margin-right:10px;
+        background-size: 18px 18px;
+        background-image: url(../img/icon_sa_11.png);
+    }
+    .product_details>h4{
+        font-size: 16px;
+    }
+    .h5_index .product_details{
+        padding:0 15px;
+        border-bottom: 1px solid #EBEBEB;
+    }
+    .h5_index .products_list{
+        margin:0;
+        padding:0;
+    }
+    .h5_index .products_list>li{
+        border-bottom: 1px solid #EBEBEB;
+        padding: 15px;
+        position: relative;
+    }
+    .h5_index .products_list>li>.clearfloat {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+    .h5_index .products_list>li:last-child{
+        border-bottom:0;
+    }
+    .products_list h5 a{
+        color: #000;
+    }
+    .h5_index .products_list .img{
+        width:30%;
+        height:80px;
+
+    }
+    .h5_index .products_list .img img{
+        width:75px;
+        height:80px;
+
+    }
+    .products_list a{
+        color: #000000;
+    }
+    .products_list a:focus{
+        color: #000000;
+    }
+    .h5_index .products_list .content{
+        width:70%;
+    }
+    .products_list h5 a:focus{
+        color: #000;
+    }
+    .h5_index .products_list p{
+        margin:0;
+    }
+    .yellow_price{
+        display: inline-block;
+        height: 25px;
+        background: #FAD64D;
+        position: relative;
+        top:-5px;
+        padding:0 5px;
+        border-radius: 3px;
+    }
+    .yellow_price .big_font{
+        font-size: 18px;
+    }
+    /*����ҳ*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .detail .navbar_img{
+        width:100%;
+        height:170px;
+    }
+    .detail .navbar_img img{
+        width:100%;
+        height:170px;
+    }
+    .detail .navbar_tip{
+        height:35px;
+        line-height: 35px;
+        color:#FAD64D;
+        background: #000000;
+        padding: 0 15px;
+    }
+    .icon_location{
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -2px;
+        height:16px;
+        width: 14px;
+        background-size: 14px 16px;
+        background-repeat: no-repeat;
+        background-image: url(../img/ion_travel_07.png);
+    }
+    .detail .travel_detailTop{
+        padding: 20px 15px;
+        background: #ffffff;
+    }
+    .travel_detailTop .big_font{
+        font-size: 16px;
+    }
+    .travel_detailTop h4{
+        margin:0;
+    }
+    .travel_name a{
+        color: #000000;
+        font-size: 16px;
+    }
+    .travel_name a:hover{
+        color: #000000;
+    }
+    .travel_detailTop .bottom{
+        height:30px;
+        line-height: 30px;
+    }
+    .travel_detailTop .bottom>.danger_color{
+        margin-right:10px;
+    }
+    .ion_correct{
+        display: inline-block;
+        width:18px;
+        height:18px;
+        vertical-align: middle;
+        margin-top: -2px;
+        background-size: 18px 18px;
+        background-image: url(../img/ion_travel_11.png);
+    }
+    .promotion_tip{
+        border-top: 1px solid #FDF3C8;
+        background: #FEFBED;
+        border-bottom: 10px solid #F3F3F3;
+    }
+    .promotion_tip .item{
+        height: 35px;
+        padding:0 15px;
+        line-height: 35px;
+        border-bottom: 1px solid #FDF3C8;
+    }
+    .icon_hot{
+        display: inline-block;
+        width:16px;
+        height:16px;
+        margin-top: -2px;
+        background-size: 16px 16px;
+        vertical-align: middle;
+        background-image: url(../img/icon_recommend_11.png);
+    }
+    .icon_recommend{
+        display: inline-block;
+        width:16px;
+        height:16px;
+        margin-top: -2px;
+        background-size: 16px 16px;
+        vertical-align: middle;
+        background-image: url(../img/icon_recommend_14.png);
+    }
+    .padding_box{
+        padding:0 15px;
+    }
+    .list{
+        height:40px;
+        line-height: 40px;
+        border: 1px solid #F4F4F4;
+    }
+    .icon_right{
+        display: inline-block;
+        width: 10px;
+        height: 20px;
+        background-size: 10px 20px;
+        margin-top: 10px;
+        margin-left: 15px;
+        background-image: url(../img/drop_right_07.png);
+
+    }
+
+    .list_box{
+        width:100%;
+        overflow: hidden;
+        padding:10px 0 10px 15px;
+        border-bottom: 10px solid #F3F3F3;
+    }
+
+    .classPrice_list>li{
+        line-height: 20px;
+        background: #F3F3F3;
+        margin-right:10px;
+        padding:5px 15px;
+        text-align: center;
+        border-radius: 3px;
+    }
+    .detail .navbar_info{
+        background: #ffffff;
+        height: 97px;
+        border-bottom: 10px solid #F3F3F3;
+        padding-bottom: 17px;
+    }
+    .detail .navbar_info .btns{
+        padding:17px 17px 0 0;
+    }
+    .detail .ion_contactPersonPic{
+        border-radius: 0;
+    }
+    .shop_inner{
+        border:0;
+        padding:3px 5px;
+        background: #FAD64D;
+        margin-bottom: 7px;
+    }
+    .consult_adviser{
+        border:0;
+        padding:3px 5px;
+        background: #F3F3F3;
+    }
+    .activity_infoPage{
+        border-bottom: 1px solid #F3F3F3;
+    }
+    .activity_infoPage div{
+        display: inline-block;
+        width:32%;
+        text-align: center;
+        font-size: 16px;
+    }
+    .activity_infoPage span{
+        height:40px;
+        line-height: 40px;
+        display: inline-block;
+        border-bottom: 2px solid transparent;
+    }
+    .activity_infoPage div.active span{
+        border-bottom: 2px solid #FAD64D;
+    }
+    .info_contentSelectBox{
+        border-bottom: 10px solid #F3F3F3;
+    }
+    .detail .info_contentSelectBox .content_first{
+        padding:15px;
+
+    }
+    .content_first>div{
+        margin-top: 10px;
+        text-align: center;
+    }
+    .detail .ion_dropdown{
+
+        display: inline-block;
+        width:18px;
+        height:18px;
+        background-size: 18px 18px;
+        background-image: url(../img/icon_dropDown_17.png);
+    }
+    .padding_title{
+        height: 40px;
+        line-height: 40px;
+        padding-left: 15px;
+        font-size: 16px;
+        border-bottom: 1px solid #F3F3F3;
+    }
+    .line_detailsInfo{
+        padding:0 15px;
+    }
+    .line_detailsInfo>div{
+        border-bottom: 1px solid #F3F3F3;
+    }
+    .line_detailsInfo>div:last-child{
+        border-bottom:0;
+    }
+    .line_detailsInfo .first{
+        padding:20px 0;
+    }
+    .line_detailsInfo .first .box{
+        width:15%;
+    }
+    .line_detailsInfo .first .navbar_daysInfo{
+        display: inline-block;
+    }
+    .ion_day{
+        margin-right:  30px;
+        margin-left:  20px;
+    }
+    .words_infoFirst>div:first-child{
+        width:15%;
+    }
+    .words_infoFirst>div:last-child{
+        width:85%;
+    }
+    .hexagonalTop{
+        width:0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 9px solid #FAD64D;
+    }
+    .hexagonalMiddle{
+        width:30px;
+        height: 18px;
+        background-color: #FAD64D;
+    }
+    .hexagonalBottom{
+        width:0;
+        border-top: 9px solid #FAD64D;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+    .hexagonal{
+        position: relative;
+        margin-bottom:10px;
+    }
+    .days_sign{
+        position:absolute;
+        top:50%;
+        left:50%;
+        margin-left: -10px;
+        margin-top: -10px;
+        font-weight: 700;
+
+    }
+
+    .days_linkLine{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height:36px;
+        background: #ECECEC;
+        width: 1px;
+        z-index: -1;
+    }
+    .hexagonal:last-child .days_linkLine{
+        height: 0;
+    }
+
+
+    .hexagonal.active .hexagonalTop{
+        width:0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 9px solid #000000;
+    }
+    .hexagonal.active .hexagonalMiddle{
+        width:30px;
+        height: 18px;
+        background-color: #000000;
+    }
+    .hexagonal.active .hexagonalBottom{
+        width:0;
+        border-top: 9px solid #000000;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+    .hexagonal.active .days_sign{
+        color: #FAD64D;
+    }
+    .dayInfoDetail{
+        width:85%;
+    }
+    .dayInfoDetail .title{
+        font-weight: 700;
+        margin-left: 6px;
+        transform: skew(-20deg);
+        padding: 3px 10px;
+        background: #000;
+        display: inline-block;
+    }
+    .dayInfoDetail .title>span{
+        display: inline-block;
+        transform: skew(20deg);
+        color: #FAD64D;
+    }
+    .line_detailsInfo .travel_img{
+        width:100%;
+        height:160px;
+    }
+    .line_detailsInfo .travel_img img{
+        width:100%;
+        height:160px;
+    }
+    .line_detailsInfo .next{
+        padding:20px 0;
+    }
+    .cost_description{
+        padding:20px;
+    }
+    .cost_description>li>span:first-child{
+        width: 6%;
+    }
+    .cost_description>li>span:last-child{
+        width: 94%;
+    }
+    .bottom_btns{
+        height:50px;
+
+    }
+    .bottom_btns>div:first-child{
+        width:60%;
+        background: #F3F3F3;
+
+    }
+    .bottom_btns>div:first-child>div{
+        text-align: center;
+        height: 50px;
+        width: 40%;
+    }
+    .bottom_btns a{
+        color: #000000;
+    }
+    .bottom_btns a:hover{
+        color: #000000;
+    }
+    .bottom_btns>.online_order{
+        width:40%;
+        height: 50px;
+        border:0;
+        line-height: 50px;
+        background: #FAD64D;
+        font-size: 18px;
+        font-weight: 700;
+    }
+    .bottom_btns>.online_order:focus{
+        outline: none;
+    }
+    .bottom_btns .icon_tel{
+        display: inline-block;
+        margin-top: 7px;
+        width: 18px;
+        height:18px;
+        background-size: 18px 18px;
+        background-image: url(../img/ion_travel_15.png);
+    }
+    .bottom_btns .icon_contact{
+        display: inline-block;
+        margin-top: 7px;
+        width: 18px;
+        height:18px;
+        background-size: 18px 18px;
+        background-image: url(../img/ion_travel_18.png);
+    }
+
+    .bottom_btns p{
+        margin:0;
+
+    }
+    /*�б�ҳģ̬��*/
+    .modal-overlay {
+        /*visibility: hidden;*/
+        position: fixed;
+        /* ʹ�þ��Զ�λ��̶���λ  */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-data {
+        width: 84%;
+        margin: 130px auto;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 5px;
+        text-align: center;
+        z-index: 1001;
+    }
+    .modal-data>p {
+        background: black;
+        color: #FAD64D;
+        padding: 10px 18px;
+        height: 40px;
+        width: 100%;
+    }
+    .modal-data .modal-close {
+        color: white;
+    }
+    .modal-data input {
+        width: 88%;
+        height: 40px;
+        border-radius: 3px;
+        padding: 0 10px;
+        border: 1px solid rgb(208, 208, 208);
+        outline: medium;
+    }
+    .modal-name {
+        margin: 20px 0px 10px;
+    }
+    .modal-phone {
+        margin-bottom: 30px;
+    }
+    .modal-data button {
+        width: 88%;
+        height: 40px;
+        border-radius: 3px;
+        padding: 10px 0;
+        outline: medium;
+    }
+    .call-me {
+        border: 0;
+        background: #FAD64D;
+        margin-bottom: 10px;
+    }
+    .call-adviser {
+        border: 0;
+        background: rgb(224, 224, 224);
+        margin-bottom: 20px;
+    }
+    /*�б�ҳ��*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .list_page{
+
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+    }
+    .product_soso{
+        height: 40px;
+        line-height: 40px;
+        background: #F9D550;
+        text-align: center;
+    }
+    .product_soso>span{
+        display: inline-block;
+    }
+    .ion_left{
+        margin-top: 10px;
+        display: inline-block;
+        width:10px;
+        height:20px;
+        vertical-align: middle;
+        background-size: 10px 20px;
+        background-image: url(../img/ion_left_03.png);
+    }
+    .product_soso>div{
+        padding-left: 10px;
+        display: inline-block;
+        width:80%;
+        background: #fff;
+        border-radius: 3px;
+        height:30px; margin: 0 auto;
+        margin-top: 5px;
+        line-height: 30px;
+
+    }
+    .product_soso>div>input{
+        width:80%;
+        border: 0;
+        height:30px;
+        font-size: 14px;
+    }
+    .product_soso>div>input{
+        outline: none;
+    }
+    .list_page .travelItem_detailIntro{
+        margin:0;
+        padding:10px;
+    }
+    .travelItem_detailIntro>li{
+        padding:15px;
+        border-bottom: 1px solid #E8E8E8;
+    }
+    /*.travelItem_detailIntro>li:last-child{*/
+    /*border-bottom: 0;*/
+    /*}*/
+    .list_page .travelItem_pic{
+        width:26%;
+        height:75px;
+    }
+    .list_page .travelItem_pic img{
+        width:100%;
+        height:75px;
+    }
+    .list_page .Item_detailIntro{
+        width:74%;
+        padding-left: 10px;
+    }
+    .list_page .Item_detailIntro h4{
+        font-size: 14px;
+        line-height: 20px;
+        height: 40px;
+        overflow: hidden;
+        margin:0;
+    }
+    .list_page .Item_detailIntro>p{
+        margin:3px 0;
+    }
+    .special_price{
+        color:#fff;
+        background: #E94D46;
+        border:1px solid #E94D46;
+        font-size: 12px;
+        padding:0 3px;
+        border-radius: 3px;
+    }
+    .quality_select{
+        color:#fff;
+        background: #449FEE;
+        border:1px solid #449FEE;
+        font-size: 12px;
+        padding:0 3px;
+        border-radius: 3px;
+    }
+    .immediate_confirm{
+        color:#FEA045;
+        background: #fff;
+        border:1px solid #FEA045;
+        font-size: 12px;
+        padding:0 3px;
+        border-radius: 3px;
+    }
+    .travelItem_detailIntro .big_font{
+        font-size: 12px;
+    }
+    /*ɸѡҳ��1*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .filter{
+        display: none;
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        margin-left: 100%;
+    }
+    .filter.active{
+        display: block;
+    }
+    .filter .mask{
+        /*width:22%;*/
+        position: absolute;
+        top:0;
+        bottom:0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,.5);
+    }
+    .filter .filter_box{
+        width:78%;
+
+        position: fixed;
+        top:0;
+        left:22%;
+        bottom:0;
+        background: #fff;
+    }
+    .filter_firstList{
+        width:100%;
+    }
+    .ion_right{
+        display: inline-block;
+        width:8px;
+        height:12px;
+        margin-top: 14px;
+        background-size: 8px 12px;
+        background-image: url("../img/ion_right_03.png");
+    }
+    .filter_firstList{
+        margin: 0;
+        padding:0 15px;
+    }
+    .filter_firstList .title{
+        height:40px;
+        line-height: 40px;
+        padding:0 5px;
+    }
+    .filter_firstList .destination{
+        margin:0;
+        padding:0;
+        /*border-bottom: 1px solid #E8E8E8;*/
+    }
+    .filter_firstList .destination{
+        margin:0;
+        padding:0;
+
+    }
+    .filter .line{
+        /*height:1px;*/
+        display: block;
+        margin: 0 auto;
+        margin-top: 5px;
+        height:1px;
+        width:95%;
+        background: #E8E8E8;
+        /*padding: 0 5px;*/
+        /*overflow: hidden;*/
+    }
+
+    .filter_firstList .destination>li{
+        width:78px;
+        padding:0 5px;
+        text-align: center;
+    }
+    .filter_firstList .destination>li>span{
+        width:100%;
+        display: inline-block;
+        background: #F2F2F2;
+        line-height: 25px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+
+    }
+    .filter_firstList .destination .active span{
+        background: #F9D550;
+    }
+    .filter_firstList .title>.yellow_color{
+        margin-right: 5px;
+    }
+    .destination_departure{
+        padding:20px 20px;
+        text-align: center;
+        /*margin-top: 20px;*/
+    }
+    .destination_departure>div{
+        width:40%;
+    }
+    .destination_departure>span{
+        height:40px;
+        line-height: 40px;
+    }
+    .destination_departure input{
+        width:100%;
+        height:40px;
+        line-height: 40px;
+        border:1px solid #E8E8E8;
+    }
+    .destination_departure>span{
+        width:20%;
+        color: #C0C0C0;
+
+    }
+    /*ɸѡҳ��2*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .filter_second{
+        display: none;
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        /*margin-left: 100%;*/
+    }
+    .filter_second.active{
+        display: block;
+    }
+    .filter_second .mask{
+        /*width:22%;*/
+        position: absolute;
+        top:0;
+        bottom:0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,.5);
+    }
+    .filter_second .filter_box{
+        width:78%;
+
+        position: fixed;
+        top:0;
+        left:22%;
+        bottom:0;
+        background: #fff;
+    }
+    .filter_second .title{
+        height:40px;
+        line-height: 40px;
+        text-align: center;
+        padding: 0 15px;
+    }
+    .filter_second .ion_left{
+        display: inline-block;
+        width: 10px;
+        height: 16px;
+        background-size: 10px 16px;
+        margin-top: 12px;
+        background-image: url(../img/ion-left_03.png);
+    }
+    .filter_second .destination{
+        margin:0;
+        padding:0 20px;
+    }
+    .filter_second .destination>li{
+        width:33.3%;
+        padding:0 5px;
+        text-align: center;
+    }
+    .filter_second .destination>li>span{
+        width:100%;
+        display: inline-block;
+        background: #F2F2F2;
+        line-height: 25px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+
+    }
+    .filter_second .destination .active span{
+        background: #F9D550;
+    }
+    .filter_second .destination>li>span {
+
+        margin-bottom: 20px;
+
+    }
+    .filter_box .btns{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .clear_btn{
+        width: 35%;
+        border:0;
+        height:40px;
+        line-height: 40px;
+        background: #F2F2F2;
+    }
+    .confirm_btn{
+        width: 65%;
+        border:0;
+        height:40px;
+        line-height: 40px;
+        background: #F9D550;
+        text-align: center;
+    }
+    .filter_box .btns button{
+        display: inline-block;
+    }
+    .filter_box .btns button:focus{
+        outline: none;
+    }
+    /*��¼ҳ��*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .login .login_bg{
+        width:100%;
+        height:220px;
+        margin-bottom: 40px;
+    }
+    .login .login_bg img{
+        width:100%;
+        height:220px;
+    }
+    .login .form_group{
+        margin:10px 30px;
+        border:1px solid #F0F0F0;
+        height: 40px;
+        line-height: 40px;
+    }
+    .login .form_group input{
+        outline: none;
+        background: #fff;
+        height: 38px;
+        line-height: 38px;
+        border:0;
+        width:80%;
+        position: relative;
+        top:-4px;
+    }
+    .icon_person{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-size: 16px 16px;
+        margin:12px 10px 0 10px;
+        background-image: url(../img/login_05.png);
+    }
+    .icon_pwd{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-size: 16px 16px;
+        margin:12px 10px 0 10px;
+        background-image: url(../img/login_08.png);
+    }
+    input:-webkit-autofill,
+    textarea:-webkit-autofill,
+    select:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px white inset;
+    }
+    .login button{
+        text-align: center;
+    }
+    .login .btn_box{
+        padding:30px ;
+    }
+    .login_btn{
+
+        padding: 0;
+        width:100%;
+        border:0;
+        background: #F9D550;
+        height:40px;
+        line-height: 40px;
+    }
+    /*�̼Ҵ�ȫҳ��*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .company_info{
+        /*position: fixed;*/
+        /*top:0;*/
+        /*left:0;*/
+        /*right:0;*/
+        /*bottom: 0;*/
+    }
+    .company_summary{
+        padding:20px 15px;
+        border-bottom: 1px solid #F2F2F2;
+    }
+    .company_info .company_logo{
+        width:20%;
+
+    }
+    .company_info .company_logo img{
+        height:69px;
+        width:100%;
+    }
+    .company_info .company_summaryDetails{
+        width: 80%;
+        padding-left: 10px;
+        font-size: 12px;
+    }
+    .company_summaryDetails h4{
+        margin:5px 0;
+    }
+    .company_name{
+        color: #B2B2B2;
+    }
+    .company_link>p{
+        margin-bottom: 5px;
+    }
+    .company_info .detail_info{
+        margin: 0;
+        padding:0;
+    }
+    .company_info .detail_info .title{
+        height:30px;
+        line-height: 30px;
+        padding-left:15px;
+        border-bottom: 1px solid #E0E0E0;
+    }
+    .company_info .detail_info .content_detail{
+        padding:20px 15px;
+    }
+    .detail_info li{
+        border-bottom: 10px solid #F2F2F2;
+    }
+    .detail_info .intro_img img{
+        width: 100%;
+        height:160px;
+    }
+    .company_info .detail_info .map{
+        border:0;
+    }
+    .company_map{
+        padding: 20px 15px;
+    }
+    .company_map img{
+        width: 100%;
+        height:160px;
+    }
+    .line_consult{
+        padding:15px;
+    }
+    .line_consult .line_title{
+        color:#A5A5A5;
+        font-size: 12px;
+        margin:10px 0;
+    }
+    .line_consult li {
+        padding: 0 5px;
+        line-height: 25px;
+        height: 25px;
+        border-radius: 2px;
+        font-size: 12px;
+        border: 1px solid #eaeaea;
+        margin-right: 10px;
+    }
+    .qq_logo{
+        vertical-align: middle;
+        display: inline-block;
+        width: 15px;
+        position: relative;
+        top: -2px;
+        height: 15px;
+        background-size: 15px 15px;
+        background-image: url(../img/qqLogoLink_03.png);
+    }
+    .qq_logo.offLine{
+        vertical-align: middle;
+        display: inline-block;
+        width: 15px;
+        position: relative;
+        top: -2px;
+        height: 15px;
+        background-size: 15px 15px;
+        background-image: url(../img/offLine_07.png);
+    }
+    .line_consult ul{
+        margin:0;
+        padding:0;
+    }
+    .line_consult>div li{
+        margin-bottom: 10px;
+    }
+    .line_consult>div{
+
+        border-bottom: 1px solid #F0F0F0;
+    }
+    .line_consult>div:last-child{
+        margin-bottom: 0;
+        border-bottom: 0;
+    }
+    .line_consult a{
+        color: #000000;
+    }
+    .line_consult a:hover{
+        color: #000000;
+    }
+}
+/*6+*/
+@media (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
+    /*H5��ҳ*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    #applications span{
+
+
+}
+
+    .h5_index{
+
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+    }
+    .navbar_info{
+        background: #FAD64D;
+        height:80px;
+    }
+    .ion_contactPersonPic{
+        margin:17px 10px 17px 15px ;
+        width:46px;
+        height:46px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #000;
+    }
+    .navbar_info .info_box{
+        margin-top:15px;
+    }
+    .navbar_info .info_box p{
+        margin:0;
+    }
+    .ion_contactPersonPic img{
+        width:46px;
+        height:46px;
+    }
+    .navbar_info{
+        font-size: 12px;
+    }
+    .navbar_info .name{
+        font-size: 16px;
+        font-weight:700;
+
+    }
+    .navbar_info .mark{
+        display: inline-block;
+        color:#FAD64D;
+        border-radius: 4px;
+        background: #000;
+        margin-left:5px;
+        height:21px;
+        line-height: 21px;
+    }
+    .top_advertisement{
+        height:190px;
+    }
+   /* .top_advertisement .carousel-inner .item img{
+        height:190px;
+    }*/
+    .top_advertisement .carousel-indicators li{
+        border-radius: 50%;
+        background: #1C1B20;
+    }
+    .top_advertisement .carousel-indicators .active{
+        background: #FAD64D;
+
+    }
+    .travel_line{
+        background: #ffffff;
+        padding:0 15px;
+    }
+    .travel_line .item{
+        width:25%;
+        text-align: center;
+    }
+    .icon_exit{
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        background-size: 45px 45px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_03.png);
+    }
+    .icon_domestic{
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        background-size: 45px 45px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_05.png);
+    }
+    .icon_liner{
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        background-size: 45px 45px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_07.png);
+    }
+    .icon_around{
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        background-size: 45px 45px;
+        margin-top: 20px;
+        margin-bottom: 5px;
+        background-image: url(../img/ion_10.png);
+    }
+    .travel_line a{
+        color: #000000;
+        text-decoration: none;
+    }
+    .travel_line a:hover{
+        color: #000000;
+    }
+    .soso{
+        padding:10px 15px;
+        background: #F3F3F3;
+    }
+    .soso>div{
+        background:#fff;
+        height:30px;
+        line-height: 30px;
+        border-radius: 3px;
+        padding:0 10px;
+    }
+    .soso>div>input{
+        border:0;
+        height:30px;
+
+
+    }
+    .soso>div>input:focus{
+        outline: none;
+    }
+    .ion_magnifier{
+        margin-top: 7px;
+        margin-right: 10px;
+        display: inline-block;
+        width:15px;
+        height:15px;
+        background-size: 15px 15px;
+        background-image: url(../img/ion_magnifier_19.png);
+    }
+    .icon_crown{
+        display: inline-block;
+        width:18px;
+        height:18px;
+        margin-right:10px;
+        background-size: 18px 18px;
+        background-image: url(../img/icon_sa_11.png);
+    }
+    .product_details>h4{
+        font-size: 16px;
+    }
+    .h5_index .product_details{
+        padding:0 15px;
+        border-bottom: 1px solid #EBEBEB;
+    }
+    .h5_index .products_list{
+        margin:0;
+        padding:0;
+    }
+    .h5_index .products_list>li{
+        border-bottom: 1px solid #EBEBEB;
+        padding:15px;
+    }
+    .h5_index .products_list>li:last-child{
+        border-bottom:0;
+    }
+    .products_list h5 a{
+        color: #000;
+    }
+    .h5_index .products_list .img{
+        width:30%;
+        height:80px;
+
+    }
+    .h5_index .products_list .img img{
+        width:95px;
+        height:80px;
+
+    }
+    .products_list a{
+        color: #000000;
+    }
+    .products_list a:focus{
+        color: #000000;
+    }
+    .h5_index .products_list .content{
+        width:70%;
+    }
+    .products_list h5 a:focus{
+        color: #000;
+    }
+    .h5_index .products_list p{
+        margin:0;
+    }
+    .yellow_price{
+        display: inline-block;
+        height: 25px;
+        background: #FAD64D;
+        position: relative;
+        top:-5px;
+        padding:0 5px;
+        border-radius: 3px;
+    }
+    .yellow_price .big_font{
+        font-size: 18px;
+    }
+    /*����ҳ*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .detail .navbar_img{
+        width:100%;
+        height:170px;
+    }
+    .detail .navbar_img img{
+        width:100%;
+        height:170px;
+    }
+    .detail .navbar_tip{
+        height:35px;
+        line-height: 35px;
+        color:#FAD64D;
+        background: #000000;
+        padding: 0 15px;
+    }
+    .icon_location{
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -2px;
+        height:16px;
+        width: 14px;
+        background-size: 14px 16px;
+        background-repeat: no-repeat;
+        background-image: url(../img/ion_travel_07.png);
+    }
+    .detail .travel_detailTop{
+        padding: 20px 15px;
+        background: #ffffff;
+    }
+    .travel_detailTop .big_font{
+        font-size: 16px;
+    }
+    .travel_detailTop h4{
+        margin:0;
+    }
+    .travel_name a{
+        color: #000000;
+        font-size: 16px;
+    }
+    .travel_name a:hover{
+        color: #000000;
+    }
+    .travel_detailTop .bottom{
+        height:30px;
+        line-height: 30px;
+    }
+    .travel_detailTop .bottom>.danger_color{
+        margin-right:10px;
+    }
+    .ion_correct{
+        display: inline-block;
+        width:18px;
+        height:18px;
+        vertical-align: middle;
+        margin-top: -2px;
+        background-size: 18px 18px;
+        background-image: url(../img/ion_travel_11.png);
+    }
+    .promotion_tip{
+        border-top: 1px solid #FDF3C8;
+        background: #FEFBED;
+        border-bottom: 10px solid #F3F3F3;
+    }
+    .promotion_tip .item{
+        height: 35px;
+        padding:0 15px;
+        line-height: 35px;
+        border-bottom: 1px solid #FDF3C8;
+    }
+    .icon_hot{
+        display: inline-block;
+        width:16px;
+        height:16px;
+        margin-top: -2px;
+        background-size: 16px 16px;
+        vertical-align: middle;
+        background-image: url(../img/icon_recommend_11.png);
+    }
+    .icon_recommend{
+        display: inline-block;
+        width:16px;
+        height:16px;
+        margin-top: -2px;
+        background-size: 16px 16px;
+        vertical-align: middle;
+        background-image: url(../img/icon_recommend_14.png);
+    }
+    .padding_box{
+        padding:0 15px;
+    }
+    .list{
+        height:40px;
+        line-height: 40px;
+        border: 1px solid #F4F4F4;
+    }
+    .icon_right{
+        display: inline-block;
+        width: 10px;
+        height: 20px;
+        background-size: 10px 20px;
+        margin-top: 10px;
+        margin-left: 15px;
+        background-image: url(../img/drop_right_07.png);
+
+    }
+    .classPrice_list{
+        margin:0;
+        padding:0;
+    }
+    .list_box{
+        width:100%;
+        overflow: hidden;
+        padding:10px 0 10px 15px;
+        border-bottom: 10px solid #F3F3F3;
+    }
+
+    .classPrice_list>li{
+        line-height: 20px;
+        background: #F3F3F3;
+        margin-right:10px;
+        padding:5px 15px;
+        text-align: center;
+        border-radius: 3px;
+    }
+    .detail .navbar_info{
+        background: #ffffff;
+        height: 97px;
+        border-bottom: 10px solid #F3F3F3;
+        padding-bottom: 17px;
+    }
+    .detail .navbar_info .btns{
+        padding:17px 17px 0 0;
+    }
+    .detail .ion_contactPersonPic{
+        border-radius: 0;
+    }
+    .shop_inner{
+        border:0;
+        padding:3px 5px;
+        background: #FAD64D;
+        margin-bottom: 7px;
+    }
+    .consult_adviser{
+        border:0;
+        padding:3px 5px;
+        background: #F3F3F3;
+    }
+    .activity_infoPage{
+        border-bottom: 1px solid #F3F3F3;
+    }
+    .activity_infoPage div{
+        display: inline-block;
+        width:32%;
+        text-align: center;
+        font-size: 16px;
+    }
+    .activity_infoPage span{
+        height:40px;
+        line-height: 40px;
+        display: inline-block;
+        border-bottom: 2px solid transparent;
+    }
+    .activity_infoPage div.active span{
+        border-bottom: 2px solid #FAD64D;
+    }
+    .info_contentSelectBox{
+        border-bottom: 10px solid #F3F3F3;
+    }
+    .detail .info_contentSelectBox .content_first{
+        padding:15px;
+
+    }
+    .content_first>div{
+        margin-top: 10px;
+        text-align: center;
+    }
+    .detail .ion_dropdown{
+
+        display: inline-block;
+        width:18px;
+        height:18px;
+        background-size: 18px 18px;
+        background-image: url(../img/icon_dropDown_17.png);
+    }
+    .padding_title{
+        height: 40px;
+        line-height: 40px;
+        padding-left: 15px;
+        font-size: 16px;
+        border-bottom: 1px solid #F3F3F3;
+    }
+    .line_detailsInfo{
+        padding:0 15px;
+    }
+    .line_detailsInfo>div{
+        border-bottom: 1px solid #F3F3F3;
+    }
+    .line_detailsInfo>div:last-child{
+        border-bottom:0;
+    }
+    .line_detailsInfo .first{
+        padding:20px 0;
+    }
+    .line_detailsInfo .first .box{
+        width:15%;
+    }
+    .line_detailsInfo .first .navbar_daysInfo{
+        display: inline-block;
+
+    }
+    .ion_day{
+        margin-right:  30px;
+        margin-left:  20px;
+    }
+    .words_infoFirst>div:first-child{
+        width:15%;
+    }
+    .words_infoFirst>div:last-child{
+        width:85%;
+    }
+    .hexagonalTop{
+        width:0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 9px solid #FAD64D;
+    }
+    .hexagonalMiddle{
+        width:30px;
+        height: 18px;
+        background-color: #FAD64D;
+    }
+    .hexagonalBottom{
+        width:0;
+        border-top: 9px solid #FAD64D;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+    .hexagonal{
+        position: relative;
+        margin-bottom:10px;
+    }
+    .days_sign{
+        position:absolute;
+        top:50%;
+        left:50%;
+        margin-left: -10px;
+        margin-top: -10px;
+        font-weight: 700;
+
+    }
+
+    .days_linkLine{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height:36px;
+        background: #ECECEC;
+        width: 1px;
+        z-index: -1;
+    }
+    .hexagonal:last-child .days_linkLine{
+        height: 0;
+    }
+
+
+    .hexagonal.active .hexagonalTop{
+        width:0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 9px solid #000000;
+    }
+    .hexagonal.active .hexagonalMiddle{
+        width:30px;
+        height: 18px;
+        background-color: #000000;
+    }
+    .hexagonal.active .hexagonalBottom{
+        width:0;
+        border-top: 9px solid #000000;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+    .hexagonal.active .days_sign{
+        color: #FAD64D;
+    }
+    .dayInfoDetail{
+        width:85%;
+    }
+    .dayInfoDetail .title{
+        font-weight: 700;
+        margin-left: 6px;
+        transform: skew(-20deg);
+        padding: 3px 10px;
+        background: #000;
+        display: inline-block;
+    }
+    .dayInfoDetail .title>span{
+        display: inline-block;
+        transform: skew(20deg);
+        color: #FAD64D;
+    }
+    .line_detailsInfo .travel_img{
+        width:100%;
+        height:160px;
+    }
+    .line_detailsInfo .travel_img img{
+        width:100%;
+        height:160px;
+    }
+    .line_detailsInfo .next{
+        padding:20px 0;
+    }
+    .cost_description{
+        padding:20px;
+    }
+    .cost_description>li>span:first-child{
+        width: 6%;
+    }
+    .cost_description>li>span:last-child{
+        width: 94%;
+    }
+    .bottom_btns{
+        height:50px;
+
+    }
+    .bottom_btns>div:first-child{
+        width:60%;
+        background: #F3F3F3;
+
+    }
+    .bottom_btns>div:first-child>div{
+        text-align: center;
+        height: 50px;
+        width: 40%;
+    }
+    .bottom_btns a{
+        color: #000000;
+    }
+    .bottom_btns a:hover{
+        color: #000000;
+    }
+    .bottom_btns>.online_order{
+        width:40%;
+        height: 50px;
+        border:0;
+        line-height: 50px;
+        background: #FAD64D;
+        font-size: 18px;
+        font-weight: 700;
+    }
+    .bottom_btns>.online_order:focus{
+        outline: none;
+    }
+    .bottom_btns .icon_tel{
+        display: inline-block;
+        margin-top: 7px;
+        width: 18px;
+        height:18px;
+        background-size: 18px 18px;
+        background-image: url(../img/ion_travel_15.png);
+    }
+    .bottom_btns .icon_contact{
+        display: inline-block;
+        margin-top: 7px;
+        width: 18px;
+        height:18px;
+        background-size: 18px 18px;
+        background-image: url(../img/ion_travel_18.png);
+    }
+
+    .bottom_btns p{
+        margin:0;
+
+    }
+    /*ģ̬��*/
+    .modal-overlay {
+        /*visibility: hidden;*/
+        position: fixed;
+        /* ʹ�þ��Զ�λ��̶���λ  */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-data {
+        width: 82%;
+        margin: 110px auto;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 5px;
+        text-align: center;
+        z-index: 1001;
+    }
+    .modal-data>p {
+        background: black;
+        color: #FAD64D;
+        padding: 10px 22px;
+        height: 45px;
+        width: 100%;
+        font-size: 16px;
+    }
+    .modal-data .modal-close {
+        color: white;
+    }
+    .modal-data input {
+        width: 88%;
+        height: 48px;
+        border-radius: 3px;
+        padding: 0 10px;
+        border: 1px solid rgb(208, 208, 208);
+        outline: medium;
+    }
+    .modal-name {
+        margin: 20px 0 10px;
+    }
+    .modal-phone {
+        margin-bottom: 40px;
+    }
+    .modal-data button {
+        width: 88%;
+        border-radius: 3px;
+        height: 48px;
+        padding: 0 10px;
+        font-size: 16px;
+        outline: medium;
+    }
+    .call-me {
+        border: 0;
+        background: #FAD64D;
+        margin-bottom: 10px;
+    }
+    .call-adviser {
+        border: 0;
+        background: rgb(224, 224, 224);
+        margin-bottom: 20px;
+    }
+    /*�б�ҳ��*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .list_page{
+
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+    }
+    .product_soso{
+        height: 40px;
+        line-height: 40px;
+        background: #F9D550;
+        text-align: center;
+    }
+    .product_soso>span{
+        display: inline-block;
+    }
+    .ion_left{
+        margin-top: 10px;
+        display: inline-block;
+        width:10px;
+        height:20px;
+        vertical-align: middle;
+        background-size: 10px 20px;
+        background-image: url(../img/ion_left_03.png);
+    }
+    .product_soso>div{
+        padding-left: 10px;
+        display: inline-block;
+        width:80%;
+        background: #fff;
+        border-radius: 3px;
+        height:30px; margin: 0 auto;
+        margin-top: 5px;
+        line-height: 30px;
+
+    }
+    .product_soso>div>input{
+        width:80%;
+        border: 0;
+        height:30px;
+        font-size: 14px;
+    }
+    .product_soso>div>input{
+        outline: none;
+    }
+    .list_page .travelItem_detailIntro{
+        margin:0;
+        padding:10px;
+    }
+    .travelItem_detailIntro>li{
+        padding:15px;
+        border-bottom: 1px solid #E8E8E8;
+    }
+    /*.travelItem_detailIntro>li:last-child{*/
+    /*border-bottom: 0;*/
+    /*}*/
+    .list_page .travelItem_pic{
+        width:26%;
+        height:100px;
+    }
+    .list_page .travelItem_pic img{
+        width:100%;
+        height:100px;
+    }
+    .list_page .Item_detailIntro{
+        width:74%;
+        padding-left: 10px;
+    }
+    .list_page .Item_detailIntro h4{
+        font-size: 16px;
+        margin:0;
+    }
+    .list_page .Item_detailIntro>p{
+        margin:10px 0;
+    }
+    .special_price{
+        color:#fff;
+        background: #E94D46;
+        border:1px solid #E94D46;
+        font-size: 12px;
+        padding:0 3px;
+        border-radius: 3px;
+    }
+    .quality_select{
+        color:#fff;
+        background: #449FEE;
+        border:1px solid #449FEE;
+        font-size: 12px;
+        padding:0 3px;
+        border-radius: 3px;
+    }
+    .immediate_confirm{
+        color:#FEA045;
+        background: #fff;
+        border:1px solid #FEA045;
+        font-size: 12px;
+        padding:0 3px;
+        border-radius: 3px;
+    }
+    .travelItem_detailIntro .big_font{
+        font-size: 14px;
+    }
+    /*ɸѡҳ��1*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .filter{
+        display: none;
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        margin-left: 100%;
+    }
+    .filter.active{
+        display: block;
+    }
+    .filter .mask{
+        /*width:22%;*/
+        position: absolute;
+        top:0;
+        bottom:0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,.5);
+    }
+    .filter .filter_box{
+        width:78%;
+
+        position: fixed;
+        top:0;
+        left:22%;
+        bottom:0;
+        background: #fff;
+    }
+    .filter_firstList{
+        width:100%;
+    }
+    .ion_right{
+        display: inline-block;
+        width:8px;
+        height:12px;
+        margin-top: 14px;
+        background-size: 8px 12px;
+        background-image: url("../img/ion_right_03.png");
+    }
+    .filter_firstList{
+        margin: 0;
+        padding:0 15px;
+    }
+    .filter_firstList .title{
+        height:40px;
+        line-height: 40px;
+        padding:0 5px;
+    }
+    .filter_firstList .destination{
+        margin:0;
+        padding:0;
+        /*border-bottom: 1px solid #E8E8E8;*/
+    }
+    .filter_firstList .destination{
+        margin:0;
+        padding:0;
+
+    }
+    .filter .line{
+        /*height:1px;*/
+        display: block;
+        margin: 0 auto;
+        margin-top: 5px;
+        height:1px;
+        width:95%;
+        background: #E8E8E8;
+        /*padding: 0 5px;*/
+        /*overflow: hidden;*/
+    }
+
+    .filter_firstList .destination>li{
+        width:78px;
+        padding:0 5px;
+        text-align: center;
+    }
+    .filter_firstList .destination>li>span{
+        width:100%;
+        display: inline-block;
+        background: #F2F2F2;
+        line-height: 25px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+
+    }
+    .filter_firstList .destination .active span{
+        background: #F9D550;
+    }
+    .filter_firstList .title>.yellow_color{
+        margin-right: 5px;
+    }
+    .destination_departure{
+        padding:20px 20px;
+        text-align: center;
+        /*margin-top: 20px;*/
+    }
+    .destination_departure>div{
+        width:40%;
+    }
+    .destination_departure>span{
+        height:40px;
+        line-height: 40px;
+    }
+    .destination_departure input{
+        width:100%;
+        height:40px;
+        line-height: 40px;
+        border:1px solid #E8E8E8;
+    }
+    .destination_departure>span{
+        width:20%;
+        color: #C0C0C0;
+
+    }
+    /*ɸѡҳ��2*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .filter_second{
+        display: none;
+        position: fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        /*margin-left: 100%;*/
+    }
+    .filter_second.active{
+        display: block;
+    }
+    .filter_second .mask{
+        /*width:22%;*/
+        position: absolute;
+        top:0;
+        bottom:0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,.5);
+    }
+    .filter_second .filter_box{
+        width:78%;
+
+        position: fixed;
+        top:0;
+        left:22%;
+        bottom:0;
+        background: #fff;
+    }
+    .filter_second .title{
+        height:40px;
+        line-height: 40px;
+        text-align: center;
+        padding: 0 15px;
+    }
+    .filter_second .ion_left{
+        display: inline-block;
+        width: 10px;
+        height: 16px;
+        background-size: 10px 16px;
+        margin-top: 12px;
+        background-image: url(../img/ion-left_03.png);
+    }
+    .filter_second .destination{
+        margin:0;
+        padding:0 20px;
+    }
+    .filter_second .destination>li{
+        width:33.3%;
+        padding:0 5px;
+        text-align: center;
+    }
+    .filter_second .destination>li>span{
+        width:100%;
+        display: inline-block;
+        background: #F2F2F2;
+        line-height: 25px;
+        margin-bottom: 10px;
+        border-radius: 2px;
+
+    }
+    .filter_second .destination .active span{
+        background: #F9D550;
+    }
+    .filter_second .destination>li>span {
+
+        margin-bottom: 20px;
+
+    }
+    .filter_box .btns{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .clear_btn{
+        width: 35%;
+        border:0;
+        height:40px;
+        line-height: 40px;
+        background: #F2F2F2;
+    }
+    .confirm_btn{
+        width: 65%;
+        border:0;
+        height:40px;
+        line-height: 40px;
+        background: #F9D550;
+        text-align: center;
+    }
+    .filter_box .btns button{
+        display: inline-block;
+    }
+    .filter_box .btns button:focus{
+        outline: none;
+    }
+    /*��¼ҳ��*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .login .login_bg{
+        width:100%;
+        height:220px;
+        margin-bottom: 40px;
+    }
+    .login .login_bg img{
+        width:100%;
+        height:220px;
+    }
+    .login .form_group{
+        margin:10px 30px;
+        border:1px solid #F0F0F0;
+        height: 40px;
+        line-height: 40px;
+    }
+    .login .form_group input{
+        padding: 0;
+        outline: none;
+        background: #fff;
+        height: 38px;
+        line-height: 38px;
+        border:0;
+        width:80%;
+        position: relative;
+        top:-4px;
+    }
+    .icon_person{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-size: 16px 16px;
+        margin:12px 10px 0 10px;
+        background-image: url(../img/login_05.png);
+    }
+    .icon_pwd{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-size: 16px 16px;
+        margin:12px 10px 0 10px;
+        background-image: url(../img/login_08.png);
+    }
+    input:-webkit-autofill,
+    textarea:-webkit-autofill,
+    select:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 1000px white inset;
+    }
+    .login button{
+        text-align: center;
+    }
+    .login .btn_box{
+        padding:30px ;
+    }
+    .login_btn{
+
+        padding: 0;
+        width:100%;
+        border:0;
+        background: #F9D550;
+        height:40px;
+        line-height: 40px;
+    }
+    /*�̼Ҵ�ȫҳ��*/
+    /*
+    *
+    *
+    *
+    *
+    *
+    *
+    */
+    .company_info{
+        /*position: fixed;*/
+        /*top:0;*/
+        /*left:0;*/
+        /*right:0;*/
+        /*bottom: 0;*/
+    }
+    .company_summary{
+        padding:20px 15px;
+        border-bottom: 1px solid #F2F2F2;
+    }
+    .company_info .company_logo{
+        width:20%;
+
+    }
+    .company_info .company_logo img{
+        height:69px;
+        width:100%;
+    }
+    .company_info .company_summaryDetails{
+        width: 80%;
+        padding-left: 10px;
+        font-size: 12px;
+    }
+    .company_summaryDetails h4{
+        margin:5px 0;
+    }
+    .company_name{
+        color: #B2B2B2;
+    }
+    .company_link>p{
+        margin-bottom: 5px;
+    }
+    .company_info .detail_info{
+        margin: 0;
+        padding:0;
+    }
+    .company_info .detail_info .title{
+        height:40px;
+        line-height: 40px;
+        padding-left:15px;
+        border-bottom: 1px solid #E0E0E0;
+    }
+    .company_info .detail_info .content_detail{
+        padding:20px 15px;
+    }
+    .detail_info li{
+        border-bottom: 10px solid #F2F2F2;
+    }
+    .detail_info .intro_img img{
+        width: 100%;
+        height:160px;
+    }
+    .company_info .detail_info .map{
+        border:0;
+    }
+    .company_map{
+        padding: 20px 15px;
+    }
+    .company_map img{
+        width: 100%;
+        height:160px;
+    }
+    .line_consult{
+        padding:15px;
+    }
+    .line_consult .line_title{
+        color:#A5A5A5;
+        font-size: 12px;
+        margin:10px 0;
+    }
+    .line_consult li {
+        padding: 0 5px;
+        line-height: 25px;
+        height: 25px;
+        border-radius: 2px;
+        font-size: 12px;
+        border: 1px solid #eaeaea;
+        margin-right: 10px;
+    }
+    .qq_logo{
+        vertical-align: middle;
+        display: inline-block;
+        width: 15px;
+        position: relative;
+        top: -2px;
+        height: 15px;
+        background-size: 15px 15px;
+        background-image: url(../img/qqLogoLink_03.png);
+    }
+    .qq_logo.offLine{
+        vertical-align: middle;
+        display: inline-block;
+        width: 15px;
+        position: relative;
+        top: -2px;
+        height: 15px;
+        background-size: 15px 15px;
+        background-image: url(../img/offLine_07.png);
+    }
+    .line_consult ul{
+        margin:0;
+        padding:0;
+    }
+    .line_consult>div li{
+        margin-bottom: 10px;
+    }
+    .line_consult>div{
+
+        border-bottom: 1px solid #F0F0F0;
+    }
+    .line_consult>div:last-child{
+        margin-bottom: 0;
+        border-bottom: 0;
+    }
+    .line_consult a{
+        color: #000000;
+    }
+    .line_consult a:hover{
+        color: #000000;
+    }
+}
+/*����*/
+@media only screen and (min-device-width: 1080px) and (-webkit-min-device-pixel-ratio: 2.5) {
+}
+
+/*����*/
+@media only screen and (min-device-width: 1080px) and (-webkit-min-device-pixel-ratio: 3) {
+
+}
+.u-icon-arr {
+    position: absolute;
+    top: 11px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    border-color: white;
+    -webkit-transform-origin: 75% 25%;
+    -webkit-transform: rotateZ(45deg);
+    -webkit-transition: 100ms ease-in .1s;
+    transition: 100ms ease-in .1s;
+}
+.u-icon-arrD{
+    -webkit-transform: rotateZ(225deg);
+}
+
+.product_promotion{
+  border:1px solid #CB5208;
+  padding:3px;
+  font-size:12px;
+  margin:0 10px 0 10px;
+  color:#CB5208;
+  position:relative;
+  width:50px;
+
+}
+
+.product_promotion_modal{
+    border:2px solid #CB5208;
+    padding:10px;
+    width:300px;
+    display:block;
+    background-color: #ffffff;
+    left:-15px;
+    top:30px;
+    position: absolute;
+    margin:auto;
+    z-index: 1000;
+    display:none;
+}
+
+.product_promotion_modal p{
+   line-height:26px;
+}
+
+.promotion_icon{
+   background:url(../img/promotion.png) no-repeat;
+   color:#ffffff;
+   font-size:9px;
+   position:absolute;
+   top:0px;
+   width:13px;
+   height:13px;
+   margin-left:5px;
+}
+
+.promotion_contents {
+    width: 80%;
+    color: #ffffff;
+    margin: 20px auto;
+    padding:30px;
+    line-height:32px;
+}
+
+.promotion_notices{
+    color:#ffffff;
+    width: 80%;
+    margin: 20px auto;
+    line-height:32px;
+}

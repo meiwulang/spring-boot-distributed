@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.transfer.TransferMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.transfer.Transfer">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="t_out_account_id" jdbcType="BIGINT" property="tOutAccountId" />
+    <result column="t_out_account" jdbcType="VARCHAR" property="tOutAccount" />
+    <result column="t_in_account_id" jdbcType="BIGINT" property="tInAccountId" />
+    <result column="t_in_account" jdbcType="VARCHAR" property="tInAccount" />
+    <result column="t_transfer_type" jdbcType="INTEGER" property="tTransferType" />
+    <result column="t_transfer_no" jdbcType="VARCHAR" property="tTransferNo" />
+    <result column="t_transfer_amount" jdbcType="DECIMAL" property="tTransferAmount" />
+    <result column="t_start_time" jdbcType="TIMESTAMP" property="tStartTime" />
+    <result column="t_transfer_time" jdbcType="TIMESTAMP" property="tTransferTime" />
+    <result column="t_fail_reason" jdbcType="VARCHAR" property="tFailReason" />
+    <result column="t_confrim_time" jdbcType="TIMESTAMP" property="tConfrimTime" />
+    <result column="t_order_no" jdbcType="VARCHAR" property="tOrderNo" />
+    <result column="t_status" jdbcType="BIT" property="tStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, t_out_account_id, t_out_account, t_in_account_id, t_in_account, t_transfer_type, 
+    t_transfer_no, t_transfer_amount, t_start_time, t_transfer_time,t_fail_reason, t_confrim_time,
+    t_order_no, t_status, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fn_transfer
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from fn_transfer
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.transfer.Transfer" keyProperty="id" useGeneratedKeys="true">
+    insert into fn_transfer (id, t_out_account_id, t_out_account, 
+      t_in_account_id, t_in_account, t_transfer_type, 
+      t_transfer_no, t_transfer_amount, t_start_time, 
+      t_transfer_time,t_fail_reason, t_confrim_time, t_order_no,
+      t_status, create_time, create_user, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{tOutAccountId,jdbcType=BIGINT}, #{tOutAccount,jdbcType=VARCHAR}, 
+      #{tInAccountId,jdbcType=BIGINT}, #{tInAccount,jdbcType=VARCHAR}, #{tTransferType,jdbcType=INTEGER}, 
+      #{tTransferNo,jdbcType=VARCHAR}, #{tTransferAmount,jdbcType=DECIMAL}, #{tStartTime,jdbcType=TIMESTAMP}, 
+      #{tTransferTime,jdbcType=TIMESTAMP},#{tFailReason,jdbcType=VARCHAR}, #{tConfrimTime,jdbcType=TIMESTAMP}, #{tOrderNo,jdbcType=VARCHAR},
+      #{tStatus,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.transfer.Transfer">
+    insert into fn_transfer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tOutAccountId != null">
+        t_out_account_id,
+      </if>
+      <if test="tOutAccount != null">
+        t_out_account,
+      </if>
+      <if test="tInAccountId != null">
+        t_in_account_id,
+      </if>
+      <if test="tInAccount != null">
+        t_in_account,
+      </if>
+      <if test="tTransferType != null">
+        t_transfer_type,
+      </if>
+      <if test="tTransferNo != null">
+        t_transfer_no,
+      </if>
+      <if test="tTransferAmount != null">
+        t_transfer_amount,
+      </if>
+      <if test="tStartTime != null">
+        t_start_time,
+      </if>
+      <if test="tTransferTime != null">
+        t_transfer_time,
+      </if>
+      <if test="tFailReason != null">
+        t_fail_reason,
+      </if>
+      <if test="tConfrimTime != null">
+        t_confrim_time,
+      </if>
+      <if test="tOrderNo != null">
+        t_order_no,
+      </if>
+      <if test="tStatus != null">
+        t_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tOutAccountId != null">
+        #{tOutAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="tOutAccount != null">
+        #{tOutAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tInAccountId != null">
+        #{tInAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="tInAccount != null">
+        #{tInAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tTransferType != null">
+        #{tTransferType,jdbcType=INTEGER},
+      </if>
+      <if test="tTransferNo != null">
+        #{tTransferNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tTransferAmount != null">
+        #{tTransferAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="tStartTime != null">
+        #{tStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tTransferTime != null">
+        #{tTransferTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tFailReason != null">
+        #{tFailReason,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tConfrimTime != null">
+        #{tConfrimTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tOrderNo != null">
+        #{tOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tStatus != null">
+        #{tStatus,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.transfer.Transfer">
+    update fn_transfer
+    <set>
+      <if test="tOutAccountId != null">
+        t_out_account_id = #{tOutAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="tOutAccount != null">
+        t_out_account = #{tOutAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tInAccountId != null">
+        t_in_account_id = #{tInAccountId,jdbcType=BIGINT},
+      </if>
+      <if test="tInAccount != null">
+        t_in_account = #{tInAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tTransferType != null">
+        t_transfer_type = #{tTransferType,jdbcType=INTEGER},
+      </if>
+      <if test="tTransferNo != null">
+        t_transfer_no = #{tTransferNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tTransferAmount != null">
+        t_transfer_amount = #{tTransferAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="tStartTime != null">
+        t_start_time = #{tStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tTransferTime != null">
+        t_transfer_time = #{tTransferTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tFailReason != null">
+        t_fail_reason = #{tFailReason,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tConfrimTime != null">
+        t_confrim_time = #{tConfrimTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tOrderNo != null">
+        t_order_no = #{tOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tStatus != null">
+        t_status = #{tStatus,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.transfer.Transfer">
+    update fn_transfer
+    set t_out_account_id = #{tOutAccountId,jdbcType=BIGINT},
+      t_out_account = #{tOutAccount,jdbcType=VARCHAR},
+      t_in_account_id = #{tInAccountId,jdbcType=BIGINT},
+      t_in_account = #{tInAccount,jdbcType=VARCHAR},
+      t_transfer_type = #{tTransferType,jdbcType=INTEGER},
+      t_transfer_no = #{tTransferNo,jdbcType=VARCHAR},
+      t_transfer_amount = #{tTransferAmount,jdbcType=DECIMAL},
+      t_start_time = #{tStartTime,jdbcType=TIMESTAMP},
+      t_transfer_time = #{tTransferTime,jdbcType=TIMESTAMP},
+      t_fail_reason = #{tFailReason,jdbcType=VARCHAR},
+      t_confrim_time = #{tConfrimTime,jdbcType=TIMESTAMP},
+      t_order_no = #{tOrderNo,jdbcType=VARCHAR},
+      t_status = #{tStatus,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryTransferPage" parameterType="com.jdy.b2b.api.model.transfer.TransferQueryDTO" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from fn_transfer
+    <where>
+      <if test="tTransferType != null">
+        AND t_transfer_type = #{tTransferType,jdbcType=INTEGER}
+      </if>
+      <if test="tStatus != null">
+        AND t_status = #{tStatus,jdbcType=BIT}
+      </if>
+      <if test="minTransferTime != null">
+        AND t_transfer_time &gt; #{minTransferTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="maxTransferTime != null">
+        AND t_transfer_time &lt; #{maxTransferTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="searchStr != null">
+        <bind name="searchStr" value="'%' +searchStr + '%'" />
+        AND CONCAT(IFNULL(t_transfer_no,''),IFNULL(t_out_account,''),IFNULL(t_in_account,''),IFNULL(t_order_no,'')) LIKE #{searchStr}
+      </if>
+    </where>
+
+  </select>
+</mapper>

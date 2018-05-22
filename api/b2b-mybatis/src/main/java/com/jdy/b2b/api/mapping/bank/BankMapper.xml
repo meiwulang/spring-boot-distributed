@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.bank.BankMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.bank.Bank">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="b_name" jdbcType="CHAR" property="bName" />
+    <result column="b_shortname" jdbcType="CHAR" property="bShortname" />
+    <result column="b_sort" jdbcType="INTEGER" property="bSort" />
+    <result column="b_status" jdbcType="BIT" property="bStatus" />
+    <result column="b_code" jdbcType="CHAR" property="bCode" />
+  </resultMap>
+  <resultMap id="QueryListResultMap" type="com.jdy.b2b.api.model.bank.Bank">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="b_name" jdbcType="CHAR" property="bName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, b_name, b_shortname, b_sort, b_status, b_code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_bank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sl_bank
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.bank.Bank">
+    insert into sl_bank (id, b_name, b_shortname, 
+      b_sort, b_status, b_code)
+    values (#{id,jdbcType=INTEGER}, #{bName,jdbcType=CHAR}, #{bShortname,jdbcType=CHAR}, 
+      #{bSort,jdbcType=INTEGER}, #{bStatus,jdbcType=BIT}, #{bCode,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.bank.Bank">
+    insert into sl_bank
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bName != null">
+        b_name,
+      </if>
+      <if test="bShortname != null">
+        b_shortname,
+      </if>
+      <if test="bSort != null">
+        b_sort,
+      </if>
+      <if test="bStatus != null">
+        b_status,
+      </if>
+      <if test="bCode != null">
+        b_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bName != null">
+        #{bName,jdbcType=CHAR},
+      </if>
+      <if test="bShortname != null">
+        #{bShortname,jdbcType=CHAR},
+      </if>
+      <if test="bSort != null">
+        #{bSort,jdbcType=INTEGER},
+      </if>
+      <if test="bStatus != null">
+        #{bStatus,jdbcType=BIT},
+      </if>
+      <if test="bCode != null">
+        #{bCode,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.bank.Bank">
+    update sl_bank
+    <set>
+      <if test="bName != null">
+        b_name = #{bName,jdbcType=CHAR},
+      </if>
+      <if test="bShortname != null">
+        b_shortname = #{bShortname,jdbcType=CHAR},
+      </if>
+      <if test="bSort != null">
+        b_sort = #{bSort,jdbcType=INTEGER},
+      </if>
+      <if test="bStatus != null">
+        b_status = #{bStatus,jdbcType=BIT},
+      </if>
+      <if test="bCode != null">
+        b_code = #{bCode,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.bank.Bank">
+    update sl_bank
+    set b_name = #{bName,jdbcType=CHAR},
+      b_shortname = #{bShortname,jdbcType=CHAR},
+      b_sort = #{bSort,jdbcType=INTEGER},
+      b_status = #{bStatus,jdbcType=BIT},
+      b_code = #{bCode,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryBankPage" parameterType="com.jdy.b2b.api.model.bank.Bank" resultMap="QueryListResultMap">
+    select * from sl_bank where b_code is not null and b_code !=0
+  </select>
+</mapper>

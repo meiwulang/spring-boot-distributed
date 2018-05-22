@@ -1,0 +1,406 @@
+#dbmlist{
+	width: 400px; 
+	height: 40px; 
+	margin-left: 50px;
+}
+#bmrlist{
+	width: 300px; 
+	height: 40px; 
+	margin-left: 50px;
+}
+
+#account-cls{
+	display:none; 
+	width:300px; 
+	margin-left: 50px; 
+	padding: 3px 10px; 
+	background:#fffdd6; 
+	margin-top: 10px;
+	border:1px solid #dddddd;
+}
+
+.box_wrapper{
+	width: 1220px;
+	// position: relative;
+}
+
+.order_informations{
+	float: left;
+}
+
+.order_detail .order_balance{
+	width: 250px;
+	// position: absolute;
+	// right: 0;
+	// top: 0;
+	overflow: hidden;
+}
+
+.order_ticketlist{
+
+}
+
+.order_ticketlist .ticket-group{
+	height: 50px;
+    line-height: 36px;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    border-bottom: 3px solid #FFA600;
+}
+
+.order_ticketlist .ticket-group li{
+	float: left;
+	transform: skew(-30deg);
+    // width: 67px;
+    padding: 0 20px;
+    height: 35px;
+    margin: 11px 20px 0;
+    text-align: center;
+    cursor: pointer;
+    background: #eee;
+}
+
+.order_ticketlist .ticket-group li span{
+	display: inline-block;
+    transform: skew(30deg);
+}
+
+.order_ticketlist .ticket-group li.active{
+	background: #FFA600;
+	color: #fff;
+}
+
+.order_ticketlist .ticket-table{
+	border: 1px solid #eee;
+}
+
+.order_ticketlist .ticket-table table{
+	width: 100%;
+	text-align: center;
+}
+
+.order_ticketlist .ticket-table table th{
+	text-align: center;
+	height: 50px;
+	border-bottom: 1px solid #eee;
+	color: #bbb;
+}
+
+.order_ticketlist .ticket-table table td{
+	height: 50px;
+	border-bottom: 1px solid #eee;
+}
+
+.order_ticketlist .ticket-table table td.ticket-group-title{
+	height: 30px;
+}
+
+.order_ticketlist .ticket-table table td.ticket-group-title div{
+	background-color: #fbfbfb;
+	height: 100%;
+	line-height: 30px;
+	border-left: 2px solid #ffa600;
+	padding-left: 20px;
+	text-align: left;
+}
+
+.order_ticketlist .ticket-table table span.price{
+	color: #f00;
+}
+
+.order_ticketlist .ticket-table table tr[type='group-normal'] td{
+	background-color: #f3f3f3;
+	border-bottom: 1px dashed #ddd;
+}
+
+.order_ticketlist .ticket-table table tr[type='group-normal'] td:nth-child(1){
+	text-align: left;
+	text-indent: 58px;
+}
+
+.tourist-table{
+    border-top: 3px solid #FFA600;
+    border-left: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.tourist-table table{
+	width: 100%;
+	text-align: center;
+	background-color: #fff;
+}
+
+.tourist-table table thead th{
+	text-align: center;
+	background: #FBFBFB;
+	height: 50px;
+}
+
+.tourist-table table thead.group-ticket th{
+	height: 40px;
+	background: #fff;
+	border-top: 1px solid #eee;
+	max-width: 180px;
+}
+
+.tourist-table table thead.group-ticket th div{
+    height: 100%;
+    line-height: 40px;
+    border-left: 2px solid #ffa600;
+    font-weight: normal;
+    color: #666;
+    text-indent: -2px;
+    max-width: 180px;
+    overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.tourist-table table tbody td{
+	height: 80px;
+	border-top: 1px dashed #eee;
+	padding: 0px 0 35px 0;
+	position: relative;
+}
+
+.tourist-table table tbody .line-1{
+	margin-top: 20px;
+}
+
+.tourist-table table tbody .line-2{
+	margin-top: 6px;
+	white-space: nowrap;
+	position: absolute;
+}
+
+.tourist-table table tbody .line-2 .gosite{
+	border: 1px solid #eaeaea;
+	padding: 2px 4px;
+	margin-right: 18px;
+}
+.tourist-table table tbody .line-2 .backsite{
+	border: 1px solid #eaeaea;
+	padding: 2px 4px;
+}
+.tourist-table table tbody .order_number{
+	float: left;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background: #eaeaea;
+    margin-top: 5px;
+    position: relative;
+    top: 3px;
+}
+
+.tourist-table table tbody .ticket_name{
+	float: left;
+	margin-left: 5px;
+}
+
+.tourist-table table tbody .ticket_type{
+	text-align: left;
+	text-indent: 25px;
+	padding-left: 30px;
+}
+
+.tourist-table table tbody .passenger_name,.tourist-table table tbody .passenger_tel{
+	margin-bottom: 5px;
+	padding: 0 5px;
+}
+
+.tourist-table table tbody .line-2 span{
+	color: #999;
+}
+
+.tourist-table table tbody td .hot{
+	color: #ffa600;
+}
+
+.tourist-table table tbody td .green{
+	color: #2FD16C;
+}
+
+.tourist-table .seats-select{
+	// width: 40px;
+	// height: 40px;
+	// background: url('../img/order/seats-select.svg') center center no-repeat;
+	// background-size: 30px 30px;
+	// margin: 0 auto;
+}
+
+.order_touristInfo{
+	position: relative;
+}
+
+.order_touristInfo .select_addPassenger{
+	float: right;
+	position: absolute;
+	right: -20px;
+	top: -5px;
+}
+
+.order_balanceDetails li{
+	font-size: 13px;
+}
+
+.order_balanceDetails li .price_promptBigFont{
+	font-size: 13px;
+}
+
+.special_price{
+	background-color: #f1f1f1;
+	display: none;
+}
+
+.balance_info .eye{
+	float: right;
+	width: 40px;
+	height: 40px;
+	background: url('../img/order/close-eye.svg') center center no-repeat;
+	background-size: 20px 20px;
+	opacity: 0.9;
+}
+
+.balance_info .eye.open{
+	background: url('../img/order/open-eye.svg') center center no-repeat;
+	background-size: 20px 20px;
+}
+
+.table-tit{
+	width: 180px;
+	height: 50px;
+	line-height: 50px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.order_remark {margin-top: 10px;}
+.order_remark label {
+	display: inline-block;
+	vertical-align: top;
+	width: 91px
+}
+.order_remark #input_remarkInfo {
+	width:760px;
+	height:80px;
+	padding: 5px;
+	border: 1px solid #DBDBDB;
+}
+
+.sub_order{
+	display: inline-block;
+	background-color: #fd6666;
+	font-size:10px;
+	padding:3px 8px 3px 8px;
+	color:#ffffff;
+	margin-left:10px;
+	border-radius: 4px;
+}
+
+.checktype-box{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 140px;
+	height: 25px;
+	margin: 0;
+}
+
+.checktype-state{
+	background-color: #f00;
+	color: #fff;
+	width: 100%;
+	height: 100%;
+	line-height: 25px;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.checktype-box.normal .checktype-state{
+	background-color: #3db5fc;
+}
+
+.checktype-box.new .checktype-state{
+	background-color: #5bb865;
+}
+
+.checktype-box.del .checktype-state{
+	background-color: #ff5b58;
+}
+
+.checktype-box.update .checktype-state{
+	background-color: #9e63fa;
+}
+
+.checktype-detail{
+	position: absolute;
+	width: 948px;
+	right: 0;
+	background-color: #f8f8f8;
+	border: 1px solid #fff;
+	z-index: 200;
+	text-align: left;
+	padding: 10px 0;
+	box-shadow: 0px 2px 2px #ccc;
+	display: none;
+}
+
+.checktype-box.normal .checktype-detail{
+	border-color: #3db5fc;
+}
+
+.checktype-box.new .checktype-detail{
+	border-color: #5bb865;
+}
+
+.checktype-box.del .checktype-detail{
+	border-color: #ff5b58;
+}
+
+.checktype-box.update .checktype-detail{
+	border-color: #9e63fa;
+}
+
+.checktype-detail li{
+	float: left;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #777;
+}
+
+.checktype-detail li input{
+	background-color: #eee;
+	border: none;
+	border: 1px solid #ddd;
+	padding: 0 5px;
+}
+
+.checktype-state .checktype-del-mask{
+	position: absolute;
+	width: 950px;
+	height: 96px;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	opacity: 0.1;
+}
+
+.order_warning{
+	background-color: #FFFFCC;
+	color: #f00;
+	border: 1px solid #f00;
+	margin-top: 10px;
+	padding: 10px 10px 0 10px;
+}
+
+.order_warning li{
+	list-style-type: decimal;
+}

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>芒果卉旅游</title>
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <script id="link-css" type="text/javascript">
+      var date = new Date();
+      var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+      document.write(
+          '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+          '<link rel="stylesheet" type="text/css" href="css/select.css?t='+_TimeStamp+'">'
+      );
+  </script>
+  <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+  <script src="js/lib/jquery-1.11.3.js"></script>
+  <script src="js/lib/bootstrap.js"></script>
+  <script src="js/lib/doT.min.js"></script>
+  <script src="js/common/configs.js"></script>
+  <script src="js/common/alert.js"></script>
+  <script src="js/common/lib/select.js"></script>
+  <script type="text/javascript">
+      document.write(
+          '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+      );
+  </script>
+</head>
+<body>
+<div class="order_navbar">
+  <div class="box_wrapper clearfloat">
+    <div class="pull-left order_jdyLogo"> <a href="index.html"><img src="img/logo.png" alt=""></a> </div>
+    <div class="pull-right">
+      <div class="pull-left"> <span>欢迎您!</span> <span class="hotsoso" id="user_name">喵喵</span> </div>
+      <span class="pull-left">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+      <div class="pull-left"> <span>无锡彩虹假期旅游有限公司</span> </div>
+      <span class="pull-left">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+      <div class="pull-left"> <a href="#">管理中心</a> </div>
+      <span class="pull-left">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+      <div class="pull-left"> <a href="#">安全退出</a> </div>
+    </div>
+  </div>
+</div>
+<div class="order_step">
+  <div class="box_wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 col-xs-4 order_stepWriting"> <span>1:填写订单信息</span> </div>
+        <div class="col-md-4 col-xs-4 order_stepPayMethod"> <span>2:选择支付方式</span> </div>
+        <div class="col-md-4 col-xs-4 order_stepSuccess"> <span>3:预定成功</span> </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="order_detail">
+  <div class="box_wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10 col-xs-10 order_informations">
+          <form action="">
+            <ul>
+              <li class="order_tripInfo" id="ShopinfoData"> </li>
+              <script id="ShopinfoData-template" type="text/x-dot-template">
+
+
+                                <div class="title">行程信息</div>
+                                <div class="info_content">
+                                    <h4>{{= it.p_name}}
+                                        <br/>
+                                        <span>{{= it.p_sname}}</span>
+
+                                    </h4>
+                                    <p class="hotsoso"><span>编号</span><span>{{= it.bl_num}}</span></p>
+                                    <div class="custom_service">
+                                        <span class="small_titleGray">客服电话: </span>
+                                        <span>{{= it.meet_tel}}</span>
+                                        <span>({{= it.linkman}})</span>
+                                        <div class="immediate_contact">
+                                            <a href="tencent://message/?uin={{=it.man_qq}}&Site=芒果卉旅游&Menu=yes">
+                                                <i class="qq_logo"></i>
+                                                <span>在线咨询</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="clearfloat ">
+                                        <div class="pull-left fixWidth">
+                                            <p>
+                                                <span class="small_titleGray">出发城市: </span>
+                                                {{ for(var x in it.start_place) { }}
+                                                 <span>{{= it.start_place[x]}}</span>
+								                 {{ } }}
+                                            </p>
+                                            <p>
+                                                <span class="small_titleGray">出发日期: </span>
+                                                <span>{{= it.bl_start_date}}</span>
+                                            </p>
+                                        </div>
+                                        <div class="pull-left fixWidth">
+                                            <p>
+                                                <span class="small_titleGray">行程天数: </span>
+                                                <span>{{= it.p_days}}</span>
+                                            </p>
+                                            <p>
+                                                <span class="small_titleGray">返程日期: </span>
+                                                <span>{{= it.bl_end_date}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                       
+                          </script>
+              <li class="order_replaceSignUp">
+                <div class="title">代报名信息</div>
+                <div class="info_content">
+                  <label for="">
+                    <select>
+                      <option value="">报名社</option>
+                      <option value="一月">一月</option>
+                      <option value="二月">二月</option>
+                      <option value="三月">三月</option>
+                      <option value="四月">四月</option>
+                      <option value="五月">五月</option>
+                      <option value="六月">六月</option>
+                      <option value="七月">七月</option>
+                      <option value="八月">八月</option>
+                      <option value="九月">九月</option>
+                      <option value="十月">十月</option>
+                      <option value="十一月">十一月</option>
+                      <option value="十二月">十二月</option>
+                    </select>
+                  </label>
+                  <label for="">
+                    <select>
+                      <option value="">报名人</option>
+                      <option value="一月">一月</option>
+                      <option value="二月">二月</option>
+                      <option value="三月">三月</option>
+                      <option value="四月">四月</option>
+                      <option value="五月">五月</option>
+                      <option value="六月">六月</option>
+                      <option value="七月">七月</option>
+                      <option value="八月">八月</option>
+                      <option value="九月">九月</option>
+                      <option value="十月">十月</option>
+                      <option value="十一月">十一月</option>
+                      <option value="十二月">十二月</option>
+                    </select>
+                  </label>
+                </div>
+              </li>
+              <li class="order_ticketPrice">
+                <div class="title">票价信息</div>
+                <ul class="ticketType_select clearfloat">
+                  <li class="pull-left active"><span>全部</span></li>
+                  <li class="pull-left"><span>准五</span></li>
+                  <li class="pull-left"><span>准四</span></li>
+                  <li class="pull-left"><span>其他</span></li>
+                </ul>
+                <div class="container-fluid ticketDetails">
+                  <div class="row top">
+                    <div class="col-md-6 col-xs-6 first">票种名称</div>
+                    <div class="col-md-1 col-xs-1">票种类型</div>
+                    <div class="col-md-1 col-xs-1">门市价</div>
+                    <div class="col-md-1 col-xs-1">起订数</div>
+                    <div class="col-md-1 col-xs-1">人数</div>
+                    <div class="col-md-1 col-xs-">床位</div>
+                    <div class="col-md-1 col-xs-1">小计</div>
+                  </div>
+                </div>
+                <!--票价详情可切换-->
+                <div class="ticketDetails_content">
+                  <div class="lineIntro_title"><span></span>准四:</div>
+                  <ul class="container-fluid ticketDetails">
+                    <li class="row" id="ticket_1" data-t_product_id="110" data-t_id="5654" data-t_standards_name="成人双飞" data-t_preset_type="成人票" data-t_room_groups="成人四星三晚" data-t_groups="飞机" data-t_price="2400.00"  data-t_trade_price="1800.00" data-t_spread_price="120.00" data-t_out_room_price="80.00" data-t_store="7" data-t_limit_condition="男">
+                      <div class="col-md-5 col-xs-5 first"> <span class="icon_random"></span> <span>随机经济仓双人间</span> </div>
+                      <div class="col-md-1 col-xs-1">成人票</div>
+                      <div class="col-md-1 col-xs-1 priceColor_danger "><span>￥</span><span class="price">189</span></div>
+                      <div class="col-md-1 col-xs-1">3</div>
+                      <div class="col-md-1 col-xs-1 price_2" >
+                        <div class="order_numberBtnBox "> <span class="glyphicon glyphicon-minus order_reduceBtn active"></span>
+                          <input type="text" class="people_number" value="0" readonly/>
+                          <span class="glyphicon glyphicon-plus order_addBtn"></span> </div>
+                      </div>
+                      <div class="col-md-1 col-xs-1">0</div>
+                      <div class="col-md-1 col-xs-1 priceColor_danger "><span>￥</span><span class="pricend">0</span></div>
+                    </li>
+                    <!--<li class="row" id="ticket_2">
+                                            <div class="col-md-5 first">
+                                                <span class="icon_random"></span>
+                                                <span>随机经济仓双人间</span>
+                                            </div>
+                                            <div class="col-md-1">成人票</div>
+                                            <div class="col-md-1 priceColor_danger "><span>￥</span><span class="price">189</span></div>
+                                            <div class="col-md-1">3</div>
+                                            <div class="col-md-1">
+                                                <div class="order_numberBtnBox blc">
+                                                    <span class="glyphicon glyphicon-minus order_reduceBtn active"></span><input type="text" class="people_number" value="0" readonly/><span class="glyphicon glyphicon-plus order_addBtn"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-1"><div class="order_numberBtnBox bla">
+                                                    <span class="glyphicon glyphicon-minus order_reduceBtn active"></span><input type="text" class="people_number" value="0" readonly/><span class="glyphicon glyphicon-plus order_addBtn"></span>
+                                                </div></div>
+                                            <div class="col-md-1 priceColor_danger "><span>￥</span><span class="pricend">189</span></div>
+                                        </li>-->
+                    
+                  </ul>
+                </div>
+              </li>
+              <li class="order_touristInfo ">
+                <div class="clearfloat">
+                  <div class="pull-left title">游客信息</div>
+                  <div class="pull-right">
+                    <label for="" class="pull-left">
+                      <input type="hidden"/>
+                      <span class="order_allSelect active"></span> 全选 </label>
+                    <!--<label for="" class="pull-left">--> 
+                    <!--<input type="hidden"/>--> 
+                    <!--<span class="order_rebackSelect"></span>--> 
+                    <!--反选--> 
+                    <!--</label>-->
+                    <button  type="button" data-toggle="modal" data-target="#selectSite_modal" class="select_busSite">选择班车站点</button>
+                    <button type="button" data-toggle="modal" data-target="#batchFill_modal" class="select_addPassenger">批量添加乘客</button>
+                    <button  type="button" class="select_removePassenger">移除游客</button>
+                  </div>
+                </div>
+                <div class="container-fluid order_personalInfo">
+                  <div class="row top">
+                    <div class="col-md-4 col-xs-4 first">票价名称</div>
+                    <div class="col-md-8 col-xs-8">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-md-2 col-xs-2">姓名</div>
+                          <div class="col-md-3 col-xs-3">联系电话</div>
+                          <div class="col-md-7 col-xs-7">证件号码</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <ul class="order_personalTicket">
+                  </ul>
+                </div>
+              </li>
+              <li class="order_emergencyContact">
+                <div class="title">紧急联系人</div>
+                <div class="info_content">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="form-group">
+                        <div class="col-md-6 col-xs-6">
+                          <label for="order_emergencyContactName" class="col-md-1 col-xs-1"> 姓名： </label>
+                          <input type="text" id="order_emergencyContactName" class="col-md-4 order_emergencyContactName"/>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                          <label for="order_emergencyContactTel" class="col-md-1 col-xs-1"> 手机： </label>
+                          <input type="text" id="order_emergencyContactTel"class="order_emergencyContactTel"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row input_remarkInfo">
+                      <div class="form-group">
+                        <label for="input_remarkInfo" class="col-sm-2 col-xs-2 control-label"> 备注： </label>
+                        <div class="col-sm-10 col-xs-10">
+                          <div class="input-group">
+                            <textarea name="" id="input_remarkInfo" form=""></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="order_otherContact">
+                <div class="title">其他信息</div>
+                <div class="info_content">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="form-group">
+                        <div class="col-md-6 col-xs-6">
+                          <label for="order_outNumber" class="col-md-3"> 外部订单号： </label>
+                          <input type="text" id="order_outNumber" class="col-md-9 col-xs-9 order_outNumber"/>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                          <label for="order_contactNumber" class="col-md-3"> 合同号： </label>
+                          <input type="text" id="order_contactNumber" class="col-md-9 col-xs-9 order_contactNumber"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row order_discount_topMargin">
+                      <div class="form-group">
+                        <div class="col-md-6 col-xs-6">
+                          <label for="order_discount" class="col-md-3"> 优惠金额： </label>
+                          <input type="text" id="order_discount" class="col-md-9 col-xs-9 order_discount"/>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                          <label for="order_settlementDiscount" class="col-md-3"> 结算优惠： </label>
+                          <input type="text" id="order_settlementDiscount" class="col-md-9 col-xs-9 order_settlementDiscount"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="orderInfo_submit"> <a href="#" class="pull-left hotsoso"><span>&lt;&lt;</span>返回产品详情页</a>
+                  <div class="pull-right">
+                    <div class="pull-left">
+                      <p class="top"><span>应付金额：</span><span class="price_promptBigFont priceColor_danger"><span>&yen</span><span>0.00</span></span></p>
+                      <p class="bottom"><span>订单总额：</span><span class="priceColor_danger"><span>&yen</span><span>0.00</span></span></span></p>
+                    </div>
+                    <button class="pull-left">填写完成，确认提交</button>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </form>
+        </div>
+        <div class="col-md-2 col-xs-2 order_balance">
+          <div class="balance_info">
+            <div class="title"> <span class="ion_shoppingcar"></span> <span class="fontOrange">结算信息</span> </div>
+            <ul class="order_balanceDetails">
+              <li>
+                <h5>基本票价</h5>
+                <div class="clearfloat small_titleGray">
+                  <div class="pull-left"> <span>报名：</span><span>2</span><span>人 &#10005 </span><span>1680</span> </div>
+                  <div class="pull-right"> <span class="price_promptBigFont priceColor_danger"><span>&yen</span><span>0.00</span></span> </div>
+                </div>
+                <div class="clearfloat small_titleGray">
+                  <div class="pull-left"> <span>房差：</span><span>2</span><span>人 &#10005 </span><span>1680</span> </div>
+                  <div class="pull-right"> <span class="price_promptBigFont priceColor_danger"><span>&yen</span><span>0.00</span></span> </div>
+                </div>
+              </li>
+              <!--                        <li>
+                            <h5>房差计算</h5>
+                            <div class="clearfloat small_titleGray">
+                                <div class="pull-left">
+                                    <span>报名：</span><span>2</span><span>人 &#10005 </span><span>1680</span>
+                                </div>
+                                <div class="pull-right">
+                                    <span class="price_promptBigFont priceColor_danger"><span>&yen</span><span>0.00</span></span>
+                                </div>
+                            </div>
+                            <div class="clearfloat small_titleGray">
+                                <div class="pull-left">
+                                    <span>房差：</span><span>2</span><span>人 &#10005 </span><span>1680</span>
+                                </div>
+                                <div class="pull-right">
+                                    <span class="price_promptBigFont priceColor_danger"><span>&yen</span><span>0.00</span></span>
+                                </div>
+                            </div>
+                        </li>-->
+              <li>
+                <h5>接送费用</h5>
+                <div class="clearfloat small_titleGray">
+                  <div class="pull-left"> <span>好的烧烤肌肤恢复报名</span> </div>
+                </div>
+                <div class="clearfloat small_titleGray">
+                  <div class="pull-left"> <span>数量：</span><span>12</span><span>次 &#10005 </span><span>210</span> </div>
+                  <div class="pull-right"> <span class="price_promptBigFont priceColor_danger"><span>&yen</span><span>0.00</span></span> </div>
+                </div>
+              </li>
+              <li>
+                <h5>优惠费用</h5>
+                <div class="clearfloat small_titleGray">
+                  <div class="pull-left"> <span>买出境游送100元wife优惠券</span> </div>
+                </div>
+                <div class="clearfloat small_titleGray">
+                  <div class="pull-left"> <span class=" priceColor_danger"><span>返&yen100优惠券</span></span> </div>
+                </div>
+              </li>
+            </ul>
+            <div class="order_submit">
+              <div> <span>订单金额</span>' <span class="price_promptBigFont priceColor_danger"><span>&yen</span><span>0.00</span></span> </div>
+              <button>提交订单</button>
+            </div>
+          </div>
+          <div class="seat_select">
+            <div class="title clearfloat"> <span class="pull-left"> <span class="ion_blackBus"></span> <span>座位选择</span> </span> <span class="pull-right"> <span class="ion_up"></span> </span> </div>
+            <ul class="seat_content">
+              <li>
+                <div class="clearfloat">
+                  <div class="pull-left"> <span class="seats active">1</span> <span class="seats active">2</span> </div>
+                  <div class="pull-right"> <span class="seats active">3</span> <span class="seats active">4</span> </div>
+                </div>
+              </li>
+              <li>
+                <div class="clearfloat">
+                  <div class="pull-left"> <span class="seats active">5</span> <span class="seats active">6</span> </div>
+                  <div class="pull-right"> <span class="seats active">7</span> <span class="seats active">8</span> </div>
+                </div>
+              </li>
+              <li>
+                <div class="clearfloat">
+                  <div class="pull-left"> <span class="seats active">9</span> <span class="seats active">10</span> </div>
+                  <div class="pull-right"> <span class="seats active">3</span> <span class="seats active">4</span> </div>
+                </div>
+              </li>
+              <li>
+                <div class="clearfloat">
+                  <div class="pull-left"> <span class="seats active">1</span> <span class="seats active">2</span> </div>
+                  <div class="pull-right"> <span class="seats active">3</span> <span class="seats active">4</span> </div>
+                </div>
+              </li>
+              <li>
+                <div class="clearfloat">
+                  <div class="pull-left"> <span class="seats active">1</span> <span class="seats active">2</span> </div>
+                  <div class="pull-right"> <span class="seats active">3</span> <span class="seats active">4</span> </div>
+                </div>
+              </li>
+              <li>
+                <div class="clearfloat">
+                  <div class="pull-left"> <span class="seats">1</span> <span class="seats">2</span> </div>
+                  <div class="pull-right"> <span class="seats">3</span> <span class="seats">4</span> </div>
+                </div>
+              </li>
+              <li>
+                <div class="clearfloat">
+                  <div class="pull-left"> <span class="seats">1</span> <span class="seats">2</span> </div>
+                  <div class="pull-right"> <span class="seats">3</span> <span class="seats">4</span> </div>
+                </div>
+              </li>
+              <li>
+                <div class="clearfloat">
+                  <div class="pull-left"> <span class="seats">1</span> <span class="seats">2</span> </div>
+                  <div class="pull-right"> <span class="seats">3</span> <span class="seats">4</span> </div>
+                </div>
+              </li>
+              <li>
+                <div class="clearfloat">
+                  <div class="pull-left"> <span class="seats">1</span> <span class="seats">2</span> </div>
+                  <span class="seats center">2</span>
+                  <div class="pull-right"> <span class="seats">3</span> <span class="seats">4</span> </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="footer"></div>
+<!--模态框-->
+<div id="batch_fill"></div>
+<div id="select_site"></div>
+<div id="select_rebackSite"></div>
+<div id="select_confirmSite"></div>
+</body>
+<script id="link-js" type="text/javascript">
+    document.write(
+        '<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/order/order_common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/order/order_info.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

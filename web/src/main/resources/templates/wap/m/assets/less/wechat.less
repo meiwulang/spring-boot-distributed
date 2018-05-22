@@ -1,0 +1,115 @@
+@import './common.less';
+
+#wrap{
+	width: 100%;
+	.acti_header{
+		height: 45px;
+	    line-height: 45px;
+	    background-color: #fff;
+	    text-align: center;
+	    position: fixed;
+	    font-size: 16px;
+	    box-shadow: 0px 0px 1px #ccc;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    z-index: 10;
+		a{
+			position: absolute;
+		    width: 45px;
+		    height: 45px;
+		    left: 0;
+		    top: 0;
+		    background: url('@{img}/icon_arr_back.png') center center no-repeat;
+		    background-size: 9px auto;
+		}
+	}
+	.main{
+		background: #fff;
+		width: 100%;
+		padding: 15px;
+		box-sizing: border-box;
+		padding-bottom: 10px;
+		p{
+			font-size: 14px;
+			color: #333;
+			line-height: 22px;
+			margin-bottom: 5px;
+		}
+		.ground{
+			height: 25px;
+			width: 100%;
+			font-size: 12px;
+			span:nth-child(1){
+				float: left;
+				color: #666;
+			}
+			span:nth-child(2){
+				color: #333;
+			}
+			span{
+				line-height: 25px;
+				display: inline-block;
+			}
+			.pary{
+				width: 200px;
+				float: left;
+				color: #fc2a35 !important;
+			}
+		}
+	}
+	.phon{
+		width: 178px;
+		height: 178px;
+		margin: 0 auto;
+		margin-top: 40px;
+		img{
+			width: 100%;
+		}
+	}
+	.tit{
+		margin: 0 auto;
+		margin-top: 10px;
+		width: 70%;
+		text-align: center;
+		font-size: 14px;
+		color: #666;
+		height: 30px;
+		line-height: 20px;
+	}
+	.buttonss{
+		position: fixed;
+		width: 100%;
+		color: #fff;
+		background: #ffa600;
+		font-size: 14px;
+		text-align: center;
+		height: 43px;
+		line-height: 43px;
+		bottom: 0;
+	}
+	
+
+}
+#popup{
+	#popup-info{
+		overflow: hidden;
+		div{
+			float: left;
+			width: 68px;
+			height: 30px;
+			text-align: center;
+			line-height: 30px;
+			margin-top: 20px;
+			margin-left: 20px;
+		}
+		div:nth-child(1){
+			background: #f6f7fb;
+
+		}
+		div:nth-child(2){
+			background: #ffa600;
+			
+		}
+	}
+}

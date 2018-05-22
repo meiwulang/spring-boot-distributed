@@ -1,0 +1,130 @@
+#nav{
+	height: 50px;
+	width: 100%;
+	background-color: #fff;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	z-index: 10;
+	box-shadow: 0px 0px 1px #ccc;
+	
+	ul{
+		display: flex;
+
+		li{
+			flex: 1;
+			/*width: 33.3333%;*/
+			/*float: left;*/
+			text-align: center;
+			height: 50px;
+			overflow: hidden;
+
+			a{
+				display: block;
+				height: 100%;
+				line-height: 78px;
+				font-size: 10px;
+			}
+
+			&.nav_index{
+				a{
+					background: url('@{img}/nav/icon_index.png') center 8px no-repeat;
+					background-size: auto 20px;
+				}
+
+				&.active a{
+					background: url('@{img}/nav/icon_index_active.png') center 8px no-repeat;
+					background-size: auto 20px;
+				}
+			}
+
+			&.nav_order{
+				/*opacity: 0.4;*/
+
+				a{
+					background: url('@{img}/nav/icon_order.png') center 8px no-repeat;
+					background-size: auto 20px;
+				}
+
+				&.active a{
+					background: url('@{img}/nav/icon_order_active.png') center 8px no-repeat;
+					background-size: auto 20px;
+				}
+			}
+
+			&.nav_made{
+				/*opacity: 0.4;*/
+
+				a{
+					background: url('@{img}/nav/icon_made.png') center 8px no-repeat;
+					background-size: auto 20px;
+				}
+
+				&.active a{
+					background: url('@{img}/nav/icon_made_active.png') center 8px no-repeat;
+					background-size: auto 20px;
+				}
+			}
+
+			&.nav_user{
+				/*opacity: 0.4;*/
+
+				a{
+					background: url('@{img}/nav/icon_user.png') center 8px no-repeat;
+					background-size: auto 20px;
+				}
+
+				&.active a{
+					background: url('@{img}/nav/icon_user_active.png') center 8px no-repeat;
+					background-size: auto 20px;
+				}
+			}
+			/*导游报账*/
+			&.nav_list{
+				/*opacity: 0.4;*/
+
+				a{
+					background: url('@{img}/guide/u2.png') center 6px no-repeat;
+					background-size: auto 25px;
+				}
+
+				&.active a{
+					background: url('@{img}/guide/u1.png') center 6px no-repeat;
+					background-size: auto 25px;
+				}
+			}
+			&.nav_two{
+				/*opacity: 0.4;*/
+
+				a{
+					background: url('@{img}/guide/t2.png') center 6px no-repeat;
+					background-size: auto 23px;
+				}
+
+				&.active a{
+					background: url('@{img}/guide/t1.png') center 6px no-repeat;
+					background-size: auto 23px;
+				}
+			}
+			&.nav_three{
+				/*opacity: 0.4;*/
+
+				a{
+					color: #999;
+					background: url('@{img}/guide/s2.png') center 6px no-repeat;
+					background-size: auto 25px;
+				}
+
+				&.active a{
+					background: url('@{img}/guide/s1.png') center 6px no-repeat;
+					background-size: auto 25px;
+				}
+			}
+			&.nav_th{
+				a{
+					color: #333;
+				}
+			}
+		}
+	}
+}

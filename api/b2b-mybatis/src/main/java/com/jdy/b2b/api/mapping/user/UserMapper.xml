@@ -1,0 +1,1484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.user.UserMapper">
+    <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.user.User">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="u_account" jdbcType="VARCHAR" property="uAccount"/>
+        <result column="u_password" jdbcType="VARCHAR" property="uPassword"/>
+        <result column="u_wx_openid" jdbcType="VARCHAR" property="uWxOpenId" />
+        <result column="u_wx_name" jdbcType="VARCHAR" property="uWxname"/>
+        <result column="u_no" jdbcType="VARCHAR" property="uNo"/>
+        <result column="u_level" jdbcType="INTEGER" property="level" />
+        <result column="u_pid" jdbcType="VARCHAR" property="pid" />
+        <result column="u_uid" jdbcType="VARCHAR" property="uUid" />
+        <result column="u_puserid" jdbcType="VARCHAR" property="uPuserid" />
+        <result column="u_position_id" jdbcType="BIGINT" property="uPositionId" />
+        <result column="u_real_name" jdbcType="VARCHAR" property="uRealName"/>
+        <result column="u_pym" jdbcType="VARCHAR" property="uPym"/>
+        <result column="company_id" jdbcType="BIGINT" property="uCompanyId"/>
+        <result column="u_department_id" jdbcType="BIGINT" property="uDepartmentId"/>
+        <result column="u_charge_type" jdbcType="INTEGER" property="uChargeType"/>
+        <result column="u_dtype" jdbcType="INTEGER" property="uDtype"/>
+        <result column="u_data_limit" jdbcType="INTEGER" property="uDataLimit"/>
+        <result column="u_role_id" jdbcType="BIGINT" property="uRoleId"/>
+        <result column="u_type" jdbcType="INTEGER" property="uType"/>
+        <result column="u_stype" jdbcType="INTEGER" property="uStype"/>
+        <result column="u_post" jdbcType="VARCHAR" property="uPost"/>
+        <result column="u_address" jdbcType="VARCHAR" property="uAddress"/>
+        <result column="u_tel" jdbcType="VARCHAR" property="uTel"/>
+        <result column="u_idcard" jdbcType="VARCHAR" property="uIdcard"/>
+        <result column="u_sex" jdbcType="BIT" property="uSex"/>
+        <result column="u_birthday" jdbcType="TIMESTAMP" property="uBirthday"/>
+        <result column="u_degree" jdbcType="INTEGER" property="uDegree"/>
+        <result column="u_political" jdbcType="INTEGER" property="uPolitical"/>
+        <result column="u_phone" jdbcType="VARCHAR" property="uPhone"/>
+        <result column="u_fax" jdbcType="VARCHAR" property="uFax"/>
+        <result column="u_qq" jdbcType="VARCHAR" property="uQq"/>
+        <result column="u_email" jdbcType="VARCHAR" property="uEmail"/>
+        <result column="u_contacts" jdbcType="VARCHAR" property="uContacts"/>
+        <result column="u_contacts_phone" jdbcType="VARCHAR" property="uContactsPhone"/>
+        <result column="u_remark" jdbcType="VARCHAR" property="uRemark"/>
+        <result column="u_last_login" jdbcType="TIMESTAMP" property="uLastLogin"/>
+        <result column="u_pic" jdbcType="VARCHAR" property="uPic"/>
+        <result column="u_status" jdbcType="INTEGER" property="uStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="BIGINT" property="updateUser"/>
+        <result column="oa_id" jdbcType="BIGINT" property="oaid"/>
+    </resultMap>
+
+    <resultMap id="distListResultMap" type="com.jdy.b2b.api.model.user.AgentUserDO" extends="BaseResultMap">
+        <result column="u_pic" jdbcType="VARCHAR" property="uPic"/>
+        <result column="u_last_login" jdbcType="TIMESTAMP" property="uLastLogin"/>
+        <result column="u_wx_openid" jdbcType="VARCHAR" property="uWxOpenId"/>
+        <result column="u_pid" jdbcType="VARCHAR" property="pid"/>
+        <result column="u_level" jdbcType="BIT" property="level"/>
+        <result column="u_dtype" jdbcType="INTEGER" property="uDtype"/>
+        <result column="u_stype" jdbcType="INTEGER" property="uStype"/>
+
+        <result column="dName" jdbcType="VARCHAR" property="dName"/>
+    </resultMap>
+
+    <resultMap id="UserQueryResultMap" type="com.jdy.b2b.api.model.user.UserResultDTO">
+        <id column="id" jdbcType="BIGINT" property="userId"/>
+        <result column="uAccount" jdbcType="VARCHAR" property="uAccount"/>
+        <result column="uPassword" jdbcType="VARCHAR" property="uPassword"/>
+        <result column="uRealName" jdbcType="VARCHAR" property="uRealName"/>
+        <result column="uPym" jdbcType="VARCHAR" property="uPym"/>
+        <result column="uCompanyId" jdbcType="BIGINT" property="uCompanyId"/>
+        <result column="uDepartmentId" jdbcType="BIGINT" property="uDepartmentId"/>
+        <result column="uRoleId" jdbcType="BIGINT" property="uRoleId"/>
+        <result column="uType" jdbcType="INTEGER" property="uType"/>
+        <result column="uPost" jdbcType="VARCHAR" property="uPost"/>
+        <result column="uAddress" jdbcType="VARCHAR" property="uAddress"/>
+        <result column="uTel" jdbcType="VARCHAR" property="uTel"/>
+        <result column="uIdcard" jdbcType="VARCHAR" property="uIdcard"/>
+        <result column="uSex" jdbcType="BIT" property="uSex"/>
+        <result column="uBirthday" jdbcType="TIMESTAMP" property="uBirthday"/>
+        <result column="uDegree" jdbcType="INTEGER" property="uDegree"/>
+        <result column="uPolitical" jdbcType="INTEGER" property="uPolitical"/>
+        <result column="uPhone" jdbcType="VARCHAR" property="uPhone"/>
+        <result column="uFax" jdbcType="VARCHAR" property="uFax"/>
+        <result column="uQq" jdbcType="VARCHAR" property="uQq"/>
+        <result column="uEmail" jdbcType="VARCHAR" property="uEmail"/>
+        <result column="uContacts" jdbcType="VARCHAR" property="uContacts"/>
+        <result column="uContactsPhone" jdbcType="VARCHAR" property="uContactsPhone"/>
+        <result column="uRemark" jdbcType="VARCHAR" property="uRemark"/>
+        <result column="uStatus" jdbcType="INTEGER" property="uStatus"/>
+        <result column="urRoleName" jdbcType="VARCHAR" property="urRoleName"/>
+        <result column="urRoleNo" jdbcType="VARCHAR" property="urRoleNo"/>
+        <result column="cName" jdbcType="VARCHAR" property="cName"/>
+        <result column="cType" jdbcType="INTEGER" property="cType"/>
+        <result column="dName" jdbcType="VARCHAR" property="dName"/>
+
+
+    </resultMap>
+
+
+    <resultMap id="SyncUserQueryResultMap" type="com.jdy.b2b.api.model.user.UserResultSycnDTO">
+        <id column="id" jdbcType="BIGINT" property="userId"/>
+        <result column="u_uid" jdbcType="VARCHAR" property="uUid" />
+        <result column="u_tel" jdbcType="VARCHAR" property="uTel"/>
+        <result column="u_level" jdbcType="INTEGER" property="uLevel" />
+        <result column="u_real_name" jdbcType="VARCHAR" property="uRealName"/>
+        <result column="u_wx_openid" jdbcType="VARCHAR" property="uWxOpenId" />
+        <result column="u_wx_name" jdbcType="VARCHAR" property="uWxname"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="u_pid" jdbcType="VARCHAR" property="uPid" />
+        <result column="u_department_id" jdbcType="BIGINT" property="uDepartmentId"/>
+        <result column="u_position_id" jdbcType="BIGINT" property="uPositionId" />
+        <result column="u_stype" jdbcType="INTEGER" property="uStype"/>
+        <result column="company_id" jdbcType="BIGINT" property="uCompanyId"/>
+        <result column="u_status" jdbcType="INTEGER" property="uStatus"/>
+        <result column="uDepartmentName" jdbcType="VARCHAR" property="uDepartmentName"/>
+        <result column="g_no" jdbcType="VARCHAR" property="gNo"/>
+        <result column="uPositionName" jdbcType="VARCHAR" property="uPositionName"/>
+        <result column="c_name" jdbcType="VARCHAR" property="cName"/>
+        <result column="c_type" jdbcType="INTEGER" property="cType"/>
+        <result column="u_pic" jdbcType="VARCHAR" property="uPic"/>
+        <result column="u_last_login" jdbcType="TIMESTAMP" property="uLastLogin"/>
+        <result column="u_account" jdbcType="VARCHAR" property="uAccount"/>
+        <result column="u_pym" jdbcType="VARCHAR" property="uPym"/>
+
+
+    </resultMap>
+
+    <resultMap id="UserAccountQueryList" type="com.jdy.b2b.api.model.user.UserResultDTO" extends="UserQueryResultMap">
+        <result column="uPic" jdbcType="VARCHAR" property="uPic"/>
+        <result column="uLastLogin" jdbcType="TIMESTAMP" property="uLastLogin"/>
+        <result column="uPic" jdbcType="VARCHAR" property="uPic"/>
+        <result column="u_pid" jdbcType="VARCHAR" property="uPic"/>
+        <result column="roleId" jdbcType="BIGINT" property="roleId"/>
+        <result column="uStype" jdbcType="INTEGER" property="uStype"/>
+        <result column="datalimit" jdbcType="INTEGER" property="uDataLimit"/>
+        <result column="u_position_id" property="uPositionId"/>
+    </resultMap>
+
+
+    <resultMap id="UserQueryExtendMap" type="com.jdy.b2b.api.model.user.UserExtendDTO" extends="UserQueryResultMap">
+        <result column="politicalName" jdbcType="VARCHAR" property="politicalName"/>
+        <result column="degreeName" jdbcType="VARCHAR" property="degreeName"/>
+        <result column="uNo" jdbcType="VARCHAR" property="uNo"/>
+        <result column="uWxname" jdbcType="VARCHAR" property="uWxname"/>
+        <result column="uDtype" jdbcType="VARCHAR" property="uDtype"/>
+        <result column="upName" jdbcType="VARCHAR" property="upName"/>
+    </resultMap>
+
+    <resultMap id="SubDistResultMap" type="com.jdy.b2b.api.model.user.DepartDistDO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="u_real_name" jdbcType="VARCHAR" property="uRealName"/>
+        <result column="u_pid" jdbcType="VARCHAR" property="pid"/>
+        <result column="u_account" jdbcType="VARCHAR" property="uAccount"/>
+        <result column="u_level" jdbcType="INTEGER" property="level"/>
+    </resultMap>
+
+    <sql id="User_Query_List">
+        User.id as id,
+        User.u_account as uAccount,
+        User.u_password as uPassword,
+        User.u_no as uNo,
+        User.u_real_name as uRealName,
+        User.u_pym as uPym,
+        User.company_id as uCompanyId,
+        User.u_department_id as uDepartmentId,
+        User.u_data_limit as uDataLimit,
+        User.u_role_id as uRoleId,
+        User.u_type as uType,
+        User.u_post as uPost,
+        User.u_address as uAddress,
+        User.u_tel as uTel,
+        User.u_idcard as uIdcard,
+        User.u_sex as uSex,
+        User.u_birthday as uBirthday,
+        User.u_degree as uDegree,
+        User.u_wx_name as uWxname,
+        User.u_wx_openid as uWxOpenId,
+        User.u_political as uPolitical,
+        User.u_phone as uPhone,
+        User.u_fax as uFax,
+        User.u_qq as uQq,
+        User.u_email as uEmail,
+        User.u_contacts as uContacts,
+        User.u_contacts_phone as uContactsPhone,
+        User.u_remark as uRemark,
+        User.u_status as uStatus,
+        User.u_dtype as uDtype,
+        User.u_position_id as u_position_id,
+        Company.c_name AS cName,
+        Company.c_type AS cType,
+        Department.d_name AS dName
+    </sql>
+
+
+    <sql id="User_Sync_List">
+          User.id,
+          User.u_uid,
+          User.u_tel,
+          User.u_level,
+          User.u_account ,
+          User.u_real_name,
+          User.u_wx_openid ,
+          User.u_wx_name ,
+          User.update_time,
+          User.u_pid ,
+          User.u_department_id ,
+          User.u_position_id ,
+          User.u_stype ,
+          User.company_id ,
+          User.u_status ,
+          User.u_pic,
+          User.u_last_login,
+          User.u_pym,
+          Department.d_name  as uDepartmentName,
+	      group_concat(sug.g_no) as g_no,
+          Dictionaries.d_name   as uPositionName,
+          Company.c_name ,
+          Company.c_type
+    </sql>
+
+    <sql id="FrontUser_Column_List">
+        u.id as u_id,u.u_stype u_stype,
+        u.u_account as u_name,
+        u.company_id as u_org_id,
+        u.u_real_name as u_realname,
+        u.u_tel as u_mobile,
+        u.u_qq as u_qq,
+        u.u_sex as u_sex,
+        u.u_wx_openid as u_openid,
+        u.u_pic as u_head,
+        u.u_pic as u_face,
+        c.id as org_id,
+        c.c_name as org_name,
+        (
+        CASE c.c_type
+        WHEN 0 THEN
+        '供应商'
+        WHEN 1 THEN
+        '分销商'
+        WHEN 2 THEN
+        '管理公司'
+        END
+        ) AS org_type,
+        c_province as org_province,
+        c_city as org_city,
+        c_area as org_county,
+        c_address as org_addr,
+        r.ur_role_name as r_name
+    </sql>
+
+
+    <sql id="Base_Column_List">
+    id, u_account, u_password, u_wx_openid , u_wx_name ,u_no, u_level,u_pid,u_uid,u_puserid, u_position_id,u_real_name,u_pym, company_id, u_department_id,
+     u_charge_type,u_dtype,u_data_limit,
+    u_role_id, u_type, u_stype,u_post, u_address, u_tel, u_idcard, u_sex, u_birthday, u_degree,
+    u_political, u_phone, u_fax, u_qq, u_email, u_contacts, u_contacts_phone, u_remark,u_last_login,u_pic,
+    u_status, create_time, create_user, update_time, update_user,oa_id
+  </sql>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <delete id="batchDeleteById" parameterType="java.util.List">
+    delete from sm_user
+    where
+    id in <foreach collection="list" item="t" open="(" close=")" separator=",">#{t}</foreach>
+  </delete>
+    <insert id="insert" parameterType="com.jdy.b2b.api.model.user.User" useGeneratedKeys="true" keyProperty="id">
+    insert into sm_user (id, u_account, u_password,
+      u_real_name,u_no,u_pym, company_id, u_department_id,u_dtype,
+      u_data_limit, u_role_id, u_type,
+      u_post, u_address, u_tel,
+      u_idcard, u_sex, u_birthday,
+      u_degree, u_political, u_phone,
+      u_fax, u_qq, u_email,
+      u_contacts, u_contacts_phone, u_remark,
+      u_status, create_time, create_user,
+      update_time, update_user,u_pic,u_last_login,u_wx_name,u_stype,
+      u_puserid,u_position_id,u_level,u_wx_openid)
+    select #{id,jdbcType=BIGINT}, #{uAccount,jdbcType=VARCHAR}, #{uPassword,jdbcType=VARCHAR},
+      #{uRealName,jdbcType=VARCHAR},
+        <choose>
+            <when test="uStype==3">
+                #{uNo},
+            </when>
+            <otherwise>
+                Max(u_no)+1,
+            </otherwise>
+        </choose>
+      #{uPym,jdbcType=VARCHAR}, #{uCompanyId,jdbcType=BIGINT},
+       #{uDepartmentId,jdbcType=BIGINT},#{uDtype,jdbcType=INTEGER},
+      #{uDataLimit,jdbcType=INTEGER}, #{uRoleId,jdbcType=BIGINT}, #{uType,jdbcType=INTEGER},
+      #{uPost,jdbcType=VARCHAR}, #{uAddress,jdbcType=VARCHAR}, #{uTel,jdbcType=VARCHAR},
+      #{uIdcard,jdbcType=VARCHAR}, #{uSex,jdbcType=BIT}, #{uBirthday,jdbcType=TIMESTAMP},
+      #{uDegree,jdbcType=INTEGER}, #{uPolitical,jdbcType=INTEGER}, #{uPhone,jdbcType=VARCHAR},
+      #{uFax,jdbcType=VARCHAR}, #{uQq,jdbcType=VARCHAR}, #{uEmail,jdbcType=VARCHAR},
+      #{uContacts,jdbcType=VARCHAR}, #{uContactsPhone,jdbcType=VARCHAR}, #{uRemark,jdbcType=VARCHAR},
+      #{uStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT},
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT},
+      #{uPic,jdbcType=VARCHAR}, #{uLastLogin,jdbcType=TIMESTAMP},#{uWxname,jdbcType=VARCHAR},#{uStype,jdbcType=INTEGER},
+      #{uPuserid,jdbcType=BIGINT},#{uPositionId,jdbcType=BIGINT},#{level,jdbcType=TINYINT}, #{uWxOpenId,jdbcType=VARCHAR}
+      from sm_user limit 1
+  </insert>
+    <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.user.User" useGeneratedKeys="true" keyProperty="id">
+        insert into sm_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                id,
+            <if test="oaid != null">
+                oa_id,
+            </if>
+            <if test="uPositionId != null">
+                u_position_id,
+            </if>
+            <if test="uAccount != null">
+                u_account,
+            </if>
+            <if test="uPassword != null">
+                u_password,
+            </if>
+            <if test="uNo != null">
+                u_no,
+            </if>
+            <if test="uUid != null">
+                u_uid,
+            </if>
+            <if test="uPuserid != null">
+
+                u_puserid,
+            </if>
+            <if test="uRealName != null">
+                u_real_name,
+            </if>
+            <if test="uPym != null">
+                u_pym,
+            </if>
+            <if test="uCompanyId != null">
+                company_id,
+            </if>
+            <if test="uDepartmentId != null">
+                u_department_id,
+            </if>
+            <if test="uChargeType != null">
+                u_charge_type,
+            </if>
+            <if test="uDtype != null">
+                u_dtype,
+            </if>
+            <if test="uDataLimit != null">
+                u_data_limit,
+            </if>
+            <if test="uRoleId != null">
+                u_role_id,
+            </if>
+            <if test="uType != null">
+                u_type,
+            </if>
+            <if test="uPost != null">
+                u_post,
+            </if>
+            <if test="uAddress != null">
+                u_address,
+            </if>
+            <if test="uTel != null">
+                u_tel,
+            </if>
+            <if test="uIdcard != null">
+                u_idcard,
+            </if>
+            <if test="uSex != null">
+                u_sex,
+            </if>
+            <if test="uBirthday != null">
+                u_birthday,
+            </if>
+            <if test="uDegree != null">
+                u_degree,
+            </if>
+            <if test="uPolitical != null">
+                u_political,
+            </if>
+            <if test="uPhone != null">
+                u_phone,
+            </if>
+            <if test="uFax != null">
+                u_fax,
+            </if>
+            <if test="uQq != null">
+                u_qq,
+            </if>
+            <if test="uEmail != null">
+                u_email,
+            </if>
+            <if test="uContacts != null">
+                u_contacts,
+            </if>
+            <if test="uContactsPhone != null">
+                u_contacts_phone,
+            </if>
+            <if test="uRemark != null">
+                u_remark,
+            </if>
+            <if test="uStatus != null">
+                u_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="uPic != null">
+                u_pic,
+            </if>
+            <if test="uLastLogin != null">
+                u_last_login,
+            </if>
+            <if test="uWxOpenId != null">
+                u_wx_openid,
+            </if>
+            <if test="uWxname != null">
+                u_wx_name,
+            </if>
+            <if test="pid != null">
+                u_pid,
+            </if>
+            <if test="level != null">
+                u_level,
+            </if>
+            <if test="uStype != null">
+                u_stype,
+            </if>
+        </trim>
+        values
+        <trim suffixOverrides="," prefix="(" suffix=")">
+               #{oaid},
+            <if test="oaid != null">
+                #{oaid},
+            </if>
+            <if test="uPositionId != null">
+                #{uPositionId},
+            </if>
+            <if test="uAccount != null">
+                #{uAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="uPassword != null">
+                #{uPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="uNo != null">
+                #{uNo} ,
+            </if>
+            <if test="uUid != null">
+                #{uUid,jdbcType=VARCHAR},
+            </if>
+            <if test="uPuserid != null">
+                #{uPuserid,jdbcType=VARCHAR},
+            </if>
+            <if test="uRealName != null">
+                #{uRealName,jdbcType=VARCHAR},
+            </if>
+            <if test="uPym != null">
+                #{uPym,jdbcType=VARCHAR},
+            </if>
+            <if test="uCompanyId != null">
+                #{uCompanyId,jdbcType=BIGINT},
+            </if>
+            <if test="uDepartmentId != null">
+                #{uDepartmentId,jdbcType=BIGINT},
+            </if>
+            <if test="uChargeType != null">
+                #{uChargeType},
+            </if>
+            <if test="uDtype != null">
+                #{uDtype},
+            </if>
+            <if test="uDataLimit != null">
+                #{uDataLimit,jdbcType=INTEGER},
+            </if>
+            <if test="uRoleId != null">
+                #{uRoleId,jdbcType=BIGINT},
+            </if>
+            <if test="uType != null">
+                #{uType,jdbcType=INTEGER},
+            </if>
+            <if test="uPost != null">
+                #{uPost,jdbcType=VARCHAR},
+            </if>
+            <if test="uAddress != null">
+                #{uAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="uTel != null">
+                #{uTel,jdbcType=VARCHAR},
+            </if>
+            <if test="uIdcard != null">
+                #{uIdcard,jdbcType=VARCHAR},
+            </if>
+            <if test="uSex != null">
+                #{uSex,jdbcType=BIT},
+            </if>
+            <if test="uBirthday != null">
+                #{uBirthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uDegree != null">
+                #{uDegree,jdbcType=INTEGER},
+            </if>
+            <if test="uPolitical != null">
+                #{uPolitical,jdbcType=INTEGER},
+            </if>
+            <if test="uPhone != null">
+                #{uPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="uFax != null">
+                #{uFax,jdbcType=VARCHAR},
+            </if>
+            <if test="uQq != null">
+                #{uQq,jdbcType=VARCHAR},
+            </if>
+            <if test="uEmail != null">
+                #{uEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="uContacts != null">
+                #{uContacts,jdbcType=VARCHAR},
+            </if>
+            <if test="uContactsPhone != null">
+                #{uContactsPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="uRemark != null">
+                #{uRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="uStatus != null">
+                #{uStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="uPic != null">
+                #{uPic,jdbcType=VARCHAR},
+            </if>
+            <if test="uLastLogin != null">
+                #{uLastLogin,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uWxOpenId != null">
+                #{uWxOpenId,jdbcType=VARCHAR},
+            </if>
+            <if test="uWxname != null">
+                #{uWxname},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=TINYINT},
+            </if>
+            <if test="uStype != null">
+                #{uStype,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <insert id="batchSaveUser" parameterType="java.util.List" >
+        insert into sm_user
+               ( id,
+                oa_id,
+                u_position_id,
+                u_account,
+                u_password,
+                u_no,
+                u_uid,
+                u_puserid,
+                u_real_name,
+                u_pym,
+                company_id,
+                u_department_id,
+                u_dtype,
+                u_data_limit,
+                u_role_id,
+                u_type,
+                u_post,
+                u_address,
+                u_tel,
+                u_idcard,
+                u_sex,
+                u_birthday,
+                u_degree,
+                u_political,
+                u_phone,
+                u_fax,
+                u_qq,
+                u_email,
+                u_contacts,
+                u_contacts_phone,
+                u_remark,
+                u_status,
+                create_time,
+                create_user,
+                update_time,
+                update_user,
+                u_pic,
+                u_last_login,
+                u_wx_openid,
+                u_wx_name,
+                u_pid,
+                u_level,
+                u_stype
+        )
+        values
+        <foreach collection="list" item="t" separator=",">
+        (
+               #{t.oaid},
+                #{t.oaid},
+                #{t.uPositionId},
+                #{t.uAccount,jdbcType=VARCHAR},
+                #{t.uPassword,jdbcType=VARCHAR},
+                #{t.uNo},
+                #{t.uUid,jdbcType=VARCHAR},
+                #{t.uPuserid,jdbcType=VARCHAR},
+                #{t.uRealName,jdbcType=VARCHAR},
+                #{t.uPym,jdbcType=VARCHAR},
+                #{t.uCompanyId,jdbcType=BIGINT},
+                #{t.uDepartmentId,jdbcType=BIGINT},
+                #{t.uDtype},
+                #{t.uDataLimit,jdbcType=INTEGER},
+                #{t.uRoleId,jdbcType=BIGINT},
+                #{t.uType,jdbcType=INTEGER},
+                #{t.uPost,jdbcType=VARCHAR},
+                #{t.uAddress,jdbcType=VARCHAR},
+                #{t.uTel,jdbcType=VARCHAR},
+                #{t.uIdcard,jdbcType=VARCHAR},
+                #{t.uSex,jdbcType=BIT},
+                #{t.uBirthday,jdbcType=TIMESTAMP},
+                #{t.uDegree,jdbcType=INTEGER},
+                #{t.uPolitical,jdbcType=INTEGER},
+                #{t.uPhone,jdbcType=VARCHAR},
+                #{t.uFax,jdbcType=VARCHAR},
+                #{t.uQq,jdbcType=VARCHAR},
+                #{t.uEmail,jdbcType=VARCHAR},
+                #{t.uContacts,jdbcType=VARCHAR},
+                #{t.uContactsPhone,jdbcType=VARCHAR},
+                #{t.uRemark,jdbcType=VARCHAR},
+                #{t.uStatus,jdbcType=INTEGER},
+                #{t.createTime,jdbcType=TIMESTAMP},
+                #{t.createUser,jdbcType=BIGINT},
+                #{t.updateTime,jdbcType=TIMESTAMP},
+                #{t.updateUser,jdbcType=BIGINT},
+                #{t.uPic,jdbcType=VARCHAR},
+                #{t.uLastLogin,jdbcType=TIMESTAMP},
+                #{t.uWxOpenId,jdbcType=VARCHAR},
+                #{t.uWxname},
+                #{t.pid,jdbcType=VARCHAR},
+                #{t.level,jdbcType=TINYINT},
+                #{t.uStype,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.user.User">
+        update sm_user
+        <set>
+            <if test="uAccount != null">
+                u_account = #{uAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="oaid != null">
+                oa_id = #{oaid,jdbcType=VARCHAR},
+            </if>
+            <if test="uPassword != null and uPassword !=''">
+                u_password = #{uPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="uRealName != null">
+                u_real_name = #{uRealName,jdbcType=VARCHAR},
+            </if>
+            <if test="uPym != null">
+                u_pym = #{uPym,jdbcType=VARCHAR},
+            </if>
+            <if test="uCompanyId != null">
+                company_id = #{uCompanyId,jdbcType=BIGINT},
+            </if>
+            <if test="uDepartmentId != null">
+                u_department_id = #{uDepartmentId,jdbcType=BIGINT},
+            </if>
+            <if test="uDataLimit != null">
+                u_data_limit = #{uDataLimit,jdbcType=INTEGER},
+            </if>
+            <if test="uRoleId != null">
+                u_role_id = #{uRoleId,jdbcType=BIGINT},
+            </if>
+            <if test="uType != null">
+                u_type = #{uType,jdbcType=INTEGER},
+            </if>
+            <if test="uPost != null">
+                u_post = #{uPost,jdbcType=VARCHAR},
+            </if>
+            <if test="uPositionId != null">
+                u_position_id = #{uPositionId},
+            </if>
+            <if test="uAddress != null">
+                u_address = #{uAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="uTel != null">
+                u_tel = #{uTel,jdbcType=VARCHAR},
+            </if>
+            <if test="uIdcard != null">
+                u_idcard = #{uIdcard,jdbcType=VARCHAR},
+            </if>
+            <if test="uSex != null">
+                u_sex = #{uSex,jdbcType=BIT},
+            </if>
+            <if test="uBirthday != null">
+                u_birthday = #{uBirthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uDegree != null">
+                u_degree = #{uDegree,jdbcType=INTEGER},
+            </if>
+            <if test="uPolitical != null">
+                u_political = #{uPolitical,jdbcType=INTEGER},
+            </if>
+            <if test="uPhone != null">
+                u_phone = #{uPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="uFax != null">
+                u_fax = #{uFax,jdbcType=VARCHAR},
+            </if>
+            <if test="uQq != null">
+                u_qq = #{uQq,jdbcType=VARCHAR},
+            </if>
+            <if test="uEmail != null">
+                u_email = #{uEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="uContacts != null">
+                u_contacts = #{uContacts,jdbcType=VARCHAR},
+            </if>
+            <if test="uContactsPhone != null">
+                u_contacts_phone = #{uContactsPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="uRemark != null">
+                u_remark = #{uRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="uStatus != null">
+                u_status = #{uStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="uPic != null">
+                u_pic = #{uPic,jdbcType=VARCHAR},
+            </if>
+            <if test="uLastLogin != null">
+                u_last_login = #{uLastLogin,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uWxOpenId != null">
+                u_wx_openid = #{uWxOpenId,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                u_pid=#{pid,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                u_level=#{level,jdbcType=TINYINT},
+            </if>
+            <if test="uNo != null">
+                u_no = #{uNo,jdbcType=VARCHAR},
+            </if>
+            <if test="uChargeType != null">
+                u_charge_type = #{uChargeType},
+            </if>
+            <if test="uDtype != null">
+                u_dtype = #{uDtype,jdbcType=INTEGER},
+            </if>
+            <if test="uWxname != null">
+                u_wx_name = #{uWxname,jdbcType=VARCHAR},
+            </if>
+            <if test="uStype != null">
+                u_stype = #{uStype,jdbcType=INTEGER},
+            </if>
+            <if test="uUid != null">
+                u_uid = #{uUid},
+            </if>
+            <if test="uPuserid != null">
+                u_puserid = #{uPuserid},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.user.User">
+    update sm_user
+    set u_account = #{uAccount,jdbcType=VARCHAR},
+      u_password = #{uPassword,jdbcType=VARCHAR},
+      u_real_name = #{uRealName,jdbcType=VARCHAR},
+      u_pym = #{uPym,jdbcType=VARCHAR},
+      company_id = #{uCompanyId,jdbcType=BIGINT},
+      u_department_id = #{uDepartmentId,jdbcType=BIGINT},
+      u_data_limit = #{uDataLimit,jdbcType=INTEGER},
+      u_role_id = #{uRoleId,jdbcType=BIGINT},
+      u_type = #{uType,jdbcType=INTEGER},
+      u_post = #{uPost,jdbcType=VARCHAR},
+      u_address = #{uAddress,jdbcType=VARCHAR},
+      u_tel = #{uTel,jdbcType=VARCHAR},
+      u_idcard = #{uIdcard,jdbcType=VARCHAR},
+      u_sex = #{uSex,jdbcType=BIT},
+      u_birthday = #{uBirthday,jdbcType=TIMESTAMP},
+      u_degree = #{uDegree,jdbcType=INTEGER},
+      u_political = #{uPolitical,jdbcType=INTEGER},
+      u_phone = #{uPhone,jdbcType=VARCHAR},
+      u_fax = #{uFax,jdbcType=VARCHAR},
+      u_qq = #{uQq,jdbcType=VARCHAR},
+      u_email = #{uEmail,jdbcType=VARCHAR},
+      u_contacts = #{uContacts,jdbcType=VARCHAR},
+      u_contacts_phone = #{uContactsPhone,jdbcType=VARCHAR},
+      u_remark = #{uRemark,jdbcType=VARCHAR},
+      u_status = #{uStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      u_pic = #{uPic,jdbcType=VARCHAR},
+      u_dtype = #{uDtype,jdbcType=INTEGER},
+      u_last_login = #{uLastLogin,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="syncUser" parameterType="com.jdy.b2b.api.model.user.User"     resultMap="SyncUserQueryResultMap">
+        SELECT
+        <include refid="User_Sync_List"/>
+        from
+        sm_user User
+        LEFT JOIN sm_user_group sug ON User.u_wx_openid = sug.u_account
+        LEFT JOIN sm_company Company ON User.company_id = Company.id
+        LEFT JOIN sm_dictionaries  Dictionaries on User.u_position_id  = Dictionaries.id
+        LEFT JOIN sm_department  Department on User.u_department_id  = Department.id
+
+        <where>
+            User.u_status=0
+            <trim prefix="AND (" suffix=")" prefixOverrides="OR | AND">
+            <if test="uAccount != null and uAccount!=''">
+                 OR User.u_account like concat('%', #{uAccount,jdbcType=VARCHAR},'%')
+
+            </if>
+            <if test="uPym != null and uPym!=''">
+                OR User.u_pym like concat('%',#{uPym,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="uRealName != null and uRealName!=''">
+                OR User.u_real_name like concat('%',#{uRealName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="uTel != null and uTel!=''">
+                OR User.u_tel like concat('%', #{uTel,jdbcType=VARCHAR},'%')
+            </if>
+        </trim>
+            <if test="uWxOpenId != null and uWxOpenId!=''">
+                AND User.u_wx_openid = #{uWxOpenId,jdbcType=VARCHAR}
+            </if>
+            <if test="id != null and id !=0">
+                AND User.id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="startDate != null and endDate !=null">
+            <![CDATA[
+                 AND ( (#{startDate,jdbcType=TIMESTAMP} < User.update_time and #{endDate,jdbcType=TIMESTAMP} > User.update_time)
+                    OR
+                (#{startDate,jdbcType=TIMESTAMP} < User.create_time and #{endDate,jdbcType=TIMESTAMP} > User.create_time))
+                 ]]>
+            </if>
+        </where>
+        GROUP BY
+        User.id,
+        User.u_uid,
+        User.u_tel,
+        User.u_level,
+        User.u_account,
+        User.u_real_name,
+        User.u_wx_openid,
+        User.u_wx_name,
+        User.update_time,
+        User.u_pid,
+        User.u_department_id,
+        User.u_position_id,
+        User.u_stype,
+        User.company_id,
+        User.u_status,
+        Department.d_name,
+        Dictionaries.d_name,
+        Company.c_name,
+        Company.c_type
+        ORDER BY  User.id DESC
+    </select>
+
+    <select id="queryForUserListForPage" parameterType="com.jdy.b2b.api.model.user.User"
+            resultMap="UserQueryResultMap">
+        SELECT
+        <include refid="User_Query_List"/>
+        from
+        sm_user User
+        LEFT JOIN sm_company Company ON User.company_id = Company.id
+        LEFT JOIN sm_user_role userRole ON User.id = userRole.ur_role_id
+        LEFT JOIN sm_department Department ON User.u_department_id = Department.id
+        <where>
+            Company.c_status = 1
+            and (Department.d_status !=1 or Department.d_status is null)
+            and (userRole.ur_status =0 or userRole.ur_status is null)
+            <if test="id != null">
+                AND User.id = #{id,jdbcType=BIGINT}
+            </if>
+            <trim prefix="AND (" suffix=")" prefixOverrides="OR | AND">
+
+                <if test="uAccount != null and uAccount!=''">
+                    OR User.u_account like concat('%',#{uAccount,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="uPym != null and uPym!=''">
+                    OR User.u_pym like concat('%',#{uPym,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="uRealName != null and uRealName!=''">
+                    OR User.u_real_name like concat('%',#{uRealName,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="uTel != null and uTel!=''">
+                    OR User.u_tel like concat('%',#{uTel,jdbcType=VARCHAR},'%')
+                </if>
+            </trim>
+
+            <if test="uPassword != null">
+                AND User.u_password = #{uPassword,jdbcType=VARCHAR}
+            </if>
+            <if test="uStype != null">
+                AND User.u_stype = #{uStype}
+            </if>
+            <if test="uCompanyId != null and uCompanyId !=''">
+                AND User.company_id = #{uCompanyId,jdbcType=BIGINT}
+            </if>
+            <if test="uDepartmentId != null and uDepartmentId!=''">
+                AND User.u_department_id = #{uDepartmentId,jdbcType=BIGINT}
+            </if>
+            <if test="uDataLimit != null">
+                AND User.u_data_limit = #{uDataLimit,jdbcType=INTEGER}
+            </if>
+            <if test="uRoleId != null and uRoleId!=''">
+                AND User.u_role_id = #{uRoleId,jdbcType=BIGINT}
+            </if>
+            <if test="uType != null">
+                AND User.u_type = #{uType,jdbcType=INTEGER}
+            </if>
+            <if test="uPost != null">
+                AND User.u_post = #{uPost,jdbcType=VARCHAR}
+            </if>
+            <if test="uAddress != null">
+                AND User.u_address = #{uAddress,jdbcType=VARCHAR}
+            </if>
+            <if test="uIdcard != null">
+                AND User.u_idcard = #{uIdcard,jdbcType=VARCHAR}
+            </if>
+            <if test="uSex != null">
+                AND User.u_sex = #{uSex,jdbcType=BIT}
+            </if>
+            <if test="uBirthday != null">
+                AND User.u_birthday = #{uBirthday,jdbcType=TIMESTAMP}
+            </if>
+            <if test="uDegree != null">
+                AND User.u_degree = #{uDegree,jdbcType=INTEGER}
+            </if>
+            <if test="uPolitical != null">
+                AND User.u_political = #{uPolitical,jdbcType=INTEGER}
+            </if>
+            <if test="uPhone != null">
+                AND User.u_phone = #{uPhone,jdbcType=VARCHAR}
+            </if>
+            <if test="uFax != null">
+                AND User.u_fax = #{uFax,jdbcType=VARCHAR}
+            </if>
+            <if test="uQq != null">
+                AND User.u_qq = #{uQq,jdbcType=VARCHAR}
+            </if>
+            <if test="uEmail != null">
+                AND User.u_email = #{uEmail,jdbcType=VARCHAR}
+            </if>
+            <if test="uContacts != null">
+                AND User.u_contacts = #{uContacts,jdbcType=VARCHAR}
+            </if>
+            <if test="uContactsPhone != null">
+                AND User.u_contacts_phone = #{uContactsPhone,jdbcType=VARCHAR}
+            </if>
+            <if test="uRemark != null">
+                AND User.u_remark = #{uRemark,jdbcType=VARCHAR}
+            </if>
+            <if test="uStatus != null">
+                AND User.u_status != #{uStatus,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                AND User.create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createUser != null">
+                AND User.create_user = #{createUser,jdbcType=BIGINT}
+            </if>
+            <if test="updateTime != null">
+                AND User.update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null">
+                AND User.update_user = #{updateUser,jdbcType=BIGINT}
+            </if>
+            AND User.u_type !=1
+        </where>
+        ORDER BY
+        User.id DESC
+    </select>
+
+    <select id="selectByAccount" resultMap="UserAccountQueryList">
+        select
+        <include refid="User_Query_List"/>,
+        User.u_pic as uPic,
+        User.u_last_login as uLastLogin,
+        User.u_stype as uStype,
+        p.data_limit datalimit
+        from sm_user User
+        LEFT JOIN sm_company Company ON User.company_id = Company.id
+        LEFT JOIN sm_department Department ON User.u_department_id = Department.id
+        LEFT JOIN cm_position p ON User.u_position_id = p.id
+        <where>
+            User.u_account = #{account,jdbcType=VARCHAR}
+            and User.u_status = 0
+            and ( Department.d_status!=1 or Department.d_status is null )
+            and Company.c_status = 1
+        </where>
+        order by User.id desc limit 1
+    </select>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="UserQueryExtendMap">
+        select
+        <include refid="User_Query_List"/>,
+        Dict2.d_name as degreeName,
+        upUser.u_real_name upName
+        from sm_user User
+        LEFT JOIN sm_company Company ON User.company_id = Company.id
+        LEFT JOIN sm_department Department ON User.u_department_id = Department.id
+        LEFT JOIN sm_dictionaries Dict2 on User.u_degree = Dict2.id
+        left join sm_user upUser on User.u_puserid = upUser.id
+        where User.id = #{id,jdbcType=BIGINT}
+        and (Department.d_status!=1 or Department.d_status is null)
+        and Company.c_status = 1
+        and (Dict2.d_status!=1 or Dict2.d_status is null)
+    </select>
+
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="UserQueryExtendMap">
+        select
+        <include refid="User_Query_List"/>,
+        Dict1.d_name as politicalName,
+        Dict2.d_name as degreeName
+        from sm_user User
+        LEFT JOIN sm_company Company ON User.company_id = Company.id
+        LEFT JOIN sm_user_role userRole ON User.id = userRole.ur_role_id
+        LEFT JOIN sm_department Department ON User.u_department_id = Department.id
+        LEFT JOIN sm_dictionaries Dict1 on User.u_political = Dict1.id
+        LEFT JOIN sm_dictionaries Dict2 on User.u_degree = Dict2.id
+        where User.id = #{id,jdbcType=BIGINT}
+        and (Dict1.d_status!=1 or Dict1.d_status is null)
+        and (Dict2.d_status!=1 or Dict2.d_status is null)
+        and (Department.d_status!=1 or Department.d_status is null)
+        and Company.c_status = 1
+        and (userRole.ur_status =0 or userRole.ur_status is null)
+    </select>
+
+    <select id="queryForUserByTel" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sm_user
+        where u_tel = #{tel}
+        and u_type!=1
+    </select>
+    <select id="queryForUserByIdSingle" parameterType="long" resultMap="distListResultMap">
+        select * from sm_user where id = #{id} limit 1
+    </select>
+    <select id="queryForManagerByDepartmentIdAndCompanyId"  resultMap="distListResultMap">
+       SELECT * FROM `sm_user` WHERE u_department_id=#{department} AND company_id=#{companyId} AND u_dtype in(3,4) limit 0,1;
+    </select>
+
+    <!--手机端返回用户信息-->
+    <select id="queryMobileLoginResultByAccount" parameterType="com.jdy.b2b.api.model.user.MobileLoginResultQueryDTO" resultType="com.jdy.b2b.api.model.user.MobileLoginResultDO">
+        select
+        u.id as u_id,
+        u.id as userId,
+        u.u_real_name as u_realname,
+        u.u_account as u_name,
+        u.u_pic as u_face,
+        u.u_tel as phone,
+        c.id as u_org_id,
+        c.c_name as org_name,
+        c.c_city as org_city,
+        (
+        CASE c.c_type
+        WHEN 0 THEN
+        '供应商'
+        WHEN 1 THEN
+        '分销商'
+        WHEN 2 THEN
+        '管理公司'
+        END
+        ) AS org_type,
+        city.code as org_city_code
+        from
+        sm_user u
+        inner join sm_company c on u.company_id = c.id
+        inner join cm_city city on c.c_city = city.name
+        <where>
+            u.u_status = 0
+            and c.c_status = 1
+            and city.level = 2
+            <choose>
+                <when test="flag==1">
+                    and  u.u_account = #{uname,jdbcType=VARCHAR}
+                </when>
+                <when test="flag==2">
+                    and  u.u_tel = #{mobile,jdbcType=VARCHAR}
+                </when>
+            </choose>
+        </where>
+    </select>
+
+    <select id="queryForUserByOpenId" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sm_user
+        where u_wx_openid = #{openId} and u_status = 0
+        <if test="from != null">
+	        <choose>
+		        <when test="from == 0">and u_stype !=3</when>
+		        <otherwise>and u_stype =3</otherwise>
+	        </choose>
+        </if>
+    </select>
+
+    <select id="queryFrontUser" parameterType="string" resultType="com.jdy.b2b.api.model.user.WXUserResultDO">
+        select
+        <include refid="FrontUser_Column_List"/>
+        from sm_user u
+        inner join sm_company c on u.company_id = c.id
+        left join sm_user_role r on u.id = r.ur_user_id
+        where u.u_account = #{uAccount}
+        and (r.ur_status =0 or r.ur_status is null)
+    </select>
+    <select id="selectByOpenId" resultMap="BaseResultMap">
+       SELECT <include refid="Base_Column_List"/> from sm_user WHERE u_wx_openid = #{openid,jdbcType=VARCHAR} AND u_stype != 3
+    </select>
+    <select id="selectByAccountOnly" parameterType="string" resultType="com.jdy.b2b.api.model.user.User">
+        SELECT <include refid="Base_Column_List"/> from sm_user WHERE u_account = #{uAccount}
+    </select>
+
+    <select id="selectUserListByDepartmentId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from sm_user
+        where u_department_id = #{departmentId}
+        <if test="isEffective == 0">and u_status == 1</if>
+        <if test="isEffective == 1">and u_status != 1</if>
+    </select>
+
+    <select id="selectDistUserList" parameterType="string" resultMap="distListResultMap">
+        select
+        u.*,
+        d.d_name as dName
+        from sm_user u
+        left join sm_department d
+        on u.u_department_id = d.id
+        <where>
+            u_type = 1
+            <if test="searchStr != null and searchStr != ''">
+                <bind name="fastSearchStrLike" value="'%'+searchStr+'%'"/>
+                AND CONCAT(IFNULL(u_real_name,''),IFNULL(u_tel,'')) LIKE #{fastSearchStrLike}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDistUserInfo" parameterType="long" resultMap="distListResultMap">
+        select * from sm_user where id = #{id}
+    </select>
+
+    <update id="updateDistUser" parameterType="com.jdy.b2b.api.model.user.User">
+        UPDATE `sm_user`
+        <set>
+            u_real_name = #{uRealName},
+            u_tel = #{uTel},
+            u_idcard = #{uIdcard},
+            u_pid = #{pid},
+            u_level = #{level},
+            <if test="uDtype != null">
+                u_dtype = #{uDtype},
+            </if>
+            <if test="uDepartmentId != null">
+                u_department_id = #{uDepartmentId},
+            </if>
+
+        </set>
+        WHERE  id = #{id}
+    </update>
+
+    <select id="selectSubDistUserByDepartId" parameterType="long" resultMap="SubDistResultMap">
+        SELECT
+        id,u_real_name,u_pid,u_account,u_level
+        FROM
+        sm_user
+        WHERE
+        u_department_id = #{departId};
+    </select>
+    <select id="selectAdminOfDepart" parameterType="long" resultType="com.jdy.b2b.api.model.user.User">
+        select * from sm_user
+        where u_department_id = #{departId}
+        and u_dtype = 1
+    </select>
+
+    <update id="setManagerForDepartment">
+    	update sm_user
+        <set>
+            <if test="uDtype != null">
+                u_dtype = #{uDtype,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+            <if test="uChargeType != null">
+                u_charge_type = #{uChargeType,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT} and  u_department_id = #{uDepartmentId,jdbcType=BIGINT}
+    </update>
+    <select id="getUserCountByDepartmentIds" resultType="int">
+    SELECT
+		count(id)
+	FROM
+		sm_user
+	WHERE
+		u_department_id IN <foreach collection="list" item="t" open="(" close=")" separator=",">#{t}</foreach>
+	AND u_status = 0
+    </select>
+    <select id="getUserCountByCompanyId" resultType="int">
+	SELECT
+		count(id)
+	FROM
+		sm_user
+	WHERE
+		company_id =#{companyId}
+	AND u_status = 0
+    </select>
+    <select id="managers" resultType="java.util.LinkedHashMap">
+	SELECT
+		id,u_real_name
+	FROM
+		sm_user
+	WHERE
+		company_id =#{uCompanyId}
+		<choose>
+		<when test="uDepartmentId != null">AND u_department_id =#{uDepartmentId}</when>
+<!-- 		<otherwise>AND u_department_id is null</otherwise> -->
+		<otherwise></otherwise>
+		</choose>
+		<if test="uRealName != null">
+		<bind name="likeName" value="'%'+uRealName+'%'"/>
+		AND u_real_name like #{likeName}
+		</if>
+		AND u_status = 0 AND u_dtype in (3,4)
+    </select>
+
+    <resultMap id="UserForUserRolePrivilegeResultMap" type="com.jdy.b2b.api.model.userrole.UserForUserRolePrivilegeDO">
+        <id column="id" jdbcType="BIGINT" property="userId" />
+        <result column="u_no" jdbcType="VARCHAR" property="userNo" />
+        <result column="u_account" jdbcType="VARCHAR" property="userName" />
+        <result column="u_real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="u_status" jdbcType="INTEGER" property="status" />
+        <result column="u_tel" jdbcType="VARCHAR" property="phone" />
+        <result column="u_post" jdbcType="BIGINT" property="dutyName" />
+        <result column="c_name" jdbcType="VARCHAR" property="unitName" />
+        <result column="d_name" jdbcType="BIGINT" property="departmentName" />
+        <collection property="rolePrivilegeList" javaType="list" ofType="java.lang.Long">
+            <result column="ur_role_id" jdbcType="BIGINT" />
+        </collection>
+    </resultMap>
+
+    <select id="selectUserForUserRolePrivilegeByDepartmentIdList" resultMap="UserForUserRolePrivilegeResultMap" parameterType="com.jdy.b2b.api.model.userrole.UserForUserRolePrivilegeDTO">
+        SELECT
+        a.id,
+        a.u_no,
+        a.u_account,
+        a.u_real_name,
+        a.u_status,
+        a.u_tel,
+        a.u_post,
+        b.c_name,
+        c.d_name,
+        d.ur_role_id
+        FROM
+        sm_user a
+        INNER JOIN sm_company b ON b.id = a.company_id
+        LEFT JOIN sm_department c ON c.id = a.u_department_id AND c.d_status = 0
+        LEFT JOIN sm_user_role d ON d.ur_user_id = a.id
+        <where>
+        AND a.u_stype IN (0,1)
+        <if test="companyId != null">AND a.company_id = #{companyId}</if>
+        <if test="departmentId != null">AND a.u_department_id = #{departmentId}</if>
+        <if test="statusList != null">AND a.u_status IN
+            <foreach item="item" collection="statusList" separator="," open="(" close=")" index="">
+                #{item}
+            </foreach>
+        </if>
+        <if test="fastSearchStr != null and fastSearchStr != ''">AND (a.u_account LIKE CONCAT(CONCAT('%', #{fastSearchStr}), '%') OR a.u_real_name LIKE CONCAT(CONCAT('%', #{fastSearchStr}), '%') OR a.u_tel LIKE CONCAT(CONCAT('%', #{fastSearchStr}), '%'))</if>
+        <if test="type == 0">AND d.ur_role_id is null</if>
+        <if test="type == 1">AND d.ur_role_id is not null</if>
+        </where>
+    </select>
+    <!--查询公司员工或者代理人中的最大员工编号-->
+    <select id="selectMaxUserNO" parameterType="integer" resultType="string">
+        SELECT IFNULL(MAX(u_no),0) FROM sm_user
+        <where>
+            <choose>
+                <when test="flag == 1">
+                  u_stype = 0 or u_stype = 1
+                </when>
+                <when test="flag == 2">
+                  u_stype = 2
+                </when>
+            </choose>
+        </where>
+    </select>
+    <!--还原以前代码-->
+    <!--<select id="selectMaxUserId" resultType="long">
+        SELECT MAX(id) FROM sm_user
+    </select>-->
+    <update id="updateByDepartmentIdAndCompanyId">
+    update sm_user
+    set
+      u_charge_type = 0
+    where company_id = #{companyId,jdbcType=BIGINT} AND u_department_id = #{department,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateStatus" parameterType="com.jdy.b2b.api.model.user.User">
+        update sm_user u set u.u_status = #{uStatus},u.update_time = #{updateTime},u.update_user = #{updateUser} where u.id = #{id}
+    </update>
+
+    <update id="updateDataPrivilegeByUserId">
+        update sm_user set u_data_limit = #{dataPrivilegeLevel} where id = #{userId}
+    </update>
+    <update id="updateUserWithNull" parameterType="com.jdy.b2b.api.model.user.User">
+        update sm_user u
+        set
+        u_account = #{uAccount,jdbcType=VARCHAR},
+        u_no = #{uNo,jdbcType=VARCHAR},
+        u_real_name = #{uRealName,jdbcType=VARCHAR},
+        u_post = #{uPost,jdbcType=VARCHAR} ,
+        company_id = #{uCompanyId,jdbcType=BIGINT},
+        u_department_id = #{uDepartmentId,jdbcType=BIGINT} ,
+        u_type = #{uType,jdbcType=INTEGER} ,
+        u_dtype = #{uDtype,jdbcType=INTEGER} ,
+        u_address = #{uAddress,jdbcType=VARCHAR} ,
+        u_tel = #{uTel,jdbcType=VARCHAR},
+        u_idcard = #{uIdcard,jdbcType=VARCHAR},
+        u_sex = #{uSex,jdbcType=BIT} ,
+        u_birthday = #{uBirthday,jdbcType=TIMESTAMP} ,
+        u_degree = #{uDegree,jdbcType=INTEGER} ,
+        u_wx_name = #{uWxname,jdbcType=VARCHAR} ,
+        u_phone = #{uPhone,jdbcType=VARCHAR} ,
+        u_email = #{uEmail,jdbcType=VARCHAR} ,
+        u_qq = #{uQq,jdbcType=VARCHAR} ,
+        u_contacts = #{uContacts,jdbcType=VARCHAR} ,
+        u_remark = #{uRemark,jdbcType=VARCHAR},
+        u_stype = #{uStype,jdbcType=INTEGER},
+        u_puserid = #{uPuserid,jdbcType=BIGINT},
+        u_position_id = #{uPositionId,jdbcType=BIGINT}
+        where id = #{id}
+    </update>
+	<select id="selectUserIdsBycompanyId" resultType="Long">
+	select id from sm_user where company_id=#{companyId}
+	</select>
+
+    <select id="queryForUserByAccountWithOutStatus" resultType="integer">
+        select u_status from sm_user where u_account = #{account} or u_tel = #{tel}
+    </select>
+
+    <select id="selectUserByRealNameAndPhone" resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM sm_user
+        WHERE  u_status = 0
+        AND u_real_name = #{realName}
+        AND u_tel = #{phone}
+        AND u_stype != 3
+    </select>
+
+    <select id="querySuperUsersByPosition" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sm_user
+        WHERE u_position_id = #{positionId} AND u_status = 0
+        <if test="companyId != null">
+            AND company_id = #{companyId}
+        </if>
+        <if test="departId != null">
+            AND u_department_id = #{departId}
+        </if>
+        <if test="userId != null">
+            AND id != #{userId}
+        </if>
+    </select>
+    <select id="selectOldUnoById" resultType="java.util.Map">
+        SELECT
+            id,
+            IFNULL(u_no,"0") as uNo
+        FROM
+            sm_user
+        WHERE
+            u_stype = 0
+        OR u_stype = 1
+    </select>
+    <select id="selectAllDistIds" resultType="java.lang.Long">
+        select id from sm_user where u_stype = 2
+    </select>
+    <select id="getUserPinfo" resultType="java.util.Map" parameterType="string">
+      SELECT
+			up.u_real_name upName,
+			up.u_tel AS upTel,
+			getFirstLevelAgent(#{openid}) managerId
+		FROM
+			sm_user ua
+		LEFT JOIN sm_user up ON ua.u_pid = up.u_wx_openid
+		WHERE
+			ua.u_wx_openid = #{openid}
+
+    </select>
+
+    <select id="getUserMinfo" resultType="java.util.Map" parameterType="long">
+        SELECT
+            u_real_name managerName,
+            u_tel managerTel
+        FROM
+            sm_user
+        WHERE
+            id = #{id}
+    </select>
+    <select id="selectAgentByDepartId" resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List"/>
+        from sm_user where u_department_id = #{departmentId} AND u_status = 0 AND u_stype = 2
+    </select>
+    <select id="leader" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        FROM sm_user WHERE u_position_id = 232 AND company_id = #{id}
+    </select>
+    <select id="selectSimpleById" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> from sm_user WHERE id = #{id}
+    </select>
+    <select id="selectByOAid" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/> from sm_user WHERE oa_id = #{oaid}
+    </select>
+    <select id="selectUserNameByPostionId" resultType="String">
+        SELECT u_real_name from sm_user WHERE u_position_id = #{positionId}
+    </select>
+    <select id="getChildById" resultType="java.lang.Long">
+        select getFirstLevelAgent (#{wxOpenId}) from dual
+    </select>
+
+    <update id="updateAllUnoNull">
+        update sm_user set u_no = null
+    </update>
+
+    <update id="updateAllUno" parameterType="list">
+        <foreach collection="list" item="s"  separator=";" >
+             update sm_user set u_no = #{s.uNo} where id = #{s.id}
+        </foreach>
+    </update>
+</mapper>

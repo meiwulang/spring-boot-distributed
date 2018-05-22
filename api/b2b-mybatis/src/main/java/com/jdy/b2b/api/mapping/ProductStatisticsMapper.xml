@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.ProductStatisticsMapper">
+    <resultMap id="listResultMap" type="com.jdy.b2b.api.model.productStatistics.ProductOrder">
+        <result property="productId" column="productId" jdbcType="INTEGER"/>
+        <result property="productName" column="productName" jdbcType="VARCHAR"/>
+        <result property="sales" column="sales" jdbcType="DECIMAL"/>
+        <result property="orderNum" column="orderNum" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectProductList" parameterType="com.jdy.b2b.api.model.productStatistics.ListParam" resultMap="listResultMap">
+         SELECT * from (
+             select product.id productId,product.p_name productName,product.p_status productStatus , count(DISTINCT orders.id) orderNum,sum(orders.o_real_pay) sales
+             from ct_product product left JOIN sl_order orders ON product.id = orders.o_product_id
+                                                              AND orders.o_status = 3
+                                                              AND orders.update_time IS NOT NULL
+                                                              <if test="startDate!=null">
+                                                                AND DATEDIFF(DATE_FORMAT(orders.update_time,'%Y-%m-%d'),#{startDate,jdbcType=VARCHAR})&gt;=0
+                                                              </if>
+                                                              <if test="endDate!=null">
+                                                                AND DATEDIFF(DATE_FORMAT(orders.update_time,'%Y-%m-%d'),#{endDate,jdbcType=VARCHAR})&lt;0
+                                                              </if>
+             GROUP BY product.id ORDER BY sales DESC
+         )temp
+         where temp.sales >0 or temp.productStatus = 0
+        <!--<if test="productId!=null">-->
+            <!--product.id = #{productId,jdbcType=BIGINT}-->
+        <!--</if>-->
+
+    </select>
+    
+    <resultMap id="OrderMap" type="com.jdy.b2b.api.model.productStatistics.Order4Statistics">
+        <result column="agentId" property="agentId"/>
+        <result column="agentName" property="agentName"/>
+        <result column="departmentId" property="departmentId"/>
+        <result column="departmentName" property="departmentName"/>
+        <result column="productId" property="productId"/>
+        <result column="productName" property="productName"/>
+        <result column="touristNum" property="touristNum"/>
+        <result column="price" property="price"/>
+        <result column="update_time" property="date"/>
+        <result column="company_id" property="companyId"/>
+        <result column="pids" property="firstCompanyId"/>
+        <result column="c_name" property="companyName"/>
+    </resultMap>
+    <select id="selectOrderList" parameterType="com.jdy.b2b.api.model.productStatistics.ListParam" resultMap="OrderMap">
+        SELECT product.id        productId,
+        product.p_name    productName,
+        u.id           agentId,
+        u.u_real_name  agentName,
+        department.id     departmentId,
+        ifnull(department.d_nick_name,department.d_name) departmentName,
+        o.o_people_num    touristNum,
+        o.o_real_pay      price,
+        ifnull(min(pay.create_time),o.update_time) update_time,
+        company.id company_id,
+        company.c_pids pids,
+        company.c_name
+        FROM (SELECT id ,999999 buyer_id,o_people_num,o_real_pay,update_time,o_product_id from sl_order WHERE o_status = 3 AND update_time IS NOT NULL and o_source != 3)o
+        LEFT JOIN sl_order_pay pay ON o.id = pay.op_order_id
+        JOIN ct_product product ON o.o_product_id = product.id
+        JOIN sm_user u ON o.buyer_id = u.id
+
+        <if test="agentId!=null">
+            AND o.buyer_id = #{agentId}
+        </if>
+        JOIN sm_department department ON u.u_department_id = department.id
+        <if test="departmentPids!=null">
+            <bind name="likedIds" value="departmentPids + '%'" />
+            AND department.d_pids LIKE #{likedIds}
+        </if>
+        JOIN sm_company company on u.company_id = company.id
+        <if test="companyPids!=null">
+            <bind name="likecIds" value="companyPids + '%'" />
+         AND company.c_pids like #{likecIds}
+        </if>
+        GROUP BY o.id
+        <!--<if test="startDate!=null">-->
+            <!--AND DATEDIFF(DATE_FORMAT(o.update_time,'%Y-%m-%d'),#{startDate,jdbcType=VARCHAR})&gt;=0-->
+        <!--</if>-->
+    </select>
+
+</mapper>

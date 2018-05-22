@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>定制游</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/made_lookup.css"> 
+</head>
+<body>
+<div id="wrap">
+	<div class="link"></div>
+	<ul class="look">
+	<script id="tpl-citylist" type="text/html">
+	
+	{each data as value i}
+	{if data && data.length}
+		<li>
+			{if data[i].type == '0'}
+				<div class="look_lef">
+				{else}
+				<div class="look_lef active">
+			{/if}
+			</div>
+				{if data[i].type == '0' && data[i].last == true && status != "4"}
+				<a href="made_plan.html?id={data[i].id}&type=edit">
+				{else if data[i].type == '0' }
+				<a href="made_plan.html?id={data[i].id}">
+				{else if data[i].type == '1' && data[i].last == true && status != "4"}
+				<a href="made_detail.html?id={data[i].id}&type=edit">
+				{else}
+				<a href="made_detail.html?id={data[i].id}">
+				{/if}
+				<div class="look_rig">
+					<div class="indent">
+					{data[i].drName}
+					</div>
+					<div class="tim">{data[i].createTime}</div>
+				</div>
+			</a>
+		</li>
+	</a>
+	{/if}
+	{/each}
+	{if data && data[0].productId}
+	<div class="new-list">
+		<a href="detail.html?p_id={data[0].productId}">查看产品</a>
+	</div>
+	{/if}
+	</script>
+	</ul>
+</div>
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/made_lookup.build.js"></script>
+</html>

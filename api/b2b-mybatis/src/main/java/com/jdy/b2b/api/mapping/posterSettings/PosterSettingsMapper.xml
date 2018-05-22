@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.posterSettings.PosterSettingsMapper">
+
+    <resultMap id="EditResultMap" type="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+        <id column="id" property="id"/>
+        <result column="type"  property="type"/>
+        <result column="poster_url" property="posterUrl"/>
+        <result column="group_no" property="groupNo"/>
+        <result column="company_id"  property="companyId"/>
+        <result column="group_month_limit"  property="groupMonthLimit"/>
+        <result column="group_num"  property="groupNum"/>
+        <result column="company_day_limit"  property="companyDayLimit"/>
+        <result column="company_day_num"  property="companyDayNum"/>
+        <result column="company_month_limit"  property="companyMonthLimit"/>
+        <result column="company_month_num"  property="companyMonthNum"/>
+        <result column="amount" property="amount"/>
+        <result column="companyName" property="companyName"/>
+        <result column="groupName" property="groupName"/>
+        <result column="total_amount" property="totalAmount"/>
+    </resultMap>
+
+
+    <!--前台接口-->
+    <sql id="Query_Column_List">
+        id,poster_url,group_no,company_id,group_month_limit,group_num,company_day_limit,company_day_num,
+        company_month_limit,company_month_num
+    </sql>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sl_poster_settings
+        where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings" useGeneratedKeys="true" keyProperty="id">
+    insert into sl_poster_settings (poster_url,group_no,company_id,group_month_limit,
+    group_num,company_day_limit,company_day_num,
+        company_month_limit,company_month_num)
+    values (#{posterUrl},
+      #{groupNo},  #{companyId},
+      #{groupMonthLimit}, #{groupNum}, #{companyDayLimit},
+      #{companyDayNum},#{companyMonthLimit}, #{companyMonthNum})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+        insert into sl_poster_settings
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="posterUrl != null">
+                poster_url,
+            </if>
+            <if test="groupNo != null">
+                group_no,
+            </if>
+            <if test="companyId != null">
+                company_id,
+            </if>
+            <if test="groupMonthLimit != null">
+                group_month_limit,
+            </if>
+            <if test="groupNum != null">
+                group_num,
+            </if>
+            <if test="companyDayLimit != null">
+                company_day_limit,
+            </if>
+            <if test="companyDayNum != null">
+                company_day_num,
+            </if>
+            <if test="companyMonthLimit != null">
+                company_month_limit,
+            </if>
+            <if test="companyMonthNum != null">
+                company_month_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="posterUrl != null">
+                #{posterUrl},
+            </if>
+            <if test="groupNo != null">
+                #{groupNo},
+            </if>
+            <if test="companyId != null and companyId>0">
+                #{companyId},
+            </if>
+            <if test="groupMonthLimit != null">
+                #{groupMonthLimit},
+            </if>
+            <if test="groupNum != null  and groupNum>0">
+                #{groupNum},
+            </if>
+            <if test="companyDayLimit != null">
+                #{companyDayLimit},
+            </if>
+            <if test="companyDayNum != null and companyDayNum >0">
+                #{companyDayNum},
+            </if>
+            <if test="companyMonthLimit != null">
+                #{companyMonthLimit},
+            </if>
+            <if test="companyMonthNum != null and companyMonthNum >0">
+                #{companyMonthNum},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+        update sl_poster_settings
+        <set>
+            <if test="posterUrl != null">
+                poster_url = #{posterUrl},
+            </if>
+            <if test="groupNo != null">
+                group_no = #{groupNo},
+            </if>
+            <if test="companyId != null and companyId>0">
+                company_id = #{companyId},
+            </if>
+            <if test="groupMonthLimit != null">
+                group_month_limit = #{groupMonthLimit},
+            </if>
+            <if test="groupNum != null  and groupNum>0">
+                group_num = #{groupNum},
+            </if>
+            <if test="companyDayLimit != null">
+                company_day_limit = #{companyDayLimit},
+            </if>
+            <if test="companyDayNum != null and companyDayNum >0">
+                company_day_num = #{companyDayNum},
+            </if>
+            <if test="companyMonthLimit != null">
+                company_month_limit = #{companyMonthLimit},
+            </if>
+            <if test="companyMonthNum != null and companyMonthNum >0">
+                company_month_num = #{companyMonthNum},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKeyInGroupMonth" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+    update sl_poster_settings
+     <trim prefix="set" suffixOverrides=",">
+        <if test="groupNum != null  and groupNum>0">
+            group_num = #{groupNum},
+        </if>
+    </trim>
+        where group_num is not null
+  </update>
+    <update id="updateByPrimaryKeyInCompanyMonth" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+        update sl_poster_settings
+        <trim prefix="set" suffixOverrides=",">
+            <if test="companyMonthNum != null  and companyMonthNum>0">
+                company_month_num = #{companyMonthNum},
+            </if>
+        </trim>
+        where company_month_num is not null
+    </update>
+    <update id="updateByPrimaryKeyInCompanyDay" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+        update sl_poster_settings
+        <trim prefix="set" suffixOverrides=",">
+            <if test="companyDayNum != null  and companyDayNum>0">
+                company_day_num = #{companyDayNum},
+            </if>
+        </trim>
+        where company_day_num is not null
+    </update>
+
+    <update id="updateByComIdOrGroupId" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+        update sl_poster_settings
+        <trim prefix="set" suffixOverrides=",">
+            <if test="groupNum != null  and groupNum>0">
+                group_num = group_num+1,
+            </if>
+            <if test="companyDayNum != null and companyDayNum >0">
+                company_day_num = company_day_num+1,
+            </if>
+            <if test="companyMonthNum != null and companyMonthNum >0">
+                company_month_num = company_month_num+1,
+            </if>
+            </trim>
+        <where>
+            <if test="groupNo != null">
+                 group_no = #{groupNo}
+            </if>
+            <if test="companyId != null  and companyId>0">
+                 company_id = #{companyId}
+            </if>
+        </where>
+    </update>
+
+    <select id="queryPosterSettingsList" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings"
+            resultMap="EditResultMap">
+        SELECT
+        <include refid="Query_Column_List"/>
+        FROM sl_poster_settings
+        <where>
+            1=1
+            <if test="id != null and id>0">
+                and id = #{id}
+            </if>
+            <if test="groupNo != null">
+                 and group_no = #{groupno}
+            </if>
+            <if test="companyId != null  and companyId>0">
+                and company_id = #{companyId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="EditResultMap">
+        SELECT
+        <include refid="Query_Column_List"/>
+        FROM sl_poster_settings
+        where id =#{id}
+    </select>
+
+    <select id="selectPosterSettings" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings"
+            resultMap="EditResultMap">
+        SELECT
+        <include refid="Query_Column_List"/>
+        FROM sl_poster_settings
+        <where>
+            1=1
+            <if test="id != null and id>0">
+                and id = #{id}
+            </if>
+            <if test="groupNo != null">
+                and group_no = #{groupNo}
+            </if>
+            <if test="companyId != null  and companyId>0">
+                and company_id = #{companyId}
+            </if>
+        </where>
+    </select>
+
+    <!--计算公司每日的累计销售额-->
+    <select id="selectCompanyAmountInDay" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings"
+            resultType="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+        select t.amount,t.companyName,t.posterUrl,t.total_amount from (
+        select (slp.company_day_limit*slp.company_day_num) as amount
+        ,smc.c_name as companyName,slp.poster_url as posterUrl
+        ,sum(slo.o_real_price) as  total_amount from sl_order slo
+        ,sm_company smc, sl_poster_settings slp,
+        (SELECT MIN(op_pay_time) AS pay_time,op_order_id FROM sl_order_pay sp GROUP BY op_order_id) t
+        where slo.o_buyer_company_id = smc.id
+        and slo.o_buyer_company_id = slp.company_id
+        AND t.op_order_id = slo.id
+        and t.`pay_time` &gt;= #{startDate}
+        and t.`pay_time` &lt;= #{endDate}
+        and slo.o_buyer_company_id = #{companyId}
+        and slo.o_status = 3
+        group by slo.o_buyer_company_id
+        ) t
+        where total_amount &gt;= amount
+    </select>
+
+    <!--计算公司每月的累计销售额-->
+    <select id="selectCompanyAmountInMonth" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings"
+            resultType="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+        select t.amount,t.companyName,t.posterUrl,t.total_amount from (
+        select (slp.company_month_limit*slp.company_month_num) as amount
+        ,smc.c_name as companyName,slp.poster_url as posterUrl
+        ,sum(slo.o_real_price) as  total_amount from sl_order slo
+        ,sm_company smc, sl_poster_settings slp,
+        (SELECT MIN(op_pay_time) AS pay_time,op_order_id FROM sl_order_pay sp GROUP BY op_order_id) t
+        where slo.o_buyer_company_id = smc.id
+        and slo.o_buyer_company_id = slp.company_id
+        AND t.op_order_id = slo.id
+        AND DATE_FORMAT(t.`pay_time`,'%Y-%m-%d') &gt;= #{startDate}
+        AND DATE_FORMAT(t.`pay_time`,'%Y-%m-%d') &lt;= #{endDate}
+        and slo.o_buyer_company_id = #{companyId}
+        and slo.o_status = 3
+        group by slo.o_buyer_company_id
+        ) t
+        where total_amount &gt;= amount
+    </select>
+
+    <!--查询个人所在销售组-->
+    <select id="selectUserGroup" parameterType="java.lang.Long"
+            resultType="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+        SELECT
+        smd.id AS groupNo,
+        (CASE WHEN smd.d_nick_name IS NOT NULL AND smd.d_nick_name !='' THEN smd.d_nick_name ELSE smd.d_name END) AS groupName,
+        su.u_real_name AS userName,smc.c_name AS companyName,
+        CASE WHEN su.u_stype = 2 AND su.u_level = 3 THEN '二级代理' WHEN su.u_stype = 2 AND su.u_level = 2 THEN '一级代理' ELSE '' END AS LEVEL,
+        CASE WHEN su1.u_stype = 2 AND su1.u_level = 2 THEN su1.u_real_name END AS pUserName,
+        CASE WHEN su.u_stype = 2 AND su1.u_stype &lt; 2 AND su1.u_level = 1 THEN su1.u_real_name WHEN su1.u_stype = 2 AND su2.u_stype &lt; 2 AND su2.u_level = 1 THEN su2.u_real_name END AS pSaleManager
+        FROM sm_user su
+        LEFT JOIN sm_user su1 ON ( su.u_stype = 2 AND su.u_pid = su1.u_wx_openid) OR ( su.u_stype &lt; 2 AND su.u_puserid = su1.id)
+        LEFT JOIN sm_user su2 ON ( su1.u_stype = 2 AND su1.u_pid = su2.u_wx_openid) OR ( su1.u_stype &lt; 2 AND su1.u_puserid = su2.id)
+        LEFT JOIN sm_department smd ON su.`u_department_id` = smd.id
+        LEFT JOIN sm_company smc ON su.company_id = smc.id
+        where su.u_level IS NOT NULL and su.id = #{saleId}
+    </select>
+
+    <select id="selectProductById" parameterType="Long" resultType="java.lang.String">
+        SELECT p_name as productName from ct_product where id = #{productId}
+    </select>
+
+
+    <!--计算销售组每月的累计销售额-->
+    <select id="selectGroupAmountInMonth" parameterType="com.jdy.b2b.api.model.posterSettings.PosterSettings"
+            resultType="com.jdy.b2b.api.model.posterSettings.PosterSettings">
+        select t.amount,t.groupName,t.posterUrl,companyName,t.total_amount from (
+        select (slp.group_month_limit*slp.group_num) as amount
+        ,(case when smd.d_nick_name is not null and smd.d_nick_name !='' then smd.d_nick_name else smd.d_name end) as groupName,smc.c_name as companyName
+        ,slp.poster_url as posterUrl
+        ,sum(slo.o_real_price) as  total_amount from sl_order slo
+        ,sm_user sm, sm_department smd,sl_poster_settings slp,sm_company smc,
+        (SELECT MIN(op_pay_time) AS pay_time,op_order_id FROM sl_order_pay sp GROUP BY op_order_id) t
+        where slo.o_buyer_id = sm.id
+        and sm.company_id = smc.id
+        and sm.`u_department_id` = smd.id
+        and smd.id = slp.group_no
+        AND t.op_order_id = slo.id
+        AND DATE_FORMAT(t.`pay_time`,'%Y-%m-%d') &gt;= #{startDate}
+        AND DATE_FORMAT(t.`pay_time`,'%Y-%m-%d') &lt;= #{endDate}
+        and slp.group_no = #{groupNo}
+        and slo.o_status = 3
+        group by slp.group_no
+        ) t
+        where total_amount &gt;= amount
+    </select>
+
+    <select id="queryAllPosterUser" resultType="java.lang.String">
+        select GROUP_CONCAT(open_id) from sl_poster_user
+    </select>
+
+    <select id="queryPUserName" parameterType="java.lang.Long"
+            resultType="java.lang.String">
+        select su.u_real_name as pUserName from (select u_pid from
+            sm_user smu
+            where smu.id = #{saleId}
+            and  smu.u_stype = 2) t,sm_user su
+            where t.u_pid = su.u_wx_openid
+    </select>
+
+</mapper>

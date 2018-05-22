@@ -1,0 +1,16 @@
+connection:
+  path:
+    maxHop: 6
+
+order_invalid_hour: 2
+order_sms_template_no: 46200
+
+spring:
+  profiles:
+    active: @profiles.active@
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  groupAdviceNoteForMessageKey: cc5OU3UxdmycbmadGIRviRnZg8mH7McHv8c4HSa882wbv7jiIQ

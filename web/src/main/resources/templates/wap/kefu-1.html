@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>客服平台</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			text-decoration: none;
+		}
+		body{
+			max-width: 760px;
+			overflow-x: hidden;
+		}
+		.clearfloat:after {
+		    content: "";
+		    display: block;
+		    clear: both;
+		}
+		.platform{
+			margin: 0 auto;
+		}
+		.platform .company{
+			padding: 25px 0 45px;
+			border-bottom: 1px solid #e8e8e8;
+			font-size: 16px;
+			height: 120px;
+			color: #333;
+		}
+		.platform .company .floatL{
+			float: left;
+		}
+		.platform .company .floatM{
+			float: left;
+			height: 100px;
+			width: 1px;
+			background: #e8e8e8;
+			margin-left: 130px;
+		}
+		.platform .company .floatR{
+			margin-left: 375px;
+			width: 250px;
+		}
+		.platform .company .floatR div:nth-child(1){
+			float: left;
+		}
+		.platform .company .floatR div:nth-child(2){
+			float: left;
+			margin-top: 15px;
+			margin-left: 15px;
+		}
+		.platform .company a{
+			color: #333;
+		}
+		.platform .company p{
+			line-height: 24px;
+		}
+		.platform .company .time{
+			position: relative;
+			top: -25px;
+			left: 80px;
+		}
+		.platform .personal{
+			padding: 40px 0 0px;
+		}
+		.platform .personal .area{
+		}
+		.platform .personal .title{
+			font-size: 18px;
+			float: left;
+			color: #333;
+		}
+		.platform .personal .duty_area{
+			font-size: 14px;
+			overflow: hidden;
+			margin-left: 66px;
+			color: #666;
+			word-wrap:break-word;
+			word-break:break-all;
+		}
+		.platform .personal .s_area{
+			margin-left: 110px;
+		}
+		.platform .personal .detail{
+			margin-top: 30px;
+			margin-bottom: 60px;
+		}
+		.platform .personal .detail ul{
+			
+		}
+		.platform .personal .detail ul li{
+			float: left;
+			/*width: 320px;*/
+			margin-bottom: 20px;
+			margin-left: 65px;
+		}
+		.platform .personal .detail ul li label{
+			float: left;
+		}
+		.platform .personal .detail ul li .p_detail{
+			margin-left: 95px;
+			margin-top: 10px;
+			font-size: 14px;
+			color: #666;
+		}
+		.platform .personal .detail ul li .p_detail .p_name{
+			padding-left: 20px;
+		}
+		.platform .personal .detail ul li .p_detail a{
+			font-size: 14px;
+			color: #666;
+		}
+		.platform .personal .detail ul li .p_detail .p_qq span{
+			display: inline-block;
+			width: 18px;
+			height: 14px;
+			background: url('img/custService/qq.png') no-repeat center center;
+		}
+		.platform .personal .detail ul li .p_detail .p_locate{
+			width: 150px;
+		}
+		.platform .personal .detail ul li .p_detail .p_locate span{
+			display: inline-block;
+			width: 18px;
+			height: 14px;
+			background: url('img/custService/locate.png') no-repeat center center;
+		}
+	</style>
+</head>
+<body>
+	<div class="platform">
+		<div class="company clearfloat">
+			<div class="floatL">
+				<p>客服电话：<a href="tel:400-666-1861" target="_blank"><span></span>400-666-1861</a></p>
+				<p>值班 QQ：<a href="tencent://message/?uin=3002991545&Site=金豆云旅游&Menu=yes" target="_blank">3002991545</a></p>
+				<p>
+					<label>值班时间：</label>
+					<div class="time">
+						<p>9:00-22:00（周一至周五）</p>
+						<p>9:00-18:00（周末及节假日）</p>
+					</div>
+				</p>
+			</div>
+			<!-- <div class="floatM"></div> -->
+			<div class="floatR clearfloat">
+				<div>
+					<label><img src="img/custService/yy.png"></label>
+					<p>YY频道直播</p>
+				</div>
+				<div>
+					<p>YY语音频道</p>
+					<p>ID：<a href="http://www.yy.com/yy8/" target="_blank">15679544</a></p>
+				</div>
+				
+			</div>
+		</div>
+		<div class="personal">
+			<div class="area">
+				<div class="clearfloat">
+					<label class="title">华东</label><p class="duty_area"><span>上海、</span><span>浙江、</span><span>江苏、</span><span>安徽、</span><span>山东、</span><span>福建、</span><span>江西</span></p>
+				</div>
+				<div class="detail">
+					<ul class="clearfloat">
+						<li class="clearfloat">
+							<label class="p_wechat"><img src="img/custService/cxl.png"></label>
+							<div class="p_detail">
+								<h4 class="p_name">陈贤录</h4>
+								<p class="p_qq"><a href="tencent://message/?uin=3002802884&Site=金豆云旅游&Menu=yes" target="_blank"><span></span>3002802884</a></p>
+								<p class="p_locate"><span></span>江苏</p>
+							</div>
+						</li>
+						<li class="clearfloat">
+							<label class="p_wechat"><img src="img/custService/htc.png"></label>
+							<div class="p_detail">
+								<h4 class="p_name">何太昌</h4>
+								<p class="p_qq"><a href="tencent://message/?uin=3002816626&Site=金豆云旅游&Menu=yes" target="_blank"><span></span>3002816626</a></p>
+								<p class="p_locate"><span></span>安徽、江西</p>
+							</div>
+						</li>
+						<li class="clearfloat">
+							<label class="p_wechat"><img src="img/custService/nmq.png"></label>
+							<div class="p_detail">
+								<h4 class="p_name">牛梦秋</h4>
+								<p class="p_qq"><a href="tencent://message/?uin=3002841882&Site=金豆云旅游&Menu=yes" target="_blank"><span></span>3002841882</a></p>
+								<p class="p_locate"><span></span>上海、山东、福建</p>
+							</div>
+						</li>
+						<li class="clearfloat">
+							<label class="p_wechat"><img src="img/custService/hyj.png"></label>
+							<div class="p_detail">
+								<h4 class="p_name">黄燕君</h4>
+								<p class="p_qq"><a href="tencent://message/?uin=3002809979&Site=金豆云旅游&Menu=yes" target="_blank"><span></span>3002809979</a></p>
+								<p class="p_locate"><span></span>浙江</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="area">
+				<div class="clearfloat">
+					<label class="title">华北</label><p class="duty_area"><span>北京、</span><span>天津、</span><span>河北、</span><span>黑龙江、</span><span>吉林、</span><span>辽宁、</span><span>山西、</span><span>内蒙古</span></p>
+				</div>
+				<div class="detail">
+					<ul class="clearfloat">
+						<li class="clearfloat">
+							<label class="p_wechat"><img src="img/custService/xjn.png"></label>
+							<div class="p_detail">
+								<h4 class="p_name">徐佳妮</h4>
+								<p class="p_qq"><a href="tencent://message/?uin=3002833179&Site=金豆云旅游&Menu=yes" target="_blank"><span></span>3002833179</a></p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="area">
+				<div class="clearfloat">
+					<label class="title">华西/华南</label><p class="duty_area s_area"><span>四川、</span><span>陕西、</span><span>重庆、</span><span>贵州、</span><span>甘肃、</span><span>宁夏、</span><span>青海、</span><span>广东、</span><span>广西、</span><span>海南、</span><span>湖南、</span><span>湖北、</span><span>河南、</span><span>云南</span></p>
+				</div>
+				
+				<div class="detail">
+					<ul class="clearfloat">
+						<li class="clearfloat">
+							<label class="p_wechat"><img src="img/custService/jmx.png"></label>
+							<div class="p_detail">
+								<h4 class="p_name">金梅霞</h4>
+								<p class="p_qq"><a href="tencent://message/?uin=3002802964&Site=金豆云旅游&Menu=yes" target="_blank"><span></span>3002802964</a></p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="area">
+				<div class="clearfloat">
+					<label class="title">全国</label>
+				</div>
+				
+				<div class="detail">
+					<ul class="clearfloat">
+						<li class="clearfloat">
+							<label class="p_wechat"><img src="img/custService/lm.png"></label>
+							<div class="p_detail">
+								<h4 class="p_name">刘梅</h4>
+								<p class="p_qq"><a href="tencent://message/?uin=3002850765&Site=金豆云旅游&Menu=yes" target="_blank"><span></span>3002850765</a></p>
+							</div>
+						</li>
+						<li class="clearfloat">
+							<label class="p_wechat"><img src="img/custService/zhx.png"></label>
+							<div class="p_detail">
+								<h4 class="p_name">赵洪霞</h4>
+								<p class="p_qq"><a href="tencent://message/?uin=3002810113&Site=金豆云旅游&Menu=yes" target="_blank"><span></span>3002810113</a></p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/lib/jquery-1.11.3.js"></script>
+<script type="text/javascript">
+	var $iframe = $(window.parent.document).find('iframe');
+	var w = $iframe.width();
+	var h = $(document).height() + 20;
+	$iframe.parents('.news-info').width(w-20).css({
+		overflow : 'hidden'
+	})
+	$iframe.css({
+		margin: 0,
+		padding: 0,
+		height: h + 'px'
+	})
+</script>
+</html>

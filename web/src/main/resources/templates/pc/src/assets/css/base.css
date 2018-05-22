@@ -1,0 +1,436 @@
+.fleft {
+  float: left;
+}
+
+.fright {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+.inlineblock {
+  display: inline-block;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.p18 {
+  padding: 18px;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
+.ml20 {
+  margin-left: 20px;
+}
+
+.ml25 {
+  margin-left: 25px;
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+
+.mr15 {
+  margin-right: 15px;
+}
+.mr20 {
+  margin-right: 20px;
+}
+
+.mr25 {
+  margin-right: 25px;
+}
+.mr30 {
+  margin-right: 30px;
+}
+.mr50 {
+  margin-right: 50px;
+}
+.ml30 {
+  margin-left: 30px;
+}
+
+.f14 {
+  font-size: 14px;
+}
+
+.w90 {
+  width: 90px;
+}
+
+.w100 {
+  width: 100px;
+}
+.w140{
+  width: 140px
+}
+.w200 {
+  width: 100px;
+}
+
+.w300 {
+  width: 300px;
+}
+
+.jdy-wrap {
+  width: 100%;
+  height: 100%;
+  min-width: 1800px;
+  overflow: hidden;
+}
+.jdy-main {
+  height: 100%;
+  overflow: hidden;
+  background: #edf4f8;
+}
+
+.jdy-main-scroll {
+  overflow-y: auto!important;
+}
+
+.all {
+  width: 100%;
+}
+
+button.red span {
+  color: #ff4949;
+}
+
+.blue {
+  color: #20a0ff
+}
+
+.green {
+  color: #71dc1c;
+}
+
+.c1 {
+  color: #c0ccda;
+}
+
+.pl16 {
+  padding-left: 16px;
+}
+
+.mt15 {
+  margin-top: 15px;
+}
+
+.mt25 {
+  margin-top: 25px;
+}
+
+.tc {
+  text-align: center
+}
+
+.f12 {
+  font-size: 12px;
+}
+
+.pl30 {
+  padding-left: 30px;
+}
+
+.ctitle {
+  color: #1f2d3d;
+}
+
+.cp {
+  color: #475669;
+}
+
+
+.mt10 {
+  margin-top: 10px;
+}
+.mt40 {
+  margin-top: 40px;
+}
+.border {
+  border: 1px solid #d7dfe3;
+  border-radius: 3px;
+}
+
+.noborder {
+  border: 0 none;
+  border: 0!important;
+}
+
+.h20 {
+  height: 10px;
+}
+
+.mainbg {
+  background: #edf4f8;
+}
+
+.mt45 {
+  margin-top: 45px;
+}
+
+.pl10 {
+  padding-left: 10px;
+}
+
+.pl15 {
+  padding-left: 15px;
+}
+
+.mr5 {
+  margin-right: 5px;
+}
+
+.mt010 {
+  margin-top: -10px!important;
+}
+
+.p15 {
+  padding: 15px;
+}
+
+.p10 {
+  padding: 10px;
+}
+
+.w110 {
+  width: 110px;
+}
+
+body {
+  overflow: hidden;
+}
+.m10{
+  margin: 10px;
+}
+
+.alertbgg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.red {
+  color: red;
+}
+
+.ml10 {
+  margin-left: 10px;
+}
+
+.ml5 {
+  margin-left: 5px;
+}
+
+.bordertop {
+  border-top: 1px solid #bfcbd9
+}
+
+.mt30 {
+  margin-top: 30px;
+}
+
+.ml070 {
+  margin-left: -70px;
+}
+
+.icon2 {
+  background: url("../images/icon2.png")
+}
+
+.icon3 {
+  background: url("../images/icon3.png")
+}
+
+.mt8 {
+  margin-top: 8px;
+}
+
+.mt7 {
+  margin-top: 7px;
+}
+
+.blod {
+  font-weight: bold;
+}
+
+
+
+.mt60 {
+  margin-top: 60px;
+}
+/*padding*/
+.p20 {
+  padding: 20px;
+}
+.p0{
+  padding: 0;
+}
+.pt0{
+  padding-top: 0;
+}
+.p30 {
+  padding: 30px;
+}
+.pt10 {
+  padding-top: 10px;
+}
+.pt20 {
+  padding-top: 20px;
+}
+.pt30 {
+  padding-top: 30px;
+}
+.pt40 {
+  padding-top: 40px;
+}
+.pr10{
+  padding-right: 10px;
+}
+.pr20{
+  padding-right: 20px;
+}
+.pb0{
+  padding-bottom: 0;
+}
+.pb10 {
+  padding-bottom: 10px;
+}
+.pb30 {
+  padding-bottom: 30px;
+}
+
+.mt11 {
+  margin-top: 11px;
+}
+
+.mt14 {
+  margin-top: 14px;
+}
+
+.mb3 {
+  margin-bottom: 3px;
+}
+.ml-50{
+  margin-left: -50px;
+}
+.pr30 {
+  padding-right: 30px;
+}
+
+.pr50 {
+  padding-right: 50px;
+}
+
+.mt05 {
+  margin-top: -5px;
+}
+
+.c5e {
+  color: #5e6d82;
+}
+
+.c1f {
+  color: #1f2d3d;
+}
+
+.f16 {
+  font-size: 16px;
+}
+
+.plr38 {
+  padding: 0 38px;
+}
+
+.mt37 {
+  margin-top: 37px;
+}
+
+.mt22 {
+  margin-top: 22px;
+}
+
+.p38 {
+  padding: 38px;
+}
+
+.mt5 {
+  margin-top: 5px;
+}
+
+.f13 {
+  font-size: 13px;
+}
+
+.plr10 {
+  padding: 0 10px;
+}
+
+.ptlr20{
+  padding: 20px 20px 0 20px;
+}
+.textCenter{
+  text-align: center !important;
+}
+.mb25{
+  margin-bottom: 25px;
+}
+.pageMargin{
+  margin: 20px 0 10px 0
+}
+.w70per{
+  width: 70%;
+}
+
+
+/*弹层*/
+.el-dialog__wrapper .el-dialog{
+  border: 4px solid #467cd4;
+  border-radius: 4px;
+}
+.el-dialog__wrapper .el-dialog__header{
+  padding: 0;
+  background: #467cd4;
+}
+.el-dialog__wrapper .el-dialog__header span{
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: normal;
+  padding-left: 16px;
+}
+.el-dialog__headerbtn{
+  font-size: 14px;
+  margin-top: 11px;
+  margin-right: 16px;
+}

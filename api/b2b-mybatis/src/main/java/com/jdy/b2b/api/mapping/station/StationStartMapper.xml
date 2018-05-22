@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.station.StationStartMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.station.StationStart">
+    <id column="sd_id" jdbcType="INTEGER" property="sdId" />
+    <result column="sd_name" jdbcType="VARCHAR" property="sdName" />
+    <result column="sd_pym" jdbcType="VARCHAR" property="sdPym" />
+    <result column="sd_type" jdbcType="CHAR" property="sdType" />
+    <result column="sd_start_type" jdbcType="VARCHAR" property="sdStartType" />
+    <result column="sd_province" jdbcType="VARCHAR" property="sdProvince" />
+    <result column="sd_city" jdbcType="VARCHAR" property="sdCity" />
+    <result column="sd_county" jdbcType="VARCHAR" property="sdCounty" />
+    <result column="sd_status" jdbcType="CHAR" property="sdStatus" />
+    <result column="sd_org_id" jdbcType="INTEGER" property="sdOrgId" />
+    <result column="sd_time" jdbcType="INTEGER" property="sdTime" />
+    <result column="sd_u_id" jdbcType="INTEGER" property="sdUId" />
+    <result column="sd_mapx" jdbcType="VARCHAR" property="sdMapx" />
+    <result column="sd_mapy" jdbcType="VARCHAR" property="sdMapy" />
+    <result column="sd_mapz" jdbcType="VARCHAR" property="sdMapz" />
+    <result column="sd_logo" jdbcType="VARCHAR" property="sdLogo" />
+    <result column="sd_code" jdbcType="VARCHAR" property="sdCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sd_id, sd_name, sd_pym, sd_type, sd_start_type, sd_province, sd_city, sd_county, 
+    sd_status, sd_org_id, sd_time, sd_u_id, sd_mapx, sd_mapy, sd_mapz, sd_logo, sd_code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_station_start
+    where sd_id = #{sdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sl_station_start
+    where sd_id = #{sdId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.station.StationStart">
+    insert into sl_station_start (sd_id, sd_name, sd_pym, 
+      sd_type, sd_start_type, sd_province, 
+      sd_city, sd_county, sd_status, 
+      sd_org_id, sd_time, sd_u_id, 
+      sd_mapx, sd_mapy, sd_mapz, 
+      sd_logo, sd_code)
+    values (#{sdId,jdbcType=INTEGER}, #{sdName,jdbcType=VARCHAR}, #{sdPym,jdbcType=VARCHAR}, 
+      #{sdType,jdbcType=CHAR}, #{sdStartType,jdbcType=VARCHAR}, #{sdProvince,jdbcType=VARCHAR}, 
+      #{sdCity,jdbcType=VARCHAR}, #{sdCounty,jdbcType=VARCHAR}, #{sdStatus,jdbcType=CHAR}, 
+      #{sdOrgId,jdbcType=INTEGER}, #{sdTime,jdbcType=INTEGER}, #{sdUId,jdbcType=INTEGER}, 
+      #{sdMapx,jdbcType=VARCHAR}, #{sdMapy,jdbcType=VARCHAR}, #{sdMapz,jdbcType=VARCHAR}, 
+      #{sdLogo,jdbcType=VARCHAR}, #{sdCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.station.StationStart" keyProperty="sdId" useGeneratedKeys="true">
+    insert into sl_station_start
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sdId != null">
+        sd_id,
+      </if>
+      <if test="sdName != null">
+        sd_name,
+      </if>
+      <if test="sdPym != null">
+        sd_pym,
+      </if>
+      <if test="sdType != null">
+        sd_type,
+      </if>
+      <if test="sdStartType != null">
+        sd_start_type,
+      </if>
+      <if test="sdProvince != null">
+        sd_province,
+      </if>
+      <if test="sdCity != null">
+        sd_city,
+      </if>
+      <if test="sdCounty != null">
+        sd_county,
+      </if>
+      <if test="sdStatus != null">
+        sd_status,
+      </if>
+      <if test="sdOrgId != null">
+        sd_org_id,
+      </if>
+      <if test="sdTime != null">
+        sd_time,
+      </if>
+      <if test="sdUId != null">
+        sd_u_id,
+      </if>
+      <if test="sdMapx != null">
+        sd_mapx,
+      </if>
+      <if test="sdMapy != null">
+        sd_mapy,
+      </if>
+      <if test="sdMapz != null">
+        sd_mapz,
+      </if>
+      <if test="sdLogo != null">
+        sd_logo,
+      </if>
+      <if test="sdCode != null">
+        sd_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sdId != null">
+        #{sdId,jdbcType=INTEGER},
+      </if>
+      <if test="sdName != null">
+        #{sdName,jdbcType=VARCHAR},
+      </if>
+      <if test="sdPym != null">
+        #{sdPym,jdbcType=VARCHAR},
+      </if>
+      <if test="sdType != null">
+        #{sdType,jdbcType=CHAR},
+      </if>
+      <if test="sdStartType != null">
+        #{sdStartType,jdbcType=VARCHAR},
+      </if>
+      <if test="sdProvince != null">
+        #{sdProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="sdCity != null">
+        #{sdCity,jdbcType=VARCHAR},
+      </if>
+      <if test="sdCounty != null">
+        #{sdCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="sdStatus != null">
+        #{sdStatus,jdbcType=CHAR},
+      </if>
+      <if test="sdOrgId != null">
+        #{sdOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="sdTime != null">
+        #{sdTime,jdbcType=INTEGER},
+      </if>
+      <if test="sdUId != null">
+        #{sdUId,jdbcType=INTEGER},
+      </if>
+      <if test="sdMapx != null">
+        #{sdMapx,jdbcType=VARCHAR},
+      </if>
+      <if test="sdMapy != null">
+        #{sdMapy,jdbcType=VARCHAR},
+      </if>
+      <if test="sdMapz != null">
+        #{sdMapz,jdbcType=VARCHAR},
+      </if>
+      <if test="sdLogo != null">
+        #{sdLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="sdCode != null">
+        #{sdCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.station.StationStart">
+    update sl_station_start
+    <set>
+      <if test="sdName != null">
+        sd_name = #{sdName,jdbcType=VARCHAR},
+      </if>
+      <if test="sdPym != null">
+        sd_pym = #{sdPym,jdbcType=VARCHAR},
+      </if>
+      <if test="sdType != null">
+        sd_type = #{sdType,jdbcType=CHAR},
+      </if>
+      <if test="sdStartType != null">
+        sd_start_type = #{sdStartType,jdbcType=VARCHAR},
+      </if>
+      <if test="sdProvince != null">
+        sd_province = #{sdProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="sdCity != null">
+        sd_city = #{sdCity,jdbcType=VARCHAR},
+      </if>
+      <if test="sdCounty != null">
+        sd_county = #{sdCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="sdStatus != null">
+        sd_status = #{sdStatus,jdbcType=CHAR},
+      </if>
+      <if test="sdOrgId != null">
+        sd_org_id = #{sdOrgId,jdbcType=INTEGER},
+      </if>
+      <if test="sdTime != null">
+        sd_time = #{sdTime,jdbcType=INTEGER},
+      </if>
+      <if test="sdUId != null">
+        sd_u_id = #{sdUId,jdbcType=INTEGER},
+      </if>
+      <if test="sdMapx != null">
+        sd_mapx = #{sdMapx,jdbcType=VARCHAR},
+      </if>
+      <if test="sdMapy != null">
+        sd_mapy = #{sdMapy,jdbcType=VARCHAR},
+      </if>
+      <if test="sdMapz != null">
+        sd_mapz = #{sdMapz,jdbcType=VARCHAR},
+      </if>
+      <if test="sdLogo != null">
+        sd_logo = #{sdLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="sdCode != null">
+        sd_code = #{sdCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sd_id = #{sdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.station.StationStart">
+    update sl_station_start
+    set sd_name = #{sdName,jdbcType=VARCHAR},
+      sd_pym = #{sdPym,jdbcType=VARCHAR},
+      sd_type = #{sdType,jdbcType=CHAR},
+      sd_start_type = #{sdStartType,jdbcType=VARCHAR},
+      sd_province = #{sdProvince,jdbcType=VARCHAR},
+      sd_city = #{sdCity,jdbcType=VARCHAR},
+      sd_county = #{sdCounty,jdbcType=VARCHAR},
+      sd_status = #{sdStatus,jdbcType=CHAR},
+      sd_org_id = #{sdOrgId,jdbcType=INTEGER},
+      sd_time = #{sdTime,jdbcType=INTEGER},
+      sd_u_id = #{sdUId,jdbcType=INTEGER},
+      sd_mapx = #{sdMapx,jdbcType=VARCHAR},
+      sd_mapy = #{sdMapy,jdbcType=VARCHAR},
+      sd_mapz = #{sdMapz,jdbcType=VARCHAR},
+      sd_logo = #{sdLogo,jdbcType=VARCHAR},
+      sd_code = #{sdCode,jdbcType=VARCHAR}
+    where sd_id = #{sdId,jdbcType=INTEGER}
+  </update>
+  <select id="queryList" resultType="map" >
+	  select <include refid="Base_Column_List" />
+	  from  sl_station_start
+	  <include refid="queryListWhere"/>
+	  <include refid ="orderByFields" />
+	  <include refid ="pageForList" />
+  </select>
+  <select id="queryListCount" resultType="int">
+  	select count(1) from sl_station_start <include refid="queryListWhere"/>
+  </select>
+  <sql id="queryListWhere">
+	  <where>
+	  <if test="sdOrgId !=null" >
+	    AND  sd_org_id = #{sdOrgId}
+	  </if>
+	  <if test="sdCity !=null ">
+	  	AND sd_city= #{sdCity}
+	  </if>
+	  <if test="sdStatus !=null ">
+	  	AND sd_status= #{sdStatus}
+	  </if>
+	  <if test="sdStartType !=null ">
+	  	AND sd_start_type= #{sdStartType}
+	  </if>
+	  <if test="sdName !=null ">
+	  	AND (sd_name LIKE "%${sdName}%" OR sd_pym LIKE "%${sdName}%")
+	  </if>
+	  </where>
+  </sql>
+  <sql id="orderByFields">
+  	<if test="orderFields !=null">
+  	 order by
+  	 <foreach  item="t" index="index" collection="orderFields" separator=",">
+  	 	#{t.field} #{t.drct}
+  	 </foreach>
+  	</if>
+  </sql>
+  <sql id="pageForList">
+    limit #{startNum} , #{pageSize}
+  </sql>
+  <select id="countBysdName" resultType="int">
+  	select count(1) from sl_station_start where sd_name=#{sdName}
+  </select>
+  <select id="queryBysdName" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/>from sl_station_start where sd_name=#{sdName}
+  </select>
+</mapper>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.factoryTicket.FactoryTicketMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.factoryTicket.FactoryTicket" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="BIT" />
+    <result column="ticket_name" property="ticketName" jdbcType="VARCHAR" />
+    <result column="suitable_start_time" property="suitableStartTime" jdbcType="DATE" />
+    <result column="suitable_end_time" property="suitableEndTime" jdbcType="DATE" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="ticket_status" property="ticketStatus" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+    <collection property="departureIds" column="id" select="com.jdy.b2b.api.dao.factoryTicket.FactoryTicketDepartureMapper.selectDepartureIdsByTicketId"/>
+    <collection property="departureNames" column="id" select="com.jdy.b2b.api.dao.factoryTicket.FactoryTicketDepartureMapper.selectDepartureNamesByTicketId"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, product_id, type, ticket_name, suitable_start_time,suitable_end_time, price, introduction, ticket_status,
+    create_time, create_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ct_factory_ticket
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ct_factory_ticket
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.factoryTicket.FactoryTicket" >
+    insert into ct_factory_ticket (id, product_id, type,
+      ticket_name, suitable_time, price,
+      introduction, suitable_start_time,suitable_end_time, create_time,
+      create_user)
+    values (#{id,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{type,jdbcType=BIT},
+      #{ticketName,jdbcType=VARCHAR}, #{suitableStartTime,jdbcType=DATE},#{suitableEndTime,jdbcType=DATE}, #{price,jdbcType=DECIMAL},
+      #{introduction,jdbcType=VARCHAR}, #{ticketStatus,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP},
+      #{createUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.factoryTicket.FactoryTicket" useGeneratedKeys="true" keyProperty="id">
+    insert into ct_factory_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="ticketName != null" >
+        ticket_name,
+      </if>
+      <if test="suitableStartTime != null" >
+        suitable_start_time,
+      </if>
+      <if test="suitableEndTime != null" >
+        suitable_end_time,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="ticketStatus != null" >
+        ticket_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="ticketName != null" >
+        #{ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="suitableStartTime != null" >
+        #{suitableStartTime,jdbcType=DATE},
+      </if>
+      <if test="suitableEndTime != null" >
+        #{suitableEndTime,jdbcType=DATE},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketStatus != null" >
+        #{ticketStatus,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.factoryTicket.FactoryTicket" >
+    update ct_factory_ticket
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=BIT},
+      </if>
+      <if test="ticketName != null" >
+        ticket_name = #{ticketName,jdbcType=VARCHAR},
+      </if>
+      <if test="suitableStartTime != null" >
+        suitable_start_time = #{suitableStartTime,jdbcType=DATE},
+      </if>
+      <if test="suitableEndTime != null" >
+        suitable_end_time = #{suitableEndTime,jdbcType=DATE},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketStatus != null" >
+        ticket_status = #{ticketStatus,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.factoryTicket.FactoryTicket" >
+    update ct_factory_ticket
+    set product_id = #{productId,jdbcType=BIGINT},
+      type = #{type,jdbcType=BIT},
+      ticket_name = #{ticketName,jdbcType=VARCHAR},
+      suitable_start_time = #{suitableStartTime,jdbcType=DATE},
+      suitable_end_time = #{suitableEndTime,jdbcType=DATE},
+      price = #{price,jdbcType=DECIMAL},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      ticket_status = #{ticketStatus,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectList" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM ct_factory_ticket WHERE product_id =  #{productId,jdbcType=BIGINT} and ticket_status != 0
+  </select>
+  <update id="batchUpdateStatus">
+    UPDATE ct_factory_ticket SET ticket_status = #{status} where id in
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+      id
+    </foreach>
+  </update>
+</mapper>

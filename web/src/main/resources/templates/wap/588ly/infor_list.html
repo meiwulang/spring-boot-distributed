@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>资讯列表 - 芒果卉旅游</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="css/bootstrap.css" rel="stylesheet">
+	<link href="Public/Css/icon/css/font-awesome.min.css" rel="stylesheet">
+    <script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/perfect.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/infor_list.css?t='+_TimeStamp+'">'
+        );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/lib/jquery-1.11.3.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/jBootstrapPage.js"></script>
+    <script src="js/lib/echo.min.js"></script>
+    <script src="js/lib/doT.min.js"></script>
+    <script src="js/common/configs.js"></script>
+	<script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+<body>
+    <div id="header"></div>
+    <div class="main_navbar">
+		<div class="box_wrapper ">
+		 	<ul class="nav nav-tabs index_navbar">
+			  	<li role="presentation" class=" first_child"><a href="index.html">首页</a></li>
+			  	<li role="presentation"><a href="product_list.html?type=10">周边短线</a></li>
+			  	<li role="presentation"><a href="product_list.html?type=11">国内长线</a></li>
+			 	<li role="presentation"><a href="product_list.html?type=20">出境游</a></li>
+			 	<li role="presentation"><a href="product_list.html?type=30">邮轮</a></li>
+				<li role="presentation" id="type40"><a href="product_list.html?type=40">特色游</a></li>
+				<li role="presentation" id="type50"><a href="product_list.html?type=50">自助游</a></li>
+			    <li role="presentation"><a href="business.html">商家大全</a></li>
+		 	</ul>
+			<div class="login_registerBtn"> <span> <span class="ion_login"></span><span class="adde"></span> <a class="sp" data-toggle="modal" data-target="#myModal"><span>登录</span></a> </span> <span class="raid"> <span class="ion_register"></span> <a href="register0.html"><span>注册</span></a> </span> </div>
+		</div>
+	</div>
+	
+	<div class="infor_list">
+		<div class="box_wrapper">
+			<!-- <div class="tab_nav">
+				<a class="active" href="">培训沙龙</a>
+				<a href="">业内动态</a>
+				<a href="">企业新闻</a>
+				<a href="">旅游咨询</a>
+			</div> -->
+
+			<div class="content">
+				<ul id="newsListData">	
+				</ul>
+
+				<script id="newsListData-template" type="text/x-dot-template">
+				{{ for(var i = 0;i < it.list.length;i++){ }}
+					<li class="clearfix">
+						<i class=""></i>
+						<div class="imgL">
+							<a href="contentDetail.html?id={{= it.list[i].id}}" target="_blank">
+								<img src="{{= it.list[i].ar_img}}">
+							</a>
+						</div>
+						<div class="detail">
+							<h3>
+								<a href="contentDetail.html?id={{= it.list[i].id}}" title="好好学习，天天向上，同天下正式开启反培训模式" target="_blank">{{= it.list[i].title}}</a>
+							</h3>
+							<div class="contsL">
+								{{= it.list[i].ar_brief}}
+							</div>
+							<div class="tipsF">
+								<span class="time">时间：{{= it.list[i].create_date}}</span>
+								<span class="tipsL">标签：{{= it.list[i].ar_keyword}}</span>
+							</div>
+						</div>
+					</li>
+				{{ } }}
+				</script>
+				
+				<ol class="pager" id="Pagination">
+
+				</ol>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer"></div>
+	<div id="login_mask"></div>
+</body>
+<script id="link-js" type="text/javascript">
+    document.write(
+    	'<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/infor_list.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

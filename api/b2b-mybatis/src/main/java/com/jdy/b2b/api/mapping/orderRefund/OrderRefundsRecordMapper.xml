@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.orderRefund.OrderRefundsRecordMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.orderRefund.OrderRefundsRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="apply_refund_time" jdbcType="TIMESTAMP" property="applyRefundTime" />
+    <result column="refundable_time" jdbcType="TIMESTAMP" property="refundableTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="refundable_buyer_id" jdbcType="BIGINT" property="refundableBuyerId" />
+    <result column="refundable_buyer_name" jdbcType="VARCHAR" property="refundableBuyerName" />
+    <result column="refundable_saler_id" jdbcType="BIGINT" property="refundableSalerId" />
+    <result column="refundable_saler_name" jdbcType="VARCHAR" property="refundableSalerName" />
+    <result column="apply_amount" jdbcType="DECIMAL" property="applyAmount" />
+    <result column="refund_amount" jdbcType="DECIMAL" property="refundAmount" />
+    <result column="tourists_id" jdbcType="VARCHAR" property="touristsId" />
+    <result column="ticket_info" jdbcType="VARCHAR" property="ticketInfo" />
+    <result column="refund_explain" jdbcType="VARCHAR" property="refundExplain" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, order_id, apply_refund_time, refundable_time, status, type, refundable_buyer_id,
+    refundable_buyer_name, refundable_saler_id, refundable_saler_name, apply_amount, 
+    refund_amount, tourists_id, ticket_info, refund_explain, neg_order_id, neg_order_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_order_refunds_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sl_order_refunds_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.orderRefund.OrderRefundsRecord">
+    insert into sl_order_refunds_record (id, order_id, apply_refund_time,
+      refundable_time, status, refundable_buyer_id, 
+      refundable_buyer_name, refundable_saler_id, 
+      refundable_saler_name, apply_amount, refund_amount, 
+      tourists_id, ticket_info, refund_explain,neg_order_id, neg_order_no
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{applyRefundTime,jdbcType=TIMESTAMP}, 
+      #{refundableTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{refundableBuyerId,jdbcType=BIGINT}, 
+      #{refundableBuyerName,jdbcType=VARCHAR}, #{refundableSalerId,jdbcType=BIGINT}, 
+      #{refundableSalerName,jdbcType=VARCHAR}, #{applyAmount,jdbcType=DECIMAL}, #{refundAmount,jdbcType=DECIMAL}, 
+      #{touristsId,jdbcType=VARCHAR}, #{ticketInfo,jdbcType=VARCHAR}, #{refundExplain,jdbcType=VARCHAR},#{negOrderId},#{negOrderNo}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.orderRefund.OrderRefundsRecord">
+    insert into sl_order_refunds_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+       id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="applyRefundTime != null">
+        apply_refund_time,
+      </if>
+      <if test="refundableTime != null">
+        refundable_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="refundableBuyerId != null">
+        refundable_buyer_id,
+      </if>
+      <if test="refundableBuyerName != null">
+        refundable_buyer_name,
+      </if>
+      <if test="refundableSalerId != null">
+        refundable_saler_id,
+      </if>
+      <if test="refundableSalerName != null">
+        refundable_saler_name,
+      </if>
+      <if test="applyAmount != null">
+        apply_amount,
+      </if>
+      <if test="refundAmount != null">
+        refund_amount,
+      </if>
+      <if test="touristsId != null">
+        tourists_id,
+      </if>
+      <if test="ticketInfo != null">
+        ticket_info,
+      </if>
+      <if test="refundExplain != null">
+        refund_explain,
+      </if>
+      <if test="negOrderId != null">
+        neg_order_id,
+      </if>
+      <if test="negOrderNo != null">
+        neg_order_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="applyRefundTime != null">
+        #{applyRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundableTime != null">
+        #{refundableTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="refundableBuyerId != null">
+        #{refundableBuyerId,jdbcType=BIGINT},
+      </if>
+      <if test="refundableBuyerName != null">
+        #{refundableBuyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="refundableSalerId != null">
+        #{refundableSalerId,jdbcType=BIGINT},
+      </if>
+      <if test="refundableSalerName != null">
+        #{refundableSalerName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAmount != null">
+        #{applyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="refundAmount != null">
+        #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="touristsId != null">
+        #{touristsId,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketInfo != null">
+        #{ticketInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundExplain != null">
+        #{refundExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="negOrderId != null">
+        #{negOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="negOrderNo != null">
+        #{negOrderNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.orderRefund.OrderRefundsRecord">
+    update sl_order_refunds_record
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="applyRefundTime != null">
+        apply_refund_time = #{applyRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundableTime != null">
+        refundable_time = #{refundableTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="refundableBuyerId != null">
+        refundable_buyer_id = #{refundableBuyerId,jdbcType=BIGINT},
+      </if>
+      <if test="refundableBuyerName != null">
+        refundable_buyer_name = #{refundableBuyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="refundableSalerId != null">
+        refundable_saler_id = #{refundableSalerId,jdbcType=BIGINT},
+      </if>
+      <if test="refundableSalerName != null">
+        refundable_saler_name = #{refundableSalerName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyAmount != null">
+        apply_amount = #{applyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="refundAmount != null">
+        refund_amount = #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="touristsId != null">
+        tourists_id = #{touristsId,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketInfo != null">
+        ticket_info = #{ticketInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundExplain != null">
+        refund_explain = #{refundExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="negOrderId != null">
+        neg_order_id = #{negOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="negOrderNo != null">
+        neg_order_no = #{negOrderNo,jdbcType=VARCHAR},
+      </if>
+
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.orderRefund.OrderRefundsRecord">
+    update sl_order_refunds_record
+    set order_id = #{orderId,jdbcType=BIGINT},
+      apply_refund_time = #{applyRefundTime,jdbcType=TIMESTAMP},
+      refundable_time = #{refundableTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      refundable_buyer_id = #{refundableBuyerId,jdbcType=BIGINT},
+      refundable_buyer_name = #{refundableBuyerName,jdbcType=VARCHAR},
+      refundable_saler_id = #{refundableSalerId,jdbcType=BIGINT},
+      refundable_saler_name = #{refundableSalerName,jdbcType=VARCHAR},
+      apply_amount = #{applyAmount,jdbcType=DECIMAL},
+      refund_amount = #{refundAmount,jdbcType=DECIMAL},
+      tourists_id = #{touristsId,jdbcType=VARCHAR},
+      ticket_info = #{ticketInfo,jdbcType=VARCHAR},
+      refund_explain = #{refundExplain,jdbcType=VARCHAR},
+      neg_order_id = #{negOrderId},
+      neg_order_no = #{negOrderNo}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectMaxIdByOrderId" parameterType="long" resultType="long">
+    select max(id) from sl_order_refunds_record where order_id = #{orderId}
+  </select>
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="long">
+    select <include refid="Base_Column_List"/>
+    from sl_order_refunds_record
+    where order_id = #{orderId}
+    order by id DESC
+  </select>
+  <select id="selectOtherTypeRefundRecordNum" resultType="java.lang.Integer">
+    select count(*) from sl_order_refunds_record where order_id = #{orderId} and status = 2 and type = 1
+  </select>
+
+</mapper>

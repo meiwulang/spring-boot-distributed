@@ -1,0 +1,446 @@
+.bgWhite{
+  background-color: #fff;
+}
+.w1000{
+  width: 1000px;
+  margin: 0 auto;
+  border:1px solid #d7dfe3;
+}
+.bgWhite{
+  background-color: #fff;
+}
+.backNone{
+  background: none;
+  border:0;
+}
+.red-font{
+  color:#ff4949;
+  line-height:1;
+}
+.blue-font{
+  color:#3f96f7;
+  line-height:1;
+}
+.green-font{
+  color:#2fab12;
+  line-height:1;
+}
+.orange-font{
+  color:#ff5a00;
+  line-height:1;
+}
+.grey-font{
+  color:#99a9bf;
+  line-height:1;
+}
+.red-tag{
+  color:#ff4949;
+  border:1px solid #ff4949;
+  background-color: #ffecec;
+  max-width:100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  line-height: 18px;
+  min-height: 20px;
+  height: auto;
+  border-radius: 0;
+}
+.yellow-tag{
+   color:#ffa600;
+   border:1px solid #ffa600;
+   background-color: #fff6e5;
+   max-width:100%;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   vertical-align: middle;
+   line-height: 18px;
+   min-height: 20px;
+   height: auto;
+   border-radius: 0;
+ }
+.green-tag{
+  color:#71dc1c;
+  border:1px solid #71dc1c;
+  background-color: #fff;
+  max-width:100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  line-height: 16px;
+  min-height: 18px;
+  font-size: 10px;
+  height: auto;
+  border-radius: 0;
+}
+
+
+.txtHide{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.td-btn{
+  padding: 4px 5px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+.alignR{
+  text-align: right;
+}
+.alignL{
+  text-align: left;
+}
+.alignC{
+  text-align: center;
+}
+.alignT{
+  vertical-align: top;
+}
+.alignB{
+  vertical-align: bottom;
+}
+.alignM{
+  vertical-align: middle;
+}
+
+/* 页面上部的小标题 */
+.jdy-title{
+  padding: 1px 0 5px;
+  line-height: 34px;
+}
+.jdy-title>div{
+  display: inline-block;
+  margin-right: 20px;
+  line-height: 34px;
+}
+.jdy-title .el-tag{
+  vertical-align: middle;
+}
+/* table的标题 */
+.info-wrap{
+  border: 1px solid #d7dfe3;
+  border-bottom: 0;
+  margin-bottom: 10px;
+}
+.info-wrap .title{
+  padding:12px 10px;
+  line-height: 36px;
+  background-color: #f9fafc;
+  border-bottom: 1px solid #d7dfe3;
+  overflow: hidden;
+}
+.info-wrap .cont{
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #d7dfe3;
+}
+/*按钮*/
+.search-row .btn-wrap{
+ display: inline-block;
+}
+
+/*头部搜索模块*/
+
+.search-row .search-btn1{
+  padding: 10px 20px;
+}
+.search-row .el-input__inner{
+  height: 36px;
+  padding-left:6px;
+  padding-right: 5px;
+}
+.search-row .jdy-search-edit{
+  width:150px;
+}
+.search-row .search-input{
+  width:170px;
+}
+.search-row .search-input-l{
+  width:280px;
+}
+.search-row .select-region .jdy-search-edit{
+  width:110px;
+}
+.search-row .input-m,.search-row .select-m{
+  width: 120px;
+}
+.search-row .input-s,.search-row .select-s{
+  width: 70px;
+}
+.search-row .input-l,.search-row .select-l{
+  width: 160px;
+}
+.search-row .input-date-l{
+  width: 200px;
+}
+.search-row .input-date-time-l{
+  width: 310px;
+}
+.search-row .el-form-item__label{
+  padding-right:0;
+}
+
+
+/*订单详情下的自定义table*/
+.table-custom{
+  width: 100%;
+  border-top:1px solid #d7dfe3;
+  border-left:1px solid #d7dfe3;
+}
+.table-custom th,.table-custom td{
+  border-right:1px solid #d7dfe3;
+  border-bottom:1px solid #d7dfe3;
+  padding: 8px 18px;
+  line-height: 24px;
+  color:#475669;
+  vertical-align: middle;
+}
+.table-custom th {
+  background-color: #edf4f8;
+}
+.table-custom tr.tr-bg td{
+  background-color: #f9fafc;
+}
+.table-custom th.sec{
+  color:#fff;
+  background-color: #a1c2fa;
+  border-right:1px solid #a1c2fa;
+  border-bottom:1px solid #a1c2fa;  
+}
+.table-custom th.red{
+  color: red
+}
+.table-custom td.sec{
+  text-align: center;
+  color:#fff;
+  background-color: #f9c2a4;
+  border-right:1px solid #f9c2a4;
+  border-bottom:1px solid #f9c2a4;  
+}
+.el-table-custom{
+  width: 100%;
+  border-top:1px solid #d7dfe3;
+  border-left:1px solid #d7dfe3;
+}
+.el-table-custom th,.el-table-custom td{
+  border-right:1px solid #d7dfe3;
+  border-bottom:1px solid #d7dfe3;
+  padding: 8px;
+  line-height: 24px;
+  color:#475669;
+  text-align: center;
+  vertical-align: middle;
+}
+.el-table-custom th {
+  background-color: #edf4f8;
+}
+.el-table-custom tr.tr-bg td{
+  background-color: #f9fafc;
+}
+/* 修改订单的table */
+.table-wrap .table-title{
+  padding: 10px 0;
+}
+.table-wrap .el-table td{
+}
+.table-wrap .el-table td .cell{
+  padding: 8px;
+}
+.table-wrap .el-table td .el-button{
+  padding: 5px;
+}
+
+
+/* 弹层*/
+.dialog-lv{
+  position: fixed;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%,-50%);
+  background-color:#467cd4;
+}
+.dialog-lv .scroll-cont{
+  overflow-y: auto;
+  max-height:500px;
+  background-color: #fff;
+}
+/* 弹层 接送站点选择 tab 修改*/
+.dialog-lv .el-popover,.dialog-lv .el-tabs--border-card{
+  box-shadow: none;
+  border-left: 0;
+  border-bottom: 0;
+  border-right: 0;
+}
+.dialog-lv .el-tabs__content{
+  display: none;
+}
+.dialog-lv .btn-wrap{
+  text-align: right;
+  background-color: #f9fafc;
+  padding: 11px 20px;
+  border-top:1px solid #d7dfe3;
+}
+.dialog-lv .el-input__inner{
+  height: 36px;
+}
+
+.dialog-lv .el-form .el-select{
+  width: 100%;
+  height: 37px;
+}
+.dialog-lv .el-form .el-cascader{
+  width: 100%;
+  height: 37px;
+}
+
+.dialog-lv .el-form .el-input, .el-form .el-input__inner{
+  width: 100%;
+}
+/*模拟dialog的头部*/
+.dialog-title-custom{
+  background-color: #467cd4;
+  position: absolute;
+  top:0;
+  width: 100%;
+  line-height: 1;
+  color:#fff;
+  font-size: 16px;
+  padding: 10px;
+  overflow: hidden;
+}
+.jl-information .dialog-title-custom a{
+  color:#fff;
+}
+
+
+.dialog-lv .sec-wrap{
+  padding:30px 40px 20px;
+  border:1px solid #d7dfe3;
+  margin-bottom: 26px;
+}
+.dialog-lv .sec-title{
+  text-align: center;
+  margin-top: -40px;
+  margin-bottom: 30px;
+
+}
+.dialog-lv .sec-title span{
+  display: inline-block;
+  padding: 0 55px;
+  color: #1f2d3d;
+  font-size: 16px;
+  position: relative;
+  background-color: #fff;
+}
+.dialog-lv .sec-title span:before{
+  content: "";
+  position: absolute;         /*定位背景横线的位置*/
+  top: 52%;
+  background: #1f2d3d;       /*宽和高做出来的背景横线*/
+  width: 20px;
+  height: 2px;
+  left: 25px;
+}
+.dialog-lv .sec-title span:after{
+  content: "";
+  position: absolute;         /*定位背景横线的位置*/
+  top: 52%;
+  background: #1f2d3d;       /*宽和高做出来的背景横线*/
+  width: 20px;
+  height: 2px;
+  right:25px;
+}
+.dialog-lv .tips{
+  color:#ff0000;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+/*table*/
+.el-table td.alignL .cell{
+  text-align: left;
+}
+.el-table td.alignR .cell{
+  text-align: right;
+}
+.el-table td.red-font .cell{
+  color:#ff4949;
+}
+ .el-table .borderR0{
+  border-right: 0;
+}
+.el-table td a.td-btn{
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #c4c4c4;
+  color: #3f96f7;
+}
+.el-table td a.td-btn:hover{
+  color:#3f96f7;
+  border-color:#3f96f7;
+}
+
+
+.aircraft-icon{
+  background: url(../images/icon3.png) no-repeat
+}
+
+
+.sec-lv .sec-wrap{
+  padding:30px 10px 10px;
+  border:1px solid #d7dfe3;
+  margin-bottom: 26px;
+}
+.sec-lv .pr80{
+  padding-right: 80px;
+}
+.sec-lv .sec-wrap .sec-title{
+  text-align: center;
+  margin-top: -40px;
+  margin-bottom: 30px;
+}
+.sec-lv .sec-wrap .sec-title span{
+  display: inline-block;
+  padding: 0 55px;
+  color: #1f2d3d;
+  font-size: 16px;
+  position: relative;
+  background-color: #fff;
+  font-weight: 600;
+}
+.sec-lv .sec-wrap .sec-title span:before{
+  content: "";
+  position: absolute;         /*定位背景横线的位置*/
+  top: 52%;
+  background: #1f2d3d;       /*宽和高做出来的背景横线*/
+  width: 25px;
+  height: 2px;
+  left: 20px;
+}
+.sec-lv .sec-wrap .sec-title span:after{
+  content: "";
+  position: absolute;
+  top: 52%;
+  background: #1f2d3d;
+  width: 25px;
+  height: 2px;
+  right:20px;
+}
+.form-lv .form-item-two{
+  display: flex;
+  justify-content: space-between;
+}
+.form-lv .form-item-two .el-form-item{
+  width: 50%;
+}
+.form-lv .el-select{
+  width: 100%;
+}
+.form-lv .form-item-one .el-form-item{
+  width:100% ;
+}
+

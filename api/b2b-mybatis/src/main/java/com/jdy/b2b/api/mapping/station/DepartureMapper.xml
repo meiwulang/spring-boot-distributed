@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.station.DepartureMapper">
+	<resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.station.Departure">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="company_id" jdbcType="BIGINT" property="companyId" />
+		<result column="d_name" jdbcType="VARCHAR" property="dName" />
+		<result column="d_type" jdbcType="INTEGER" property="dType" />
+		<result column="d_traffic" jdbcType="INTEGER" property="dTraffic" />
+		<result column="d_pym" jdbcType="VARCHAR" property="pym" />
+		<result column="d_three" jdbcType="VARCHAR" property="dThree" />
+		<result column="d_country" jdbcType="VARCHAR" property="dCountry" />
+		<result column="d_province" jdbcType="VARCHAR" property="dProvince" />
+		<result column="d_city" jdbcType="VARCHAR" property="dCity" />
+		<result column="d_area" jdbcType="VARCHAR" property="dArea" />
+		<result column="d_mapx" jdbcType="VARCHAR" property="dMapx" />
+		<result column="d_mapy" jdbcType="VARCHAR" property="dMapy" />
+		<result column="d_status" jdbcType="INTEGER" property="dStatus" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="create_user" jdbcType="BIGINT" property="createUser" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="update_user" jdbcType="BIGINT" property="updateUser" />
+	</resultMap>
+	<resultMap id="DTOBaseResultMap" type="com.jdy.b2b.api.model.station.DepartureDTO">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="company_id" jdbcType="BIGINT" property="companyId" />
+		<result column="d_name" jdbcType="VARCHAR" property="dName" />
+		<result column="d_type" jdbcType="INTEGER" property="dType" />
+		<result column="d_traffic" jdbcType="INTEGER" property="dTraffic" />
+		<result column="d_pym" jdbcType="VARCHAR" property="pym" />
+		<result column="d_three" jdbcType="VARCHAR" property="dThree" />
+		<result column="d_country" jdbcType="VARCHAR" property="dCountry" />
+		<result column="d_province" jdbcType="VARCHAR" property="dProvince" />
+		<result column="d_city" jdbcType="VARCHAR" property="dCity" />
+		<result column="d_area" jdbcType="VARCHAR" property="dArea" />
+		<result column="d_mapx" jdbcType="VARCHAR" property="dMapx" />
+		<result column="d_mapy" jdbcType="VARCHAR" property="dMapy" />
+		<result column="d_status" jdbcType="INTEGER" property="dStatus" />
+		<result column="goCount" jdbcType="INTEGER" property="goCount" />
+		<result column="backCount" jdbcType="INTEGER" property="backCount" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="create_user" jdbcType="BIGINT" property="createUser" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="update_user" jdbcType="BIGINT" property="updateUser" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, company_id, d_name, d_type, d_traffic, d_three, d_country,
+		d_province, d_city,
+		d_area, d_mapx, d_mapy, d_status, create_time, create_user, update_time,
+		update_user,d_pym
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sr_departure
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from sr_departure
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.jdy.b2b.api.model.station.Departure"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into sr_departure (id, company_id, d_name,
+		d_type, d_traffic, d_three,
+		d_country, d_province, d_city,
+		d_area, d_mapx, d_mapy,
+		d_status, create_time, create_user,
+		update_time, update_user,d_pym)
+		values (#{id,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT},
+		#{dName,jdbcType=VARCHAR},
+		#{dType,jdbcType=INTEGER}, #{dTraffic,jdbcType=INTEGER}, #{dThree,jdbcType=VARCHAR},
+		#{dCountry,jdbcType=VARCHAR}, #{dProvince,jdbcType=VARCHAR},
+		#{dCity,jdbcType=VARCHAR},
+		#{dArea,jdbcType=VARCHAR}, #{dMapx,jdbcType=VARCHAR}, #{dMapy,jdbcType=VARCHAR},
+		#{dStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+		#{createUser,jdbcType=BIGINT},
+		#{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT},#{pym,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jdy.b2b.api.model.station.Departure">
+		insert into sr_departure
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="dName != null">
+				d_name,
+			</if>
+			<if test="dType != null">
+				d_type,
+			</if>
+			<if test="dTraffic != null">
+				d_traffic,
+			</if>
+			<if test="dThree != null">
+				d_three,
+			</if>
+			<if test="dCountry != null">
+				d_country,
+			</if>
+			<if test="dProvince != null">
+				d_province,
+			</if>
+			<if test="dCity != null">
+				d_city,
+			</if>
+			<if test="dArea != null">
+				d_area,
+			</if>
+			<if test="dMapx != null">
+				d_mapx,
+			</if>
+			<if test="dMapy != null">
+				d_mapy,
+			</if>
+			<if test="dStatus != null">
+				d_status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUser != null">
+				create_user,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUser != null">
+				update_user,
+			</if>
+			<if test="pym != null">
+				d_pym,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="companyId != null">
+				#{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="dName != null">
+				#{dName,jdbcType=VARCHAR},
+			</if>
+			<if test="dType != null">
+				#{dType,jdbcType=INTEGER},
+			</if>
+			<if test="dTraffic != null">
+				#{dTraffic,jdbcType=INTEGER},
+			</if>
+			<if test="dThree != null">
+				#{dThree,jdbcType=VARCHAR},
+			</if>
+			<if test="dCountry != null">
+				#{dCountry,jdbcType=VARCHAR},
+			</if>
+			<if test="dProvince != null">
+				#{dProvince,jdbcType=VARCHAR},
+			</if>
+			<if test="dCity != null">
+				#{dCity,jdbcType=VARCHAR},
+			</if>
+			<if test="dArea != null">
+				#{dArea,jdbcType=VARCHAR},
+			</if>
+			<if test="dMapx != null">
+				#{dMapx,jdbcType=VARCHAR},
+			</if>
+			<if test="dMapy != null">
+				#{dMapy,jdbcType=VARCHAR},
+			</if>
+			<if test="dStatus != null">
+				#{dStatus,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=BIGINT},
+			</if>
+			<if test="pym != null">
+				#{pym,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.station.Departure">
+		update sr_departure
+		<set>
+			<if test="companyId != null">
+				company_id = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="dName != null">
+				d_name = #{dName,jdbcType=VARCHAR},
+			</if>
+			<if test="dType != null">
+				d_type = #{dType,jdbcType=INTEGER},
+			</if>
+			<if test="dTraffic != null">
+				d_traffic = #{dTraffic,jdbcType=INTEGER},
+			</if>
+			<if test="dThree != null">
+				d_three = #{dThree,jdbcType=VARCHAR},
+			</if>
+			<if test="dCountry != null">
+				d_country = #{dCountry,jdbcType=VARCHAR},
+			</if>
+			<if test="dProvince != null">
+				d_province = #{dProvince,jdbcType=VARCHAR},
+			</if>
+			<if test="dCity != null">
+				d_city = #{dCity,jdbcType=VARCHAR},
+			</if>
+			<if test="dArea != null">
+				d_area = #{dArea,jdbcType=VARCHAR},
+			</if>
+			<if test="dMapx != null">
+				d_mapx = #{dMapx,jdbcType=VARCHAR},
+			</if>
+			<if test="dMapy != null">
+				d_mapy = #{dMapy,jdbcType=VARCHAR},
+			</if>
+			<if test="dStatus != null">
+				d_status = #{dStatus,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser,jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser,jdbcType=BIGINT},
+			</if>
+			<if test="pym != null">
+				d_pym = #{pym,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.station.Departure">
+		update sr_departure
+		set company_id = #{companyId,jdbcType=BIGINT},
+		d_name = #{dName,jdbcType=VARCHAR},
+		d_type = #{dType,jdbcType=INTEGER},
+		d_traffic = #{dTraffic,jdbcType=INTEGER},
+		d_three = #{dThree,jdbcType=VARCHAR},
+		d_country = #{dCountry,jdbcType=VARCHAR},
+		d_province = #{dProvince,jdbcType=VARCHAR},
+		d_city = #{dCity,jdbcType=VARCHAR},
+		d_area = #{dArea,jdbcType=VARCHAR},
+		d_mapx = #{dMapx,jdbcType=VARCHAR},
+		d_mapy = #{dMapy,jdbcType=VARCHAR},
+		d_status = #{dStatus,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		create_user = #{createUser,jdbcType=BIGINT},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		update_user = #{updateUser,jdbcType=BIGINT},
+		d_pym = #{pym,jdbcType=VARCHAR},
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="queryListForBegin" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		<include refid="tableName"></include>
+		JOIN
+		<include refid="selectId" />
+		b
+		ON
+		<include refid="tableName" />
+		.id=b.bid
+	</select>
+	<select id="queryList" resultMap="DTOBaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		,goCount,backCount
+		FROM
+		<include refid="tableName"></include>
+		JOIN
+		<include refid="selectId" />
+		b
+		ON
+		<include refid="tableName" />
+		.id=b.bid
+		LEFT JOIN (SELECT count(1) goCount ,sb_departure_id cid FROM
+		sr_shuttle_bus WHERE sb_return=0 AND sb_status=0 group by
+		sb_departure_id) c
+		ON c.cid=b.bid
+		LEFT JOIN
+		(SELECT count(1) backCount ,sb_departure_id did FROM
+		sr_shuttle_bus WHERE sb_return=1 AND sb_status=0 group by
+		sb_departure_id) d
+		ON d.did=b.bid
+	</select>
+	<select id="queryListCount" resultType="int">
+		select count(1) from
+		<include refid="tableName" />
+		<include refid="listWhere" />
+	</select>
+	<sql id="tableName">
+		sr_departure
+	</sql>
+	<sql id="selectId">
+		(select id as bid from
+		<include refid="tableName" />
+		<include refid="listWhere" />
+		limit ${departure.startNum},${departure.pageSize})
+	</sql>
+	<sql id="listWhere">
+		<where>
+			<choose>
+				<when test="departure.pcType !=null and departure.pcType==2 and departure.companyId == null">
+				</when>
+				<otherwise>
+<!-- 				   AND company_id in (  -->
+<!-- 						<if test="companyIds.size>0"> -->
+<!-- 						<foreach collection="companyIds" separator="," item="t">#{t}</foreach>, -->
+<!-- 						</if> -->
+<!-- 						#{departure.companyId} -->
+<!-- 					) -->
+				   AND company_id =#{departure.companyId}
+			    </otherwise>
+			</choose>
+			<if test="departure.dStatus != null">
+				AND d_status=#{departure.dStatus}
+			</if>
+			<if test="departure.dType != null and departure.dType !=3">
+				AND d_type=#{departure.dType}
+			</if>
+			<if test="departure.dType != null and departure.dType ==3">
+				AND d_type !=0
+			</if>
+			<if test="departure.dTraffic != null">
+				AND d_traffic =#{departure.dTraffic}
+			</if>
+			<if test="departure.dName != null">
+				<bind name="LikeDName" value="'%'+ departure.dName +'%'" />
+				AND d_name LIKE #{LikeDName}
+			</if>
+			<if test="departure.pym != null">
+				<bind name="LikePym" value="'%'+ departure.pym +'%'" />
+				AND d_pym LIKE #{LikePym}
+			</if>
+		</where>
+	</sql>
+	<sql id="selectSize">
+		(select count(1) size,p_pid from cm_attach group by p_pid )
+		c
+	</sql>
+	<select id="queryDeparture" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="tableName" />
+		<include refid="fullWhere" />
+	</select>
+	<sql id="fullWhere">
+		<where>
+			<if test="id !=null">
+				AND id=#{id}
+			</if>
+			<if test="companyId !=null">
+				AND company_id=#{companyId}
+			</if>
+			<if test="dName !=null">
+				AND d_name=#{dName}
+			</if>
+			<if test="dType !=null">
+				AND d_type=#{dType}
+			</if>
+			<if test="dTraffic !=null">
+				AND d_traffic=#{dTraffic}
+			</if>
+			<if test="dThree !=null">
+				AND d_three=#{dThree}
+			</if>
+			<if test="dCountry !=null">
+				AND d_country=#{dCountry}
+			</if>
+			<if test="dProvince !=null">
+				AND d_province=#{dProvince}
+			</if>
+			<if test="dCity !=null">
+				AND d_city=#{dCity}
+			</if>
+			<if test="dArea !=null">
+				AND d_area=#{dArea}
+			</if>
+			<if test="dMapx !=null">
+				AND d_mapx=#{dMapx}
+			</if>
+			<if test="dMapy !=null">
+				AND d_mapy=#{dMapy}
+			</if>
+			<if test="pym !=null">
+				AND d_pym=#{pym}
+			</if>
+			<if test="dStatus !=null">
+				AND d_status=#{dStatus}
+			</if>
+			<if test="createTime !=null">
+				AND create_time=#{createTime}
+			</if>
+			<if test="createUser !=null">
+				AND create_user=#{createUser}
+			</if>
+			<if test="updateTime !=null">
+				AND update_time=#{updateTime}
+			</if>
+			<if test="updateUser !=null">
+				AND update_user=#{updateUser}
+			</if>
+		</where>
+	</sql>
+	<select id="queryListForTicket" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		<include refid="tableName" />
+		<include refid="queryForTicketWhere" />
+		limit #{departure.startNum},#{departure.pageSize}
+	</select>
+	<sql id="queryForTicketWhere">
+		WHERE
+		1=1
+		<if test="departure.dTraffic !=null">
+			AND d_traffic=#{departure.dTraffic}
+		</if>
+		<if test="departure.dStatus !=null">
+			AND d_status=#{departure.dStatus}
+		</if>
+		<if test="departure.dType !=null">
+			AND d_type=#{departure.dType}
+		</if>
+<!-- 		<choose> -->
+<!-- 			<when -->
+<!-- 				test="departure.pcType !=null and departure.pcType==2 and departure.companyId == null"></when> -->
+<!-- 			<otherwise> -->
+<!-- 				AND company_id in ( #{departure.companyId,jdbcType=BIGINT}  -->
+<!-- 				<if test="companyIds.size > 0">,  -->
+<!-- 				<foreach collection="companyIds" item="t" separator=",">#{t}</foreach> -->
+<!-- 				</if> -->
+<!-- 				) -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
+		<if test="departure.pcompanyId !=null">
+		AND company_id=#{departure.pcompanyId}
+		</if>
+		AND (
+		1=1
+		<if test="citys!=null and citys.size>0">
+			AND d_city IN
+			<foreach collection="citys" item="city" close=")" open="("
+				separator=",">
+				#{city}
+			</foreach>
+		</if>
+		<if test="departure.dName">
+		<bind name="likeName" value="'%'+departure.dName +'%'"/>
+		  AND d_name like #{likeName}
+		</if>
+		)
+	</sql>
+	<select id="queryListForTicketCount" resultType="int">
+		SELECT count(1) FROM
+		<include refid="tableName" />
+		<include refid="queryForTicketWhere" />
+	</select>
+	<select id="queryManagerConpanyIds" resultType="long">
+		SELECT id FROM sm_company WHERE c_status=1 AND c_type=2
+	</select>
+
+	<select id="selectOldDepartureList" parameterType="list" resultType="long">
+		select DISTINCT d.id from sr_departure d
+		inner join ct_ticket_departure td on td.departue_id = d.id
+		where td.ticket_id IN
+		<foreach collection="list" item="id" close=")" open="("
+				 separator=",">
+			#{id}
+		</foreach>
+		and d.d_status = 0
+	</select>
+
+	<select id="selectNowDepartureList" parameterType="long" resultMap="BaseResultMap">
+		select DISTINCT <include refid="Base_Column_List"/> from sr_departure where company_id  = #{id} and d_status = 0
+	</select>
+
+	<select id="selectListByIdList" parameterType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from sr_departure where id in
+		<foreach collection="list" item="id" close=")" open="("
+				 separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+	<select id="selectByEntity" parameterType="com.jdy.b2b.api.model.station.Departure" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from sr_departure <include refid="fullWhere"/>
+	</select>
+</mapper>

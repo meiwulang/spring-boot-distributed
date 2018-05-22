@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.OrderTouristMapperDiy">
+
+  <insert id="batchInsertOrderTourist" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+    insert into sl_order_tourist (id, ot_order_id, ot_ticket_id, ot_ticket_type,
+      ot_type, ot_name, ot_phone, 
+      ot_licence_type, ot_lincese, ot_rep, ot_leave_id,
+      ot_leave_type, ot_leave_price, ot_return_id, 
+      ot_return_type, ot_return_price, create_time, 
+      create_user, update_time, update_user,ot_ext_status
+      )
+    values
+    <foreach collection="list" separator="," item="item">
+      (#{item.id,jdbcType=BIGINT}, #{item.otOrderId,jdbcType=BIGINT},
+      #{item.otTicketId,jdbcType=BIGINT}, #{item.otTicketType,jdbcType=INTEGER},
+      #{item.otType,jdbcType=INTEGER}, #{item.otName,jdbcType=VARCHAR}, #{item.otPhone,jdbcType=VARCHAR},
+      #{item.otLicenceType,jdbcType=INTEGER}, #{item.otLincese,jdbcType=VARCHAR},
+      #{item.otRep,jdbcType=INTEGER}, #{item.otLeaveId,jdbcType=BIGINT},
+      #{item.otLeaveType,jdbcType=TINYINT}, #{item.otLeavePrice,jdbcType=DECIMAL}, #{item.otReturnId,jdbcType=BIGINT},
+      #{item.otReturnType,jdbcType=TINYINT}, #{item.otReturnPrice,jdbcType=DECIMAL}, #{item.createTime,jdbcType=TIMESTAMP},
+      #{item.createUser,jdbcType=BIGINT}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.updateUser,jdbcType=BIGINT},
+      #{item.otExtStatus,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
+    <update id="batchUpdateTourist" parameterType="com.jdy.b2b.api.model.OrderTouristForBatch">
+        <foreach collection="touristInfo" item="tourist" >
+            UPDATE sl_order_tourist SET
+            ot_ticket_id = #{tourist.otTicketId},
+            ot_ticket_type = #{tourist.otTicketType},
+            ot_type = #{tourist.otType},
+            ot_name = #{tourist.otName},
+            ot_phone = #{tourist.otPhone},
+            ot_licence_type = #{tourist.otLicenceType},
+            ot_lincese = #{tourist.otLincese},
+            update_time = #{updateTime},
+            update_user = #{updateUser}
+            WHERE id = #{tourist.id};
+        </foreach>
+    </update>
+
+    <select id="selectList" resultMap="com.jdy.b2b.api.dao.OrderTouristMapper.BaseResultMap">
+    select * from sl_order_tourist t where t.ot_order_id= #{otOrderId}
+  </select>
+  
+  <resultMap id="OrderTouristDTOResultMap" type="com.jdy.b2b.api.model.diy.OrderTouristDTO" extends="com.jdy.b2b.api.dao.OrderTouristMapper.BaseResultMap">
+    <result column="t_peer_price" property="tPeerPrice"/>
+
+    <result column="category" property="category"/>
+    <result column="categoryName" property="categoryName"/>
+    <result column="tName" property="tName"/>
+
+    <result column="lvDepartureName" property="lvDepartureName"/>
+    <result column="lvStopName" property="lvStopName"/>
+    <result column="lvSbTime" property="lvSbTime"/>
+    <result column="lvSbTimeLength" property="lvSbTimeLength"/>
+
+    <result column="rtDepartureName" property="rtDepartureName"/>
+    <result column="rtStopName" property="rtStopName"/>
+    <result column="rtSbTime" property="rtSbTime"/>
+    <result column="rtSbTimeLength" property="rtSbTimeLength"/>
+    <result column="ot_status" property="otStatus"/>
+  </resultMap>
+  <select id="selectOrderTouristDTOList" resultMap="OrderTouristDTOResultMap">
+    SELECT
+      ot.*,
+      ifnull((SELECT op.op_price
+               FROM sl_order_price_detail op
+               WHERE op.op_order_id = ot.ot_order_id AND op.op_ticket_id = ot.ot_ticket_id
+               LIMIT 1), 0) t_peer_price,
+
+      tk.t_category category,
+      tk.t_name tName,
+      dc.d_name     categoryName,
+
+      CASE
+      WHEN ot.ot_leave_type = 0
+        THEN dp0.d_name
+      WHEN ot.ot_leave_type != 0
+        THEN dp1.d_name
+      END AS lvDepartureName,
+
+      CASE
+      WHEN ot.ot_leave_type != 0
+        THEN dp2.d_name
+      END AS lvStopName,
+
+      CASE
+      WHEN ot.ot_leave_type != 0
+        THEN sb1.sb_time
+      END AS lvSbTime,
+
+      CASE
+      WHEN ot.ot_leave_type != 0
+        THEN sb1.sb_time_length
+      END AS lvSbTimeLength,
+
+      CASE
+      WHEN ot.ot_return_type = 0
+        THEN dp10.d_name
+      WHEN ot.ot_return_type != 0
+        THEN dp11.d_name
+      END AS rtDepartureName,
+
+      CASE
+      WHEN ot.ot_return_type != 0
+        THEN dp12.d_name
+      END AS rtStopName,
+
+      CASE
+      WHEN ot.ot_return_type != 0
+        THEN sb11.sb_time
+      END AS rtSbTime,
+
+      CASE
+      WHEN ot.ot_return_type != 0
+        THEN sb11.sb_time_length
+      END AS rtSbTimeLength
+    FROM sl_order_tourist ot
+      LEFT JOIN sr_departure dp0 ON dp0.id = ot.ot_leave_id
+      LEFT JOIN sr_shuttle_bus sb1 ON sb1.id = ot.ot_leave_id
+      LEFT JOIN sr_departure dp1 ON dp1.id = sb1.sb_shuttle_stop_id
+      LEFT JOIN sr_departure dp2 ON dp2.id = sb1.sb_departure_id
+      LEFT JOIN sr_departure dp10 ON dp10.id = ot.ot_return_id
+      LEFT JOIN sr_shuttle_bus sb11 ON sb11.id = ot.ot_return_id
+      LEFT JOIN sr_departure dp11 ON dp11.id = sb11.sb_shuttle_stop_id
+      LEFT JOIN sr_departure dp12 ON dp12.id = sb11.sb_departure_id
+      LEFT JOIN ct_ticket tk ON tk.id = ot.ot_ticket_id
+      LEFT JOIN sm_dictionaries dc ON dc.id = tk.t_category
+    WHERE ot.ot_order_id = #{id}
+
+  </select>
+	<select id="getTourists" resultMap="com.jdy.b2b.api.dao.OrderTouristMapper.BaseResultMap">
+	SELECT 
+	  id, ot_order_id, ot_ticket_id, ot_ticket_type,
+      ot_type, ot_name, ot_phone, 
+      ot_licence_type, ot_lincese, ot_rep, ot_leave_id,
+      ot_leave_type, ot_leave_price, ot_return_id, 
+      ot_return_type, ot_return_price, create_time, 
+      create_user, update_time, update_user
+	FROM sl_order_tourist WHERE ot_order_id=#{orderId} limit #{pageNo}, #{pageSize}
+	</select>
+	<resultMap type="com.jdy.b2b.api.model.OrderTouristForCS" id="touristsForCSMap" extends="com.jdy.b2b.api.dao.OrderTouristMapper.BaseResultMap">
+		<result property="categoryName" column="categoryName" />
+		<result property="ticketTypeName" column="ticketTypeName" />
+		<result property="ticketName" column="ticketName" />
+
+        <association property="otTicketName" column="ot_ticket_id" select="getTicketName"></association>
+		<association property="otLeaveName"  column="ot_leave_id" select="getStationName"></association>
+		<association property="otReturnName" column="ot_return_id" select="getStationName"></association>
+	</resultMap>
+	<select id="getTicketName" resultType="String">
+		SELECT t_name FROM `ct_ticket` WHERE id=#{id}
+	</select>
+	<select id="getStationName" resultType="String">
+		SELECT d_name FROM `sr_departure` WHERE id=#{id};
+	</select>
+	
+	<select id="getTouristsForChangsha" resultMap="touristsForCSMap">
+	SELECT 
+	  ot.id,
+	  ot.ot_order_id,
+	  ot.ot_ticket_id,
+	  ot.ot_ticket_type,
+      ot.ot_type,
+      ot.ot_name,
+      ot.ot_phone,
+      ot.ot_licence_type,
+      ot.ot_lincese,
+      ot.ot_rep,
+      ot.ot_leave_id,
+      ot.ot_leave_type,
+      ot.ot_leave_price,
+      ot.ot_return_id,
+      ot.ot_return_type,
+      ot.ot_return_price,
+      ot.create_time,
+      ot.create_user,
+      ot.update_time,
+      ot.update_user,
+      d.d_name categoryName,
+      if(t.t_type=0,'成人票','儿童票') ticketTypeName,
+      t.t_name ticketName
+	FROM (sl_order_tourist ot,ct_ticket t)
+	LEFT JOIN sm_dictionaries d ON d.id = t.t_category
+	WHERE ot.ot_ticket_id = t.id AND ot.ot_order_id=#{orderId}
+	<if test="isPage == true">
+    limit #{pageNo}, #{pageSize}
+    </if>
+	</select>
+	<select id="getTouristsCount" resultType="int">
+	SELECT count(1) 
+	FROM sl_order_tourist 
+	WHERE ot_order_id=#{orderId}
+	</select>
+	<select id="selectTouristByOrderIdAndIDcardInfo" resultType="map">
+	SELECT id,ot_name,ot_phone,ot_licence_type,ot_lincese 
+	FROM sl_order_tourist 
+	WHERE 
+		ot_order_id=#{orderId}
+	AND ot_name =#{otName}
+	AND ot_licence_type=#{otLicenceType}
+	AND ot_lincese=#{otLincese}
+	</select>   
+	<select id="getTouristExtInfoByOrderIdAndTicketType" resultMap="com.jdy.b2b.api.dao.OrderTouristMapper.BaseResultMap">
+	SELECT 
+		ot_return_price,ot_return_type,ot_return_id,ot_leave_price,ot_type,ot_ticket_type,ot_ticket_id,ot_order_id
+		ot_leave_type,ot_leave_id,1 ot_rep
+	FROM sl_order_tourist 
+	WHERE ot_order_id=#{orderId} 
+	AND ot_type=#{otType} 
+	ORDER BY id ASC
+	LIMIT 0,1
+	</select> 
+</mapper>

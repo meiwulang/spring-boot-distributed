@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商家大全 - 芒果卉旅游</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/perfect.css?t='+_TimeStamp+'">'
+        );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/lib/jquery-1.11.3.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/echo.min.js"></script>
+    <script src="js/lib/doT.min.js"></script>
+    <script src="js/common/configs.js"></script>
+	<script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+<body>
+    <div id="header"></div>
+    <div class="main_navbar">
+		<div class="box_wrapper ">
+ 	<ul class="nav nav-tabs index_navbar">
+      <li role="presentation" class=" first_child">
+          <a href="index.html">首页</a>
+
+      </li>
+      <li role="presentation"><a href="product_list.html?type=10">周边短线</a></li>
+      <li role="presentation"><a href="product_list.html?type=11">国内长线</a></li>
+      <li role="presentation"><a href="product_list.html?type=20">出境游</a></li>
+      <li role="presentation"><a href="product_list.html?type=30">邮轮</a></li>
+		<li role="presentation" id="type40"><a href="product_list.html?type=40">特色游</a></li>
+		<li role="presentation" id="type50"><a href="product_list.html?type=50">自助游</a></li>
+      <li role="presentation" class="active"><a href="business.html">商家大全</a></li>
+ 	</ul>
+<div class="login_registerBtn"> <span> <span class="ion_login"></span><span class="adde"></span> <a class="sp" data-toggle="modal" data-target="#myModal"><span>登录</span></a> </span> <span class="raid"> <span class="ion_register"></span> <a href="register0.html"><span>注册</span></a> </span> </div>
+</div>
+</div>
+	<div class="business_recommend">
+		<div class="box_wrapper">
+			<div class="hotBusiness_recommend">
+				<h3><span>热门推荐</span></h3>
+				<!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, cupiditate debitis eveniet odit possimus</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, cupiditate debitis eveniet odit possimus</p>-->
+
+				<ul class="clearfloat business_enter" id="businessEnter">
+					<!--<li class="pull-left">
+						<div class="leftAlign_box">
+							<div class="hexagonal">
+								<div class="hexagonalTop"></div>
+								<div class="hexagonalMiddle"></div>
+								<div class="hexagonalBottom"></div>
+								<img src="" alt="" class="business_logo" />
+							</div>
+							<p>特价旅游</p>
+							<div class="recommend_basis">为您提供最详细的旅游指南</div>
+							<a href="#" class="business_enterBtn">商家</a>
+						</div>
+					</li>
+					<li class="pull-left">
+						<div class="leftAlign_box">
+							<div class="hexagonal">
+								<div class="hexagonalTop"></div>
+								<div class="hexagonalMiddle"></div>
+								<div class="hexagonalBottom"></div>
+								<img src="" alt="" class="business_logo" />
+							</div>
+							<p>特价旅游</p>
+							<div class="recommend_basis">为您提供最详细的旅游指南</div>
+							<a href="#" class="business_enterBtn">商家</a>
+						</div>
+					</li>
+					<li class="pull-left">
+						<div class="leftAlign_box">
+							<div class="hexagonal">
+								<div class="hexagonalTop"></div>
+								<div class="hexagonalMiddle"></div>
+								<div class="hexagonalBottom"></div>
+								<img src="" alt="" class="business_logo" />
+							</div>
+							<p>特价旅游</p>
+							<div class="recommend_basis">为您提供最详细的旅游指南</div>
+							<a href="#" class="business_enterBtn">商家</a>
+						</div>
+					</li>
+					<li class="pull-left">
+						<div class="leftAlign_box">
+							<div class="hexagonal">
+								<div class="hexagonalTop"></div>
+								<div class="hexagonalMiddle"></div>
+								<div class="hexagonalBottom"></div>
+								<img src="" alt="" class="business_logo" />
+							</div>
+							<p>特价旅游</p>
+							<div class="recommend_basis">为您提供最详细的旅游指南</div>
+							<a href="#" class="business_enterBtn">商家</a>
+						</div>
+					</li>
+					<li class="pull-left">
+						<div class="leftAlign_box">
+							<div class="hexagonal">
+								<div class="hexagonalTop"></div>
+								<div class="hexagonalMiddle"></div>
+								<div class="hexagonalBottom"></div>
+								<img src="" alt="" class="business_logo" />
+							</div>
+							<p>特价旅游</p>
+							<div class="recommend_basis">为您提供最详细的旅游指南</div>
+							<a href="#" class="business_enterBtn">商家</a>
+						</div>
+					</li>-->
+				</ul>
+				<script id="businessEnter-template" type="text/x-dot-template">
+					{{for(var i=0;i<5 && i<it.length;i++){ }}
+					<li class="pull-left">
+						<div class="leftAlign_box">
+							<div class="hexagonal">
+								<div class="hexagonalTop"></div>
+								<div class="hexagonalMiddle"></div>
+								<div class="hexagonalBottom"></div>
+								<img src="s.gif" data-echo="{{=it[i].org_logo}}?x-oss-process=image/resize,m_mfit,h_80,w_110" alt="" class="business_logo" />
+							</div>
+							<p>{{=it[i].org_sname}}</p>
+							<div class="recommend_basis">为您提供最详细的旅游指南</div>
+							<a href="company.html?org_id={{=it[i].org_id}}" class="business_enterBtn">简介</a>
+						</div>
+					</li>
+					{{ } }}
+				</script>
+			</div>
+		</div>
+	</div>
+	<div class="business_sort">
+		<div class="box_wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<ul class="col-md-9 col-xs-9 business_sortDetail">
+						<li>
+							<!--<div class="lineIntro_title">A</div>-->
+							<ul class="clearfloat sort_details" id="sortDetail">
+								<!--<li class="pull-left">
+									<div class="business_sortPic">
+										<img src="" alt="" />
+									</div>
+									<p class="business_name">百度贴吧</p>
+									<p class="recommend_basic">为您提供最为详实的信息</p>
+									<a href="#" class="business_enterBtn">商家</a>
+								</li>
+								<li class="pull-left">
+									<div class="business_sortPic">
+										<img src="" alt="" />
+									</div>
+									<p class="business_name">百度贴吧</p>
+									<p class="recommend_basic">为您提供最为详实的信息</p>
+									<a href="#" class="business_enterBtn">商家</a>
+								</li>
+								<li class="pull-left">
+									<div class="business_sortPic">
+										<img src="" alt="" />
+									</div>
+									<p class="business_name">百度贴吧</p>
+									<p class="recommend_basic">为您提供最为详实的信息</p>
+									<a href="#" class="business_enterBtn">商家</a>
+								</li>
+								<li class="pull-left">
+									<div class="business_sortPic">
+										<img src="" alt="" />
+									</div>
+									<p class="business_name">百度贴吧</p>
+									<p class="recommend_basic">为您提供最为详实的信息</p>
+									<a href="#" class="business_enterBtn">商家</a>
+								</li>-->
+							</ul>
+							<script id="sortDetail-template" type="text/x-dot-template">
+								{{for(var i=0;i<it.length;i++){ }}
+								<li class="pull-left">
+									<div class="business_sortPic">
+										<img src="s.gif" data-echo="{{=it[i].org_logo}}?x-oss-process=image/resize,m_mfit,h_95,w_145" alt="" />
+									</div>
+									<p class="business_name" title="{{=it[i].org_sname}}">{{=it[i].org_sname}}</p>
+									<p class="recommend_basic">为您提供最为详实的信息</p>
+									<a href="company.html?org_id={{=it[i].org_id}}" class="business_enterBtn">简介</a>
+								</li>
+
+								{{ } }}
+							</script>
+						</li>
+						<!--<li>
+							<div class="lineIntro_title">B</div>
+							<ul class="clearfloat sort_details">
+								<li class="pull-left">
+									<div class="business_sortPic">
+										<img src="" alt="" />
+									</div>
+									<p class="business_name">百度贴吧</p>
+									<p class="recommend_basic">为您提供最为详实的信息</p>
+									<a href="#" class="business_enterBtn">商家</a>
+								</li>
+								<li class="pull-left">
+									<div class="business_sortPic">
+										<img src="" alt="" />
+									</div>
+									<p class="business_name">百度贴吧</p>
+									<p class="recommend_basic">为您提供最为详实的信息</p>
+									<a href="#" class="business_enterBtn">商家</a>
+								</li>
+								<li class="pull-left">
+									<div class="business_sortPic">
+										<img src="" alt="" />
+									</div>
+									<p class="business_name">百度贴吧</p>
+									<p class="recommend_basic">为您提供最为详实的信息</p>
+									<a href="#" class="business_enterBtn">商家</a>
+								</li>
+								<li class="pull-left">
+									<div class="business_sortPic">
+										<img src="" alt="" />
+									</div>
+									<p class="business_name">百度贴吧</p>
+									<p class="recommend_basic">为您提供最为详实的信息</p>
+									<a href="#" class="business_enterBtn">商家</a>
+								</li>
+							</ul>
+						</li>-->
+					</ul>
+					<div class="col-md-3 col-xs-9 easy_sail">
+						<div class="superoriority">
+							<h4>轻松起航</h4>
+							<ul>
+								<li class="clearfloat">
+									<div class="pull-left superoriority_flagDeposit">
+										<div class="flag_top">
+											<span>无押金</span>
+										</div>
+										<div class="flag_bottom"></div>
+									</div>
+									<div class="pull-left superoriority_content">
+										<p>
+											<span>对成熟供应商</span>
+											<br/>
+											<span>不收取任何佣金</span>
+										</p>
+									</div>
+								</li>
+								<li class="clearfloat">
+									<div class="pull-left superoriority_flagFree">
+										<div class="flag_top">
+											<p>
+												<span>无平台</span><br/><span>使用费</span>
+											</p>
+										</div>
+										<div class="flag_bottom"></div>
+									</div>
+									<div class="pull-left superoriority_content">
+										<p class="one_middle">
+											<span>持续使用终身免费</span>
+										</p>
+									</div>
+								</li>
+								<li class="clearfloat">
+									<div class="pull-left superoriority_flagCommission">
+										<div class="flag_top">
+											<p>
+												<span>无交易</span><br/><span>佣金</span>
+											</p>
+										</div>
+										<div class="flag_bottom"></div>
+									</div>
+									<div class="pull-left superoriority_content">
+										<p>
+											<span>仅第三方支付手续费，对</span>
+											<br/>
+											<span>签约用户，减免所有费用</span>
+										</p>
+									</div>
+								</li>
+								<li class="clearfloat">
+									<div class="pull-left superoriority_flagLoan">
+										<div class="flag_top">
+											<p>
+												<span>贷款</span><br/><span>秒到</span>
+											</p>
+										</div>
+										<div class="flag_bottom"></div>
+									</div>
+									<div class="pull-left superoriority_content">
+										<p class="one_middle">
+											<span>贷款率利仅为月1%</span>
+										</p>
+
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer"></div>
+	<div id="login_mask"></div>
+</body>
+<script id="link-js" type="text/javascript">
+    document.write(
+    	'<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+    	'<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/business.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

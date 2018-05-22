@@ -1,0 +1,48 @@
+@import '../lib/reset.less';
+@img: '../../img';
+@main-color : #5e99e5;
+
+body{
+	background-color: #f3f5f9;
+}
+.arr(){
+	    position: absolute;
+	    left: 0px;
+	    top: 50%;
+	    margin-top: -5px;
+	    content: '';
+	    display: block;
+	    overflow: hidden;
+	    width: 8px;
+	    height: 8px;
+	    border-top: 1px solid #333;
+	    border-right: 1px solid #333;
+	    transform: rotate(-135deg);
+	    -webkit-transform: rotate(-135deg);
+}
+.blueBg(){
+  @topC:#6186f8;
+  @bottomC:#5266e1;
+  background: -webkit-linear-gradient(180deg, @topC, @bottomC); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(180deg, @topC, @bottomC); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(180deg, @topC, @bottomC); /* Firefox 3.6 - 15 */
+  background: linear-gradient(180deg, @topC, @bottomC);
+}
+.blueBgIndex(){
+  @topC:#5f9fe7;
+  @bottomC:#5166dd;
+  background: -webkit-linear-gradient(180deg, @topC, @bottomC); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(180deg, @topC, @bottomC); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(180deg, @topC, @bottomC); /* Firefox 3.6 - 15 */
+  background: linear-gradient(180deg, @topC, @bottomC);
+}
+/*----------用来移除向下箭头----------*/
+/*input[type="date"]::-webkit-calendar-picker-indicator {
+   display: none;
+}*/
+
+/*----------用来移除叉叉按钮----------*/
+/*input[type="date"]::-webkit-clear-button{
+   display:none;
+}*/
+@import 'popup.less';

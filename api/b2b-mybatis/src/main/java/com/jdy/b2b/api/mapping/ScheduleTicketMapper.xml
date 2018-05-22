@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.ScheduleTicketMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.ScheduleTicket">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="st_product_id" jdbcType="BIGINT" property="stProductId" />
+    <result column="st_schedule_id" jdbcType="BIGINT" property="stScheduleId" />
+    <result column="st_ticket_id" jdbcType="BIGINT" property="stTicketId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="t_market_price" jdbcType="DECIMAL" property="tMarketPrice" />
+    <result column="t_stock" jdbcType="INTEGER" property="tStock" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, st_product_id, st_schedule_id, st_ticket_id, create_time, create_user, update_time, 
+    update_user, t_market_price, t_stock
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ct_schedule_ticket
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_schedule_ticket
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.ScheduleTicket">
+    insert into ct_schedule_ticket (id, st_product_id, st_schedule_id, 
+      st_ticket_id, create_time, create_user, 
+      update_time, update_user, t_market_price, t_stock)
+    values (#{id,jdbcType=BIGINT}, #{stProductId,jdbcType=BIGINT}, #{stScheduleId,jdbcType=BIGINT}, 
+      #{stTicketId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}, #{tMarketPrice,jdbcType=DECIMAL}, #{tStock,jdbcType=INTEGER} )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.ScheduleTicket">
+    insert into ct_schedule_ticket
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="stProductId != null">
+        st_product_id,
+      </if>
+      <if test="stScheduleId != null">
+        st_schedule_id,
+      </if>
+      <if test="stTicketId != null">
+        st_ticket_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="tMarketPrice != null">
+        t_market_price,
+      </if>
+      <if test="tStock != null">
+        t_stock,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="stProductId != null">
+        #{stProductId,jdbcType=BIGINT},
+      </if>
+      <if test="stScheduleId != null">
+        #{stScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="stTicketId != null">
+        #{stTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="tMarketPrice != null">
+        #{tMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tStock != null">
+        #{tStock,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.ScheduleTicket">
+    update ct_schedule_ticket
+    <set>
+      <if test="stProductId != null">
+        st_product_id = #{stProductId,jdbcType=BIGINT},
+      </if>
+      <if test="stScheduleId != null">
+        st_schedule_id = #{stScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="stTicketId != null">
+        st_ticket_id = #{stTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="tMarketPrice != null">
+        t_market_price = #{tMarketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="tStock != null">
+        t_stock = #{tStock,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.ScheduleTicket">
+    update ct_schedule_ticket
+    set st_product_id = #{stProductId,jdbcType=BIGINT},
+      st_schedule_id = #{stScheduleId,jdbcType=BIGINT},
+      st_ticket_id = #{stTicketId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      t_market_price = #{tMarketPrice,jdbcType=DECIMAL},
+      t_stock = #{tStock,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectOldScheduleTicektList" parameterType="list" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from ct_schedule_ticket where st_ticket_id in
+    <foreach collection="list" item="item" separator="," open="(" close=")">
+      #{item}
+    </foreach>
+  </select>
+<insert id="insertBash" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+  insert into ct_schedule_ticket (id, st_product_id, st_schedule_id,
+  st_ticket_id, create_time, create_user,
+  update_time, update_user, t_market_price, t_stock)
+  values
+  <foreach collection="list" separator="," item="s">
+  (#{s.id,jdbcType=BIGINT}, #{s.stProductId,jdbcType=BIGINT}, #{s.stScheduleId,jdbcType=BIGINT},
+  #{s.stTicketId,jdbcType=BIGINT}, #{s.createTime,jdbcType=TIMESTAMP}, #{s.createUser,jdbcType=BIGINT},
+  #{s.updateTime,jdbcType=TIMESTAMP}, #{s.updateUser,jdbcType=BIGINT}),
+    #{s.tMarketPrice,jdbcType=DECIMAL}, #{s.tStock,jdbcType=INTEGER}
+  </foreach>
+</insert>
+
+  <select id="selectEffectScheduleIdList" parameterType="list" resultType="long">
+    select s.id from ct_schedule_ticket st inner join ct_schedule s on st.st_schedule_id = s.id
+    where st.st_ticket_id in
+    <foreach collection="list" item="item" separator="," open="(" close=")">
+      #{item}
+    </foreach>
+    and ( s.s_status = 0 or s.s_status = 1)
+  </select>
+
+</mapper>

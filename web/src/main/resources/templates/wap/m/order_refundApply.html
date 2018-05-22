@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>退款申请</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/order_refundApply.css">
+    <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> 
+</head>
+<body>
+    <div id="wrap">
+        <script id="tpl-order" type="text/html">
+            <div class="main">
+                <div class="t-bar"><a class="left"></a><span>退款申请</span></div>
+                <div class="infor-bar">
+                    <ul class="clearfix">
+                        {if RefundType==1 }
+                            <li class="refundli"><a href="javascript:;" class="active">其他退款情况</a></li>                          
+                        {else}
+                            <li class="refundli"><a href="javascript:;" class="active">游客退票</a></li>
+                            <li class="refundli"><a href="javascript:;">其他退款情况</a></li>                        
+                        {/if}
+
+                    </ul>
+                </div>
+                {if RefundType==0 }
+                <div class="order-refund lists">
+                    <div class="define"></div>
+                    <div class="content">
+                        <div class="title">
+                            请选择需要退票的游客
+                        </div>
+                        <div class="money ">
+                            <div class="allcheck">
+                                <input type="checkbox" name="" checked="checked" id="allcheck" class="mui-checkbox"/>
+                                <label for="allcheck">全选</label>
+                            </div>
+                            <div class="checkPart">
+                                <!-- {if body && body.length}
+                                { each body as value i }  
+                                <input type="checkbox"  checked="checked" name="checkPart" value="{body[i].touristId}"/>                           
+                                <span>{body[i].touristName}</span>
+                                {/each}
+                                {/if} -->
+
+                                {if body && body.length}
+                                    { each body as value i }  
+                                        <input class="mui-checkbox" type="checkbox" checked="checked" name="checkPart" value="{body[i].touristId}">
+                                        <span>{body[i].touristName}</span>
+                                    {/each}
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="textarea">
+                        <div class="title">
+                            <div class="titleouter">退款说明</div>
+                            <div class="textareamain">
+                                <textarea name="" id="remark_1" cols="52" rows="20"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="submit clearfix">
+                        <div class="btn">提交</div>
+                    </div> 
+                </div>
+                {/if}
+                
+                <div class="order-refund_other lists">
+                        <div class="content">
+                            <div class="title">
+                                请输入退款金额
+                            </div>
+                            <div class="money ">
+                                <input type="number"/>
+                            </div>
+                        </div>
+            
+                        <div class="textarea">
+                            <div class="title">
+                                <div class="titleouter">退款说明</div>
+                                <div class="textareamain">
+                                    <textarea name="" id="remark_2" cols="52" rows="20"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="submit clearfix">
+                        <div class="btn">提交</div>
+                    </div>            
+                </div>
+        
+            </div>
+        </script>
+    </div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/order_refundApply.build.js"></script>
+</html>

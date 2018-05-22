@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>芒果卉旅游</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="Public/Css/icon/css/font-awesome.min.css" rel="stylesheet">
+    <script id="link-css" type="text/javascript">
+        if( window.top.location != window.location ){
+            window.top.location.href = window.location.href;
+        }
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/mango_travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/perfect.css?t='+_TimeStamp+'">'
+        );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/common/configs.js"></script>
+    <script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+<body>
+<div id="header">
+
+</div>
+<div id="main">
+    <div class="main_navbar">
+        <div class="box_wrapper ">
+            <ul class="nav nav-tabs index_navbar">
+                <li role="presentation" class="active first_child">
+                    <a href="index.html">首页</a>
+                </li>
+                <li role="presentation"><a href="product_list.html?type=10">周边短线</a></li>
+                <li role="presentation"><a href="product_list.html?type=11">国内长线</a></li>
+                <li role="presentation"><a href="product_list.html?type=20">出境游</a></li>
+                <!-- <li role="presentation"><a href="product_list.html?type=30">邮轮</a></li>
+                <li role="presentation"><a href="product_list.html?type=40">特色游</a></li>
+                <li role="presentation"><a href="product_list.html?type=50">自助游</a></li>
+                <li role="presentation"><a href="business.html">商家大全</a></li> -->
+            </ul>
+
+            <div class="login_registerBtn"> <span> <span class="ion_login"></span><span class="adde"></span> <a class="sp" data-toggle="modal" data-target="#myModal"><span>登录</span></a> </span> <span class="raid"> <span class="ion_register"></span> <a href="register0.html"><span>注册</span></a> </span> </div>
+
+        </div>
+
+    </div>
+    <div class="index_content" style="margin-top: 0; height: 350px;">
+        <div class="banner"></div>
+        <script id="tpl-banner" type="text/x-dot-template">
+            <ul>
+                {{ for(var i in it){ }}
+                <li {{? i == 0 }}class="active"{{?}}>
+                    <a 
+                        href="{{= it[i].ad_url }}"
+                        style="background:url('{{= it[i].ad_pic }}') center center no-repeat;"
+                    ></a>
+                </li>
+                {{ } }}
+            </ul>
+            <div class="menu">
+                {{ for(var i in it){ }}
+                <a {{? i == 0 }}class="active"{{?}} href="javascript:;"></a>
+                {{ } }}
+            </div>
+        </script>
+    </div>
+    <div class="">
+        <div id="buslistData"></div>
+        <script id="buslistData-template" type="text/x-dot-template">
+            {{ for(var i in it) { }}
+            <div class="box_wrapper surrounded_line">
+                <div class="container-fluid ">
+                    <div class="row travel_detailTip">
+                        <div class="col-xs-4">
+                            <h3 class="pull-left travelLine_name"><span class="orange_border"></span><span>{{=it[i].title}}</span></h3>
+                            <span class="pull-left adv_lang"></span>
+                        </div>
+                        <ul class="col-xs-6 travel_detailBtnSelect">
+                            {{ for(var k in it[i].tabs) { }}
+                            {{? k == 0}}
+                            <li class="pull-left active"><a href="#{{=it[i].tabs[k].title}}_{{=it[i].id}}" data-toggle="tab">{{=it[i].tabs[k].title}}</a></li>
+                            {{??}}
+                            <li class="pull-left"><a href="#{{=it[i].tabs[k].title}}_{{=it[i].id}}" data-toggle="tab">{{=it[i].tabs[k].title}}</a></li>
+                            {{?}}
+                            {{}}}
+                        </ul>
+                        <div class="col-xs-2 load_moreLine">
+                            <a href="product_list.html?type={{=it[i].id}}">更多>> </a>
+                        </div>
+                    </div>
+                    <div class="row travel_detailContent">
+                        <div class="col-md-3 col-xs-3 travel_detailContentLeft">
+                            <div class="advertising_chart">
+							{{? it[i].adver}}
+                                <a href="{{=it[i].adver.url}}" target="_{{=it[i].opentype}}" title="{{=it[i].title}}">
+                                    <img src="{{=it[i].adver.pic}}?x-oss-process=image/resize,m_fill,h_550,w_227"/>
+                                </a>
+							{{?}}
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-xs-9 travel_adverContentList tab-content">
+                            {{ for(var ti in it[i].list) {}}
+                            {{? ti == 0}}
+                            <ul class="travel_detailContentTop clearfloat tab-pane fade in active" id="{{=it[i].list[ti].title}}_{{=it[i].id}}">
+                                {{??}}
+                                <ul class="travel_detailContentTop clearfloat tab-pane fade" id="{{=it[i].list[ti].title}}_{{=it[i].id}}">
+                                    {{?}}
+
+                                    {{ for(var mi in it[i].list[ti].list) {}}
+                                    <li class="pull-left">
+                                        <a href="detail.html?p_id={{=it[i].list[ti].list[mi].id}}">
+                                            <div class="travel_productDetail">
+                                                <div class="prodDetail_pic">
+                                                    <img  src="s.gif"  data-echo="{{=it[i].list[ti].list[mi].image}}?x-oss-process=image/resize,m_fill,h_190,w_306" />
+                                                    <!--&lt;!&ndash; <div class="destination_mark"><span></span></div>&ndash;&gt;-->
+                                                </div>
+                                                <div class="travel_productDetailIntros">
+                                                    <p title="{{=it[i].list[ti].list[mi].title}}">
+                                                        <span>{{=it[i].list[ti].list[mi].title}}</span>
+                                                    </p>
+                                                    <p title="{{=it[i].list[ti].list[mi].short}}">
+                                                        <span>{{=it[i].list[ti].list[mi].short}}</span>
+                                                    </p>
+                                                    <div class="clearfloat">
+                                                        <div class="pull-left travel_proPrice priceColor_danger">
+                                                            <span>&yen</span><span class="price_promptBigFont">{{=it[i].list[ti].list[mi].price}}</span><span>起</span>
+                                                        </div>
+                                                        <div class="pull-right sales_volume" title="{{=it[i].list[ti].list[mi].business}}">
+                                                            <a href="company.html?org_id={{=it[i].list[ti].list[mi].business_id}}">{{=it[i].list[ti].list[mi].business}}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {{}}}
+                                </ul>
+                                {{}}}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ } }}
+
+        </script>
+    </div>
+</div>
+
+<div id="footer"></div>
+<div id="login_mask"></div>
+</body>
+<script src="js/lib/jquery-1.11.3.js"></script>
+<script src="js/lib/bootstrap.js"></script>
+<script src="js/lib/echo.min.js"></script>
+<script src="js/lib/doT.min.js"></script>
+<script id="link-js" type="text/javascript">
+    document.write(
+        '<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/mango_travel.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/travel_index.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/statistics.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

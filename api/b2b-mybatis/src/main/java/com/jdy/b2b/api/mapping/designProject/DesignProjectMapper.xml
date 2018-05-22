@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.designProject.DesignProjectMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.designProject.DesignProject">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="r_id" jdbcType="BIGINT" property="rId" />
+    <result column="design_id" jdbcType="BIGINT" property="designId" />
+    <result column="dp_company_id" jdbcType="BIGINT" property="dpCompanyId" />
+    <result column="dp_line_name" jdbcType="VARCHAR" property="dpLineName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+
+  <resultMap id="DesignListBaseResultMap" type="com.jdy.b2b.api.model.designProject.DesignProject" extends="BaseResultMap">
+    <id column="projectId" jdbcType="BIGINT" property="id" />
+    <result column="productId" jdbcType="BIGINT" property="productId" />
+  </resultMap>
+
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jdy.b2b.api.model.designProject.DesignProjectWithBLOBs">
+    <result column="dp_order_amount" jdbcType="LONGVARCHAR" property="dpOrderAmount" />
+    <result column="dp_core_scenic" jdbcType="LONGVARCHAR" property="dpCoreScenic" />
+    <result column="dp_standard_accommodation" jdbcType="LONGVARCHAR" property="dpStandardAccommodation" />
+    <result column="dp_min_clustering_num" jdbcType="LONGVARCHAR" property="dpMinClusteringNum" />
+  </resultMap>
+  <resultMap id="DesignProjectWithBLOBsDTOMap" extends="ResultMapWithBLOBs" type="com.jdy.b2b.api.model.designProject.DesignProjectWithBLOBsDTO">
+    <result column="u_real_name" property="manageName" jdbcType="VARCHAR"/>
+    <result column="u_tel" property="managePhone" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, r_id, dp_company_id, dp_line_name, create_time, update_time,design_id,status
+  </sql>
+  <sql id="Blob_Column_List">
+    dp_order_amount, dp_core_scenic, dp_standard_accommodation, dp_min_clustering_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ct_design_project
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_design_project
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.designProject.DesignProjectWithBLOBs">
+    insert into ct_design_project (id, r_id, dp_company_id, 
+      dp_line_name, create_time, update_time, 
+      dp_order_amount, dp_core_scenic, dp_standard_accommodation, 
+      dp_min_clustering_num,design_id,status)
+    values (#{id,jdbcType=BIGINT}, #{rId,jdbcType=BIGINT}, #{dpCompanyId,jdbcType=BIGINT}, 
+      #{dpLineName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{dpOrderAmount,jdbcType=LONGVARCHAR}, #{dpCoreScenic,jdbcType=LONGVARCHAR}, #{dpStandardAccommodation,jdbcType=LONGVARCHAR}, 
+      #{dpMinClusteringNum,jdbcType=LONGVARCHAR},#{designId,jdbcType=BIGINT},#{status})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.designProject.DesignProjectWithBLOBs" useGeneratedKeys="true" keyProperty="id">
+    insert into ct_design_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="rId != null">
+        r_id,
+      </if>
+      <if test="dpCompanyId != null">
+        dp_company_id,
+      </if>
+      <if test="dpLineName != null">
+        dp_line_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="dpOrderAmount != null">
+        dp_order_amount,
+      </if>
+      <if test="dpCoreScenic != null">
+        dp_core_scenic,
+      </if>
+      <if test="dpStandardAccommodation != null">
+        dp_standard_accommodation,
+      </if>
+      <if test="dpMinClusteringNum != null">
+        dp_min_clustering_num,
+      </if>
+      <if test="designId != null">
+        design_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="rId != null">
+        #{rId,jdbcType=BIGINT},
+      </if>
+      <if test="dpCompanyId != null">
+        #{dpCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="dpLineName != null">
+        #{dpLineName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dpOrderAmount != null">
+        #{dpOrderAmount,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dpCoreScenic != null">
+        #{dpCoreScenic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dpStandardAccommodation != null">
+        #{dpStandardAccommodation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dpMinClusteringNum != null">
+        #{dpMinClusteringNum,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="designId != null">
+        #{designId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.designProject.DesignProjectWithBLOBs">
+    update ct_design_project
+    <set>
+      <if test="rId != null">
+        r_id = #{rId,jdbcType=BIGINT},
+      </if>
+      <if test="dpCompanyId != null">
+        dp_company_id = #{dpCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="dpLineName != null">
+        dp_line_name = #{dpLineName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dpOrderAmount != null">
+        dp_order_amount = #{dpOrderAmount,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dpCoreScenic != null">
+        dp_core_scenic = #{dpCoreScenic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dpStandardAccommodation != null">
+        dp_standard_accommodation = #{dpStandardAccommodation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dpMinClusteringNum != null">
+        dp_min_clustering_num = #{dpMinClusteringNum,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="designId != null">
+        design_id = #{designId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jdy.b2b.api.model.designProject.DesignProjectWithBLOBs">
+    update ct_design_project
+    set r_id = #{rId,jdbcType=BIGINT},
+      dp_company_id = #{dpCompanyId,jdbcType=BIGINT},
+      design_id = #{designId,jdbcType=BIGINT},
+      dp_line_name = #{dpLineName,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      dp_order_amount = #{dpOrderAmount,jdbcType=LONGVARCHAR},
+      dp_core_scenic = #{dpCoreScenic,jdbcType=LONGVARCHAR},
+      dp_standard_accommodation = #{dpStandardAccommodation,jdbcType=LONGVARCHAR},
+      dp_min_clustering_num = #{dpMinClusteringNum,jdbcType=LONGVARCHAR},status = #{status}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.designProject.DesignProject">
+    update ct_design_project
+    set r_id = #{rId,jdbcType=BIGINT},
+      dp_company_id = #{dpCompanyId,jdbcType=BIGINT},
+      design_id = #{designId,jdbcType=BIGINT},
+      dp_line_name = #{dpLineName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}, 
+      status = #{status},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="historyDesignList" parameterType="long" resultMap="DesignListBaseResultMap">
+    select
+    project.id as projectId,
+    project.r_id,
+    project.dp_company_id,
+    project.dp_line_name,
+    project.create_time,
+    project.update_time,
+    project.design_id,
+    project.status,
+    product.product_id as productId
+    from ct_design_project project
+    left join ct_design_product product on project.design_id = product.design_id
+    where project.design_id = #{dId}
+    and project.status = 0
+    and (product.status = 0 or product.status is null)
+  </select>
+  <select id="selectByPrimaryKeyWithManageInfo"
+          resultMap="DesignProjectWithBLOBsDTOMap" parameterType="Long">
+    SELECT
+      dp.id,
+      dp.r_id,
+      dp.dp_company_id,
+      dp.dp_line_name,
+      dp.dp_core_scenic,
+      dp.dp_min_clustering_num,
+      dp.dp_standard_accommodation,
+      dp.dp_order_amount,
+      dp.create_time,
+      dp.update_time,
+      dp.design_id,
+      u.u_real_name,
+      u.u_tel
+    FROM ct_design_project dp INNER JOIN ct_design d ON d.id = dp.design_id
+      INNER JOIN sm_user u ON u.id = d.manager_id
+      where dp.id = #{projectId}
+  </select>
+  <select id="selectByRid" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ct_design_project
+    where r_id = #{rId,jdbcType=BIGINT} limit 0,1
+  </select>  
+</mapper>

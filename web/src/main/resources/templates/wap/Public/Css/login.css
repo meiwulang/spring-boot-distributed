@@ -1,0 +1,546 @@
+html, body {
+    height: 100%;
+    margin:0;
+}
+
+* {
+    font-family: Microsoft YaHei;
+    font-size:13px;
+
+}
+
+a {
+    color: #333;
+    text-decoration:none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+.clearfloat:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix:after {
+    display: block;
+    overflow: hidden;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+    content: ".";
+}
+
+.login-wrap {
+    width: 100%;
+    height: 100%;
+    min-width: 1220px;
+    min-height: 700px;
+}
+
+.imgs {
+    float: left;
+    width: 60%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.imgs img {
+    width: 1150px;
+    height: 1080px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -575px;
+    margin-top: -540px;
+}
+
+.cont-wrap {
+    width: 40%;
+    height: 100%;
+    position: relative;
+    float: left;
+}
+
+.content {
+    width: 370px;
+    max-height: 480px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.logo {
+    width: 180px;
+    height: 50px;
+    background-image: url('../../img/loginImg/logo.png');
+    background-repeat: no-repeat;
+}
+
+.form1, .form3 {
+    margin: 50px 0 13px;
+    position: relative;
+}
+
+.form1 {
+    /*display: none;*/
+    position: relative;
+}
+
+.form3 {
+    display: none;
+}
+
+.item {
+    height: 50px;
+    width: 100%;
+    border: 1px solid #e0e2e5;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.item .icon {
+    width: 45px;
+    height: 100%;
+    border-right: 1px solid #e0e2e5;
+    background-position: center center;
+    background-repeat: no-repeat;
+    float: left;
+}
+
+.form1 .username .icon {
+    background-image: url('../../img/loginImg/user.svg');
+    background-size: 20px;
+}
+
+.form3 .username .icon {
+    background-image: url('../../img/loginImg/l_phone.png');
+}
+
+.password .icon {
+    background-image: url('../../img/loginImg/l_pwd.png');
+}
+
+.code .icon {
+    background-image: url('../../img/loginImg/l_yz.png');
+}
+
+.item .inp {
+    float: left;
+    margin-left: 16px;
+    margin-top: 15px;
+
+}
+
+.item .inp input {
+    outline: medium;
+    border: 0;
+    color: #999;
+}
+
+.password .keyboard_ico {
+    width: 45px;
+    height: 100%;
+    opacity: 0.5;
+    float: right;
+    background: url('../../img/loginImg/l_kw.png') center center no-repeat;
+    z-index: 200;
+    cursor: hand;
+}
+
+.keyboard_ico:hover, .keyboard_ico.active {
+    opacity: 1;
+}
+
+.password .keyboard-key:hover {
+    cursor: pointer;
+}
+
+.password {
+    position: relative;
+}
+
+.password .keyboard_ico {
+    left: 122px;
+    top: 4px;
+}
+
+.password .key_board {
+    left: -120px;
+    top: 60px;
+    height: 190px;
+}
+
+
+.form1 .code {
+    display: none;
+}
+
+.form1 .code .codeImg {
+    float: right;
+    width: 85px;
+    height: 100%;
+    text-align: center;
+    line-height: 45px;
+    margin-right: 5px;
+    margin-top:7px;
+}
+
+.form1 .code .codeImg:hover {
+    cursor: pointer;
+}
+
+.form1 .code .codeImg img {
+    width: 100%;
+}
+
+.loginType {
+    position: absolute;
+    top: -65px;
+    right: 0;
+
+}
+
+.loginType a {
+    font-size: 14px;
+}
+
+.form3 .code {
+    width: 240px;
+    float: left;
+}
+
+.form3 .getCode {
+    float: right;
+    width: 110px;
+    height: 50px;
+    border: 1px solid #e0e2e5;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 50px;
+    color: #999;
+}
+
+.form3 .getCode:hover {
+    cursor: pointer;
+}
+
+.tips .forgetPwd {
+    width: 100%;
+    text-align: right;
+}
+
+.tips .forgetPwd a {
+    color: #f99b17;
+}
+
+.tips .btnLogin {
+    width: 100%;
+    height: 45px;
+    background-color: #f99b17;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    margin: 33px 0 40px;
+    line-height: 45px;
+}
+
+.tips .btnLogin:hover {
+    cursor: pointer;
+}
+
+.tips .rembPwd {
+    float: left;
+    color: #999;
+}
+
+.tips .rembPwd:hover {
+    cursor: pointer;
+}
+
+.tips .rembPwd span {
+    width: 18px;
+    height: 18px;
+    display: block;
+    float: left;
+    margin: 1px 3px 0 0;
+    border: 1px solid #e0e2e5;
+    border-radius: 3px;
+}
+
+.tips .rembPwd span.checked {
+    background: url('../../img/loginImg/l_seted.png') center center no-repeat;
+}
+
+.tips .register {
+    float: right;
+}
+
+.tips .register a {
+    color: #f99b17;
+}
+
+.tips .register > span {
+    color: #999;
+}
+
+.tips .register a .imt {
+    display: block;
+    width: 17px;
+    height: 17px;
+    margin: 2px 0 0 3px;
+    background: url('../../img/loginImg/l_imt.png') center center no-repeat;
+    float: right;
+}
+
+.message_tip {
+    line-height: 28px;
+    color: red;
+    margin: auto;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.key_board {
+    font: 0.8em Arial, sans-serif;
+    position: absolute;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    background: #fff;
+    height: 175px;
+    display: none;
+    z-index: 999;
+}
+
+.keyboard_row, .keyboard_row td {
+    padding: 0;
+    vertical-align: top;
+    border-collapse: collapse;
+}
+
+.keyboard_key, .keyboard_key-m img {
+    margin: 0;
+    padding: 0;
+}
+
+.keyboard_key {
+    font-size: 18px;
+    position: relative;
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin-right: 3px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.keyboard_key:active {
+    border: 1px solid #d8d8d8;
+}
+
+.keyboard_key-m {
+    line-height: 29px;
+}
+
+.spacer {
+    width: 60px;
+    visibility: hidden;
+}
+
+.backspace, .lshift, .rshift, .capslock, .atmark {
+    text-align: left;
+}
+
+.backspace .keyboard_key-m, .lshift .keyboard_key-m, .rshift .keyboard_key-m, .capslock .keyboard_key-m, .atmark .keyboard_key-m {
+    padding-left: 10px;
+}
+
+.backspace {
+    width: 77px;
+}
+
+.atmark {
+    width: 42px;
+}
+
+.capslock {
+    font-size: 12px;
+    width: 52px;
+}
+
+.keyboard_key-m img {
+    margin-top: 8px;
+}
+
+.enter {
+    font-size: 12px;
+    width: 57px;
+}
+
+.lshift {
+    font-size: 12px;
+    width: 62px;
+}
+
+.rshift {
+    font-size: 12px;
+    width: 82px;
+}
+
+.sch {
+    font-size: 14px;
+}
+
+.space {
+    width: 240px;
+}
+
+.alt {
+    font-size: 16px;
+    width: 85px;
+}
+
+.marked {
+    background-color: #dfffcc;
+}
+
+.pressed .keyboard_key-m {
+    line-height: 31px;
+}
+
+.suppressed {
+    background-color: #f2b5a0;
+}
+
+.suppressed .keyboard_key-m {
+    line-height: 31px;
+}
+
+.disabled {
+    cursor: default;
+    color: #e6e6e6;
+}
+
+.keyboard_lang {
+    font-size: 11px;
+    width: 141px;
+    text-align: left;
+}
+
+.keyboard_lang-i {
+    width: 82px;
+    position: relative;
+    top: 2px;
+    float: left;
+    padding: 6px 9px 6px 7px;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+}
+
+.keyboard_lang-ic {
+    font: 0/0 a;
+    display: -moz-inline-box;
+    display: inline-block;
+    width: 20px;
+    height: 12px;
+    margin-top: 1px;
+    cursor: pointer;
+    vertical-align: bottom;
+    background: url('../../img/langs.png') no-repeat;
+}
+
+.keyboard_lang-ru .keyboard_lang-ic {
+    background-position: 0 -48px;
+}
+
+.keyboard_lang-es .keyboard_lang-ic {
+    background-position: 0 -36px;
+}
+
+.keyboard_lang-fr .keyboard_lang-ic {
+    background-position: 0 -24px;
+}
+
+.keyboard_lang-de .keyboard_lang-ic {
+    background-position: 0 -12px;
+}
+
+.keyboard_lang-en .keyboard_lang-ic {
+    background-position: 0 0;
+}
+
+.keyboard_row td {
+    padding-bottom: 3px;
+}
+
+.keyboard_lang-selector .b-menu__item {
+    font-size: 11px;
+}
+
+.key_board .b-menu__layout-vert {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.keyboard_lang-selector {
+    display: none;
+    position: absolute;
+    bottom: -1px;
+    left: -1px;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, .6), 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    width: 80px;
+    background: #fff;
+}
+
+.keyboard_lang-selector .b-menu__layout-vert li {
+    padding: 0.5em;
+}
+
+.keyboard_lang a {
+    text-decoration: none;
+    color: #222;
+}
+
+.keyboard_lang a:hover {
+    color: #f00;
+}
+
+
+.keyboard_close {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    height: 8px;
+    overflow: hidden;
+    width: 9px;
+    cursor: pointer;
+    background: url('../../img/close.png') 0 top no-repeat;
+}

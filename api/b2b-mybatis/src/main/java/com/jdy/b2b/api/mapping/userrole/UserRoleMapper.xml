@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.userrole.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.userrole.UserRole">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ur_role_name" jdbcType="VARCHAR" property="urRoleName" />
+    <result column="ur_remark" jdbcType="VARCHAR" property="urRemark" />
+    <result column="ur_status" jdbcType="INTEGER" property="urStatus" />
+    <result column="ur_sort" jdbcType="INTEGER" property="urSort" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jdy.b2b.api.model.userrole.UserRole">
+    <result column="ur_role_content" jdbcType="LONGVARCHAR" property="urRoleContent" />
+    <result column="ur_role_content_array" jdbcType="LONGVARCHAR" property="urRoleContentArray" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ur_role_name, ur_remark, ur_status,ur_sort, create_time, create_user,
+    update_time, update_user
+  </sql>
+  <sql id="Blob_Column_List">
+    ur_role_content,ur_role_content_array
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sm_user_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_user_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.userrole.UserRole" useGeneratedKeys="true" keyProperty="id">
+    insert into sm_user_role (id, ur_role_name,
+       ur_remark, ur_status, ur_sort,
+      create_time, create_user, update_time,
+      update_user, ur_role_content,ur_role_content_array)
+    values (#{id,jdbcType=BIGINT}, #{urRoleName,jdbcType=VARCHAR},
+       #{urRemark,jdbcType=VARCHAR}, #{urStatus,jdbcType=INTEGER}, #{urSort,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP},
+      #{updateUser,jdbcType=BIGINT}, #{urRoleContent,jdbcType=LONGVARCHAR},#{urRoleContentArray,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.userrole.UserRole">
+    insert into sm_user_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="urRoleName != null">
+        ur_role_name,
+      </if>
+      <if test="urRemark != null">
+        ur_remark,
+      </if>
+      <if test="urStatus != null">
+        ur_status,
+      </if>
+      <if test="urSort != null">
+        ur_sort,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="urRoleContent != null">
+        ur_role_content,
+      </if>
+      <if test="urRoleContentArray != null">
+        ur_role_content_array,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="urRoleName != null">
+        #{urRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="urRemark != null">
+        #{urRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="urStatus != null">
+        #{urStatus,jdbcType=INTEGER},
+      </if>
+      <if test="urSort != null">
+        #{urSort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="urRoleContent != null">
+        #{urRoleContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="urRoleContentArray != null">
+        #{urRoleContentArray,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.userrole.UserRole">
+    update sm_user_role
+    <set>
+      <if test="urRoleName != null">
+        ur_role_name = #{urRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="urRemark != null">
+        ur_remark = #{urRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="urStatus != null">
+        ur_status = #{urStatus,jdbcType=INTEGER},
+      </if>
+      <if test="urSort != null">
+        ur_sort = #{urSort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="urRoleContent != null">
+        ur_role_content = #{urRoleContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="urRoleContentArray != null">
+        ur_role_content_array = #{urRoleContentArray,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jdy.b2b.api.model.userrole.UserRole">
+    update sm_user_role
+    set
+      ur_role_name = #{urRoleName,jdbcType=VARCHAR},
+      ur_remark = #{urRemark,jdbcType=VARCHAR},
+      ur_status = #{urStatus,jdbcType=INTEGER},
+      ur_sort = #{urSort,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      ur_role_content = #{urRoleContent,jdbcType=LONGVARCHAR},
+      ur_role_content_array = #{urRoleContentArray,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.userrole.UserRole">
+    update sm_user_role
+    set
+      ur_role_name = #{urRoleName,jdbcType=VARCHAR},
+      ur_remark = #{urRemark,jdbcType=VARCHAR},
+      ur_status = #{urStatus,jdbcType=INTEGER},
+      ur_sort = #{urSort,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getRoleList" parameterType="com.jdy.b2b.api.model.userrole.UserRole"
+          resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sm_user_role
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=BIGINT}
+      </if>
+      <trim prefix="AND (" suffix=")" prefixOverrides="OR | AND">
+        <if test="urRoleName != null">
+          OR ur_role_name LIKE concat('%',#{urRoleName,jdbcType=VARCHAR},'%')
+        </if>
+
+      </trim>
+      <if test="urRemark != null">
+        AND ur_remark = #{urRemark,jdbcType=VARCHAR}
+      </if>
+      <if test="urStatus != null">
+        AND ur_status = #{urStatus,jdbcType=INTEGER}
+      </if>
+      <if test="urSort != null">
+        AND ur_sort = #{urSort,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createUser != null">
+        AND create_user = #{createUser,jdbcType=BIGINT}
+      </if>
+      <if test="updateTime != null">
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateUser != null">
+        AND update_user = #{updateUser,jdbcType=BIGINT}
+      </if>
+
+    </where>
+    ORDER BY
+    ur_sort DESC
+  </select>
+
+  <resultMap id="UserRolePrivilegeResultMap" type="com.jdy.b2b.api.model.userrole.UserRolePrivilegeDO">
+    <id column="id" jdbcType="BIGINT" property="userId" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="u_real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="u_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="c_name" jdbcType="VARCHAR" property="unitName" />
+    <result column="d_name" jdbcType="VARCHAR" property="departmentName" />
+    <result column="u_post" jdbcType="VARCHAR" property="dutyName" />
+    <result column="u_data_limit" jdbcType="BIGINT" property="privilegeLevel" />
+    <collection property="rolePrivilegeList" javaType="list" ofType="com.jdy.b2b.api.model.userrole.UserRoleDO" >
+      <result column="ur_role_id" jdbcType="BIGINT" property="roleId" />
+      <result column="r_role_name" jdbcType="VARCHAR" property="roleName" />
+    </collection>
+  </resultMap>
+
+  <select id="selectUserRolePrivilegeByUserId" resultMap="UserRolePrivilegeResultMap" parameterType="java.lang.Long">
+    SELECT
+      a.id,
+      a.company_id,
+      a.u_real_name,
+      a.u_no,
+      b.c_name,
+      c.d_name,
+      a.u_post,
+      a.u_data_limit,
+      d.ur_role_id,
+      e.r_role_name
+    FROM
+        sm_user a
+    INNER JOIN sm_company b ON b.id = a.company_id
+    LEFT JOIN sm_department c ON c.id = a.u_department_id
+    LEFT JOIN sm_user_role d ON d.ur_user_id = a.id
+    LEFT JOIN sm_roles e ON e.id = d.ur_role_id
+    WHERE a.id = #{userId}
+  </select>
+    <select id="selectUserRoleByRoleId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        from sm_user_role where ur_role_id = #{roleId} and ur_status = 0
+    </select>
+
+    <delete id="deleteByUserId">
+    DELETE FROM sm_user_role where ur_user_id = #{userId}
+  </delete>
+
+    <insert id="insertUserRoleBatch" useGeneratedKeys="true" parameterType="java.util.List">
+      <selectKey resultType="long" keyProperty="id" order="AFTER">
+        SELECT
+        LAST_INSERT_ID()
+      </selectKey>
+      insert into sm_user_role (ur_role_id,ur_user_id,ur_role_name,ur_role_content,ur_role_content_array,create_time,create_user,ur_status)
+      values
+      <foreach collection="userRoleList" item="item" index="index" separator="," >
+        (#{item.urRoleId},#{item.urUserId},#{item.urRoleName},#{item.urRoleContent},#{item.urRoleContentArray},#{item.createTime},#{item.createUser},#{item.urStatus})
+      </foreach>
+    </insert>
+</mapper>

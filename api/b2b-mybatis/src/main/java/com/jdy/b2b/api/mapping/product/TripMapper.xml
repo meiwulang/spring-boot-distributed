@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.product.TripMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.product.Trip">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="t_product_id" jdbcType="BIGINT" property="tProductId" />
+    <result column="t_title" jdbcType="VARCHAR" property="tTitle" />
+    <result column="t_type" jdbcType="INTEGER" property="tType" />
+    <result column="t_from_to" jdbcType="VARCHAR" property="tFromTo" />
+    <result column="t_meals" jdbcType="VARCHAR" property="tMeals" />
+    <result column="t_meals_remark" jdbcType="VARCHAR" property="tMealsRemark" />
+    <result column="t_hotel_remark" jdbcType="VARCHAR" property="tHotelRemark" />
+    <result column="t_simple_trip" jdbcType="VARCHAR" property="tSimpleTrip" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jdy.b2b.api.model.product.Trip">
+    <result column="t_detail_trip" jdbcType="LONGVARCHAR" property="tDetailTrip" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, t_product_id, t_title, t_type, t_from_to, t_meals, t_meals_remark, t_hotel_remark, 
+    t_simple_trip, create_time, create_user, update_time, update_user
+  </sql>
+  <sql id="Blob_Column_List">
+    t_detail_trip
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ct_trip
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_trip
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.product.Trip">
+    insert into ct_trip (id, t_product_id, t_title, 
+      t_type, t_from_to, t_meals, 
+      t_meals_remark, t_hotel_remark, t_simple_trip, 
+      create_time, create_user, update_time, 
+      update_user, t_detail_trip)
+    values (#{id,jdbcType=BIGINT}, #{tProductId,jdbcType=BIGINT}, #{tTitle,jdbcType=VARCHAR}, 
+      #{tType,jdbcType=INTEGER}, #{tFromTo,jdbcType=VARCHAR}, #{tMeals,jdbcType=VARCHAR}, 
+      #{tMealsRemark,jdbcType=VARCHAR}, #{tHotelRemark,jdbcType=VARCHAR}, #{tSimpleTrip,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT}, #{tDetailTrip,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.product.Trip">
+    insert into ct_trip
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tProductId != null">
+        t_product_id,
+      </if>
+      <if test="tTitle != null">
+        t_title,
+      </if>
+      <if test="tType != null">
+        t_type,
+      </if>
+      <if test="tFromTo != null">
+        t_from_to,
+      </if>
+      <if test="tMeals != null">
+        t_meals,
+      </if>
+      <if test="tMealsRemark != null">
+        t_meals_remark,
+      </if>
+      <if test="tHotelRemark != null">
+        t_hotel_remark,
+      </if>
+      <if test="tSimpleTrip != null">
+        t_simple_trip,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="tDetailTrip != null">
+        t_detail_trip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tProductId != null">
+        #{tProductId,jdbcType=BIGINT},
+      </if>
+      <if test="tTitle != null">
+        #{tTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="tType != null">
+        #{tType,jdbcType=INTEGER},
+      </if>
+      <if test="tFromTo != null">
+        #{tFromTo,jdbcType=VARCHAR},
+      </if>
+      <if test="tMeals != null">
+        #{tMeals,jdbcType=VARCHAR},
+      </if>
+      <if test="tMealsRemark != null">
+        #{tMealsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="tHotelRemark != null">
+        #{tHotelRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="tSimpleTrip != null">
+        #{tSimpleTrip,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="tDetailTrip != null">
+        #{tDetailTrip,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.product.Trip">
+    update ct_trip
+    <set>
+      <if test="tProductId != null">
+        t_product_id = #{tProductId,jdbcType=BIGINT},
+      </if>
+      <if test="tTitle != null">
+        t_title = #{tTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="tType != null">
+        t_type = #{tType,jdbcType=INTEGER},
+      </if>
+      <if test="tFromTo != null">
+        t_from_to = #{tFromTo,jdbcType=VARCHAR},
+      </if>
+      <if test="tMeals != null">
+        t_meals = #{tMeals,jdbcType=VARCHAR},
+      </if>
+      <if test="tMealsRemark != null">
+        t_meals_remark = #{tMealsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="tHotelRemark != null">
+        t_hotel_remark = #{tHotelRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="tSimpleTrip != null">
+        t_simple_trip = #{tSimpleTrip,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="tDetailTrip != null">
+        t_detail_trip = #{tDetailTrip,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jdy.b2b.api.model.product.Trip">
+    update ct_trip
+    set t_product_id = #{tProductId,jdbcType=BIGINT},
+      t_title = #{tTitle,jdbcType=VARCHAR},
+      t_type = #{tType,jdbcType=INTEGER},
+      t_from_to = #{tFromTo,jdbcType=VARCHAR},
+      t_meals = #{tMeals,jdbcType=VARCHAR},
+      t_meals_remark = #{tMealsRemark,jdbcType=VARCHAR},
+      t_hotel_remark = #{tHotelRemark,jdbcType=VARCHAR},
+      t_simple_trip = #{tSimpleTrip,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      t_detail_trip = #{tDetailTrip,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.product.Trip">
+    update ct_trip
+    set t_product_id = #{tProductId,jdbcType=BIGINT},
+      t_title = #{tTitle,jdbcType=VARCHAR},
+      t_type = #{tType,jdbcType=INTEGER},
+      t_from_to = #{tFromTo,jdbcType=VARCHAR},
+      t_meals = #{tMeals,jdbcType=VARCHAR},
+      t_meals_remark = #{tMealsRemark,jdbcType=VARCHAR},
+      t_hotel_remark = #{tHotelRemark,jdbcType=VARCHAR},
+      t_simple_trip = #{tSimpleTrip,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="batchUpdateByPrimaryKeyAndCompanyId" parameterType="list">
+  <foreach collection="list" item="t" separator=";">
+    UPDATE ct_trip
+    SET 
+      t_title = #{t.tTitle,jdbcType=VARCHAR},
+      t_type = #{t.tType,jdbcType=INTEGER},
+      t_from_to = #{t.tFromTo,jdbcType=VARCHAR},
+      t_meals = #{t.tMeals,jdbcType=VARCHAR},
+      t_meals_remark = #{t.tMealsRemark,jdbcType=VARCHAR},
+      t_hotel_remark = #{t.tHotelRemark,jdbcType=VARCHAR},
+      t_simple_trip = #{t.tSimpleTrip,jdbcType=VARCHAR},
+      t_detail_trip = #{t.tDetailTrip,jdbcType=LONGVARCHAR},
+      create_time = #{t.createTime,jdbcType=TIMESTAMP},
+      create_user = #{t.createUser,jdbcType=BIGINT},
+      update_time = #{t.updateTime,jdbcType=TIMESTAMP},
+      update_user = #{t.updateUser,jdbcType=BIGINT}
+    WHERE id = #{t.id,jdbcType=BIGINT} AND t_product_id = #{t.tProductId,jdbcType=BIGINT}
+    </foreach>
+  </update>
+<insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="phTripId" >
+    insert into ct_trip ( id, t_product_id, t_title, 
+      t_type, t_from_to, t_meals, 
+      t_meals_remark, t_hotel_remark, t_simple_trip, 
+      create_time, create_user, update_time, 
+      update_user, t_detail_trip)
+    values 
+    <foreach collection="list" item="t" separator=","  >
+      (#{t.phTripId,jdbcType=BIGINT},#{t.tProductId,jdbcType=BIGINT}, #{t.tTitle,jdbcType=VARCHAR}, 
+      #{t.tType,jdbcType=INTEGER}, #{t.tFromTo,jdbcType=VARCHAR}, #{t.tMeals,jdbcType=VARCHAR}, 
+      #{t.tMealsRemark,jdbcType=VARCHAR}, #{t.tHotelRemark,jdbcType=VARCHAR}, #{t.tSimpleTrip,jdbcType=VARCHAR}, 
+      #{t.createTime,jdbcType=TIMESTAMP}, #{t.createUser,jdbcType=BIGINT}, #{t.updateTime,jdbcType=TIMESTAMP}, 
+      #{t.updateUser,jdbcType=BIGINT}, #{t.tDetailTrip,jdbcType=LONGVARCHAR})
+     </foreach>
+  </insert> 
+  <sql id="tableName">
+  ct_trip
+  </sql>
+  <select id="countByProductIdAndType" resultType="int">
+  	select count(1) from  <include refid="tableName"/>
+  	where t_product_id=#{productId} and t_type=#{type}
+  </select>
+  <select id="queryByProductIdAndType" resultType="map">
+  	select id,  t_title as tTitle,  t_from_to as tFromTo, t_meals as tMeals, t_meals_remark as tMealsRemark, t_hotel_remark as tHotelRemark, 
+    t_simple_trip as tSimpleTrip,t_detail_trip as tDetailTrip
+    from  <include refid="tableName"/>
+  	where t_product_id=#{productId}
+  	<if test="type != null">
+  	 and t_type=#{type}
+  	</if>
+  </select>
+  <select id="queryByProductIdAndStartAndEndDate" resultType="map">
+  	select t.id id,  t_title as tTitle,  t_from_to as tFromTo, t_meals as tMeals, t_meals_remark as tMealsRemark, t_hotel_remark as tHotelRemark, 
+    t_simple_trip as tSimpleTrip,t_detail_trip as tDetailTrip,
+		tc_start_day AS tripStartCalendar,
+		tc_end_day AS tripEndCalendar 
+    from  <include refid="tableName"/> t,ct_trip_calendar c
+  	where 
+  	t.id = c.tc_trip_id
+	AND t.t_type =1
+	AND c.tc_product_id = #{productId}
+	AND t.t_product_id = #{productId}
+	<if test="tcStartDay != null">
+	AND tc_start_day=#{tcStartDay}
+	</if>
+	<if test="tcEndDay != null">
+	AND tc_end_day=#{tcEndDay}
+	</if>
+  </select>
+  <select id="queryTripBaseInfo" resultType="map">
+	SELECT
+		t.t_title AS tripName,
+		tc_start_day AS tripStartCalendar,
+		tc_end_day AS tripEndCalendar
+	FROM
+		ct_trip AS t,
+		ct_trip_calendar AS c
+	WHERE
+		t.id = c.tc_trip_id
+	AND t.t_type =#{type}
+	AND c.tc_product_id = #{productId}
+	AND t.t_product_id = #{productId}
+	group by t.t_product_id, tripStartCalendar,tripEndCalendar
+  </select>
+  <delete id="batchDelete" >
+	DELETE
+		c.*, ct.*, th.*, ts.*
+	FROM
+		ct_trip c
+	LEFT JOIN ct_trip_calendar ct ON c.id = ct.tc_trip_id
+	LEFT JOIN ct_trip_hotel th ON th.ph_trip_id = ct.tc_trip_id
+	LEFT JOIN ct_trip_scenic ts ON ts.ph_trip_id = ct.tc_trip_id
+	WHERE
+		ct.tc_product_id = #{productId}
+	AND c.t_product_id = #{productId}
+	AND ct.tc_start_day = #{tcStartDay}
+	AND ct.tc_end_day = #{tcEndDay}
+  </delete>   
+  <delete id="batchDeleteDefaultTrips"  parameterType="java.util.List">
+<!--    delete from <include refid="tableName"/> where id in -->
+<!--    <foreach collection="list" item="t" close=")" open="(" separator=","> -->
+<!--     #{t.id,jdbcType=BIGINT} -->
+<!--    </foreach> -->
+   delete from <include refid="tableName"/> where 
+   <foreach collection="list" index="i" item="t">
+   <if test="i == 0">
+ 	  t_product_id =#{t.tProductId}
+   </if>
+   </foreach>
+  </delete>   
+</mapper>

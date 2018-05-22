@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>支出明细</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/guide_team.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->     
+</head>
+<body>
+<div id="wrap">
+	<div class="acti_header">
+		<span class="type">支出</span>
+		<a class="lef back" href="javascript:;"></a>
+		<div class="top-type">
+			<ul>
+				<li class="active" v="支出">支出</li>
+				<li v="收入">收入</li>
+			</ul>
+		</div>
+	</div>
+	<div class="main">
+		<div class="fas cates">
+			<script id="tpl-cates" type="text/html">
+			<ul class="team_ul">
+				{ each data as value i }
+				<li { if i == 0 }class="active"{ /if } v="{ data[i].d_text }">
+					<a href="javascript:;">{ data[i].d_text }</a>
+				</li>
+				{ /each }
+			</ul>
+			</script>
+		</div>
+		<div class="render"></div>
+	</div>
+</div>
+
+</body>
+<script id="tpl-render" type="text/html">
+	<dl class="team_dl list">
+		<dt>
+			<ul>
+			{ if data && data.length }
+				{ each data as value i }
+				<li lid="{ data[i].tpi_id }" { if data[i].tpi_add_type == '0' }class="default"{ /if }>
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide content">
+								<div class="head">
+									<div class="lefts">{ data[i].tpi_name }</div>
+									<div class="rights">共{ data[i].tpi_num }人({ data[i].tpi_date_f })</div>
+								</div>
+								<div class="heade">
+									<div class="lefts">
+										{data[i].tpi_settle}：{if data[i].tpi_settle == '签单' && team_show_sign == '0'}***/人 {else}<span>￥</span>{ data[i].tpi_price }/人{/if}
+									</div>
+									<div class="rights">{if data[i].tpi_settle == '签单' && team_show_sign == '0'}***{else}￥{ data[i].tpi_money }{/if}</div>
+								</div>
+							</div>
+							{ if data[i].tpi_add_type == 1 && is_add == '1' }
+							<div class="swiper-slide menu delete">删除</div>
+							{ /if }
+						</div>
+					</div>
+				</li>
+				{ /each }
+			{ /if }
+			</ul>
+		</dt>
+		<dd>
+			<div class="head">
+				<div class="lefts">
+					现付: <span><i>￥</i>{ count.xj_money }</span>
+				</div>
+				<div class="rights">共{ count.xj_number }笔</div>
+			</div>
+			<div class="head">
+				<div class="lefts">
+					签单: 
+					{if team_show_sign == '0'}
+						 ***
+						{else}
+						<span><i>￥</i>{ count.qd_money }</span>
+					{/if}
+
+				</div>
+				<div class="rights">共{if team_show_sign == '0'}***{else}{ count.qd_number }{/if}笔</div>
+			</div>
+		</dd>
+	</dl>
+	<div class="btn">
+		<div class="lef">
+			总金额: <span><i>￥</i>{ count.all_money }</span>
+		</div>
+		<div class="rig write { if is_add == 0 }disable{ /if }"><div class="mar"><span></span>记一笔</div></div>
+	</div>
+</script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/guide_team.build.js"></script>
+</html>

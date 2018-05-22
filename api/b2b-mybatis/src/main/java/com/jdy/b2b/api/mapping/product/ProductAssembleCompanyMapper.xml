@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.product.ProductAssembleCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.product.ProductAssembleCompany" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="assemble_status" property="assembleStatus" jdbcType="TINYINT" />
+    <result column="assemble_user" property="assembleUser" jdbcType="BIGINT" />
+    <result column="assemble_link_user" jdbcType="BIGINT" property="assembleLinkUser" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, product_id, company_id, assemble_status, assemble_user, assemble_link_user, create_time, create_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from ct_product_assemble_company
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ct_product_assemble_company
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.product.ProductAssembleCompany" >
+    insert into ct_product_assemble_company (id, product_id, company_id,
+    assemble_status, assemble_user, assemble_link_user,  create_time,
+    create_user)
+    values (#{id,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT},
+    #{assembleStatus,jdbcType=TINYINT}, #{assembleUser,jdbcType=BIGINT}, #{assembleLinkUser,jdbcType=BIGINT},
+    #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.product.ProductAssembleCompany" >
+    insert into ct_product_assemble_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="assembleStatus != null" >
+        assemble_status,
+      </if>
+      <if test="assembleUser != null" >
+        assemble_user,
+      </if>
+      <if test="assembleLinkUser != null">
+        assemble_link_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="assembleStatus != null" >
+        #{assembleStatus,jdbcType=TINYINT},
+      </if>
+      <if test="assembleUser != null" >
+        #{assembleUser,jdbcType=BIGINT},
+      </if>
+      <if test="assembleLinkUser != null">
+        #{assembleLinkUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.product.ProductAssembleCompany" >
+    update ct_product_assemble_company
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="assembleStatus != null" >
+        assemble_status = #{assembleStatus,jdbcType=TINYINT},
+      </if>
+      <if test="assembleUser != null" >
+        assemble_user = #{assembleUser,jdbcType=BIGINT},
+      </if>
+      <if test="assembleLinkUser != null">
+        assemble_link_user = #{assembleLinkUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.product.ProductAssembleCompany" >
+    update ct_product_assemble_company
+    set product_id = #{productId,jdbcType=BIGINT},
+      company_id = #{companyId,jdbcType=BIGINT},
+      assemble_status = #{assembleStatus,jdbcType=TINYINT},
+      assemble_user = #{assembleUser,jdbcType=BIGINT},
+      assemble_link_user = #{assembleLinkUser,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="selectCompanyIdsByProductId" resultType="long">
+     select company_id from ct_product_assemble_company WHERE product_id = #{productId}
+  </select>
+
+
+  <select id="selectCompanyIdsByProductIdOK" resultType="long">
+    select DISTINCT company_id from ct_product_assemble_company WHERE product_id = #{productId} and assemble_status  = 1
+  </select>
+
+  <select id="selectGatheredCompanyIdsByProductId" resultType="long">
+    select company_id from ct_product_assemble_company WHERE product_id = #{productId} and company_id = #{companyId} and assemble_status = 1
+  </select>
+
+
+  <insert id="batchInsert" parameterType="list" keyProperty="id" useGeneratedKeys="true">
+     insert into ct_product_assemble_company (id, product_id, company_id,
+      create_time, create_user)
+    values
+    <foreach collection="records" separator="," item="item">
+      (#{item.id,jdbcType=BIGINT}, #{item.productId,jdbcType=BIGINT}, #{item.companyId,jdbcType=BIGINT},
+      #{item.createTime,jdbcType=TIMESTAMP}, #{item.createUser,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+
+  <delete id="deleteByProductId">
+    delete from ct_product_assemble_company
+    where product_id = #{id,jdbcType=BIGINT}
+    <if test="list != null and list.size>0">
+      and company_id not in (
+      <foreach collection="list" separator="," item="id">
+        #{id}
+      </foreach>
+      )
+    </if>
+  </delete>
+
+  <update id="updateProductAssembleCompany" >
+    update ct_product_assemble_company
+    set assemble_status =  1 ,
+    assemble_user = #{uid}
+    where product_id = #{pid}
+    and company_id = #{cid}
+  </update>
+  <update id="updateLinkByProductAndCompany" parameterType="com.jdy.b2b.api.model.product.ProductAssembleCompany">
+    UPDATE  ct_product_assemble_company SET
+    assemble_link_user = #{assembleLinkUser}
+    where product_id = #{productId}
+    and company_id = #{companyId}
+  </update>
+  <select id="selectByProductIdAndCompanyId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ct_product_assemble_company
+    WHERE product_id = #{productId} and company_id = #{companyId} and assemble_status = 1
+  </select>
+  <select id="selectByProductId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+     from ct_product_assemble_company WHERE product_id = #{productId} and assemble_status = 1
+  </select>
+</mapper>

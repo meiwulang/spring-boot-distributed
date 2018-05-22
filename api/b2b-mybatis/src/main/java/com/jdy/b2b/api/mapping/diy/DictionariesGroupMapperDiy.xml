@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.DictionariesGroupMapperDiy">
+    <resultMap extends="com.jdy.b2b.api.dao.DictionariesGroupMapper.BaseResultMap" id="BaseResultMapDiy"
+               type="com.jdy.b2b.api.model.diy.DictionariesGroupDTO">
+        <result column="sub_name" jdbcType="VARCHAR" property="subName"/>
+    </resultMap>
+
+    <select id="selectDictionariesGroupList" resultMap="BaseResultMapDiy">
+        SELECT
+        g.*, GROUP_CONCAT(d.d_name) sub_name
+        FROM
+        sm_dictionaries_group g
+        LEFT JOIN sm_dictionaries d ON g.id = d.d_group_id
+        AND d.d_status = 0
+        AND d.company_id in (999999 <if test="pcompanyId != null and pcompanyId != 999999">, #{pcompanyId}</if>)
+        WHERE
+        g.dg_status = 0
+        <if test="dgName != null">
+            AND g.dg_name LIKE CONCAT('%',#{dgName},'%')
+        </if>
+        GROUP BY
+        g.id
+        ORDER BY dg_sort DESC
+    </select>
+</mapper>

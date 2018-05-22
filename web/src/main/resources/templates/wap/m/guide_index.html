@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>导游报账</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/guide_index.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->   
+</head>
+<body>
+<div id="wrap">
+	<div class="main">
+	<script id="tpl-condition" type="text/html">
+		<div class="guide_header">
+			<div class="cont">
+				<div class="tit">{team_detail.team_num}</div>
+				<div class="tits">
+					<div class="groud">出团：{team_detail.team_start_date} （{team_detail.team_start_week}）</div>
+					<div class="grous">{team_detail.team_saled}人</div>
+				</div>
+				<div class="tits">
+					<div class="groud">回团：{team_detail.team_end_date} （{team_detail.team_end_week}）</div>
+					<div class="grous">{team_detail.team_adult}成人 {team_detail.team_children}儿童</div>
+				</div>
+			</div>
+			<div class="user">
+				<div class="imgs"><div></div></div>
+				<div class="mation">
+					<span class="son">{team_detail.team_local_guide_name} <span> 
+					{if team_detail.team_local_guide_tel}
+					[<a style="color: #84b6fb;" href="tel:{team_detail.team_local_guide_tel}">{team_detail.team_local_guide_tel}</a>]
+					{/if}
+					</span></span>&nbsp;
+					{if team_detail.team_credit_status == '未报账'}
+					<span class="sons gui_w">{team_detail.team_credit_status}</span>
+					{else if team_detail.team_credit_status == '报账中'}
+					<span class="sons gui_b">{team_detail.team_credit_status}</span>
+					{else if team_detail.team_credit_status == '审核中'}
+					<span class="sons gui_s">{team_detail.team_credit_status}</span>
+					{else if team_detail.team_credit_status == '已驳回'}
+					<span class="sons gui_y">{team_detail.team_credit_status}</span>
+					{else if team_detail.team_credit_status == '已完成'}
+					<span class="sons gui_c">{team_detail.team_credit_status}</span>
+					{/if}
+					<span class="gui_mon"><span class="sp">￥{team_detail.team_fee_guide}</span></span>
+				</div>
+			</div>
+			<div class="users">
+				<div class="imgs"><div></div></div>
+				<div class="mation">
+					<span class="son">{team_detail.team_org_name}</span>
+				</div>
+			</div>
+		</div>
+		{if team_detail.blacklist_user && team_detail.blacklist_user == '1'}
+			<div class="mati"><span></span>当前团内有黑名单游客，请注意接待！</div>
+		{/if}
+		<div class="lists">
+			<ul>
+				<li>
+					<a href="/guide_tour.html?id={id}">
+						<div class="imgd"><img src="assets/img/guide/b1.png" alt=""></div>
+						<div class="tex">行程说明</div>
+					</a>
+				</li>
+				<li>
+					<a href="/guide_mation.html?id={id}">
+						<div class="imgd"><img src="assets/img/guide/b2.png" alt=""></div>
+						<div class="tex">游客信息</div>
+					</a>
+				</li>
+				<li>
+					<a href="/guide_team.html?id={id}">
+						<div class="imgd"><img src="assets/img/guide/b3.png" alt=""></div>
+						<div class="tex">团队报账</div>
+					</a>
+				</li>
+				<li>
+					<a href="/guide_stay.html?id={id}">
+						<div class="imgd"><img src="assets/img/guide/b4.png" alt=""></div>
+						<div class="tex">酒店住宿</div>
+					</a>
+				</li>
+				<li>
+					<a href="/guide_user.html?id={id}">
+						<div class="imgd"><img src="assets/img/guide/b5.png" alt=""></div>
+						<div class="tex">联系人</div>
+					</a>
+				</li>
+				<li>
+					<a href="/guide_proof.html?id={id}">
+						<div class="imgd"><img src="assets/img/guide/b6.png" alt=""></div>
+						<div class="tex">凭证管理</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="guide_foot">
+			<div class="mony">
+				<div class="monys"><span class="ya">￥</span>{team_detail.team_surplus_money}</div>
+				<div class="gro">团款余额</div>
+			</div>
+			<ul class="foot_ul">
+				<li>
+					<div class="sons">
+						<div class="prce"><span>￥</span>{team_detail.team_total_fee}</div>
+						<div class="tit">领用金额</div>
+					</div>
+				</li>
+				<li>
+					<div class="sons">
+						<div class="prce"><span>￥</span>{team_detail.team_cashpay_money}</div>
+						<div class="tit">现金支出</div>
+					</div>
+				</li>
+				<li>
+					<div class="sons">
+						<div class="prce"><span>￥</span>{team_detail.team_cashin_money}</div>
+						<div class="tit">现金收入</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div id="nav">
+			<ul class="clearfix">
+				<li class="nav_list"><a href="/guide_list.html">团队列表</a></li>
+				<li class="nav_two"><a href="/guide_team.html?id={id}">开始报账</a></li>
+				<li class="nav_three nav_th"><a href="javascript:;">提交审核</a></li>
+			</ul>
+		</div>
+	</script>	
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/guide_index.build.js"></script>
+</html>

@@ -1,0 +1,210 @@
+@import './common.less';
+@import './lib/swiper.3.4.0.less';
+
+#wrap{
+	/*padding-top: 60px;*/
+	box-sizing: border-box;
+	.top{
+		position: fixed;
+		top: 0;
+	}
+	.user-info{
+		height: 80px;
+		background-color: #fff;
+		position: relative;
+
+		.img{
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			float: left;
+			overflow: hidden;
+			margin: 15px;
+
+			img{
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		.txt{
+			overflow: hidden;
+			padding-top: 20px;
+
+			h3{
+				font-size: 15px;
+			}
+
+			p{
+				color: #999999;
+				font-size: 12px;
+				margin-top: 5px;
+			}
+		}
+
+		.tip{
+			position: absolute;
+			right: 15px;
+			top: 15px;
+			background-color: #8e8e93;
+			color: #fff;
+			padding: 0 10px;
+			font-size: 10px;
+			height: 18px;
+			line-height: 18px;
+		}
+	}
+
+	.banner{
+		/*margin-top: 60px;*/
+		overflow: hidden;
+		background-color: #fff;
+		position: relative;
+
+		.swiper-container{
+			width: 100%;
+			height: 100%;
+
+	        .swiper-slide{
+	        	overflow: hidden;
+
+	        	img{
+	        		display: block;
+	        		width: 100%;
+	        		height: 100%;
+	        	}
+	        }
+
+	        .swiper-pagination{
+		    	.swiper-pagination-bullet{
+		    		width: 4px;
+		    		height: 4px;
+		    		overflow: hidden;
+		    		border-radius: 0;
+		    		margin: 0 2px;
+		    		background-color: #fff;
+		    		opacity: 0.6;
+		    	}
+
+		    	.swiper-pagination-bullet-active{
+		    		width: 6px;
+		    		height: 6px;
+		    		position: relative;
+		    		left: 1px;
+		    		top: 1px;
+		    		background: url('@{img}/banner/bullet.png') no-repeat;
+		    		background-size: 6px 6px;
+		    		opacity: 1;
+		    	}
+		    }
+	    }
+	}
+
+	.cates{
+		background-color: #fff;
+		height: 120px;
+		overflow: hidden;
+
+		li{
+			width: 25%;
+			float: left;
+
+			.img{
+				width: 55px;
+				height: 55px;
+				overflow: hidden;
+				border-radius: 100%;
+				margin: 20px auto 10px;
+
+				img{
+					width :100%;
+					height: 100%;
+				}
+			}
+
+			.txt{
+				text-align: center;
+				font-size: 12px;
+			}
+		}
+	}
+
+	h2.products-tit{
+		height: 40px;
+		line-height: 40px;
+		font-size: 14px;
+		padding: 0 15px;
+		background: url('@{img}/icon_eye_deep_open.png') 80px center no-repeat;
+		background-size: 16px auto;
+
+		&.eye-close{
+			background: url('@{img}/icon_eye_deep_close.png') 80px center no-repeat;
+			background-size: 16px auto;
+		}
+	}
+
+	.products{
+		background-color: #fff;
+		overflow: hidden;
+
+		li{
+			/*height: 100px;*/
+			padding: 15px;
+			border-bottom: 1px solid #f1f1f1;
+
+			.img{
+				width: 110px;
+				height: 100px;
+				float: left;
+
+				img{
+					width: 100%;
+					height: 100%;
+				}
+			}
+
+			.txt{
+				overflow: hidden;
+				padding-left: 15px;
+
+				h3{
+					line-height: 20px;
+					font-size: 14px;
+					.TextOverflow(3);
+					height: 60px;
+
+					.tip{
+						font-size: 10px;
+						background-color: #37cc71;
+						color: #fff;
+						padding: 3px 5px;
+						word-wrap: break-word;
+						word-break: break-all;
+					}
+				}
+
+				.price{
+					color: #fb2a35;
+					font-size: 19px;
+					height: 40px;
+					line-height: 60px;
+					font-weight: 700;
+					
+					i{
+						font-size: 10px;
+					}
+				}
+			}
+
+			.return{
+				margin-top: 10px;
+				font-size: 10px;
+				height: 30px;
+				line-height: 30px;
+				color: #999;
+				margin-bottom: -15px;
+				/*border-top: 1px dashed #f1f1f1;*/
+			}
+		}
+	}
+}

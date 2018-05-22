@@ -1,0 +1,7 @@
+1.transfer  计调
+2.sale  销售
+3.Finance  财务
+4.Report form 报表
+5.application 应用
+6.Resources 资源
+7.system 系统

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.roleModule.RoleModuleMapper">
+    <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.roleModule.RoleModule">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="rm_role_id" jdbcType="BIGINT" property="rmRoleId" />
+        <result column="rm_module_id" jdbcType="BIGINT" property="rmModuleId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_user" jdbcType="BIGINT" property="createUser" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, rm_role_id, rm_module_id, create_time, create_user,
+        update_time, update_user
+    </sql>
+    <insert id="insertRelByRole" parameterType="com.jdy.b2b.api.model.role.RolesVO">
+        insert into sm_role_module(rm_role_id,rm_module_id,create_time,create_user)
+        VALUES
+        <foreach collection="checkedKeys" item="moduleId" separator=",">
+            (#{id},#{moduleId},#{createTime},#{createUser})
+        </foreach>
+    </insert>
+    <delete id="deleteRelByRole" parameterType="com.jdy.b2b.api.model.role.Roles">
+        delete from sm_role_module where rm_role_id = #{id}
+    </delete>
+    <select id="selectModuleIdByRole" resultType="java.lang.Long" parameterType="com.jdy.b2b.api.model.role.Roles">
+        select rm_module_id from sm_role_module where rm_role_id = #{id}
+    </select>
+
+
+</mapper>

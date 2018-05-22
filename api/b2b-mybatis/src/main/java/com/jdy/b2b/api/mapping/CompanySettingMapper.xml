@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.CompanySettingMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.CompanySetting">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="cs_company_id" jdbcType="BIGINT" property="csCompanyId" />
+    <result column="cs_bank_rate" jdbcType="DECIMAL" property="csBankRate" />
+    <result column="cs_qr_rate" jdbcType="DECIMAL" property="csQrRate" />
+    <result column="cs_settlement_rate" jdbcType="DECIMAL" property="csSettlementRate" />
+    <result column="cs_settlement" jdbcType="INTEGER" property="csSettlement" />
+    <result column="cs_cycle" jdbcType="INTEGER" property="csCycle" />
+    <result column="cs_invoice_edit" jdbcType="BIT" property="csInvoiceEdit" />
+    <result column="cs_qr" jdbcType="BIT" property="csQr" />
+    <result column="cs_amount" jdbcType="INTEGER" property="csAmount" />
+    <result column="cs_sort_by" jdbcType="BIT" property="csSortBy" />
+    <result column="cs_stop_day" jdbcType="INTEGER" property="csStopDay" />
+    <result column="cs_stop_time" jdbcType="TIME" property="csStopTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cs_company_id, cs_bank_rate, cs_qr_rate,cs_settlement_rate, cs_settlement, cs_cycle, cs_invoice_edit,
+    cs_qr, cs_amount, cs_sort_by, cs_stop_day, cs_stop_time, create_time, create_user,
+    update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sm_company_setting
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_company_setting
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.CompanySetting">
+    insert into sm_company_setting (id, cs_company_id, cs_bank_rate,
+    cs_qr_rate,cs_settlement_rate, cs_settlement, cs_cycle,
+    cs_invoice_edit, cs_qr, cs_amount,
+    cs_sort_by, cs_stop_day, cs_stop_time,
+    create_time, create_user, update_time,
+    update_user)
+    values (#{id,jdbcType=BIGINT}, #{csCompanyId,jdbcType=BIGINT}, #{csBankRate,jdbcType=DECIMAL},
+    #{csQrRate,jdbcType=DECIMAL},#{csSettlementRate,jdbcType=DECIMAL}, #{csSettlement,jdbcType=INTEGER}, #{csCycle,jdbcType=INTEGER},
+    #{csInvoiceEdit,jdbcType=BIT}, #{csQr,jdbcType=BIT}, #{csAmount,jdbcType=INTEGER},
+    #{csSortBy,jdbcType=BIT}, #{csStopDay,jdbcType=INTEGER}, #{csStopTime,jdbcType=TIME},
+    #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP},
+    #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.CompanySetting">
+    insert into sm_company_setting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="csCompanyId != null">
+        cs_company_id,
+      </if>
+      <if test="csBankRate != null">
+        cs_bank_rate,
+      </if>
+      <if test="csQrRate != null">
+        cs_qr_rate,
+      </if>
+      <if test="csSettlement != null">
+        cs_settlement,
+      </if>
+      <if test="csCycle != null">
+        cs_cycle,
+      </if>
+      <if test="csInvoiceEdit != null">
+        cs_invoice_edit,
+      </if>
+      <if test="csQr != null">
+        cs_qr,
+      </if>
+      <if test="csAmount != null">
+        cs_amount,
+      </if>
+      <if test="csSortBy != null">
+        cs_sort_by,
+      </if>
+      <if test="csStopDay != null">
+        cs_stop_day,
+      </if>
+      <if test="csStopTime != null">
+        cs_stop_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="csSettlementRate != null">
+        cs_settlement_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="csCompanyId != null">
+        #{csCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="csBankRate != null">
+        #{csBankRate,jdbcType=DECIMAL},
+      </if>
+      <if test="csQrRate != null">
+        #{csQrRate,jdbcType=DECIMAL},
+      </if>
+      <if test="csSettlement != null">
+        #{csSettlement,jdbcType=INTEGER},
+      </if>
+      <if test="csCycle != null">
+        #{csCycle,jdbcType=INTEGER},
+      </if>
+      <if test="csInvoiceEdit != null">
+        #{csInvoiceEdit,jdbcType=BIT},
+      </if>
+      <if test="csQr != null">
+        #{csQr,jdbcType=BIT},
+      </if>
+      <if test="csAmount != null">
+        #{csAmount,jdbcType=INTEGER},
+      </if>
+      <if test="csSortBy != null">
+        #{csSortBy,jdbcType=BIT},
+      </if>
+      <if test="csStopDay != null">
+        #{csStopDay,jdbcType=INTEGER},
+      </if>
+      <if test="csStopTime != null">
+        #{csStopTime,jdbcType=TIME},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="csSettlementRate != null">
+        #{csSettlementRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.CompanySetting">
+    update sm_company_setting
+    <set>
+      <if test="csCompanyId != null">
+        cs_company_id = #{csCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="csBankRate != null">
+        cs_bank_rate = #{csBankRate,jdbcType=DECIMAL},
+      </if>
+      <if test="csQrRate != null">
+        cs_qr_rate = #{csQrRate,jdbcType=DECIMAL},
+      </if>
+      <if test="csSettlement != null">
+        cs_settlement = #{csSettlement,jdbcType=INTEGER},
+      </if>
+      <if test="csCycle != null">
+        cs_cycle = #{csCycle,jdbcType=INTEGER},
+      </if>
+      <if test="csInvoiceEdit != null">
+        cs_invoice_edit = #{csInvoiceEdit,jdbcType=BIT},
+      </if>
+      <if test="csQr != null">
+        cs_qr = #{csQr,jdbcType=BIT},
+      </if>
+      <if test="csAmount != null">
+        cs_amount = #{csAmount,jdbcType=INTEGER},
+      </if>
+      <if test="csSortBy != null">
+        cs_sort_by = #{csSortBy,jdbcType=BIT},
+      </if>
+      <if test="csStopDay != null">
+        cs_stop_day = #{csStopDay,jdbcType=INTEGER},
+      </if>
+      <if test="csStopTime != null">
+        cs_stop_time = #{csStopTime,jdbcType=TIME},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="csSettlementRate != null">
+        cs_settlement_rate = #{csSettlementRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.CompanySetting">
+    update sm_company_setting
+    set cs_company_id = #{csCompanyId,jdbcType=BIGINT},
+    cs_bank_rate = #{csBankRate,jdbcType=DECIMAL},
+    cs_qr_rate = #{csQrRate,jdbcType=DECIMAL},
+    cs_settlement = #{csSettlement,jdbcType=INTEGER},
+    cs_cycle = #{csCycle,jdbcType=INTEGER},
+    cs_invoice_edit = #{csInvoiceEdit,jdbcType=BIT},
+    cs_qr = #{csQr,jdbcType=BIT},
+    cs_amount = #{csAmount,jdbcType=INTEGER},
+    cs_sort_by = #{csSortBy,jdbcType=BIT},
+    cs_stop_day = #{csStopDay,jdbcType=INTEGER},
+    cs_stop_time = #{csStopTime,jdbcType=TIME},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    create_user = #{createUser,jdbcType=BIGINT},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    update_user = #{updateUser,jdbcType=BIGINT},
+    cs_settlement_rate = #{csSettlementRate,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByCompanyId" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+    SELECT <include refid="Base_Column_List" />
+    FROM sm_company_setting where cs_company_id = #{companyId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByCompanyId" parameterType="java.lang.Long">
+    delete from sm_company_setting
+    where cs_company_id = #{companyId,jdbcType=BIGINT}
+  </delete>
+</mapper>

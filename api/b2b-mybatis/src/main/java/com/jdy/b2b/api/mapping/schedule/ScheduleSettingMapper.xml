@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.schedule.ScheduleSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.schedule.ScheduleSetting" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="schedule_id" property="scheduleId" jdbcType="BIGINT" />
+    <result column="group_no" property="groupNo" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="adult_tourists_num" property="adultTouristsNum" jdbcType="INTEGER" />
+    <result column="child_tourists_num" property="childTouristsNum" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="return_date" property="returnDate" jdbcType="DATE" />
+    <result column="banner" property="banner" jdbcType="VARCHAR" />
+    <result column="tourist_guide" property="touristGuide" jdbcType="VARCHAR" />
+    <result column="muster_time" property="musterTime" jdbcType="DATE" />
+    <result column="muster_place" property="musterPlace" jdbcType="VARCHAR" />
+    <result column="emergency_call" property="emergencyCall" jdbcType="VARCHAR" />
+    <result column="emergency_contact" property="emergencyContact" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="departure_status" property="departureStatus" jdbcType="TINYINT" />
+    <result column="cancel_time" property="cancelTime" />
+    <result column="cancel_user" property="cancelUser" jdbcType="BIGINT" />
+    <result column="cancel_comment" property="cancelComment" jdbcType="VARCHAR" />
+    <result column="cancel_user_name" property="cancelUserName" jdbcType="VARCHAR"/>
+    <result column="confirm_time" property="confirmTime" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, schedule_id, group_no, product_name,company_id, company_name, user_name, user_phone, adult_tourists_num,
+    child_tourists_num, start_date, return_date, banner, tourist_guide, muster_time,
+    muster_place, emergency_call, emergency_contact, status, departure_status, cancel_time,
+    cancel_user, cancel_comment,confirm_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from ct_schedule_setting
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ct_schedule_setting
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.schedule.ScheduleSetting" >
+    insert into ct_schedule_setting (id, schedule_id, group_no,
+    product_name,company_id, company_name, user_name,
+    user_phone, adult_tourists_num, child_tourists_num,
+    start_date, return_date, banner,
+    tourist_guide, muster_time, muster_place,
+    emergency_call, emergency_contact, status,
+    departure_status, cancel_time, cancel_user,
+    cancel_comment)
+    values (#{id,jdbcType=BIGINT}, #{scheduleId,jdbcType=BIGINT}, #{groupNo,jdbcType=VARCHAR},
+    #{productName,jdbcType=VARCHAR},#{companyId}, #{companyName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+    #{userPhone,jdbcType=VARCHAR}, #{adultTouristsNum,jdbcType=INTEGER}, #{childTouristsNum,jdbcType=INTEGER},
+    #{startDate,jdbcType=DATE}, #{returnDate,jdbcType=DATE}, #{banner,jdbcType=VARCHAR},
+    #{touristGuide,jdbcType=VARCHAR}, #{musterTime,jdbcType=DATE}, #{musterPlace,jdbcType=VARCHAR},
+    #{emergencyCall,jdbcType=VARCHAR}, #{emergencyContact,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},
+    #{departureStatus,jdbcType=TINYINT}, #{cancelTime,jdbcType=DATE}, #{cancelUser,jdbcType=BIGINT},
+    #{cancelComment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.schedule.ScheduleSetting"  useGeneratedKeys="true" keyProperty="id">
+    insert into ct_schedule_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="scheduleId != null" >
+        schedule_id,
+      </if>
+      <if test="groupNo != null" >
+        group_no,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="adultTouristsNum != null" >
+        adult_tourists_num,
+      </if>
+      <if test="childTouristsNum != null" >
+        child_tourists_num,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="returnDate != null" >
+        return_date,
+      </if>
+      <if test="banner != null" >
+        banner,
+      </if>
+      <if test="touristGuide != null" >
+        tourist_guide,
+      </if>
+      <if test="musterTime != null" >
+        muster_time,
+      </if>
+      <if test="musterPlace != null" >
+        muster_place,
+      </if>
+      <if test="emergencyCall != null" >
+        emergency_call,
+      </if>
+      <if test="emergencyContact != null" >
+        emergency_contact,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="departureStatus != null" >
+        departure_status,
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time,
+      </if>
+      <if test="cancelUser != null" >
+        cancel_user,
+      </if>
+      <if test="cancelComment != null" >
+        cancel_comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="scheduleId != null" >
+        #{scheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="groupNo != null" >
+        #{groupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adultTouristsNum != null" >
+        #{adultTouristsNum,jdbcType=INTEGER},
+      </if>
+      <if test="childTouristsNum != null" >
+        #{childTouristsNum,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="returnDate != null" >
+        #{returnDate,jdbcType=DATE},
+      </if>
+      <if test="banner != null" >
+        #{banner,jdbcType=VARCHAR},
+      </if>
+      <if test="touristGuide != null" >
+        #{touristGuide,jdbcType=VARCHAR},
+      </if>
+      <if test="musterTime != null" >
+        #{musterTime,jdbcType=DATE},
+      </if>
+      <if test="musterPlace != null" >
+        #{musterPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyCall != null" >
+        #{emergencyCall,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContact != null" >
+        #{emergencyContact,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="departureStatus != null" >
+        #{departureStatus,jdbcType=TINYINT},
+      </if>
+      <if test="cancelTime != null" >
+        #{cancelTime,jdbcType=DATE},
+      </if>
+      <if test="cancelUser != null" >
+        #{cancelUser,jdbcType=BIGINT},
+      </if>
+      <if test="cancelComment != null" >
+        #{cancelComment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.schedule.ScheduleSetting" >
+    update ct_schedule_setting
+    <set >
+      <if test="scheduleId != null" >
+        schedule_id = #{scheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="groupNo != null" >
+        group_no = #{groupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adultTouristsNum != null" >
+        adult_tourists_num = #{adultTouristsNum,jdbcType=INTEGER},
+      </if>
+      <if test="childTouristsNum != null" >
+        child_tourists_num = #{childTouristsNum,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="returnDate != null" >
+        return_date = #{returnDate,jdbcType=DATE},
+      </if>
+      <if test="banner != null" >
+        banner = #{banner,jdbcType=VARCHAR},
+      </if>
+      <if test="touristGuide != null" >
+        tourist_guide = #{touristGuide,jdbcType=VARCHAR},
+      </if>
+      <if test="musterTime != null" >
+        muster_time = #{musterTime,jdbcType=DATE},
+      </if>
+      <if test="musterPlace != null" >
+        muster_place = #{musterPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyCall != null" >
+        emergency_call = #{emergencyCall,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContact != null" >
+        emergency_contact = #{emergencyContact,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="departureStatus != null" >
+        departure_status = #{departureStatus,jdbcType=TINYINT},
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time = #{cancelTime,jdbcType=DATE},
+      </if>
+      <if test="cancelUser != null" >
+        cancel_user = #{cancelUser,jdbcType=BIGINT},
+      </if>
+      <if test="cancelComment != null" >
+        cancel_comment = #{cancelComment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.schedule.ScheduleSetting" >
+    update ct_schedule_setting
+    set schedule_id = #{scheduleId,jdbcType=BIGINT},
+      group_no = #{groupNo,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      company_id = #{companyId},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      adult_tourists_num = #{adultTouristsNum,jdbcType=INTEGER},
+      child_tourists_num = #{childTouristsNum,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=DATE},
+      return_date = #{returnDate,jdbcType=DATE},
+      banner = #{banner,jdbcType=VARCHAR},
+      tourist_guide = #{touristGuide,jdbcType=VARCHAR},
+      muster_time = #{musterTime,jdbcType=DATE},
+      muster_place = #{musterPlace,jdbcType=VARCHAR},
+      emergency_call = #{emergencyCall,jdbcType=VARCHAR},
+      emergency_contact = #{emergencyContact,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      departure_status = #{departureStatus,jdbcType=TINYINT},
+      cancel_time = #{cancelTime,jdbcType=DATE},
+      cancel_user = #{cancelUser,jdbcType=BIGINT},
+      cancel_comment = #{cancelComment,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByScheduleId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select u.u_real_name cancel_user_name,
+    cs.*
+    from ct_schedule_setting cs LEFT JOIN sm_user u ON cs.cancel_user = u.id
+    where schedule_id = #{scheduleId,jdbcType=BIGINT}
+  </select>
+  <resultMap id="OrderTripsResultMap" type="com.jdy.b2b.api.model.diy.OrderTripDTO">
+    <result column="t_product_id" property="tProductId"/>
+    <result column="t_title" property="tTitle"/>
+    <result column="t_type" property="tType"/>
+    <result column="t_from_to" property="tFromTo"/>
+    <result column="t_meals" property="tMeals"/>
+    <result column="t_meals_remark" property="tMealsRemark"/>
+    <result column="t_hotel_remark" property="tHotelRemark"/>
+    <result column="t_simple_trip" property="tSimpleTrip"/>
+    <result column="t_detail_trip" property="tDetailTrip"/>
+    <result column="tc_start_day" property="tcStartDay"/>
+    <result column="tc_end_day" property="tcEndDay"/>
+    <result column="hotel_names" property="hotelNames"/>
+  </resultMap>
+
+  <select id="selectTripsByProductId" resultMap="OrderTripsResultMap">
+        select  ct.id,
+      ct.t_product_id,
+      ct.t_title,
+      ct.t_type,
+      ct.t_from_to,
+      ct.t_meals,
+      ct.t_meals_remark,
+      ct.t_hotel_remark,
+      ct.t_simple_trip,
+      ct.t_detail_trip,
+      ctc.tc_start_day,
+      ctc.tc_end_day hotel_names from ct_trip ct
+    LEFT JOIN ct_trip_calendar ctc on ct.id=ctc.tc_trip_id
+    LEFT JOIN ct_trip_hotel cth on ct.id=cth.ph_trip_id
+    LEFT JOIN sr_hotel sh on cth.ph_hotel_id=sh.id
+    WHERE ct.t_product_id = #{id}
+  </select>
+  <select id="selectAllStartedSchedule" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ct_schedule_setting
+    where departure_status = 1
+  </select>
+
+  <resultMap id="OrderGroupConfirmationResultMap" type="com.jdy.b2b.api.model.diy.OrderGroupConfirmation">
+    <result property="oProductId" column="pid"/>
+    <result property="pType" column="p_type"/>
+    <result property="pNo" column="p_no"/>
+    <result property="pName" column="p_name"/>
+    <result property="pDays" column="p_days"/>
+    <result property="pCostInclude" column="p_cost_include"/>
+    <result property="pCostExclude" column="p_cost_exclude"/>
+    <result property="pSpecial" column="p_special"/>
+    <result property="pNotes" column="p_notes"/>
+
+    <result property="sCalendar" column="s_calendar"/>
+    <result property="sLeaveTime" column="s_leave_time"/>
+    <result property="sSitType" column="s_sit_type"/>
+
+    <result property="salerCompanyTel" column="salerCompanyTel"/>
+    <result property="salerCompanyPhone" column="salerCompanyPhone"/>
+    <result property="salerCompanyAddress" column="salerCompanyAddress"/>
+    <result property="salerCompanyFax" column="salerCompanyFax"/>
+    <result property="salerPhone" column="salerPhone"/>
+    <result property="oSalerName" column="oSalerName"/>
+    <result property="oSalerCompanyName" column="oSalerCompanyName"/>
+  </resultMap>
+
+  <select id="selectProductById" resultMap="OrderGroupConfirmationResultMap">
+      SELECT
+            p.id pid,
+            p.p_type,
+            p.p_no,
+            p.p_name,
+            p.p_days,
+
+            pe.pe_cost_include p_cost_include,
+            pe.pe_cost_exclude p_cost_exclude,
+            pe.pe_special p_special,
+            pe.pe_notes p_notes,
+
+            c1.c_tel salerCompanyTel,
+            c1.c_phone salerCompanyPhone,
+            c1.c_address salerCompanyAddress,
+            c1.c_fax salerCompanyFax,
+            c1.c_name oSalerCompanyName,
+            u1.u_tel salerPhone,
+            u1.u_real_name oSalerName
+        FROM
+          ct_product p
+        INNER JOIN ct_product_extends pe on pe.pe_product_id = p.id
+        LEFT JOIN sm_user u1 ON u1.id = p.p_contacts
+        LEFT JOIN sm_company c1 ON c1.id = p.company_id
+
+        WHERE
+            p.id = #{id}
+  </select>
+  <update id="updateDepartureStatus" parameterType="com.jdy.b2b.api.model.schedule.ScheduleSetting" >
+    UPDATE ct_schedule_setting
+    <set>
+      <if test="departureStatus != null" >
+        departure_status = #{departureStatus,jdbcType=TINYINT},
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time = #{cancelTime},
+      </if>
+      <if test="cancelUser != null" >
+        cancel_user = #{cancelUser,jdbcType=BIGINT},
+      </if>
+      <if test="cancelComment != null" >
+        cancel_comment = #{cancelComment,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmTime!=null">
+        confirm_time = #{confirmTime}
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByGroup_no" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List"/>
+    from ct_schedule_setting
+    where group_no = #{group_no,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryScheduleInfo" parameterType="long" resultType="com.jdy.b2b.api.model.schedule.ScheduleInfo">
+    SELECT
+    t.`id`,
+    t.`s_product_id` AS productId,
+    t.`s_schedule_no` AS scheduleNo,
+    t.`s_schedule_name` AS scheduleName,
+    t.`s_group_order_no` AS groupOrderNo,
+    t.`s_calendar` AS calendar,
+    t1.`product_name` AS productName,
+    t1.`company_name` AS companyName,
+    t1.`user_name` AS userName,
+    t1.`user_phone` AS userPhone,
+    t1.`adult_tourists_num` AS adultTouristsNum,
+    t1.`child_tourists_num` AS childTouristsNum,
+    t1.`start_date` AS startDate,
+    t1.`return_date` AS returnDate,
+    t1.`departure_status` AS departureStatus,
+    t3.costAmt,
+    t2.create_user AS costUpdater,
+    t2.create_time AS costTime
+    FROM
+    ct_schedule t
+    INNER JOIN ct_product p ON p.id = t.s_product_id
+    INNER JOIN ct_schedule_setting t1 ON t.id = t1.schedule_id
+    LEFT JOIN ct_product_costing_title t2 ON t2.rel_id = t.id AND t2.type = 2 AND p.company_id = t2.company_id
+    LEFT JOIN
+    (SELECT
+    product_costing_title_id,
+    SUM(amount * unit_price) AS costAmt
+    FROM
+    ct_product_costing_category_detail
+    GROUP BY product_costing_title_id) t3 ON t3.product_costing_title_id = t2.id
+    <if test="scheduleInfoId !=null and scheduleInfoId > 0">
+      AND t1.id = #{scheduleInfoId}
+    </if>
+    <if test="productCostingTitleId !=null and productCostingTitleId > 0">
+      AND t2.id = #{productCostingTitleId}
+    </if>
+    <if test="id !=null and id > 0">
+      AND t.id = #{id}
+    </if>
+    LIMIT 0, 1
+  </select>
+
+  <select id="selectByScheduleIdAndCompanyId" resultMap="BaseResultMap" >
+    select u.u_real_name cancel_user_name,
+    cs.*
+    from ct_schedule_setting cs LEFT JOIN sm_user u ON cs.cancel_user = u.id
+    where schedule_id = #{scheduleId,jdbcType=BIGINT}
+    <if test="companyId != null">
+    and cs.company_id = #{companyId}
+    </if>
+  </select>
+</mapper>

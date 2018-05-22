@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.pic.AttachMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.pic.Attach">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="p_type" jdbcType="INTEGER" property="pType" />
+    <result column="p_pid" jdbcType="BIGINT" property="pPid" />
+    <result column="p_album_id" jdbcType="BIGINT" property="pAlbumId" />
+    <result column="p_real_name" jdbcType="VARCHAR" property="pRealName" />
+    <result column="p_oss_name" jdbcType="VARCHAR" property="pOssName" />
+    <result column="p_size" jdbcType="BIGINT" property="pSize" />
+    <result column="p_pic_type" jdbcType="VARCHAR" property="pPicType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="tableName">cm_attach</sql>
+  <sql id="Base_Column_List">
+    id, p_type, p_pid, p_album_id, p_real_name, p_oss_name, p_size, p_pic_type, create_time, 
+    create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cm_attach
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cm_attach
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.pic.Attach" keyProperty="id" useGeneratedKeys="true">
+    insert into cm_attach ( p_type, p_pid, 
+      p_album_id, p_real_name, p_oss_name, 
+      p_size, p_pic_type, create_time, 
+      create_user, update_time, update_user
+      )
+    values ( #{pType,jdbcType=INTEGER}, #{pPid,jdbcType=BIGINT}, 
+      #{pAlbumId,jdbcType=BIGINT}, #{pRealName,jdbcType=VARCHAR}, #{pOssName,jdbcType=VARCHAR}, 
+      #{pSize,jdbcType=BIGINT}, #{pPicType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="batchSave" parameterType="java.util.List" keyProperty="id" useGeneratedKeys="true">
+    insert into cm_attach (id, p_type, p_pid, 
+      p_album_id, p_real_name, p_oss_name, 
+      p_size, p_pic_type, create_time, 
+      create_user, update_time, update_user
+      )values 
+      <foreach collection="list" item="t" separator=",">
+      (#{t.id,jdbcType=BIGINT}, #{t.pType,jdbcType=INTEGER}, #{t.pPid,jdbcType=BIGINT}, 
+      #{t.pAlbumId,jdbcType=BIGINT}, #{t.pRealName,jdbcType=VARCHAR}, #{t.pOssName,jdbcType=VARCHAR}, 
+      #{t.pSize,jdbcType=BIGINT}, #{t.pPicType,jdbcType=VARCHAR}, #{t.createTime,jdbcType=TIMESTAMP}, 
+      #{t.createUser,jdbcType=BIGINT}, #{t.updateTime,jdbcType=TIMESTAMP}, #{t.updateUser,jdbcType=BIGINT}
+      )
+      </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.pic.Attach">
+    insert into cm_attach
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pType != null">
+        p_type,
+      </if>
+      <if test="pPid != null">
+        p_pid,
+      </if>
+      <if test="pAlbumId != null">
+        p_album_id,
+      </if>
+      <if test="pRealName != null">
+        p_real_name,
+      </if>
+      <if test="pOssName != null">
+        p_oss_name,
+      </if>
+      <if test="pSize != null">
+        p_size,
+      </if>
+      <if test="pPicType != null">
+        p_pic_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pType != null">
+        #{pType,jdbcType=INTEGER},
+      </if>
+      <if test="pPid != null">
+        #{pPid,jdbcType=BIGINT},
+      </if>
+      <if test="pAlbumId != null">
+        #{pAlbumId,jdbcType=BIGINT},
+      </if>
+      <if test="pRealName != null">
+        #{pRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="pOssName != null">
+        #{pOssName,jdbcType=VARCHAR},
+      </if>
+      <if test="pSize != null">
+        #{pSize,jdbcType=BIGINT},
+      </if>
+      <if test="pPicType != null">
+        #{pPicType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.pic.Attach">
+    update cm_attach
+    <set>
+      <if test="pType != null">
+        p_type = #{pType,jdbcType=INTEGER},
+      </if>
+      <if test="pPid != null">
+        p_pid = #{pPid,jdbcType=BIGINT},
+      </if>
+      <if test="pAlbumId != null">
+        p_album_id = #{pAlbumId,jdbcType=BIGINT},
+      </if>
+      <if test="pRealName != null">
+        p_real_name = #{pRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="pOssName != null">
+        p_oss_name = #{pOssName,jdbcType=VARCHAR},
+      </if>
+      <if test="pSize != null">
+        p_size = #{pSize,jdbcType=BIGINT},
+      </if>
+      <if test="pPicType != null">
+        p_pic_type = #{pPicType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.pic.Attach">
+    update cm_attach
+    set p_type = #{pType,jdbcType=INTEGER},
+      p_pid = #{pPid,jdbcType=BIGINT},
+      p_album_id = #{pAlbumId,jdbcType=BIGINT},
+      p_real_name = #{pRealName,jdbcType=VARCHAR},
+      p_oss_name = #{pOssName,jdbcType=VARCHAR},
+      p_size = #{pSize,jdbcType=BIGINT},
+      p_pic_type = #{pPicType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByAlbId">
+  delete from <include refid="tableName"/>
+  where p_album_id=#{albId}
+  </delete>
+  <delete id="deleteByIds" >
+  delete from <include refid="tableName"/>
+  where id in <foreach collection="list" item="t" close=")" open="(" separator=",">#{t}</foreach>
+  </delete>
+  <sql id="fullWhere">
+	<where>
+		<if test="id !=null">
+	AND id=#{id}
+	</if>
+	<if test="pType !=null">
+	AND p_type=#{pType}
+	</if>
+	<if test="pPid !=null">
+	AND p_pid=#{pPid}
+	</if>
+	<if test="pAlbumId !=null">
+	AND p_album_id=#{pAlbumId}
+	</if>
+	<if test="pRealName !=null">
+	<bind name="likepRealName" value="'%'+ pRealName +'%' "/>
+	AND p_real_name LIKE #{likepRealName}
+	</if>
+	<if test="pOssName !=null">
+	AND p_oss_name = #{pOssName}
+	</if>
+	<if test="pPicType !=null">
+	AND p_pic_type=#{pPicType}
+	</if>
+	<if test="userIds !=null">
+	AND create_user IN <foreach collection="userIds" open="(" close=")" item="t" separator=",">#{t}</foreach>
+	</if>
+	</where>
+  </sql>
+  <select id="queryList" resultMap="BaseResultMap">
+  SELECT <include refid="Base_Column_List"/>
+  FROM <include refid="tableName"/>
+  <include refid="fullWhere"/>
+  LIMIT #{startNum},#{pageSize}
+  </select>  
+  <select id="queryListCount" resultType="int">
+  SELECT count(1)
+  FROM <include refid="tableName"/>
+  <include refid="fullWhere"/>
+  </select>
+  <delete id="batchDelete" parameterType="java.util.List">
+	<if test="list !=null and list.size()>0">
+	<foreach collection="list" item="t" separator=";">
+	DELETE FROM <include refid="tableName"/> 
+	WHERE p_pid =#{t.pPid} AND p_type=#{t.pType}
+	</foreach>
+	</if>
+  </delete>  
+  <delete id="batchDeleteByTrips" parameterType="java.util.List">
+  DELETE FROM <include refid="tableName"/> 
+  WHERE
+  p_pid IN <foreach collection="list" item="t" separator="," close=")" open="(">#{t.id}</foreach>
+  AND p_type=1
+  </delete>  
+  <select id="queryAttachPpId" resultType="String">
+  SELECT p_oss_name FROM cm_attach WHERE p_type=#{type} AND p_pid=#{ppid}
+  </select>
+  <update id="updateAttachByPpIdAndType" >
+	UPDATE cm_attach
+	SET p_oss_name = #{pOssName}
+	WHERE
+	p_type=#{type} AND p_pid=#{ppid}
+  </update>
+
+  <delete id="deleteOldPic" parameterType="long">
+    delete from cm_attach where p_pid = #{adverId} and p_type = 4
+  </delete>
+</mapper>

@@ -1,0 +1,118 @@
+body{
+    height:100%
+}
+.login-left{
+    width: 25%;  
+    height: 100vh;
+    background: url("../images/left.png") center center  no-repeat;
+    background-size: cover
+}
+.logosmall{
+    width: 25%;
+    height: 130px;
+    background: url("../images/logo-130x130.png") center center  no-repeat;
+    background-size: contain 
+}
+.login-right{
+    width:75%;
+    height: 100vh;
+    position: relative
+}
+.login-right>div:first-child{
+    text-align: center;
+    /* width: 480px; */
+    width: 25vw;
+    min-width: 250px;
+    max-width: 450px;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);    
+}
+#title{
+    width:480px;
+    text-align: left;
+    font-size: xx-large;
+}
+.btn{
+    width:100%;
+    height: 50px;
+}
+div.footer{
+    position: absolute;
+    bottom: 3vh;
+    width:100%;
+    color:#9f9f9f;
+    text-align: center;
+}
+div.title-son{
+    text-align: left;
+    /* margin-top: 35px;
+    margin-bottom: 70px; */
+    margin-top: 2vh;
+    margin-bottom: 5vh;    
+}
+div.title-son>span{
+    font-size: larger;
+}
+div.title-son>button{
+    float: right;
+}
+div.btn-div{
+    text-align: left;
+}
+.btn-div>div{
+    float:right;
+}
+div.submit{
+    /* margin-top: 40px; */
+    margin-top: 5vh;
+}
+.yjk-login .el-input__inner{
+    height: 50px;
+}
+/*error*/
+.main{
+    width: 100%;
+}
+.main>div{
+    text-align: center;
+    margin: 0 auto;
+}
+.erbtn{
+    color:#575e6a;
+    width: 200px;
+    height: 50px;
+    border: 1px solid #e7eaf3;
+    border-radius: 50px;
+}
+#refresh{
+    background:#e7eaf3;
+    margin-bottom: 40px;
+}
+#bgimg{
+    margin-top: 100px;
+    margin-bottom: 90px;
+    width: 780px;
+    height: 355px;
+    background: url("../images/errors.png")
+}
+
+
+.el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }

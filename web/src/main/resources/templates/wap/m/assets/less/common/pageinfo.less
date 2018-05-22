@@ -1,0 +1,79 @@
+#send-pageinfo{
+	position: fixed;
+	left: 10px;
+	bottom: 60px;
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+	overflow: hidden;
+	/*background-color: rgba(255,0,0,0.4);*/
+	background-color: rgba(0,0,0,0.2);
+	text-align: center;
+	line-height: 30px;
+	color: #fff;
+	z-index: 999;
+	font-size: 10px;
+}
+
+#pageinfo-pop{
+	h3{
+		text-align: center;
+		font-size: 14px;
+	}
+
+	.info{
+		textarea{
+			width: 100%;
+			margin-top: 10px;
+			border: 1px solid #ddd;
+			padding: 10px;
+			box-sizing: border-box;
+			height: 80px;
+		}
+
+		p{
+			text-align: center;
+			line-height: 30px;
+			font-size: 12px;
+		}
+
+		p.num{
+			color: #f00;
+			font-size: 20px;
+			padding: 10px 0;
+		}
+	}
+
+	.btn{
+		margin-top: 10px;
+		text-align: center;
+
+		a{
+			width: 48%;
+			text-align: center;
+			line-height: 26px;
+			background-color: #ddd;
+			font-size: 12px;
+		}
+
+		a.cancel{
+			float: left;
+		}
+
+		a.submit{
+			float: right;
+			background-color: #f00;
+			color: #fff;
+		}
+
+		a.close{
+			background-color: #f00;
+			color: #fff;
+			display: inline-block;
+		}
+
+		a.disable{
+			opacity: 0.6;
+		}
+	}
+}

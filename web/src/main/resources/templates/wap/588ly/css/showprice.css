@@ -1,0 +1,118 @@
+.price-wrap{
+	max-height: 300px;
+	overflow-y: auto;
+}
+.price-table{
+	position: absolute;
+	right: -410px;
+	top: 0px;
+	background: #fff;
+	width: 450px;
+	display: none;
+	z-index: 100;
+	border: 1px solid #373737;
+	
+}
+.price-table i.fa-caret-left{
+	color: #373737;
+	position: absolute;
+	left: -10px;
+	top: 8px;
+	z-index: 101;
+}
+.price-table i.fa-caret-up{
+	color: #373737;
+	position: absolute;
+	left: 260px;
+	top: -10px;
+	z-index: 101;
+}
+.price-table table{
+	width: 100%;
+	text-align: center;
+	font-size: 10px;
+}
+
+.price-table table thead th{
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	background: #373737;
+	color: #ffa600;
+	font-size: 12px;
+}
+.price-table table thead th:nth-child(1){
+	text-align: left;
+}
+.price-table table tbody td{
+	height: 40px;
+	line-height: 40px;
+	font-size: 12px;
+	border-bottom: 1px dashed #ccc;
+	color: #666;
+}
+.price-table table tbody tr td:not(:nth-child(1)){
+	/*width: 95px;*/
+}
+
+.price-table .color-green{
+	color: #37cc71;
+}
+
+.price-table table tbody tr:last-child td{
+	border-bottom: none;
+}
+
+.price-table table tbody tr td:first-child{
+	padding: 0 3px;
+	max-width: 140px;
+}
+.price-table table tbody tr td:first-child div{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 110px;
+	text-align: left;
+	/*margin: 0 auto;*/
+}
+
+.s-already .event:hover .price-table{
+	display: block;
+}
+
+.showprice:hover .price-table{
+	display: block;
+}
+
+.priceColor_danger{
+	position: relative;
+}
+
+.priceColor_danger:hover .price-table{
+	display: block;
+}
+.price-table table tbody tr{
+	background: #fff;
+}
+
+.price-table table tbody tr:hover{
+	background: #f1f1f1;
+}
+.adult{
+	width: 20px;
+	height: 40px;
+	background: url('../img/adult.png') no-repeat center center;
+	float: left;
+}
+.children{
+	width: 20px;
+	height: 40px;
+	background: url('../img/children.png') no-repeat center center;
+	float: left;
+}
+.family{
+	width: 20px;
+	height: 40px;
+	background: url('../img/family.png') no-repeat center center;
+	float: left;
+}

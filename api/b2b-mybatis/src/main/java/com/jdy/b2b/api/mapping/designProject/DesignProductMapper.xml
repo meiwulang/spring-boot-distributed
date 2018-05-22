@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.designProject.DesignProductMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.designProject.DesignProduct" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="design_id" property="designId" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, design_id, product_id, status, create_time, create_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ct_design_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByDesignId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ct_design_product
+    where design_id = #{designId,jdbcType=BIGINT} and status = 0
+    limit 0,1
+  </select>
+  <select id="selectProductsByNameAndNoInUserCompany" resultMap="com.jdy.b2b.api.dao.product.ProductMapper.BaseResultMap">
+    SELECT * from ct_product WHERE company_id = #{pcompanyId}
+    <if test="searchParam != null and searchParam != ''">
+      <bind name="fastSearchStrLike" value="'%'+searchParam+'%'"/>
+      AND CONCAT(IFNULL(p_no,''),IFNULL(p_name,'')) LIKE #{fastSearchStrLike}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ct_design_product
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.designProject.DesignProduct" >
+    insert into ct_design_product (id, design_id, product_id, 
+      status, create_time, create_user
+      )
+    values (#{id,jdbcType=BIGINT}, #{designId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
+      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.designProject.DesignProduct" >
+    insert into ct_design_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="designId != null" >
+        design_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="designId != null" >
+        #{designId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.designProject.DesignProduct" >
+    update ct_design_product
+    <set >
+      <if test="designId != null" >
+        design_id = #{designId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.designProject.DesignProduct" >
+    update ct_design_product
+    set design_id = #{designId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

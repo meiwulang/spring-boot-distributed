@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.reports.AgentActivityStatisticsMapper">
+
+    <!-- 查询所有公司下代理人活跃度 -->
+    <select id="selectAgentActivityOfTotalCompany" parameterType="com.jdy.b2b.api.model.reports.AgentActivityQueryDTO" resultType="com.jdy.b2b.api.model.reports.AgentActivityResultDO">
+        SELECT
+            t.id AS companyId,
+            t.companyName,
+            t.agentNums,
+            t.orderNums,
+            t.hasOrderAgentNums,
+            t.salesAmount,
+            IF(t.agentNums=0,0,ROUND(t.hasOrderAgentNums/t.agentNums*100,2)) AS agentActivity
+        FROM
+        (
+            SELECT
+                t.id,
+                t.c_name AS companyName,
+                IFNULL(t.agentNums,0) AS agentNums,
+                IFNULL(t1.orderNums,0) AS orderNums,
+                IFNULL(t1.hasOrderAgentNums,0) AS hasOrderAgentNums,
+                ROUND(IFNULL(t1.salesAmount,0),2) AS salesAmount
+            FROM
+            (
+                SELECT
+                    t.id,t.c_name,
+                    COUNT(t1.user_id) AS agentNums
+                FROM sm_company t
+                LEFT JOIN
+                (
+                    SELECT
+                        DISTINCT u.id as user_id,
+                        u.company_id
+                    FROM sm_user u
+                    INNER JOIN
+                    (
+                        select u_wx_openid
+                        FROM sm_user
+                        where u_position_id = 202
+                    ) u2 on (u.u_pid = u2.u_wx_openid)
+                    WHERE u.u_level = 2
+                    UNION ALL
+                    SELECT
+                      DISTINCT u.id as user_id,
+                      u.company_id
+                    FROM sm_user u
+                    INNER JOIN
+                    (
+                        select DISTINCT u_wx_openid AS u_wx_openid
+                        FROM sm_user t
+                        where EXISTS (select 1 from sm_user where u_wx_openid = t.u_pid and u_position_id = 202)
+                    ) u2 on (u.u_pid = u2.u_wx_openid)
+                    WHERE u.u_level = 3
+                ) t1 ON (t.id = t1.company_id)
+                <if test="dataLimit == 0"> <!-- 用户级，只能查询包含对应用户所属公司记录 -->
+                    INNER JOIN (SELECT id,company_id FROM sm_user where id = #{dataValue}) t2
+                    ON (t.id = t2.company_id AND t2.id = t1.user_id)
+                </if>
+                <if test="dataLimit == 1"> <!-- 部门级，只能查询包含对应部门所属公司记录 -->
+                    INNER JOIN (SELECT id,company_id FROM sm_user where u_department_id = #{dataValue}) t2
+                    ON (t.id = t2.company_id AND t2.id = t1.user_id)
+                </if>
+                WHERE 1=1
+                <if test="dataLimit == 2"> <!-- 公司级，只能查询包含对应公司记录 -->
+                    AND t.id = #{dataValue}
+                </if>
+                GROUP BY t.id
+            ) t
+            LEFT JOIN
+            (
+                SELECT
+                    COUNT(t.order_id) AS orderNums,
+                    t.company_id,
+                    COUNT(DISTINCT t.user_id) AS hasOrderAgentNums,
+                    SUM(IFNULL(t.order_money,0)) AS salesAmount
+                FROM sl_orders_report t
+                INNER JOIN
+                (
+                    SELECT id,update_time FROM sl_order
+                    <if test="queryMonth != null and queryMonth != ''">
+                        WHERE DATE_FORMAT(update_time,'%Y-%m') = DATE_FORMAT(#{queryMonth},'%Y-%m')
+                    </if>
+                ) t1 ON (t.order_id = t1.id)
+                INNER JOIN
+                (
+                    SELECT
+                        DISTINCT u.id as user_id,
+                        u.company_id
+                    FROM sm_user u
+                    INNER JOIN
+                    (
+                        select u_wx_openid
+                        FROM sm_user
+                        where u_position_id = 202
+                    ) u2 on (u.u_pid = u2.u_wx_openid)
+                    WHERE u.u_level = 2
+                    <if test="dataLimit == 0"> <!-- 用户级 -->
+                        AND u.id = #{dataValue}
+                    </if>
+                    <if test="dataLimit == 1"> <!-- 部门级 -->
+                        AND EXISTS (SELECT 1 FROM sm_user where u_department_id = #{dataValue})
+                    </if>
+                    UNION ALL
+                    SELECT
+                        DISTINCT u.id as user_id,
+                        u.company_id
+                    FROM sm_user u
+                    INNER JOIN
+                    (
+                        select DISTINCT u_wx_openid AS u_wx_openid
+                        FROM sm_user t
+                        where EXISTS (select 1 from sm_user where u_wx_openid = t.u_pid and u_position_id = 202)
+                    ) u2 on (u.u_pid = u2.u_wx_openid)
+                    WHERE u.u_level = 3
+                    <if test="dataLimit == 0"> <!-- 用户级 -->
+                        AND u.id = #{dataValue}
+                    </if>
+                    <if test="dataLimit == 1"> <!-- 部门级 -->
+                        AND EXISTS (SELECT 1 FROM sm_user where u_department_id = #{dataValue})
+                    </if>
+                ) t2 ON (t.user_id = t2.user_id)
+                <if test="dataLimit == 2"> <!-- 单位级 -->
+                    WHERE t.company_id = #{dataValue}
+                </if>
+                GROUP BY t.company_id
+            ) t1 ON (t.id = t1.company_id)
+        ) t
+        ORDER BY agentActivity DESC
+    </select>
+
+    <!-- 根据公司查询部门下代理人活跃度 -->
+    <select id="selectAgentActivityOfDeptByCompany" parameterType="com.jdy.b2b.api.model.reports.AgentActivityQueryDTO" resultType="com.jdy.b2b.api.model.reports.AgentActivityResultDO">
+        SELECT
+            t.id AS deptId,
+            t.deptName,
+            t.agentNums,
+            t.orderNums,
+            t.hasOrderAgentNums,
+            t.salesAmount,
+            IF(t.agentNums=0,0,ROUND(t.hasOrderAgentNums/t.agentNums*100,2)) AS agentActivity
+        FROM
+        (
+            SELECT
+                t.id,
+                t.d_name AS deptName,
+                IFNULL(t.agentNums,0) AS agentNums,
+                IFNULL(t1.orderNums,0) AS orderNums,
+                IFNULL(t1.hasOrderAgentNums,0) AS hasOrderAgentNums,
+                ROUND(IFNULL(t1.salesAmount,0),2) AS salesAmount
+            FROM
+            (
+                SELECT
+                d.id,IFNULL(d.d_nick_name,d.d_name) d_name,
+                COUNT(t1.user_id) AS agentNums
+                FROM sm_department d
+                LEFT JOIN
+                (
+                    SELECT
+                        DISTINCT u.id as user_id,
+                        u.u_department_id
+                    FROM sm_user u
+                    INNER JOIN
+                    (
+                        select u_wx_openid
+                        FROM sm_user
+                        where u_position_id = 202
+                    ) u2 on (u.u_pid = u2.u_wx_openid)
+                    WHERE u.u_level = 2
+                    <if test="dataLimit == 0"> <!-- 用户级 -->
+                        AND u.id = #{dataValue}
+                    </if>
+                    UNION ALL
+                    SELECT
+                        DISTINCT u.id as user_id,
+                        u.u_department_id
+                    FROM sm_user u
+                    INNER JOIN
+                    (
+                        select DISTINCT u_wx_openid AS u_wx_openid
+                        FROM sm_user t
+                        where EXISTS (select 1 from sm_user where u_wx_openid = t.u_pid and u_position_id = 202)
+                    ) u2 on (u.u_pid = u2.u_wx_openid)
+                    WHERE u.u_level = 3
+					<if test="dataLimit == 0"> <!-- 用户级 -->
+                        AND u.id = #{dataValue}
+                    </if>
+                ) t1 ON (d.id = t1.u_department_id)
+                WHERE d.company_id = #{companyId}
+                <if test="dataLimit == 0"> <!-- 用户级 -->
+                    AND d.id in (select u_department_id FROM sm_user WHERE id = #{dataValue})
+                </if>
+                <if test="dataLimit == 1"> <!-- 部门级 -->
+                    AND d.id = #{dataValue}
+                </if>
+                GROUP BY d.id
+            ) t
+            LEFT JOIN
+            (
+                SELECT
+                    COUNT(t.order_id) AS orderNums,
+                    t.depart_id,
+                    COUNT(DISTINCT t.user_id) AS hasOrderAgentNums,
+                    SUM(IFNULL(t.order_money,0)) AS salesAmount
+                FROM sl_orders_report t
+                INNER JOIN
+                (
+                    SELECT id,update_time FROM sl_order
+                    <if test="queryMonth != null and queryMonth != ''">
+                        WHERE DATE_FORMAT(update_time,'%Y-%m') = DATE_FORMAT(#{queryMonth},'%Y-%m')
+                    </if>
+                ) t1 ON (t.order_id = t1.id)
+                INNER JOIN
+                (
+                    SELECT
+                        DISTINCT u.id as user_id,
+                        u.u_department_id
+                    FROM sm_user u
+                    INNER JOIN
+                    (
+                        select u_wx_openid
+                        FROM sm_user
+                        where u_position_id = 202
+                    ) u2 on (u.u_pid = u2.u_wx_openid)
+                    WHERE u.u_level = 2
+                    <if test="dataLimit == 0"> <!-- 用户级 -->
+                        AND u.id = #{dataValue}
+                    </if>
+                    <if test="dataLimit == 1"> <!-- 部门级 -->
+                        AND u.u_department_id = #{dataValue}
+                    </if>
+                    UNION ALL
+                    SELECT
+                        DISTINCT u.id as user_id,
+                        u.u_department_id
+                    FROM sm_user u
+                    INNER JOIN
+                    (
+                        select DISTINCT u_wx_openid AS u_wx_openid
+                        FROM sm_user t
+                        where EXISTS (select 1 from sm_user where u_wx_openid = t.u_pid and u_position_id = 202)
+                    ) u2 on (u.u_pid = u2.u_wx_openid)
+                    WHERE u.u_level = 3
+					<if test="dataLimit == 0"> <!-- 用户级 -->
+                        AND u.id = #{dataValue}
+                    </if>
+                    <if test="dataLimit == 1"> <!-- 部门级 -->
+                        AND u.u_department_id = #{dataValue}
+                    </if>                    
+                ) t2 ON (t2.user_id = t.user_id)
+              WHERE t.company_id = #{companyId}
+              GROUP BY t.depart_id
+          ) t1 ON (t.id = t1.depart_id)
+        ) t
+        ORDER  BY agentActivity DESC
+    </select>
+
+    <!-- 根据部门查询销售经理下代理人活跃度-->
+    <select id="selectAgentActivityOfSalesManagerByDept" parameterType="com.jdy.b2b.api.model.reports.AgentActivityQueryDTO" resultType="com.jdy.b2b.api.model.reports.AgentActivityResultDO">
+        SELECT
+            t.id AS salesManagerId,
+            t.u_real_name AS salesManagerName,
+            t.agentNums,
+            t.orderNums,
+            t.hasOrderAgentNums,
+            t.salesAmount,
+            IF(t.agentNums=0,0,ROUND(t.hasOrderAgentNums/t.agentNums*100,2)) AS agentActivity
+        FROM
+        (
+            SELECT
+                t.id,
+                t.u_real_name,
+                COUNT(DISTINCT t1.user_id) AS agentNums,
+                SUM(IFNULL(t2.orderNums,0)) AS orderNums,
+                SUM(IFNULL(t2.hasOrderAgentNums,0)) AS hasOrderAgentNums,
+                ROUND(SUM(IFNULL(t2.salesAmount,0)),2) AS salesAmount
+            FROM
+            (
+                SELECT
+                    DISTINCT u.id AS id,
+                    u.u_real_name,
+                    u.u_wx_openid,
+                    u.u_level,
+                    u_department_id
+                FROM sm_user u
+                INNER JOIN
+                (
+                    SELECT id FROM sm_department
+                ) d ON (u.u_department_id = d.id)
+                WHERE u.u_position_id = 202
+                AND u_department_id = #{deptId}
+                <if test="dataLimit == 0"> <!-- 用户级 -->
+                    AND u.id = #{dataValue}
+                </if>
+                GROUP BY u.id
+            ) t            
+			LEFT JOIN
+            (			
+				SELECT
+					DISTINCT u.id as user_id,
+					u.u_pid,
+					u2.u_wx_openid as parent_id
+				FROM sm_user u
+				INNER JOIN
+				(
+					select u_wx_openid
+					FROM sm_user
+					where u_position_id = 202
+				) u2 on (u.u_pid = u2.u_wx_openid)
+				WHERE u.u_level = 2		
+				AND u.u_department_id = #{deptId}		
+				UNION ALL
+				SELECT
+					DISTINCT u.id as user_id,
+					u.u_pid,
+					u2.parent_id
+				FROM sm_user u
+				INNER JOIN
+				(
+					select DISTINCT t.u_wx_openid AS u_wx_openid,
+						t1.u_wx_openid as parent_id
+					FROM sm_user t
+					INNER JOIN (select u_wx_openid from sm_user where u_position_id = 202) t1 on t1.u_wx_openid = t.u_pid
+				) u2 on (u.u_pid = u2.u_wx_openid)
+				WHERE u.u_level = 3				
+                AND u.u_department_id = #{deptId}			
+            ) t1 ON (t.u_wx_openid = t1.parent_id)		
+            LEFT JOIN
+            (
+                SELECT
+                    COUNT(order_id) AS orderNums,
+                    t.user_id,
+                    t2.parent_id,
+                    COUNT(DISTINCT t.user_id) AS hasOrderAgentNums,
+                    SUM(IFNULL(order_money,0)) AS salesAmount
+                FROM sl_orders_report t
+                INNER JOIN
+                (
+                    SELECT id,update_time FROM sl_order
+                    <if test="queryMonth != null and queryMonth != ''">
+                        WHERE DATE_FORMAT(update_time,'%Y-%m') = DATE_FORMAT(#{queryMonth},'%Y-%m')
+                    </if>
+                ) t1 ON (t.order_id = t1.id)
+                INNER JOIN
+                (     
+					SELECT
+						DISTINCT u.id as user_id,
+						u.u_pid,
+						u2.u_wx_openid as parent_id
+					FROM sm_user u
+					INNER JOIN
+					(
+						select u_wx_openid
+						FROM sm_user
+						where u_position_id = 202
+						<if test="dataLimit == 0"> <!-- 用户级 -->
+                            AND id = #{dataValue}
+                        </if>
+					) u2 on (u.u_pid = u2.u_wx_openid)
+					WHERE u.u_level = 2		
+					AND u.u_department_id = #{deptId}		
+					UNION ALL
+					SELECT
+						DISTINCT u.id as user_id,
+						u.u_pid,
+						u2.parent_id
+					FROM sm_user u
+					INNER JOIN
+					(
+						select DISTINCT t.u_wx_openid AS u_wx_openid,
+							t1.u_wx_openid as parent_id
+						FROM sm_user t
+						INNER JOIN (select u_wx_openid from sm_user where u_position_id = 202
+							<if test="dataLimit == 0"> <!-- 用户级 -->
+								AND id = #{dataValue}
+							</if>
+						) t1 on t1.u_wx_openid = t.u_pid
+					) u2 on (u.u_pid = u2.u_wx_openid)
+					WHERE u.u_level = 3				
+					AND u.u_department_id = #{deptId}
+				 ) t2 ON (t.user_id = t2.user_id)
+            GROUP BY t.user_id
+          ) t2 ON (t1.user_id = t2.user_id)
+          WHERE t1.user_id = t2.user_id
+          GROUP BY t.id
+        ) t
+        ORDER BY agentActivity DESC
+    </select>
+
+
+    <!-- 根据公司查询销售经理下代理人活跃度 -->
+    <select id="selectAgentActivityOfSalesManagerByCompany" parameterType="com.jdy.b2b.api.model.reports.AgentActivityQueryDTO" resultType="com.jdy.b2b.api.model.reports.AgentActivityResultDO">
+        SELECT
+            t.id AS salesManagerId,
+            t.u_real_name AS salesManagerName,
+            t.agentNums,
+            t.orderNums,
+            t.hasOrderAgentNums,
+            t.salesAmount,
+            IF(t.agentNums=0,0,ROUND(t.hasOrderAgentNums/t.agentNums*100,2)) AS agentActivity
+        FROM
+        (
+            SELECT
+                t.id,
+                t.u_real_name,
+                COUNT(DISTINCT t1.user_id) AS agentNums,
+                SUM(IFNULL(t2.orderNums,0)) AS orderNums,
+                SUM(IFNULL(t2.hasOrderAgentNums,0)) AS hasOrderAgentNums,
+                ROUND(SUM(IFNULL(t2.salesAmount,0)),2) AS salesAmount
+            FROM
+            (
+                SELECT
+                    DISTINCT u.id AS id,
+                    u.u_real_name,
+                    u.u_wx_openid,
+                    u.u_level,
+                    company_id
+                    FROM sm_user u
+                INNER JOIN
+                (
+                    SELECT id FROM sm_department
+                ) d ON (u.u_department_id = d.id)
+                WHERE u.u_position_id = 202
+                AND u.company_id = #{companyId}
+                <if test="dataLimit == 0"> <!-- 用户级 -->
+                    AND u.id = #{dataValue}
+                </if>
+                <if test="dataLimit == 1"> <!-- 部门级 -->
+                    AND u.u_department_id = #{dataValue}
+                </if>
+                GROUP BY u.id
+            ) t
+            LEFT JOIN
+            (			
+				SELECT
+					DISTINCT u.id as user_id,
+					u.u_pid,
+					u2.u_wx_openid as parent_id
+				FROM sm_user u
+				INNER JOIN
+				(
+					select u_wx_openid
+					FROM sm_user
+					where u_position_id = 202
+				) u2 on (u.u_pid = u2.u_wx_openid)
+				WHERE u.u_level = 2		
+				AND u.company_id = #{companyId}		
+				UNION ALL
+				SELECT
+					DISTINCT u.id as user_id,
+					u.u_pid,
+					u2.parent_id
+				FROM sm_user u
+				INNER JOIN
+				(
+					select DISTINCT t.u_wx_openid AS u_wx_openid,
+						t1.u_wx_openid as parent_id
+					FROM sm_user t
+					INNER JOIN (select u_wx_openid from sm_user where u_position_id = 202) t1 on t1.u_wx_openid = t.u_pid
+				) u2 on (u.u_pid = u2.u_wx_openid)
+				WHERE u.u_level = 3				
+                AND u.company_id = #{companyId}			
+            ) t1 ON (t.u_wx_openid = t1.parent_id)
+            LEFT JOIN
+            (
+                SELECT
+                    COUNT(order_id) AS orderNums,
+                    t.user_id,
+					t2.parent_id,
+                    COUNT(DISTINCT t.user_id) AS hasOrderAgentNums,
+                    SUM(IFNULL(t.order_money,0)) AS salesAmount
+                FROM sl_orders_report t
+                INNER JOIN
+                (
+                    SELECT id,update_time FROM sl_order
+                    <if test="queryMonth != null and queryMonth != ''">
+                        WHERE DATE_FORMAT(update_time,'%Y-%m') = DATE_FORMAT(#{queryMonth},'%Y-%m')
+                    </if>
+                ) t1 ON (t.order_id = t1.id)
+                INNER JOIN
+                (				
+					SELECT
+						DISTINCT u.id as user_id,
+						u.u_pid,
+						u2.u_wx_openid as parent_id
+					FROM sm_user u
+					INNER JOIN
+					(
+						select u_wx_openid
+						FROM sm_user
+						where u_position_id = 202
+						<if test="dataLimit == 0"> <!-- 用户级 -->
+                            AND u.id = #{dataValue}
+                        </if>
+					) u2 on (u.u_pid = u2.u_wx_openid)
+					WHERE u.u_level = 2		
+					AND u.company_id = #{companyId}
+					<if test="dataLimit == 1"> <!-- 部门级 -->
+                        AND u.u_department_id = #{dataValue}
+                    </if>					
+					UNION ALL
+					SELECT
+						DISTINCT u.id as user_id,
+						u.u_pid,
+						u2.parent_id
+					FROM sm_user u
+					INNER JOIN
+					(
+						select DISTINCT t.u_wx_openid AS u_wx_openid,
+							t1.u_wx_openid as parent_id
+						FROM sm_user t
+						INNER JOIN (select u_wx_openid from sm_user where u_position_id = 202
+							<if test="dataLimit == 0"> <!-- 用户级 -->
+								AND u.id = #{dataValue}
+							</if>
+						) t1 on t1.u_wx_openid = t.u_pid
+					) u2 on (u.u_pid = u2.u_wx_openid)
+					WHERE u.u_level = 3				
+					AND u.company_id = #{companyId}
+					<if test="dataLimit == 1"> <!-- 部门级 -->
+                        AND u.u_department_id = #{dataValue}
+                    </if>				
+                ) t2 ON (t.user_id = t2.user_id)
+              GROUP BY t.user_id
+          ) t2 ON (t1.user_id = t2.user_id)          
+          GROUP BY t.id
+        ) t
+        ORDER BY agentActivity DESC
+    </select>
+
+    <!-- 查询销售经理下代理人活跃度 -->
+    <select id="selectAgentActivityBySalesManager" parameterType="com.jdy.b2b.api.model.reports.AgentActivityQueryDTO" resultType="com.jdy.b2b.api.model.reports.AgentActivityResultDO">
+        SELECT
+            t.id AS agentId,
+            t.u_real_name AS agentName,
+            t.orderNums,
+            t.salesAmount,
+            t.agentLevel
+        FROM
+        (
+            SELECT
+                t.id,
+                t.u_real_name,
+                IFNULL(t1.orderNums,0) AS orderNums,
+                ROUND(IFNULL(t1.salesAmount,0),2) AS salesAmount,
+                IF(t.u_level=2,'一级','二级') AS agentLevel
+            FROM
+            (
+				SELECT
+					DISTINCT u.id,u.u_real_name,u_pid,u_level,u2.u_wx_openid as wx_open_id
+				FROM sm_user u
+				INNER JOIN
+				(
+					select u_wx_openid
+					FROM sm_user
+					where u_position_id = 202
+					AND id = #{salesManagerId}
+				) u2 on (u.u_pid = u2.u_wx_openid)
+				WHERE u.u_level = 2						
+				UNION ALL
+				SELECT
+					DISTINCT u.id,u.u_real_name,u_pid,u_level,u2.u_wx_openid as wx_open_id
+				FROM sm_user u
+				INNER JOIN
+				(
+					select DISTINCT t.u_wx_openid AS u_wx_openid,
+						t1.u_wx_openid as parent_id
+					FROM sm_user t
+					INNER JOIN (select u_wx_openid from sm_user where u_position_id = 202 and id = #{salesManagerId}) t1 on t1.u_wx_openid = t.u_pid
+				) u2 on (u.u_pid = u2.u_wx_openid)
+				WHERE u.u_level = 3
+            ) t
+            LEFT JOIN
+            (
+                SELECT
+                COUNT(order_id) AS orderNums,
+                t.user_id,
+                SUM(IFNULL(order_money,0)) AS salesAmount
+                FROM sl_orders_report t
+                INNER JOIN
+                (
+                  SELECT id,update_time FROM sl_order
+                  <if test="queryMonth != null and queryMonth != ''">
+                    WHERE DATE_FORMAT(update_time,'%Y-%m') = DATE_FORMAT(#{queryMonth},'%Y-%m')
+                  </if>
+                ) t1 ON (t.order_id = t1.id)
+                INNER JOIN
+                (				
+					SELECT
+						DISTINCT u.id
+					FROM sm_user u
+					INNER JOIN
+					(
+						select u_wx_openid
+						FROM sm_user
+						where u_position_id = 202
+						AND id = #{salesManagerId}
+					) u2 on (u.u_pid = u2.u_wx_openid)
+					WHERE u.u_level = 2							
+					<if test="queryMonth != null and queryMonth != ''">
+						AND DATE_FORMAT(u.create_time,'%Y-%m') &lt;= DATE_FORMAT(#{queryMonth},'%Y-%m')
+					</if>
+					UNION ALL
+					SELECT
+						DISTINCT u.id
+					FROM sm_user u
+					INNER JOIN
+					(
+						select DISTINCT t.u_wx_openid AS u_wx_openid,
+							t1.u_wx_openid as parent_id
+						FROM sm_user t
+						INNER JOIN (select u_wx_openid from sm_user where u_position_id = 202 and id = #{salesManagerId}) t1 on t1.u_wx_openid = t.u_pid
+					) u2 on (u.u_pid = u2.u_wx_openid)
+					WHERE u.u_level = 3           
+                ) t2 ON (t.user_id = t2.id)
+                GROUP BY t.user_id
+            ) t1 ON (t.id = t1.user_id)
+            GROUP BY t.id
+        ) t
+        ORDER BY t.salesAmount DESC
+    </select>
+</mapper>

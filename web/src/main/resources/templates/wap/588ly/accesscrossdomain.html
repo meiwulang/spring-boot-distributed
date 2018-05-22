@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/Public/Js/jquery.mini.js"></script>
+</head>
+<body>
+<div><strong>API列表：</strong></div>
+<ol>
+    <li><a href="javascript:;" data-url="/front/Order/h5/currCity" data-type="GET" data-data='code=330100' data-desc="获取当前城市">/front/Order/h5/currCity 获取当前城市</a></li>
+    <li><a href="javascript:;" data-url="/b2b/product/topcondition" data-type="GET" data-data='city_code=330100' data-desc="获取顶部产品搜索条件">/b2b/product/topcondition 获取顶部产品搜索条件</a></li>
+    <li><a href="javascript:;" data-url="/b2b/advert/maintopbanner" data-type="GET" data-data='' data-desc="首页顶部banner广告">/b2b/advert/maintopbanner 首页顶部banner广告</a></li>
+    <li><a href="javascript:;" data-url="/b2b/business/boutiquelist" data-type="GET" data-data='city_code=110000&limit=10' data-desc="精品商家">/b2b/business/boutiquelist 精品商家</a></li>
+    <li><a href="javascript:;" data-url="/b2b/business/detail" data-type="GET" data-data='org_id=23' data-desc="商家详情">/b2b/business/detail 商家详情</a></li>
+    <li><a href="javascript:;" data-url="/b2b/advert/buslist" data-type="GET" data-data='city_code=110000&catalog=10' data-desc="班期广告，带类别参数则只返回指定类别广告列表">/b2b/advert/buslist 班期广告</a></li>
+    <li><a href="javascript:;" data-url="/b2b/news/lists" data-type="GET" data-data='city_code=110000&start=1&limit=10' data-desc="资讯列表">/b2b/news/list 资讯列表</a></li>
+    <li><a href="javascript:;" data-url="/b2b/news/detail" data-type="GET" data-data='id=23' data-desc="资讯详情">/b2b/news/detail 资讯详情</a></li>
+    <li><a href="javascript:;" data-url="/user/mobileLogin" data-type="POST" data-data='{"uname":"ljs","upass":"123456"}' data-desc="用户登录">/user/mobileLogin 用户登录</a></li>
+    <li><a href="javascript:;" data-url="/user/mobileLogout" data-type="GET" data-data='' data-desc="用户注销">/user/mobileLogout 用户注销</a></li>
+    <li><a href="javascript:;" data-url="/b2b/user/info" data-type="GET" data-data='' data-desc="用户信息">/b2b/user/info 用户信息</a></li>
+    <li><a href="javascript:;" data-url="/front/b2b/user/sendcheckcode" data-type="GET" data-data='phone=18926898372' data-desc="发送验证码">/front/b2b/user/sendcheckcode 发送验证码</a></li>
+    <li><a href="javascript:;" data-url="/b2b/user/verifycheckcode" data-type="GET" data-data='phone=18926898372&check_code=782913' data-desc="校验验证码">/b2b/user/verifycheckcode 校验验证码</a></li>
+    <li><a href="javascript:;" data-url="/b2b/user/register" data-type="POST" data-data='{"type":1,"mobile":"13899228811","u_pass":"xxxxxxxxxx","org_name":"xxxxxxx","org_province":"浙江省","org_city":"杭州市","org_country":"西湖区","org_addr":"西湖大道48号","org_intro":"xxxxxxxxxxxxxxx","org_legal":"xxxxx","org_email":"xxxxxx","org_phone":"xxxxxxx","org_realname":"张三疯","org_id":"xxxxxx","org_id_front":"xxxxxx","org_id_back":"xxxxxx","org_licence_code":"xxxxxxx","org_licence":"xxxxxx"}' data-desc="商家注册">/b2b/user/register 商家注册</a></li>
+    <li><a href="javascript:;" data-url="/b2b/product/listcondition" data-type="GET" data-data='city_code=110000&province=内蒙古自治区' data-desc="列表搜索条件">/b2b/product/listcondition 列表搜索条件</a></li>
+    <li><a href="javascript:;" data-url="/b2b/product/lists" data-type="POST" data-data='{"province":"云南","city":"三亚","days":"1天","attribute":"海滨海岛","scenic":"前门","startDate":"20170112,20170118","business":"印象东北","start":1,"limit":10}' data-desc="线路列表">/b2b/product/listcondition 线路列表</a></li>
+    <li><a href="javascript:;" data-url="/b2b/product/buslist" data-type="POST" data-data='{"p_id":"099680","province":"云南","city":"三亚","days":"1天","attribute":"海滨海岛","scenic":"前门","startDate":"20170112,20170118","business":"印象东北","start":1,"limit":10}' data-desc="班期列表">/b2b/product/buslist 班期列表</a></li>
+    <li><a href="javascript:;" data-url="/front/b2b/product/detail" data-type="GET" data-data='p_id=23' data-desc="线路详情">/front/b2b/product/detail 线路详情</a></li>
+    <li><a href="javascript:;" data-url="/b2b/product/qrcode" data-type="GET" data-data='p_id=23' data-desc="线路分享二维码">/b2b/product/qrcode 线路分享二维码</a></li>
+    <li><a href="javascript:;" data-url="/b2b/order/businesslist" data-type="GET" data-data='' data-desc="代报名旅行社列表">/b2b/product/businesslist 代报名旅行社列表</a></li>
+    <li><a href="javascript:;" data-url="/b2b/order/peoplelist" data-type="GET" data-data='org_id=23' data-desc="代报名人列表">/b2b/product/peoplelist 代报名人列表</a></li>
+    <li><a href="javascript:;" data-url="/b2b/order/info" data-type="GET" data-data='p_id=23&bl_id=78' data-desc="下单信息">/b2b/order/info 下单信息</a></li>
+    <li><a href="javascript:;" data-url="/b2b/order/place" data-type="POST" data-data='{}' data-desc="下单">/b2b/order/place 下单</a></li>
+</ol>
+--------------------------------------------------------------<br>
+<div>
+    <div><strong>url: </strong><span id="url"></span></div>
+    <br>
+    <div><strong>描述: </strong><span id="desc"></span></div>
+    <br>
+    <div><strong>参数: </strong></div>
+    <pre id="params"></pre>
+    <div><strong>结果: </strong></div>
+    <pre id="result"></pre>
+</div>
+<script src="js/common/accesscrossdomain.js"></script>
+</body>
+</html>

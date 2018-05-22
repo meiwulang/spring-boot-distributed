@@ -1,0 +1,61 @@
+.x-body{background: #fff}
+ul,li {list-style-type: none;padding: 0}
+#credit-box {width: 100%;margin: auto;}
+#credit-box .vip-list {margin-top: 15px;display: inline-block;}
+#credit-box .vl-top,#credit-box .vl-back {width: 100%;display: inline-block}
+#credit-box .vl-top .vl-l,#credit-box .vl-back .vl-l{
+}
+#credit-box .vl-top .vl-l{
+    width:100%;
+}
+.vl-title{
+    float:left;
+}
+.form-id{
+    float:left;
+}
+#credit-box .vl-top .vl-title,#credit-box .vl-back .vl-title {display: inline-block;width: 100px;text-align: right;font:14px 'Microsoft YaHei'}
+#credit-box .vl-top input {padding:5px;border:1px solid #dddddd;width: 260px;float:left;}
+#credit-box .vl-bottom {padding-left: 100px;margin-top: 10px}
+#credit-box .vl-bottom .card-l {float: left;margin-right: 10px}
+#credit-box .vl-bottom .up-l {width: 120px;height: 130px;border:1px solid #dddddd;background:#f6f6f6}
+#credit-box .vl-bottom .up-l .card-img { no-repeat: center;width: 100%;display: inline-block;height: 120px;text-align: center;position: relative}
+#credit-box .vl-bottom .sub-cls {background: #4896eb;color: #ffffff;width: 100px;padding: 8px 0;border:none;border-radius: 3px;font: 14px 'Microsoft YaHei';cursor: pointer}
+#credit-box .vl-bottom .sub-cls:hover {background: #4284d3}
+#credit-box .vl-bottom .card-title {width: 100%;padding: 5px 0;color: #999999;font:12px 'Microsoft YaHei';text-align: center;display: inline-block}
+#credit-box .vl-bottom .card-just .card-img {background-position: 8px 10px}
+#credit-box .vl-bottom .card-versa .card-img {background-position: 8px -97px}
+#credit-box .vl-bottom .card-book .card-img {background-position: 8px -207px}
+#credit-box .add-assure {width: 120px;padding: 8px 0;background: #4896eb;color: #ffffff;text-align: center;margin: 10px 0;border-radius: 3px;font: 14px 'Microsoft YaHei';cursor: pointer;margin-left:10px;}
+#credit-box .add-assure:hover {background: #4284d3}
+#credit-box .x-multifile-wrap {overflow: hidden}
+#credit-box .x-multifile-wrap .status .btns .upload,#credit-box  .x-multifile-wrap .add label {
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #4896EB;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    margin: auto;
+    cursor: pointer;
+}
+#credit-box .x-multifile-wrap .placeholder {border:none}
+#credit-box .x-multifile-wrap .placeholder .tips {display: none}
+#credit-box .x-multifile-wrap .add {margin: 0}
+#credit-box .x-multifile-wrap .add {left: 20px;top: 30px;opacity: 0.8;cursor: pointer}
+#credit-box .x-multifile-wrap .filelist {height: auto;padding: 0;border:none;width: 100%;overflow: hidden}
+#credit-box .x-multifile-wrap .filelist li {margin: 0;border:none}
+.x-multifile-wrap .filelist li .progress {bottom: 0}
+.x-multifile-wrap .filelist li .result {bottom: 0}
+.x-multifile-wrap .filelist .fa {
+    font-size: 60px;
+    vertical-align: middle;
+    margin-top: 35px;
+    color: #ccc;
+}
+.card-img .fa-remove{ color: red;position: absolute;right:3px;top:3px;font-size: 16px;width: 16px;height: 16px;}
+.card-img .fa-remove:hover{cursor: pointer;background: rgba(0,0,0,.2)}

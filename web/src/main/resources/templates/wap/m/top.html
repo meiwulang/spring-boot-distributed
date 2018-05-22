@@ -1,0 +1,121 @@
+<div class="top">
+	<div class="top-box clearfix">
+		<div class="city"><span></span></div>
+		<div class="search">
+			<input type="search" value="" />
+			<div class="sear"><span></span></div>
+			<div class="search-placeholder"><span>Search</span></div>
+		</div>
+	</div>
+</div>
+<div class="focussearch">
+	<script id="tpl-focussearch" type="text/html">
+		<div class="search-type">
+			{each data as value i}
+				{ if i==0 }
+				<a class="search-typelist onshow" href="javascript:;" value="{ data[i].type_id}">{ data[i].type_name }</a>
+				{ else }
+				<a class="search-typelist" href="javascript:;" value="{ data[i].type_id}">{ data[i].type_name }</a>
+				{ /if }
+			{ /each }
+		</div>		
+		<div class="search-des clearfix">
+			{ each data as value i }
+			{ if i==0 }
+				<ul class="search-ul show" value="{ data[i].type_id }">
+					{ each data[i].data as value j}
+					<li class="search-li"><a class="search-a" value="{ data[i].data[j] }" href="list.html?type={ data[i].type_id }&key={ data[i].data[j] }">{ data[i].data[j] }</a></li>
+					{ /each }
+				</ul>			
+			{ else }
+				<ul class="search-ul" value="{ data[i].type_id }">
+					{ each data[i].data as value j}
+					<li class="search-li"><a class="search-a" value="{ data[i].data[j] }" href="list.html?type={ data[i].type_id }&key={ data[i].data[j] }">{ data[i].data[j] }</a></li>
+					{ /each }
+				</ul>
+			{ /if } 
+			{ /each }
+		</div>
+		<div class="close">&times;</div>
+	</script>
+</div>
+<div class="changesearch">
+	<script id="tpl-changesearch" type="text/html">
+		<ul class="change-ul">
+		{ if data }
+			{ if key }
+				{ each data as value i}
+					<li class="change-li">
+						<a class="change-a" href="list.html?type={ data[i].type_id }&key={ key }" value="{ data[i].type_id }">
+							<span class="search-key">{ key }</span>
+							<span>{ data[i].type_name }</span>
+							<span class="search-num">({ data[i].count })</span>
+						</a>
+					</li>
+				{ /each }
+			{ else }
+				{ each data as value i}
+					{ if data[i].type_id==0 }
+					<li class="change-li">
+						<a class="change-a" href="list.html?type={ data[i].type_id }&key={ key }" value="{ data[i].type_id }">
+							<span class="search-key">全部数据</span>
+							<span>{ data[i].type_name }</span>
+							<span class="search-num">({ data[i].count })</span>
+						</a>
+					</li>
+					{ else }
+					<li class="change-li">
+						<a class="change-a" href="list.html?type={ data[i].type_id }&key={ key }" value="{ data[i].type_id }">
+							<span class="search-key"></span>
+							<span>{ data[i].type_name }</span>
+							<span class="search-num">({ data[i].count })</span>
+						</a>
+					</li>
+					{ /if }
+				{ /each }
+			{ /if }
+		{ else }
+			<a class="change-li" href="javascript:;" value="">未搜索到相关产品</a>
+		{ /if }
+		</ul>
+		<div class="close">&times;</div>
+	</script>
+</div>
+<div class="citylist">
+	<script id="tpl-citylist" type="text/html">
+		<div class="citylist-tbar">
+			<a class="back" href="javascript:;"></a>
+			<span>切换城市</span>
+		</div>
+		<div class="citylist-con">
+			<dl>
+				<dt>当前位置</dt>
+				<dd>
+					<ul>
+						<li code="{ currentCity.code }">{ currentCity.name }</li>
+					</ul>
+				</dd>
+			</dl>
+			{ each cityList as value i }
+			<a name="{ i }"></a>
+			<dl>
+				<dt>{ i }</dt>
+				<dd>
+					<ul>
+						{ each cityList[i] as value j }
+						<li code="{ cityList[i][j].code }">{ cityList[i][j].name }</li>
+						{ /each }
+					</ul>
+				</dd>
+			</dl>
+			{ /each }
+		</div>
+		<div class="city-letter">
+			<ul>
+				{ each letterList as value i }
+				<li><a href="#{ letterList[i] }">{ letterList[i] }</a></li>
+				{ /each }
+			</ul>
+		</div>
+	</script>
+</div>

@@ -1,0 +1,38 @@
+@import '../common/common.less';
+@import '../common/pub.less';
+#wrap{
+	#agent{
+		.pub();
+		.record{
+			.count{
+				padding-bottom: 10px;
+				//border-bottom: 10px solid #f3f5f9;
+			}
+		}
+		tbody{
+			tr:last-child td{
+				border-bottom: none!important;
+			}
+			td.next-page{
+				width: 15px;
+				border-bottom: 1px solid #e7e7e7!important;
+				img{
+					width: 8px;
+					position: relative;
+					top: 2px;
+				}
+			}
+			td:last-child{
+				width: 15px;
+				border-bottom: none!important;
+			}
+		}
+
+		padding-bottom: 50px;
+		box-sizing: border-box;
+
+		.sales-table tbody p{
+			color: #999;
+		}
+	}
+}

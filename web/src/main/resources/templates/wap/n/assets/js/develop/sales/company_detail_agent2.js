@@ -1,0 +1,95 @@
+import '@/assets/less/develop/sales.less';
+import $ from 'jquery';
+import _ from '@/assets/js/common/global.js';
+import template from 'template';
+import MyDate from '@/assets/js/common/date_new.js';
+import ajaxCommon from './ajaxCommon.js';
+import ChartRender from './ChartRender.js';
+
+import devCommon from '@/assets/js/develop/common/common.js';
+
+function Start(){
+    this.Init();
+    this.Event();
+}
+
+Start.prototype = {
+    Init : function(){
+       var _this = this;
+       let name = decodeURIComponent(_.GetUrlPara('name'));   
+        _.GetTpl({
+            url : '/sales/detail_index_com.tpl',
+            data :{
+                pageTitle:name
+            },
+            success : function(html){
+                $('#content').html(html);
+                _this.RenderChart();
+                _this.RenderTableProduct();
+            }
+        });
+        
+    },
+    GetCommonPram: function(date){
+        let _this = this;
+        let route = _.GetPage().parentPage;
+        let myDateFn =  MyDate.getCurPram(route);
+        let pram = {
+            route : route,
+            pagaType : MyDate['index'][route],
+            pagaTypeFF : MyDate['indexOfFF'][route],
+            start :myDateFn.start,
+            end :myDateFn.end,
+            value:myDateFn.value,
+        }
+        return pram;
+    },
+    RenderChart :function(){
+        var _this = this;
+        let comPram = this.GetCommonPram();
+        let chartPram = ChartRender.getChartPram(comPram);
+        ajaxCommon.ChartDepartment(chartPram).then(function(chartData){
+             _.GetTpl({
+                url : '/sales/chart.tpl',
+                data :{},
+                success : function(html){
+                    $('#chart').html(html);
+                    ChartRender.render(chartData);
+                }
+            })
+        });
+    },
+    RenderTableProduct : function(){
+        let comPram = this.GetCommonPram();
+        let userId = decodeURIComponent(_.GetUrlPara('userId'));
+        let route = _.GetPage().parentPage; 
+        let personPram = devCommon.getPageTypeByAgent(route,comPram);
+        personPram['userId'] = Number(userId);
+        personPram["objectType"] = 2;
+
+        ajaxCommon.queryDepartmentSaleCount(personPram).then(function(resData){
+             _.GetTpl({
+                url : '/sales/detail_product.tpl',
+                data :resData,
+                success : function(html){
+                    $('#table-container').html(html);
+                }
+            })
+        });
+    },
+    
+    Event : function(){
+        var _this = this;
+        $(".date-wrap").off("change",'.tim input,.tim select');
+        
+        $(".date-wrap").on("change",'.tim input,.tim select',function(){
+            _this.RenderChart();
+            _this.RenderTableProduct();
+              
+        });
+    }   
+}
+module.exports = Start;
+
+    
+

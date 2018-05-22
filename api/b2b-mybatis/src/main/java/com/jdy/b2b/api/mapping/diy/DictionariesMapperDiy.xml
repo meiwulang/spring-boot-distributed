@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.DictionariesMapperDiy">
+    <select id="selectDictionariesList" resultMap="com.jdy.b2b.api.dao.DictionariesMapper.BaseResultMap">
+        SELECT
+            d.*
+        FROM
+            sm_dictionaries d
+        <if test='groupName != null and groupName != ""'>
+            INNER JOIN sm_dictionaries_group g ON g.id = d.d_group_id AND g.dg_name = #{groupName}
+        </if>
+        WHERE
+            d.d_status = 0
+
+        <if test="dGroupId != null">
+          AND d.d_group_id = #{dGroupId}
+        </if>
+
+        <if test="pcompanyId != null and pcompanyId != 999999">
+            UNION 
+
+            SELECT
+              d.*
+            FROM
+              sm_dictionaries d
+            <if test="groupName != null and groupName != ''">
+                INNER JOIN sm_dictionaries_group g ON g.id = d.d_group_id AND g.dg_name = #{groupName}
+            </if>
+            WHERE
+              d.d_status = 0
+            AND d.company_id = #{pcompanyId}
+            <if test="dGroupId != null">
+                AND d.d_group_id = #{dGroupId}
+            </if>
+            ORDER BY
+              d_sort DESC,id
+        </if>
+    </select>
+</mapper>

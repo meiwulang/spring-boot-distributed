@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>酒店住宿</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/guide_stay.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->    
+</head>
+<body>
+<div id="wrap">
+	<div class="acti_header">酒店住宿
+		<a class="lef" href="javascript:;"></a>
+	</div>
+	<div class="main">
+	<script id="tpl-con" type="text/html">
+		<div class="head">
+			<div class="user">{team_detail.team_num}&#x3000;{team_detail.team_p_name}</div>
+			<div class="peop">{team_detail.team_adult}成人 {team_detail.team_children}儿童</div>
+		</div>	
+		<dl class="stays">
+			<dt><div>酒店信息</div></dt>
+			{if team_items['住宿']}
+			{each team_items['住宿'] as value i}
+			<dd>
+				<div class="cont">
+					<div class="lefts">
+						<div class="tit">第{team_items['住宿'][i].tpi_days}天({team_items['住宿'][i].tpi_date}) <span>{team_items['住宿'][i].tpi_name}</span> </div>
+						<div class="tels">
+						{if team_items['住宿'][i].tpi_contacts || team_items['住宿'][i].tpi_tel}
+						联系方式：<span>
+						{team_items['住宿'][i].tpi_contacts} <a style="color: #84b6fb;" href="tel:{team_items['住宿'][i].tpi_tel}">{team_items['住宿'][i].tpi_tel}</a>
+						</span>
+						{/if}
+						</div>
+					</div>
+					<div class="rights">{team_items['住宿'][i].tpi_num}个</div>
+				</div>
+			</dd>
+			{/each}
+			{else}
+			<p style="height: 60px;line-height: 40px; padding-left: 15px; color: #999; font-size: 12px;">暂无酒店信息！</p>
+			{/if}
+		</dl>	
+	</script>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/guide_stay.build.js"></script>
+</html>

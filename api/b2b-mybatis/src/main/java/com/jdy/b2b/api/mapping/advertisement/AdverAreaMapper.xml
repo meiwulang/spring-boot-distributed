@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.advertisement.AdverAreaMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.advertisement.AdverArea">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="aa_adver_id" jdbcType="BIGINT" property="aaAdverId" />
+    <result column="ta_country" jdbcType="VARCHAR" property="taCountry" />
+    <result column="ta_province" jdbcType="VARCHAR" property="taProvince" />
+    <result column="ta_city" jdbcType="VARCHAR" property="taCity" />
+    <result column="ta_area" jdbcType="VARCHAR" property="taArea" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap id="QueryListResultMap" type="com.jdy.b2b.api.model.advertisement.AdverArea">
+    <result column="ta_city" jdbcType="VARCHAR" property="taCity" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, aa_adver_id, ta_country, ta_province, ta_city, ta_area, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sm_adver_area
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_adver_area
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.advertisement.AdverArea">
+    insert into sm_adver_area (id, aa_adver_id, ta_country, 
+      ta_province, ta_city, ta_area, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{id,jdbcType=BIGINT}, #{aaAdverId,jdbcType=BIGINT}, #{taCountry,jdbcType=VARCHAR}, 
+      #{taProvince,jdbcType=VARCHAR}, #{taCity,jdbcType=VARCHAR}, #{taArea,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.advertisement.AdverArea">
+    insert into sm_adver_area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="aaAdverId != null">
+        aa_adver_id,
+      </if>
+      <if test="taCountry != null">
+        ta_country,
+      </if>
+      <if test="taProvince != null">
+        ta_province,
+      </if>
+      <if test="taCity != null">
+        ta_city,
+      </if>
+      <if test="taArea != null">
+        ta_area,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="aaAdverId != null">
+        #{aaAdverId,jdbcType=BIGINT},
+      </if>
+      <if test="taCountry != null">
+        #{taCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="taProvince != null">
+        #{taProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="taCity != null">
+        #{taCity,jdbcType=VARCHAR},
+      </if>
+      <if test="taArea != null">
+        #{taArea,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.advertisement.AdverArea">
+    update sm_adver_area
+    <set>
+      <if test="aaAdverId != null">
+        aa_adver_id = #{aaAdverId,jdbcType=BIGINT},
+      </if>
+      <if test="taCountry != null">
+        ta_country = #{taCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="taProvince != null">
+        ta_province = #{taProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="taCity != null">
+        ta_city = #{taCity,jdbcType=VARCHAR},
+      </if>
+      <if test="taArea != null">
+        ta_area = #{taArea,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.advertisement.AdverArea">
+    update sm_adver_area
+    set aa_adver_id = #{aaAdverId,jdbcType=BIGINT},
+      ta_country = #{taCountry,jdbcType=VARCHAR},
+      ta_province = #{taProvince,jdbcType=VARCHAR},
+      ta_city = #{taCity,jdbcType=VARCHAR},
+      ta_area = #{taArea,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="saveAdverAreaBash" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+
+    insert into sm_adver_area (id, aa_adver_id, ta_country,
+    ta_province, ta_city, ta_area,
+    create_time, create_user, update_time,
+    update_user)
+    values
+    <foreach collection="list" separator="," item="area">
+    (#{area.id,jdbcType=BIGINT}, #{area.aaAdverId,jdbcType=BIGINT}, #{area.taCountry,jdbcType=VARCHAR},
+    #{area.taProvince,jdbcType=VARCHAR}, #{area.taCity,jdbcType=VARCHAR}, #{area.taArea,jdbcType=VARCHAR},
+    #{area.createTime,jdbcType=TIMESTAMP}, #{area.createUser,jdbcType=BIGINT}, #{area.updateTime,jdbcType=TIMESTAMP},
+    #{area.updateUser,jdbcType=BIGINT})
+    </foreach>
+
+  </insert>
+
+  <delete id="deleteByAdverId" parameterType="long">
+    DELETE
+    from sm_adver_area
+    where aa_adver_id = #{adverId,jdbcType=BIGINT}
+  </delete>
+
+  <select id="selectByAdverId" parameterType="long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from sm_adver_area
+    where aa_adver_id = #{adverId,jdbcType=BIGINT}
+  </select>
+  <select id="queryAreaList" parameterType="long" resultMap="QueryListResultMap">
+    select ta_city from sm_adver_area area where area.aa_adver_id = #{id}
+  </select>
+
+  <!--前台接口-->
+  <select id="indexQueryAreaList" parameterType="long" resultType="string">
+    select ta_city
+    from sm_adver_area
+    where aa_adver_id = #{id}
+  </select>
+</mapper>

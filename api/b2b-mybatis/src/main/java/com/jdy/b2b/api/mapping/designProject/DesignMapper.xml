@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.designProject.DesignMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.designProject.Design">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="last_r_id" jdbcType="BIGINT" property="lastRId" />
+    <result column="last_p_id" jdbcType="BIGINT" property="lastPId" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="answer_time" jdbcType="TIMESTAMP" property="answerTime" />
+    <result column="manager_id" jdbcType="BIGINT" property="managerId" />
+    <result column="d_status" jdbcType="INTEGER" property="dStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, last_r_id, last_p_id, create_user, create_time, answer_time, manager_id, d_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ct_design
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_design
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.designProject.Design">
+    insert into ct_design (id, last_r_id, last_p_id, 
+      create_user, create_time, answer_time, 
+      manager_id, d_status)
+    values (#{id,jdbcType=BIGINT}, #{lastRId,jdbcType=BIGINT}, #{lastPId,jdbcType=BIGINT}, 
+      #{createUser,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{answerTime,jdbcType=TIMESTAMP}, 
+      #{managerId,jdbcType=BIGINT}, #{dStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.designProject.Design">
+    insert into ct_design
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="lastRId != null">
+        last_r_id,
+      </if>
+      <if test="lastPId != null">
+        last_p_id,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="answerTime != null">
+        answer_time,
+      </if>
+      <if test="managerId != null">
+        manager_id,
+      </if>
+      <if test="dStatus != null">
+        d_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="lastRId != null">
+        #{lastRId,jdbcType=BIGINT},
+      </if>
+      <if test="lastPId != null">
+        #{lastPId,jdbcType=BIGINT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerTime != null">
+        #{answerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerId != null">
+        #{managerId,jdbcType=BIGINT},
+      </if>
+      <if test="dStatus != null">
+        #{dStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.designProject.Design">
+    update ct_design
+    <set>
+      <if test="lastRId != null">
+        last_r_id = #{lastRId,jdbcType=BIGINT},
+      </if>
+      <if test="lastPId != null">
+        last_p_id = #{lastPId,jdbcType=BIGINT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="answerTime != null">
+        answer_time = #{answerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerId != null">
+        manager_id = #{managerId,jdbcType=BIGINT},
+      </if>
+      <if test="dStatus != null">
+        d_status = #{dStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.designProject.Design">
+    update ct_design
+    set last_r_id = #{lastRId,jdbcType=BIGINT},
+      last_p_id = #{lastPId,jdbcType=BIGINT},
+      create_user = #{createUser,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      answer_time = #{answerTime,jdbcType=TIMESTAMP},
+      manager_id = #{managerId,jdbcType=BIGINT},
+      d_status = #{dStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+</mapper>

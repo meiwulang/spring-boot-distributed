@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.electroniccontract.SignContractInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.electroniccontract.SignContractInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="contract_no" property="contractNo" jdbcType="CHAR" />
+    <result column="template_no" property="templateNo" jdbcType="CHAR" />
+    <result column="view_pdf_url" property="viewPdfUrl" jdbcType="VARCHAR" />
+    <result column="download_url" property="downloadUrl" jdbcType="VARCHAR" />
+    <result column="is_company_sigin" property="isCompanySigin" jdbcType="TINYINT" />
+    <result column="company_sign_contract_time" property="companySignContractTime" jdbcType="TIMESTAMP" />
+    <result column="company_sign_contract_transition_no" property="companySignContractTransitionNo" jdbcType="CHAR" />
+    <result column="is_customer_sign" property="isCustomerSign" jdbcType="TINYINT" />
+    <result column="customer_sign_contract_time" property="customerSignContractTime" jdbcType="TIMESTAMP" />
+    <result column="customer_sign_contract_transition_no" property="customerSignContractTransitionNo" jdbcType="CHAR" />
+    <result column="customer_ca_no" property="customerCaNo" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_no, contract_no, template_no, view_pdf_url, download_url, is_company_sigin,
+    company_sign_contract_time, company_sign_contract_transition_no, is_customer_sign,
+    customer_sign_contract_time, customer_sign_contract_transition_no, customer_ca_no,
+    status, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from sm_sign_contract_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sm_sign_contract_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.electroniccontract.SignContractInfo" >
+    insert into sm_sign_contract_info (id, order_no, contract_no,
+    template_no, view_pdf_url, download_url,
+    is_company_sigin, company_sign_contract_time,
+    company_sign_contract_transition_no, is_customer_sign,
+    customer_sign_contract_time, customer_sign_contract_transition_no,
+    customer_ca_no, status, create_time,
+    update_time)
+    values (#{id,jdbcType=BIGINT}, #{orderNo,jdbcType=VARCHAR}, #{contractNo,jdbcType=CHAR},
+    #{templateNo,jdbcType=CHAR}, #{viewPdfUrl,jdbcType=VARCHAR}, #{downloadUrl,jdbcType=VARCHAR},
+    #{isCompanySigin,jdbcType=TINYINT}, #{companySignContractTime,jdbcType=TIMESTAMP},
+    #{companySignContractTransitionNo,jdbcType=CHAR}, #{isCustomerSign,jdbcType=TINYINT},
+    #{customerSignContractTime,jdbcType=TIMESTAMP}, #{customerSignContractTransitionNo,jdbcType=CHAR},
+    #{customerCaNo,jdbcType=CHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP},
+    #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.electroniccontract.SignContractInfo" >
+    insert into sm_sign_contract_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="contractNo != null" >
+        contract_no,
+      </if>
+      <if test="templateNo != null" >
+        template_no,
+      </if>
+      <if test="viewPdfUrl != null" >
+        view_pdf_url,
+      </if>
+      <if test="downloadUrl != null" >
+        download_url,
+      </if>
+      <if test="isCompanySigin != null" >
+        is_company_sigin,
+      </if>
+      <if test="companySignContractTime != null" >
+        company_sign_contract_time,
+      </if>
+      <if test="companySignContractTransitionNo != null" >
+        company_sign_contract_transition_no,
+      </if>
+      <if test="isCustomerSign != null" >
+        is_customer_sign,
+      </if>
+      <if test="customerSignContractTime != null" >
+        customer_sign_contract_time,
+      </if>
+      <if test="customerSignContractTransitionNo != null" >
+        customer_sign_contract_transition_no,
+      </if>
+      <if test="customerCaNo != null" >
+        customer_ca_no,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=CHAR},
+      </if>
+      <if test="templateNo != null" >
+        #{templateNo,jdbcType=CHAR},
+      </if>
+      <if test="viewPdfUrl != null" >
+        #{viewPdfUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrl != null" >
+        #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isCompanySigin != null" >
+        #{isCompanySigin,jdbcType=TINYINT},
+      </if>
+      <if test="companySignContractTime != null" >
+        #{companySignContractTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companySignContractTransitionNo != null" >
+        #{companySignContractTransitionNo,jdbcType=CHAR},
+      </if>
+      <if test="isCustomerSign != null" >
+        #{isCustomerSign,jdbcType=TINYINT},
+      </if>
+      <if test="customerSignContractTime != null" >
+        #{customerSignContractTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerSignContractTransitionNo != null" >
+        #{customerSignContractTransitionNo,jdbcType=CHAR},
+      </if>
+      <if test="customerCaNo != null" >
+        #{customerCaNo,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.electroniccontract.SignContractInfo" >
+    update sm_sign_contract_info
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        contract_no = #{contractNo,jdbcType=CHAR},
+      </if>
+      <if test="templateNo != null" >
+        template_no = #{templateNo,jdbcType=CHAR},
+      </if>
+      <if test="viewPdfUrl != null" >
+        view_pdf_url = #{viewPdfUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrl != null" >
+        download_url = #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isCompanySigin != null" >
+        is_company_sigin = #{isCompanySigin,jdbcType=TINYINT},
+      </if>
+      <if test="companySignContractTime != null" >
+        company_sign_contract_time = #{companySignContractTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companySignContractTransitionNo != null" >
+        company_sign_contract_transition_no = #{companySignContractTransitionNo,jdbcType=CHAR},
+      </if>
+      <if test="isCustomerSign != null" >
+        is_customer_sign = #{isCustomerSign,jdbcType=TINYINT},
+      </if>
+      <if test="customerSignContractTime != null" >
+        customer_sign_contract_time = #{customerSignContractTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerSignContractTransitionNo != null" >
+        customer_sign_contract_transition_no = #{customerSignContractTransitionNo,jdbcType=CHAR},
+      </if>
+      <if test="customerCaNo != null" >
+        customer_ca_no = #{customerCaNo,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.electroniccontract.SignContractInfo" >
+    update sm_sign_contract_info
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      contract_no = #{contractNo,jdbcType=CHAR},
+      template_no = #{templateNo,jdbcType=CHAR},
+      view_pdf_url = #{viewPdfUrl,jdbcType=VARCHAR},
+      download_url = #{downloadUrl,jdbcType=VARCHAR},
+      is_company_sigin = #{isCompanySigin,jdbcType=TINYINT},
+      company_sign_contract_time = #{companySignContractTime,jdbcType=TIMESTAMP},
+      company_sign_contract_transition_no = #{companySignContractTransitionNo,jdbcType=CHAR},
+      is_customer_sign = #{isCustomerSign,jdbcType=TINYINT},
+      customer_sign_contract_time = #{customerSignContractTime,jdbcType=TIMESTAMP},
+      customer_sign_contract_transition_no = #{customerSignContractTransitionNo,jdbcType=CHAR},
+      customer_ca_no = #{customerCaNo,jdbcType=CHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectSignContractInfoByOrderNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from sm_sign_contract_info
+    where order_no = #{orderNo}
+    <if test="status != null"> and status = #{status}</if>
+  </select>
+
+  <resultMap id="ContractListResultMap" type="com.jdy.b2b.api.model.OrderContract" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="contract_no" property="contractNo" jdbcType="CHAR" />
+    <result column="template_no" property="templateNo" jdbcType="CHAR" />
+    <result column="view_pdf_url" property="viewPdfUrl" jdbcType="VARCHAR" />
+    <result column="download_url" property="downloadUrl" jdbcType="VARCHAR" />
+    <result column="is_company_sigin" property="isCompanySigin" jdbcType="TINYINT" />
+    <result column="company_sign_contract_time" property="companySignContractTime" jdbcType="TIMESTAMP" />
+    <result column="company_sign_contract_transition_no" property="companySignContractTransitionNo" jdbcType="CHAR" />
+    <result column="is_customer_sign" property="isCustomerSign" jdbcType="TINYINT" />
+    <result column="customer_sign_contract_time" property="customerSignContractTime" jdbcType="TIMESTAMP" />
+    <result column="customer_sign_contract_transition_no" property="customerSignContractTransitionNo" jdbcType="CHAR" />
+    <result column="customer_ca_no" property="customerCaNo" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="selectSignContractInfoListByOrderNo" resultMap="ContractListResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from sm_sign_contract_info
+    where
+    order_no = #{orderNo}
+    order by id
+  </select>
+
+  <update id="updateCustomerTransactionNoByOrderNo" parameterType="java.lang.String">
+    update sm_sign_contract_info SET customer_sign_contract_transition_no = #{customerTransactionNo} where order_no = #{orderNo} and status = 2
+  </update>
+
+  <update id="customerSignContractCallback" parameterType="com.jdy.b2b.api.model.electroniccontract.CustomerSignContractCallback">
+    UPDATE sm_sign_contract_info SET is_customer_sign = 1, view_pdf_url = #{viewpdfUrl}, download_url = #{downloadUrl}, customer_sign_contract_time = NOW() WHERE contract_no = #{contractNo}
+  </update>
+
+  <update id="updateSignContractInfoByContractNo" parameterType="com.jdy.b2b.api.model.electroniccontract.SignContractInfo" >
+    update sm_sign_contract_info
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="templateNo != null" >
+        template_no = #{templateNo,jdbcType=CHAR},
+      </if>
+      <if test="viewPdfUrl != null" >
+        view_pdf_url = #{viewPdfUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrl != null" >
+        download_url = #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isCompanySigin != null" >
+        is_company_sigin = #{isCompanySigin,jdbcType=TINYINT},
+      </if>
+      <if test="companySignContractTime != null" >
+        company_sign_contract_time = #{companySignContractTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companySignContractTransitionNo != null" >
+        company_sign_contract_transition_no = #{companySignContractTransitionNo,jdbcType=CHAR},
+      </if>
+      <if test="isCustomerSign != null" >
+        is_customer_sign = #{isCustomerSign,jdbcType=TINYINT},
+      </if>
+      <if test="customerSignContractTime != null" >
+        customer_sign_contract_time = #{customerSignContractTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerSignContractTransitionNo != null" >
+        customer_sign_contract_transition_no = #{customerSignContractTransitionNo,jdbcType=CHAR},
+      </if>
+      <if test="customerCaNo != null" >
+        customer_ca_no = #{customerCaNo,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where contract_no = #{contractNo}
+  </update>
+
+  <select id="selectContractViewAndDownloadUrlByOrderNo" resultType="java.util.Map" parameterType="java.lang.String">
+    SELECT
+      view_pdf_url AS viewPdfUrl,
+      download_url AS downloadUrl
+    FROM
+      sm_sign_contract_info
+    WHERE order_no = #{orderNo}
+    AND status = 2
+  </select>
+
+  <select id="selectSignContractSimplenessInfoByOrderNo" resultType="com.jdy.b2b.api.model.electroniccontract.SignContract" parameterType="java.lang.String">
+    SELECT
+        a.contract_no AS contractNo,
+        b.template_title as docTitle
+    FROM
+        sm_sign_contract_info a
+    INNER JOIN sm_contract_template_info b on b.template_no = a.template_no
+    WHERE a.`status` = 2
+    AND a.order_no = #{orderNo}
+  </select>
+
+  <select id="selectSingContractByContractNo" resultType="com.jdy.b2b.api.model.electroniccontract.SignContract" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sm_sign_contract_info a
+    WHERE
+    a.contract_no = #{contractNo}
+  </select>
+</mapper>

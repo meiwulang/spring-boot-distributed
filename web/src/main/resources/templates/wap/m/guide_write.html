@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>记一笔</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/guide_write.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->
+</head>
+<body>
+<div id="wrap">
+	<div class="pen">
+		<div class="acti_header">
+			<a class="bg_ing"></a>
+			<span class="titl"></span>
+		</div>
+		<div class="conten">
+			<div class="cons">
+				<script id="tpl-write" type="text/html">
+					<div class="ban">
+						<div class="swiper-container">
+						    <div class="swiper-wrapper">
+						    	{ each cates as value i }
+						        <div class="swiper-slide">
+						        	<div class="ul_list">
+						        		<ul>
+						        			{ each cates[i] as value j }
+							        		<li { if cates[i][j].d_text == cate }class="active"{ /if } v="{cates[i][j].d_text}">
+							        			<a href="{ if action == 'add' }
+							        				guide_write.html?type={type}&cate={cates[i][j].d_text}&team_id={team_id}&action={action}{ else }
+							        				javascript:;{ /if }">{ cates[i][j].d_text }</a>
+							        		</li>
+							        		{ /each }
+						        		</ul>
+						        	</div>
+						        </div>
+						        { /each }
+						    </div>
+						    <!-- 如果需要分页器 -->
+						    <div class="swiper-pagination"></div>
+						</div>
+					</div>
+					<div class="comm">
+						{ if cate == '购物店' }
+							{ if action == 'add' }
+							<ul>
+								<li class="tpi_date">
+									<div class="son">
+										<label for="">进店日期</label>
+										<input type="date" value="{ date }">
+									</div>
+								</li>
+								<li class="tpi_name">
+									<div class="son">
+										<label for=""><span>*</span>购物店</label>
+										<input type="text">
+									</div>
+								</li>
+								<li class="tpi_spec">
+									<div class="son">
+										<label for="">项目规格</label>
+										<input type="text">
+									</div>
+								</li>
+								<li class="settle_type">
+									<div class="son">
+										<label for=""><span>*</span>结算类型</label>
+										<select>
+											<option value="现金">现金</option>
+											<option value="签单">签单</option>
+										</select>
+									</div>
+								</li>
+								<li class="settle_number" style="display: none;">
+									<div class="son">
+										<label for="">签单号</label>
+										<input type="text">
+									</div>
+								</li>	
+								<li class="tpi_num">
+									<div class="son">
+										<label for=""><span></span>进店人数</label>
+										<input type="text">
+									</div>
+								</li>
+								<li class="tpi_price">
+									<div class="son">
+										<label for=""><span></span>人头单价</label>
+										<input type="text">
+									</div>
+								</li>
+								<li class="tpi_money">
+									<div class="son">
+										<label for=""><span></span>购物总额</label>
+										<input type="text">
+									</div>
+								</li>
+								<li class="tpi_percent">
+									<div class="son son_input">
+										<label for=""><span></span>流水比例</label>
+										<input type="text">
+										<span class="bar">%</span>
+									</div>
+								</li>
+								<li class="tpi_reback">
+									<div class="son">
+										<label for="">返佣总额</label>
+										<input readonly="readonly" type="text">
+									</div>
+								</li>
+								<li class="tpi_remark">
+									<div class="son">
+										<label for="">备注</label>
+										<input type="text">
+									</div>
+								</li>
+							</ul>
+							{ else }
+							<ul>
+								<li class="tpi_date">
+									<div class="son">
+										<label for="">进店日期</label>
+										<input type="date" value="{ data.tpi_date }">
+									</div>
+								</li>
+								<li class="tpi_name">
+									<div class="son">
+										<label for=""><span>*</span>购物店</label>
+										<input type="text" value="{ data.tpi_name }"
+											{ if data.tpi_add_type == '0'}
+											readonly="readonly"
+											style="color:gray;" 
+											{ /if }
+										>
+									</div>
+								</li>
+								<li class="tpi_spec">
+									<div class="son">
+										<label for="">项目规格</label>
+										<input type="text" value="{ data.tpi_spec }"
+											{ if data.tpi_add_type == '0'}
+											readonly="readonly"
+											style="color:gray;" 
+											{ /if }
+										>
+									</div>
+								</li>
+								<li class="settle_type">
+									<div class="son">
+										<label for=""><span>*</span>结算类型</label>
+										<select>
+											{ if data.tpi_add_type == '0'}
+											<option value="{data.tpi_settle}">{data.tpi_settle}</option>
+											{ else }
+											<option value="现金" { if data.tpi_settle == '现金' }selected="selected"{ /if }>现金</option>
+											<option value="签单" { if data.tpi_settle == '签单' }selected="selected"{ /if }>签单</option>
+											{ /if }
+										</select>
+									</div>
+								</li>
+								<li class="settle_number" { if data.tpi_settle == '现金' }style="display: none;"{ /if }>
+									<div class="son">
+										<label for="">签单号</label>
+										<input type="text" value="{ data.tpi_sign_number }">
+									</div>
+								</li>
+								<li class="tpi_num">
+									<div class="son">
+										<label for=""><span></span>进店人数</label>
+										<input type="text" value="{ data.tpi_num }">
+									</div>
+								</li>
+								<li class="tpi_price">
+									<div class="son">
+										<label for=""><span></span>人头单价</label>
+										<input type="text" value="{ data.tpi_price }"
+											{ if data.tpi_add_type == '0' && data.team_allow_edit == '0'}
+											readonly="readonly"
+											style="color:gray;" 
+											{ /if }
+										>
+									</div>
+								</li>
+								<li class="tpi_money">
+									<div class="son">
+										<label for=""><span></span>购物总额</label>
+										<input type="text" value="{ data.tpi_money }">
+									</div>
+								</li>
+								<li class="tpi_percent">
+									<div class="son son_input">
+										<label for=""><span></span>流水比例</label>
+										<input type="text" value="{ data.tpi_percent }"
+											{ if data.tpi_add_type == '0'}
+											readonly="readonly"
+											style="color:gray;" 
+											{ /if }
+										>
+										<span class="bar">%</span>
+									</div>
+								</li>
+								<li class="tpi_reback">
+									<div class="son">
+										<label for="">返佣总额</label>
+										<input readonly="readonly" style="color:gray;" type="text" value="{ data.tpi_total_money }">
+									</div>
+								</li>
+								<li class="tpi_remark">
+									<div class="son">
+										<label for="">备注</label>
+										<input type="text" value="{ data.tpi_remark }">
+									</div>
+								</li>
+							</ul>
+							{ /if }
+						{ else }
+							{ if action == 'add' }
+							<ul>
+								<li class="tpi_date">
+									<div class="son">
+										<label for="">游玩日期</label>
+										<input type="date" value="{ date }">
+									</div>
+								</li>
+								<li class="tpi_name">
+									<div class="son">
+										<label for=""><span>*</span>项目名称</label>
+										<input type="text">
+									</div>
+								</li>
+								<li class="tpi_spec">
+									<div class="son">
+										<label for="">项目规格</label>
+										<input type="text">
+									</div>
+								</li>
+								<li class="settle_type">
+									<div class="son">
+										<label for=""><span>*</span>结算类型</label>
+										<select>
+											{if cate != '导游'}
+											<option value="现金">现金</option>
+											{/if}
+											<option value="签单">签单</option>
+
+										</select>
+									</div>
+								</li>
+								<li class="settle_number" style="display: none;">
+									<div class="son">
+										<label for="">签单号</label>
+										<input type="text">
+									</div>
+								</li>
+								<li class="tpi_price">
+									<div class="son">
+										<label for=""><span>*</span>单价</label>
+										<input type="tel">
+									</div>
+								</li>
+								<li class="tpi_num">
+									<div class="son">
+										<label for=""><span>*</span>数量</label>
+										<input type="tel">
+									</div>
+								</li>
+								<li class="tpi_money">
+									<div class="son">
+										<label for="">总额</label>
+										<input readonly="readonly" type="tel">
+									</div>
+								</li>
+								<li class="tpi_remark">
+									<div class="son">
+										<label for="">备注</label>
+										<input type="text">
+									</div>
+								</li>
+								<!-- <li class="tpi_pay_class" { if type == '收入' }style="display:none;"{ /if }>
+									<div class="son">
+										<label for="">是否现退</label>
+										<select>
+											<option value="0">正常报价</option>
+											<option value="1">现退给游客</option>
+										</select>
+									</div>
+								</li> -->
+							</ul>
+							{ else }
+							<ul>
+								<li class="tpi_date">
+									<div class="son">
+										<label for="">游玩日期</label>
+										<input type="date" value="{ data.tpi_date }">
+									</div>
+								</li>
+								<li class="tpi_name">
+									<div class="son">
+										<label for=""><span>*</span>项目名称</label>
+										<input 
+											type="text" 
+											value="{ data.tpi_name }" 
+											{ if data.tpi_add_type == '0'}
+											readonly="readonly"
+											style = "color:gray;"
+											{ /if }
+										>
+									</div>
+								</li>
+								<li class="tpi_spec">
+									<div class="son">
+										<label for="">项目规格</label>
+										<input 
+											type="text" 
+											value="{ data.tpi_spec }" 
+											{ if data.tpi_add_type == '0'}
+											readonly="readonly"
+											style = "color:gray;"
+											{ /if }
+										>
+									</div>
+								</li>
+								<li class="settle_type">
+									<div class="son">
+										<label for=""><span>*</span>结算类型</label>
+										<select>
+											{ if data.tpi_add_type == '0'}
+											<option value="{data.tpi_settle}">{data.tpi_settle}</option>
+											{ else }
+											<option value="现金" { if data.tpi_settle == '现金' }selected="selected"{ /if }>现金</option>
+											<option value="签单" { if data.tpi_settle == '签单' }selected="selected"{ /if }>签单</option>
+											{ /if }
+										</select>
+									</div>
+								</li>
+								<li class="settle_number" { if data.tpi_settle == '现金'}style="display: none;"{ /if }>
+									<div class="son">
+										<label for="">签单号</label>
+										<input 
+											type="text" 
+											value="{ data.tpi_sign_number }">
+									</div>
+								</li>
+								<li class="tpi_price">
+									<div class="son">
+										{ if data.tpi_settle == '签单' && data.team_show_sign == '0'}
+											<div class="son_s">***</div>
+										{/if}
+										<label for=""><span>*</span>单价</label>
+										<input 
+											type="tel" 
+											value="{ data.tpi_price }" 
+											{ if data.tpi_add_type == '0'  && data.team_allow_edit == '0'}
+											readonly="readonly"
+											style = "color:gray;"
+											{ /if }
+										>
+									</div>
+								</li>
+								<li class="tpi_num">
+									<div class="son">
+										<label for=""><span>*</span>数量</label>
+										<input type="tel" value="{ data.tpi_num }">
+									</div>
+								</li>
+								<li class="tpi_money">
+									<div class="son">
+										{ if data.tpi_settle == '签单' && data.team_show_sign == '0'}
+											<div class="son_s">***</div>
+										{/if}
+										<label for="">总额</label>
+										<input 
+											type="tel" 
+											value="{ data.tpi_money }" 
+											readonly="readonly"
+											style = "color:gray;"
+										>
+									</div>
+								</li>
+								<li class="tpi_remark">
+									<div class="son">
+										<label for="">备注</label>
+										<input type="text" value="{ data.tpi_remark }">
+									</div>
+								</li>
+								<!-- <li class="tpi_pay_class" { if type == '收入' }style="display:none;"{ /if }>
+									<div class="son">
+										<label for="">是否现退</label>
+										<select>
+											<option value="0" { if data.tpi_pay_class == '0' }selected="selected"{ /if }>正常报价</option>
+											<option value="1" { if data.tpi_pay_class == '1' }selected="selected"{ /if }>现退给游客</option>
+										</select>
+									</div>
+								</li> -->
+							</ul>
+							{ /if }
+						{ /if }
+					</div>
+				</script>
+			</div>
+		</div>
+		<div class="boot">
+			<div class="nos">关闭</div>
+			<div class="yes">保存</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/guide_write.build.js"></script>
+</html>

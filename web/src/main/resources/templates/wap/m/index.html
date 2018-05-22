@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="assets/css/index.css">
+    <!-- <script type="text/javascript" src="/assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="/assets/js/get_wechat.js"></script> -->
+</head>
+<body>
+<div id="wrap">
+	<!-- <div class="top">
+		<div class="top-box clearfix">
+			<div class="city"><span></span></div>
+			<div class="search">
+				<input type="search" value="" />
+				<div class="sear"><span></span></div>
+				<div class="search-placeholder"><span>Search</span></div>
+			</div>
+		</div>
+	</div> -->
+	<div class="focussearch">
+		<script id="tpl-focussearch" type="text/html">
+			<div class="search-type">
+				{each data as value i}
+					{ if i==0 }
+					<a class="search-typelist onshow" href="javascript:;" value="{ data[i].type_id}">{ data[i].type_name }</a>
+					{ else }
+					<a class="search-typelist" href="javascript:;" value="{ data[i].type_id}">{ data[i].type_name }</a>
+					{ /if }
+				{ /each }
+			</div>		
+			<div class="search-des clearfix">
+				{ each data as value i }
+				{ if i==0 }
+					<ul class="search-ul show" value="{ data[i].type_id }">
+						{ each data[i].data as value j}
+						<li class="search-li"><a class="search-a" value="{ data[i].data[j] }" href="list.html?type={ data[i].type_id }&key={ data[i].data[j] }">{ data[i].data[j] }</a></li>
+						{ /each }
+					</ul>			
+				{ else }
+					<ul class="search-ul" value="{ data[i].type_id }">
+						{ each data[i].data as value j}
+						<li class="search-li"><a class="search-a" value="{ data[i].data[j] }" href="list.html?type={ data[i].type_id }&key={ data[i].data[j] }">{ data[i].data[j] }</a></li>
+						{ /each }
+					</ul>
+				{ /if } 
+				{ /each }
+			</div>
+			<div class="close">&times;</div>
+		</script>
+	</div>
+	<div class="changesearch">
+		<script id="tpl-changesearch" type="text/html">
+			<ul class="change-ul">
+			{ if data }
+				{ if key }
+					{ each data as value i}
+						<li class="change-li">
+							<a class="change-a" href="list.html?type={ data[i].type_id }&key={ key }" value="{ data[i].type_id }">
+								<span class="search-key">{ key }</span>
+								<span>{ data[i].type_name }</span>
+								<span class="search-num">({ data[i].count })</span>
+							</a>
+						</li>
+					{ /each }
+				{ else }
+					{ each data as value i}
+						{ if data[i].type_id==0 }
+						<li class="change-li">
+							<a class="change-a" href="list.html?type={ data[i].type_id }&key={ key }" value="{ data[i].type_id }">
+								<span class="search-key">全部数据</span>
+								<span>{ data[i].type_name }</span>
+								<span class="search-num">({ data[i].count })</span>
+							</a>
+						</li>
+						{ else }
+						<li class="change-li">
+							<a class="change-a" href="list.html?type={ data[i].type_id }&key={ key }" value="{ data[i].type_id }">
+								<span class="search-key"></span>
+								<span>{ data[i].type_name }</span>
+								<span class="search-num">({ data[i].count })</span>
+							</a>
+						</li>
+						{ /if }
+					{ /each }
+				{ /if }
+			{ else }
+				<a class="change-li" href="javascript:;" value="">未搜索到相关产品</a>
+			{ /if }
+			</ul>
+			<div class="close">&times;</div>
+		</script>
+	</div>
+	<div class="citylist">
+		<script id="tpl-citylist" type="text/html">
+			<div class="citylist-tbar">
+				<a class="back" href="javascript:;"></a>
+				<span>切换城市</span>
+			</div>
+			<div class="citylist-con">
+				<dl>
+					<dt>当前位置</dt>
+					<dd>
+						<ul>
+							<li code="{ currentCity.code }">{ currentCity.name }</li>
+						</ul>
+					</dd>
+				</dl>
+				{ each cityList as value i }
+				<a name="{ i }"></a>
+				<dl>
+					<dt>{ i }</dt>
+					<dd>
+						<ul>
+							{ each cityList[i] as value j }
+							<li code="{ cityList[i][j].code }">{ cityList[i][j].name }</li>
+							{ /each }
+						</ul>
+					</dd>
+				</dl>
+				{ /each }
+			</div>
+			<div class="city-letter">
+				<ul>
+					{ each letterList as value i }
+					<li><a href="#{ letterList[i] }">{ letterList[i] }</a></li>
+					{ /each }
+				</ul>
+			</div>
+		</script>
+	</div>
+	<!-- <?php include './top.html' ?> -->
+	<div class="main">
+		<!-- <div class="user-info">
+			<script id="tpl-userinfo" type="text/html">
+				<div class="img">
+					<img src="{ u_face }" />
+				</div>
+				<div class="txt">
+					<h3>{ u_realname }</h3>
+					<p>{ u_mobile }</p>
+				</div>
+				{ if u_nature }
+				<div class="tip">{ u_nature }</div>
+				{ /if }
+			</script>
+		</div> -->
+		<div class="banner">
+			<div class="swiper-container">
+			    <div class="swiper-wrapper">
+			    	<script id="tpl-banner" type="text/html">
+			    		{ each data as value i }
+				        <div class="swiper-slide">
+				        	<a href="{ data[i].ad_url }"><img src="{ data[i].ad_pic }?x-oss-process=image/resize,m_fill,h_195,w_375" /></a>
+				        </div>
+				        { /each }
+			        </script>
+			    </div>
+			    <!-- 如果需要分页器 -->
+			    <div class="swiper-pagination"></div>
+			</div>
+		</div>
+		<!-- <div class="cates">
+			<ul class="clearfix">
+				<li type="10">
+					<a href="javascript:;">
+						<div class="img">
+							<img src="assets/img/index/cate-1.png" />
+						</div>
+						<div class="txt">周边短线</div>
+					</a>
+				</li>
+				<li type="11">
+					<a href="javascript:;">
+						<div class="img">
+							<img src="assets/img/index/cate-2.png" />
+						</div>
+						<div class="txt">国内长线</div>
+					</a>
+				</li>
+				<li type="20">
+					<a href="javascript:;">
+						<div class="img">
+							<img src="assets/img/index/cate-3.png" />
+						</div>
+						<div class="txt">出境旅游</div>
+					</a>
+				</li>
+				<li type="30">
+					<a href="javascript:;">
+						<div class="img">
+							<img src="assets/img/index/cate-4.png" />
+						</div>
+						<div class="txt">邮轮</div>
+					</a>
+				</li>
+			</ul>
+		</div> -->
+		<a class="card-a" style="display: block; margin: 10px;" href="javascript:;"><img style="width:100%;height: auto;" src="assets/img/lipin.png" /></a>
+		<h2 class="products-tit" style="background: none;">精品路线</h2>
+		<div class="products">
+			<script id="tpl-list" type="text/html">
+				<ul>
+					{ each data as value i }
+					<li>
+						<a href="detail.html?p_id={ data[i].id }&openId={ openId }">
+							<div class="img">
+								<img src="" data-src="{ data[i].image }?x-oss-process=image/resize,m_fill,h_100,w_110" />
+							</div>
+							<div class="txt">
+								<h3>
+									<!-- <span class="tip">经济热销</span> -->
+									<span>{ data[i].title }</span>
+								</h3>
+								<div class="price"><i>￥</i>{ data[i].price }</div>
+							</div>
+							<!-- <div class="return">返佣：一级 { data[i].p_brokerage1 }% 二级 { data[i].p_brokerage2 }% 三级 { data[i].p_brokerage3 }%</div> -->
+						</a>
+					</li>
+					{ /each }
+				</ul>
+			</script>
+		</div>
+	</div>
+</div>
+<div id="nav">
+	<ul class="clearfix">
+		<li class="nav_index active"><a href="javascript:;">首页</a></li>
+		<li class="nav_order"><a href="order_list.html">订单</a></li>
+		<li class="nav_made"><a href="made_message.html">定制游</a></li>
+		<li class="nav_user"><a href="javascript:;">我的</a></li>
+	</ul>
+</div>
+</body>
+<script type="text/javascript">
+	// console.log(1234);
+</script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/index.build.js"></script>
+</html>

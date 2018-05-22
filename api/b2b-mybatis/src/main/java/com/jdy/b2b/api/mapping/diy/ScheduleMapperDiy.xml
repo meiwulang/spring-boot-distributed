@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.ScheduleMapperDiy">
+
+    <resultMap id="ScheduleDTOResultMap" type="com.jdy.b2b.api.model.diy.ScheduleDTO" extends="com.jdy.b2b.api.dao.ScheduleMapper.BaseResultMap">
+    	<result column="t_stock" jdbcType="INTEGER" property="tStock" />
+    </resultMap>
+    <select id="selectScheduleList" resultMap="ScheduleDTOResultMap">
+        SELECT
+            s.id, s.s_product_id, s.s_schedule_no, s.s_group_order_no,
+            s.s_schedule_name,
+            ifnull(css.start_date,s.s_calendar) s_calendar,
+            s.s_return_calendar, s.s_week_day,
+            s.s_car_num, s.s_car_seats, s.s_leave_time,
+            s.s_stop_sale, s.s_stop_type, s.s_sham_num,
+            s.s_print, s.s_sit_type, s.s_group_num,
+            s.s_seat_hold, s.s_seat_lock, s.s_seat_sold,
+            s.s_seat_total, s.s_status, s.create_time,
+            s.create_user, s.update_time, s.update_user,
+            ifnull((select -1 num from ct_schedule_ticket where st_schedule_id=s.id and  t_stock=-1 GROUP by st_schedule_id),
+            ifnull((SELECT sum(t_stock) FROM ct_schedule_ticket WHERE st_schedule_id=s.id),0)) t_stock
+        FROM
+        ct_schedule s
+        LEFT JOIN ct_schedule_setting css on s.id=css.schedule_id and css.company_id = #{pcompanyId}
+        WHERE
+        s.s_status != 2
+        AND s.s_product_id = #{sProductId}
+        <if test="sScheduleNo != null">
+            AND s.s_schedule_no = #{sScheduleNo}
+        </if>
+        <if test="sCalendarStart != null">
+            AND s.s_calendar &gt;= #{sCalendarStart}
+        </if>
+        <if test="sCalendarEnd != null">
+            AND s.s_calendar &lt;= #{sCalendarEnd}
+        </if>
+        <choose>
+            <when test="flag == 0">
+                and  s.s_status = #{flag}
+                and
+                (
+                curdate() &lt; s.s_calendar
+                or
+                (curdate() = s.s_calendar and curtime() &lt;= s.s_leave_time)
+                )
+
+            </when>
+            <when test="flag == 1">
+                and  s.s_status = #{flag}
+                and
+                (
+                curdate() &lt; s.s_calendar
+                or
+                (curdate() = s.s_calendar and curtime() &lt;= s.s_leave_time)
+                )
+            </when>
+            <when test="flag == 3">
+                and
+                (
+                curdate() &gt; s.s_calendar
+                or
+                (curdate() = s.s_calendar and curtime() &gt; s.s_leave_time)
+                )
+            </when>
+        </choose>
+        order by s.s_calendar DESC , s.s_schedule_no
+    </select>
+
+    <insert id="insertBatch" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        insert into ct_schedule (id, s_product_id, s_schedule_no,s_group_order_no,
+        s_calendar,s_return_calendar, s_week_day, s_schedule_name,
+        s_car_num, s_car_seats, s_leave_time,
+        s_stop_sale, s_stop_type, s_sham_num,
+        s_print, s_sit_type, s_group_num,
+        s_seat_hold, s_seat_lock, s_seat_total,
+        s_status, create_time, create_user,
+        update_time, update_user)
+        values
+        <foreach collection="list" separator="," item="item">
+            (#{item.id,jdbcType=BIGINT}, #{item.sProductId,jdbcType=BIGINT}, #{item.sScheduleNo,jdbcType=VARCHAR},#{item.sGroupOrderNo,jdbcType=VARCHAR},
+            #{item.sCalendar,jdbcType=DATE},#{item.sReturnCalendar,jdbcType=DATE}, #{item.sWeekDay,jdbcType=INTEGER}, #{item.sScheduleName,jdbcType=VARCHAR},
+            0,0, #{item.sLeaveTime,jdbcType=TIME},
+            #{item.sStopSale,jdbcType=INTEGER}, #{item.sStopType,jdbcType=INTEGER}, #{item.sShamNum,jdbcType=INTEGER},
+            #{item.sPrint,jdbcType=BIT}, #{item.sSitType,jdbcType=INTEGER}, #{item.sGroupNum,jdbcType=INTEGER},
+            0, 0, 0,
+            #{item.sStatus,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.createUser,jdbcType=BIGINT},
+            #{item.updateTime,jdbcType=TIMESTAMP}, #{item.updateUser,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+
+    <select id="selectSoldSeats" resultMap="com.jdy.b2b.api.dao.OrderMapper.BaseResultMap">
+        SELECT
+            d.id, d.o_bus_seat
+        FROM
+            sl_order d
+        WHERE
+            d.o_schedule_id = #{scheduleId}
+        and d.o_status != 4
+    </select>
+
+    <update id="updateScheduleSeatSold" parameterType="map">
+        UPDATE ct_schedule s
+        SET s.s_seat_sold = ifnull(s.s_seat_sold, 0) + #{sold_change}
+        WHERE
+            s.id = #{id}
+    </update>
+    
+    <resultMap id="DepartureWithStopsResultMap" type="com.jdy.b2b.api.model.diy.DepartureWithStopsDTO" extends="com.jdy.b2b.api.dao.station.ShuttleBusMapper.BaseResultMap">
+        <result column="departue_name" property="departureName"/>
+        <result column="stop_name" property="stopName"/>
+        <result column="d_type" property="dType"/>
+    </resultMap>
+    
+    <select id="selectDeparturesWithStops" resultMap="DepartureWithStopsResultMap">
+        SELECT DISTINCT
+        d.d_name departue_name,
+        d2.d_name stop_name,
+        d2.d_type,
+        b.*
+        FROM
+        ct_schedule_ticket s,
+        ct_ticket t,
+        ct_ticket_departure td,
+        sr_shuttle_bus b,
+        sr_departure d,
+        sr_departure d2
+        WHERE
+        s.st_schedule_id = #{id}
+        AND t.id = s.st_ticket_id
+        AND ( td.ticket_id = t.id or td.ticket_id = t.t_source_id)
+        AND d.id = td.departue_id
+        AND d.d_status = 0
+        AND b.sb_shuttle_stop_id = d.id
+        AND b.sb_status = 0
+        AND d2.id = b.sb_departure_id
+        AND d2.d_status = 0
+        <if test="name != null and name != ''">
+            AND d2.d_name LIKE concat('%',#{name},'%')
+        </if>
+        <if test="dType != null">
+            AND d2.d_type = #{dType}
+        </if>
+    </select>
+
+    <select id="selectDepartures" resultMap="com.jdy.b2b.api.dao.station.DepartureMapper.BaseResultMap">
+        SELECT DISTINCT
+            d.*
+        FROM
+        ct_schedule_ticket st, ct_ticket t, ct_ticket_departure td, sr_departure d
+        WHERE
+          st.st_schedule_id = #{id} AND st.st_ticket_id = t.id
+        AND d.d_status = 0 AND (td.ticket_id = t.id OR td.ticket_id = t.t_source_id) AND d.id = td.departue_id
+
+        <if test="name != null and name != ''">
+            AND d.d_name LIKE concat('%',#{name},'%')
+        </if>
+    </select>
+    <select id="selectScheduleListByTicket" resultMap="com.jdy.b2b.api.dao.ScheduleMapper.BaseResultMap" parameterType="com.jdy.b2b.api.model.alterTicket.OrderQueryScheduleByTicketVO">
+        select b.* from ct_schedule_ticket a
+        INNER JOIN ct_schedule b ON b.id = a.st_schedule_id and b.id != #{oldScheduleId}
+        INNER JOIN ct_schedule_setting c ON c.schedule_id = b.id and c.departure_status &lt;= 0
+        <if test="time != null" >
+            <if test="flag == true">
+                AND #{time,jdbcType=TIMESTAMP} &lt;= CONCAT(b.s_calendar,' ',b.s_leave_time)
+            </if>
+            <if test="flag == false">
+                AND datediff(#{time,jdbcType=TIMESTAMP},b.s_calendar) = 0
+            </if>
+
+        </if>
+        <where>
+            <if test="ticketList != null and ticketList.size > 0">
+                a.st_ticket_id IN(
+                <foreach collection="ticketList" item="id" separator=",">
+                    #{id}
+                </foreach>
+                )
+            </if>
+        </where>
+        group by b.id
+    </select>
+</mapper>

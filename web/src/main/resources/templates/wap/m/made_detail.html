@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>定制游</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/made_detail.css">
+    <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> 
+</head>
+<body>
+<div id="wrap">
+    <div class="main">
+	    <div class="content">
+	    	<script id="tpl-lists" type="text/html">
+		        <div class="infors made-infor">
+		        	<div class="item">个人定制游基本信息</div>
+					<div class="item clearfix">
+						<label>出发城市</label>
+						<div>{ startCity }</div>
+					</div>
+					<div class="item clearfix">
+						<label>目的地</label>
+						<div>{ destinationCitys }</div>
+					</div>
+					<div class="item clearfix">
+						<label>出发日期</label>
+						<div>{ startDate }</div>
+					</div>
+					<div class="item clearfix">
+						<label>出游天数</label>
+						<div>{ playDays }天</div>
+					</div>
+					<div class="item clearfix">
+						<label>出游人数</label>
+						<div>{ playPeoples }</div>
+					</div>
+					<div class="item clearfix">
+						<label>人均预算</label>
+						<div>{ perBudget }</div>
+					</div>
+					{ if optionalServiceArr }
+					<div class="item clearfix">
+						<label>需求提供</label>
+						<div></div>
+					</div>
+					<div class="item clearfix">
+						<div class="demand clearfix">
+							{ each optionalServiceArr as value i }
+							<span>{ optionalServiceArr[i] }</span>
+							{ /each }
+						</div>
+					</div>
+					{ /if }
+					{ if otherService }
+					<div class="item clearfix">
+						<label>其他需求</label>
+					</div>
+					<div class="item clearfix">
+						<div class="remark">{ otherService }</div>
+					</div>
+					{ /if }
+		        </div>
+
+		        <div class="infors person-infor">
+		        	<div class="item">游客联系人信息</div>
+		        	<div class="item clearfix">
+						<label>姓名</label>
+						<div>{ headName }</div>
+					</div>
+					<div class="item clearfix">
+						<label>性别</label>
+						<div>{ headSex }</div>
+					</div>
+					<div class="item clearfix">
+						<label>手机</label>
+						<div>{ headPhone }</div>
+					</div>
+					{ if headWx }
+					<div class="item clearfix">
+						<label>微信号</label>
+						<div>{ headWx }</div>
+					</div>
+					{ /if }
+					{ if headEmail }
+					<div class="item clearfix">
+						<label>邮箱</label>
+						<div>{ headEmail }</div>
+					</div>
+					{ /if }
+		        </div>
+
+		        { if madetype == 'edit' }
+		        <div class="new-list">
+		        	<a href="made_message.html?id={ requireId }">添加新需求</a>
+		        </div>
+		        { /if }
+			</script>
+	    </div>
+    
+        
+        
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/made_detail.build.js"></script>
+</html>

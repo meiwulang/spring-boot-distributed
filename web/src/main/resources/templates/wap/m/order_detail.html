@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>订单详情</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/order_detail.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> --> 
+</head>
+<body>
+<div id="wrap">
+    <script id="tpl-order" type="text/html">
+    <div class="main">
+        <div class="t-bar"><a class="left"></a><span>订单详情</span></div>
+        <div class="infor-bar">
+            <ul class="clearfix">
+                <li><a href="javascript:;" class="active">基本信息</a></li>
+                <li><a href="javascript:;">游客信息</a></li>
+                <li><a href="javascript:;">支付记录</a></li>
+                <li><a href="javascript:;">合同签署</a></li>
+                <li><a href="javascript:;">改签记录</a></li>
+            </ul>
+        </div>
+        <div class="order-infor lists">
+            {if order_detail.o_status != "待审核" && order_detail.o_sorg_id && order_detail.o_status != "退票"}
+            <a href="/notify/groupAdviceNote?oOrderNo={order_detail.o_number}"><div class="group"></div></a>
+            {/if}
+            <div class="define"></div>
+            <div class="content">
+                <div class="title">
+                    { if order_detail.o_status == '待审核'}
+                    <label class="state bg-blue">待审核</label>
+                    { else if  order_detail.o_status == '已报名'}
+                    <label class="state bg-red">已报名</label>
+                    { else if  order_detail.o_status == '已全款'}
+                    <label class="state bg-green">已全款</label>
+                    { else if  order_detail.o_status == '已驳回'}
+                    <label class="state bg-gray">已驳回</label>
+                    { else if  order_detail.o_status == '已首款'}
+                    <label class="state bg-orange">已首款</label>
+                    { else if  order_detail.o_status == '已取消'}
+                    <label class="state bg-gray">已取消</label>
+                    { else if  order_detail.o_status == '未签署'}
+                    <label class="state bg-gray">未签署</label>
+                    { /if }
+                    <!-- <span>{ order_detail.o_status }</span> -->
+                    <a href="javascript:;">{ order_detail.o_product_name }</a>
+                </div>
+                <div class="money"><span class="color-red">￥</span><span class="numb color-red">{ order_detail.o_settle_real }</span> <span>门市：</span><span class="m-money">￥{ order_detail.o_buy_real }</span></div>
+                <div class="type clearfix">
+
+                    { if order_detail.o_big_num.length != 0 && order_detail.o_small_num != 0}
+                    { order_detail.o_big_num }大/{ order_detail.o_small_num }小（共{ order_detail.o_num }人）
+                    { else if order_detail.o_big_num != 0 && order_detail.o_small_num == 0 }
+                    { order_detail.o_big_num }大（共{ order_detail.o_num }人）
+                    { else if order_detail.o_big_num == 0 && order_detail.o_small_num != 0 }
+                    { order_detail.o_small_num }小（共{ order_detail.o_num }人）
+                    { /if }
+
+                    <div class="img">
+                    { if order_detail.o_payment_type == '信用支付'}
+                    <img src="assets/img/payment/credit.png" alt="">
+                    { else if order_detail.o_payment_type == '在线支付'}
+                    <img src="assets/img/payment/online.png" alt="">
+                    { else if order_detail.o_payment_type == '线下支付'}
+                    <img src="assets/img/payment/line.png" alt="">
+                    { else }
+                    <div class="nite">{order_detail.o_payment_type}</div>
+                    { /if }
+                    <div class="nites"><a href="pay.html?n={order_detail.o_number}#wechat_redirect">立即支付</a></div>
+                    </div>
+                </div>
+                <div class="date item clearfix">
+                    <label>出游日期</label><div><span>{ order_detail.o_start_date }</span>&nbsp至&nbsp<span>{ order_detail.o_end_date }</span></div>
+                </div>
+                <div class="remark item more-line clearfix">
+                    <label>订单备注</label>
+                    <div class="pa">{ order_detail.o_remark }</div>
+                    {if order_detail.remark_edit == '1'}
+                    <span class="bjs">编辑</span>
+                    {/if}
+                </div>
+
+            </div>
+
+            <div class="buyer-infor infors">
+                <div class="title">买家信息</div>
+                <div class="name item more-line clearfix"><label>买家名称</label><div>{ order_detail.org_name }</div></div>
+                <div class="item clearfix">
+                    <label>联系客服</label>
+                    <div>
+                        <span>
+                            <a href="tel:{ order_detail.service_mob }">{ order_detail.service_name }</span>&nbsp&nbsp<span class="color-blue">{ order_detail.service_mob}</a>
+                            
+                        </span>
+                    </div>
+                </div>
+                { if order_detail.org_tel }
+                <div class="item clearfix"><label>服务电话</label><div><a class="color-blue" href="tel:{ order_detail.org_tel }">{ order_detail.org_tel }</a></div></div>
+                { /if }
+                <div class="item more-line clearfix"><label>买家地址</label><div>{ order_detail.org_addr }</div></div>
+            </div>
+
+            <div class="business-infor infors">
+                <div class="title">商家信息</div>
+                <div class="name item bor-top more-line clearfix"><label>商家名称</label><div>{ order_detail.org_name }</div></div>
+                <div class="item clearfix">
+                    <label>联系客服</label>
+                    <div>
+                        <span>
+                            <a href="tel:{ order_detail.service_mob }">{ order_detail.service_name }</span>&nbsp&nbsp<span class="color-blue">{ order_detail.service_mob }</a>
+                        </span>
+                    </div>
+                </div>
+                { if order_detail.org_tel }
+                <div class="item clearfix"><label>服务电话</label><div><a class="color-blue" href="tel:{ order_detail.org_tel }">{ order_detail.org_tel }</a></div></div>
+                { /if }
+                { if order_detail.org_addr }
+                <div class="item more-line clearfix"><label>卖家地址</label><div>{ order_detail.org_addr }</div></div>
+                { /if }
+            </div>
+            
+            <div class="guide-infor">
+                <div class="title">游客/导游信息</div>
+                <div class="item clearfix bor-top conect"><label>联系游客</label><div><a href="tel:{ order_detail.o_vip_mob }"><span>{ order_detail.o_vip_name }</span>&nbsp&nbsp<span class="color-blue">{ order_detail.o_vip_mob }</span></a></div></div>
+                { if order_detail.guide_name }
+                <div class="item clearfix"><label>当地导游</label><div>{ order_detail.guide_name }</div></div>
+                { /if }
+                { if order_detail.seat_detail }
+                <div class="item clearfix"><label>座位分布</label><div>{ order_detail.seat_detail }</div></div>
+                { /if }
+                <div class="item more-line clearfix"><label>接送去程</label><div>{ order_detail.s_start_sttime} { order_detail.site_go } { order_detail.o_num }人</div></div>
+                <div class="item more-line clearfix"><label>接送返程</label><div>{ order_detail.s_end_sttime } { order_detail.site_back } { order_detail.o_num }人</div></div>
+            </div>
+
+            <div class="additional-infor">
+                <div class="item clearfix"><label>订单编号</label><div>{ order_detail.o_number }</div></div>
+                <div class="item clearfix"><label>报名时间</label><div>{ order_detail.o_sell_time }</div></div>
+                { if order_detail.o_confirm_time }
+                <div class="item clearfix"><label>确认时间</label><div>{ order_detail.o_confirm_time }</div></div>
+                { /if }
+                { if order_detail.o_deal_num }
+                <div class="item clearfix"><label>合同编号</label><div>{ order_detail.o_deal_num }</div></div>
+                { /if }
+                { if order_detail.o_out_num }
+                <div class="item clearfix"><label>外部订单号</label><div>{ order_detail.o_out_num }</div></div>
+                { /if }
+            </div>
+
+           <!--  <div class="return">返佣：一级 { order_detail.p_brokerage1 }% 二级 { order_detail.p_brokerage2 }% 三级 { order_detail.p_brokerage3 }%</div> -->
+        </div>
+        
+        <div class="tourist-infor lists">
+            <div class="content">
+                <ul>
+                    { each seat_detail as value i }
+                    <li>
+                        <div class="name">
+                            <div class="infor  clearfix">
+                                <div class="type"><span class="numb">{ i+1 }、</span>{ seat_detail[i].s_tname }</div>
+                                <div class="info">
+                                    <span class="t-name">
+                                    {if seat_detail[i].s_is_bl && seat_detail[i].s_is_bl == '1'}
+                                    <span class="mations"></span>
+                                    {/if}
+                                    { seat_detail[i].s_vip_name }</span>
+                                    &nbsp<span class="phone">{ seat_detail[i].s_vip_mob }</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        { if seat_detail[i].s_start_sttime || seat_detail[i].s_start_stname }
+                        <div class="go"><span class="g-tip">去</span><span class="clock">{ seat_detail[i].s_start_sttime }</span>&nbsp<span class="g-address">{ seat_detail[i].s_start_stname }</span></div>
+                        { /if }
+                        { if seat_detail[i].s_end_stname }
+                        <div class="back"><span class="b-tip">返</span><span class="clock">{ seat_detail[i].s_end_sttime }</span>&nbsp<span class="b-address">{ seat_detail[i].s_end_stname }</span></div>
+                        { /if }
+                        { if seat_detail[i].s_vip_card_type && seat_detail[i].s_vip_card }
+                        <div class="idcard">{ seat_detail[i].s_vip_card_type }&nbsp&nbsp<span>{ seat_detail[i].s_vip_card }</span>&nbsp&nbsp
+                            { if seat_detail[i].s_vip_age }
+                            <span>（{ seat_detail[i].s_vip_age }岁）</span>
+                            { /if }
+                        </div>
+                        { /if }
+                    </li>
+                    { /each }
+                </ul>
+            </div>
+			<div class="submit clearfix">
+                <div class="btn">编辑游客信息</div>
+			</div>            
+        </div>
+
+        <div class="pay-recode lists">
+            <div class="detail">
+                <ul>
+                    { if !pay_detail.length && !orderCards.length}
+                    <li class="norecode">暂无支付记录</li>
+                    { else if pay_detail &&pay_detail.length > 0}
+                    { each pay_detail as value i}
+                    { if pay_detail[i].lineType }
+                        <li class="clearfix">
+                            <div class="date">
+                                <p>{ pay_detail[i].createDate }</p>
+                                <p>{ pay_detail[i].createHour }</p>
+                            </div>
+                            <div class="text">
+                                <p class="money color-red">{ pay_detail[i].moneyStr }</p>
+                                <h3><span>凭证记录</span><span>{ pay_detail[i].payMethod }</span></h3>
+                            </div>
+                            <div class="state">{ pay_detail[i].statusStr }</div>
+                            <div class="imgs">
+                                <img src="{ pay_detail[i].url }" alt="">
+                            </div>
+                            <div class="imgstips">
+                                上传说明：{ pay_detail[i].uploadDesc }                             
+                            </div> 
+                        </li> 
+                    { else }
+                        <li class="clearfix">
+                            <div class="date">
+                                <p>{ pay_detail[i].createDate }</p>
+                                <p>{ pay_detail[i].createHour }</p>
+                            </div>
+                            <div class="text">
+                                <h3><span>支付记录</span>&nbsp;-&nbsp;<span>{ pay_detail[i].payMethodStr }</span></h3>
+                                <p class="money color-red">{ pay_detail[i].moneyStr }</p>
+                            </div>
+                            { each pay_detail[i].orderOfflineList as value j }
+                            <div class="imgs_pay">
+                                <div class="date">
+                                    <p>{ pay_detail[i].orderOfflineList[j].createDate }</p>
+                                    <p>{ pay_detail[i].orderOfflineList[j].createHour }</p>
+                                </div>
+                                <div class="text">
+                                    <h3>凭证记录</h3>
+                                    <div class="state">{ pay_detail[i].orderOfflineList[j].statusStr }</div>
+                                    <div class="imgs_payList">
+                                        <img src="{ pay_detail[i].orderOfflineList[j].url }" alt="">                             
+                                    </div>   
+                                    <div class="tips">
+                                            上传说明：{ pay_detail[i].orderOfflineList[j].uploadDesc }
+                                        <!-- <span>上传说明：</span>
+                                        <span>{ pay_detail[i].orderOfflineList[j].uploadDesc }</span> -->
+                                    </div>                                  
+                                </div> 
+                            </div> 
+                            { /each }                           
+                        </li> 
+                    { /if }
+                   
+                    { /each }
+                    <!-- yjk截至 -->
+                    { /if }
+                    {if orderCards.length}
+                        {each orderCards as value i}
+                            <li class="clearfix">
+                                <div class="date">
+                                </div>
+                                
+                                <div class="text" style="margin-left: 0">
+                                    <p class="money color-red">卡券支付-{ orderCards[i].cardNo }</p>
+                                    <h3><span>截止时间：{ orderCards[i].validTime}</span>&#x3000;</h3>
+                                </div>
+                                
+                            </li>
+                        {/each}
+                    {/if}
+                </ul>
+                <!-- 凭证测试 -->
+                <!-- <button class="getPayProof">查看支付凭证</button>
+                <button class="choosePayProof">选择支付凭证</button>
+                <button class="uploadPayProof">上传支付凭证</button>
+                <div class="upsed">
+                    <div class="acti_header">上传凭证
+                        <a class="lefs" href="javascript:;"></a>
+                    </div>
+                    <div class="boot">
+                        <div class="nos">返&#x3000;回</div>
+                        <div class="yes">袁俊凯的专用上传图片按钮</div>
+                    </div>
+                    <div class="fa">
+                        <div class="pro">
+                            <div class="pro_lef">
+                                <select id="mysele_two" class="mainse">
+                            </select> 
+                            <span class="save"></span>
+                            </div>
+                        </div>	
+                        <div class="bage">
+                            <div class="ul_list">
+                                <ul class="phon_ul phon_wx">
+                                    
+                                    <li class="add">
+                                        <img src="assets/img/guide/ten.png" alt="">
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>                 -->
+            </div>
+			<!-- <div class="submitProof clearfix">
+                <div class="btn">上传支付凭证</div>
+			</div>             -->
+        </div>
+
+        <div class="lists cont">
+            
+            <div class="content">
+
+            <div class="primese">
+                <div class="heaff">
+                    <span>合同补充约定</span>
+                    {if order_detail.o_status == "已驳回"}
+                    <span class="edit_pri"></span>
+                    {/if}
+                </div>
+                <div class="tex_salee" datas="{order_detail.o_contract_agreement}">
+                    {order_detail.o_contract_agreement}
+                </div>
+            </div>
+                <ul>
+                {if orderContract && orderContract != null}
+                    <li>
+                        <div class="name">
+                            <div class="infor  clearfix">
+                                <div class="type">签署状态</div>
+                            </div>
+                        </div>
+                        <div class="go">
+                            <div class="ma-con">
+                                {if orderContract.isCompanySigin == '1'}
+                                <span class="statr-com">已签署</span>
+                                {else}
+                                <span class="statr-com active">未签署</span>
+                                {/if}
+                            </div>
+                            <div class="matext">
+                               <div class="name-com">甲方：{order_detail.org_name}</div>
+                               {if orderContract.companySignContractTimeStr}
+                               <div class="times-com">签署时间：{orderContract.companySignContractTimeStr}</div>
+                               {/if}
+                            </div>
+                        </div>
+                        <div class="go">
+                            <div class="ma-con">
+                                {if orderContract.isCustomerSign == '1'}
+                                <span class="statr-com">已签署</span>
+                                {else}
+                                <span class="statr-com active">未签署</span>
+                                {/if}
+                            </div>
+                            <div class="matext">
+                               <div class="name-com">乙方游客代表人：{orderContract.signName}</div>
+                               {if orderContract.customerSignContractTimeStr}
+                               <div class="times-com">
+                               签署时间：{orderContract.customerSignContractTimeStr}</div>
+                               {/if}
+                            </div>
+                        </div>
+                    </li>
+                    {/if}
+                </ul>
+                {if orderContract && orderContract != null && orderContract.isCompanySigin == '1' && orderContract.isCustomerSign == "1"}
+                <div class="urls">
+                    <a class="view" href="{orderContract.viewPdfUrl}">查看合同</a>
+                    <a class="dow" href="{orderContract.downloadUrl}">下载合同</a>
+                </div>
+                {/if}
+            </div>
+            {if orderContract && orderContract != null && orderContract.isCustomerSign == "0"}
+            <div class="check" style="display: none;">签署合同</div>
+            {/if}
+        </div>
+    </div>
+    <div class="primes">
+        <div class="headers">
+            <a class="pri_a" href="javascript:;"></a>
+            <span>合同补充约定</span>
+        </div>
+        <div class="texs">
+            <textarea class="text_area"></textarea>
+        </div>
+        <div class="pri_btn">提交</div>
+    </div>
+    </script>
+</div>
+
+</body>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<!-- <script type="text/javascript" src="assets/js/build/wechat_config.build.js"></script> -->
+<script type="text/javascript" src="assets/js/build/order_detail.build.js"></script>
+</html>

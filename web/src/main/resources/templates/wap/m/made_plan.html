@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>定制游</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/made_plan.css">
+    <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> 
+</head>
+<body>
+<div id="wrap">
+    <div class="main">
+    	<div class="content">
+			<script id="tpl-lists" type="text/html">
+			<div class="base-info">
+				<div class="plan_name">{ dpLineName }</div>
+				<div class="infors">
+					<p class="tips">订单报价</p>
+		        	<div class="item clearfix">
+						<!-- <label>参考价</label> -->
+						<div>{ dpOrderAmount }</div>
+					</div>
+				</div>
+
+				<div class="infors scenery-infor">
+					<p class="tips">核心景点</p>
+		        	<div class="item clearfix">
+						<div>{ dpCoreScenic }</div>
+					</div>
+				</div>
+
+				<div class="infors">
+					<p class="tips">住宿标准</p>
+		        	<div class="item clearfix">
+						<div>{ dpStandardAccommodation }</div>
+					</div>
+				</div>
+
+				<div class="infors">
+					<p class="tips">最低成团数</p>
+		        	<div class="item clearfix">
+						<div>{ dpMinClusteringNum }</div>
+					</div>
+				</div>
+
+				<div class="infors">
+					<p class="tips">联系方式</p>
+		        	<div class="item clearfix">
+						<div>产品经理：{ manageName } &nbsp { managePhone }</div>
+					</div>
+				</div>
+			</div>
+			{ if typeedit == 'edit' }
+			<div class="flexd-box">
+				<div class="contract">
+					<div class="check"><a href="made_message.html?id={ rId }">新增需求</a></div>
+					<div class="download plan_sure"><a href="javascript:;">确认方案</a></div>
+				</div>
+			</div>
+			{ /if }
+			</script>
+		</div>
+		
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/made_plan.build.js"></script>
+</html>

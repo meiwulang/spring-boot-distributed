@@ -1,0 +1,262 @@
+@import './common.less';
+@import './lib/swiper.3.4.0.less';
+
+#wrap{
+	/*padding-bottom: 0;*/
+	.main{
+		/*width: 100%;*/
+		.guide_header{
+			background: #fff;
+			margin-bottom: 10px;
+			.cont{
+				box-sizing: border-box;
+				padding: 15px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				height: 90px;
+				width: 100%;
+				background: url('@{img}/guide/bg.png') no-repeat;
+				background-size: 100% 100%; 
+				.tit{
+					font-size: 18px;
+					color: #fff;
+					margin-bottom: 11px;
+				}
+				.tits{
+					height: 17px;
+					color: #fff;
+					overflow: hidden;
+					div{
+						float: left;
+					}
+					.groud{
+						width: 60%;
+						font-size: 12px;
+
+					}
+					.grous{
+						width: 40%;
+						text-align: right;
+						font-size: 12px;
+					}
+				}
+			}
+			.user{
+				height: 43px;
+				overflow: hidden;
+				.imgs{
+					height: 100%;
+					float: left;
+					width: 10%;
+					div{
+						margin: 0 auto;
+						margin-top: 16px;
+						background: url('@{img}/guide/user.png') no-repeat;
+						background-size: 100% 100%; 
+						width: 16px;
+						height: 11px;
+					}
+				}
+				.mation{
+					line-height: 43px;
+					box-sizing: border-box;
+					float: left;
+					height: 100%;
+					width: 90%;
+					border-bottom: 1px solid #e7e7e7;
+					padding-right: 15px;
+					.son{
+						font-size: 14px;
+						color: #333;
+						span{
+							color: #84b6fb;
+						}
+					}
+					.sons{
+						padding: 2px 5px;
+						color: #fff;
+					/*	background: #37cc71;*/
+					}
+					.gui_mon{
+						float: right;
+						font-size: 13px;
+						.sp{
+							font-size: 14px;
+							color: #fc2a35;
+						}
+					}
+					/*未报账*/
+					.gui_w{
+						background: red;
+					}
+					/*报账中*/
+					.gui_b{
+						background: #FF6600;
+					}
+					/*审核中*/
+					.gui_s{
+						background: #84b6fb;
+					}
+					/*已驳回*/
+					.gui_y{
+						background: #ffa600;
+					}
+					/*已完成*/
+					.gui_c{
+						background: #37cc71;
+					}
+				}
+			}
+			.users{
+				height: 32px;
+				overflow: hidden;
+				.imgs{
+					height: 100%;
+					float: left;
+					width: 10%;
+					div{
+						margin: 0 auto;
+						margin-top: 10px;
+						background: url('@{img}/guide/user2.png') no-repeat;
+						background-size: 100% 100%; 
+						width: 10px;
+						height: 11px;
+					}
+				}
+				.mation{
+					line-height: 32px;
+					box-sizing: border-box;
+					float: left;
+					height: 100%;
+					width: 90%;
+					
+					.son{
+						font-size: 14px;
+						color: #333;
+						
+					}
+					
+				}
+			}
+		}
+		.mati{
+			margin-bottom: 10px;
+			padding-left: 15px;
+			box-sizing: border-box;
+			width: 100%;
+			height: 30px;
+			background: #fefeca;
+			color: #d40b11;
+			line-height: 30px;
+			span{
+				float: left;
+				margin-top: 7px;
+				margin-right: 3px;
+				display: inline-block;
+				width: 15px;
+				height: 15px;
+				background: url('@{img}/order/blank2.png') center center no-repeat;
+				background-size: 15px 15px;		
+			}
+		}
+		.lists{
+			background: #fff;
+			margin-bottom: 10px;
+			height: 200px;
+			ul{
+				height: 100%;
+				overflow: hidden;
+				li{
+					background: #fff;
+					height: 100px;
+					float: left;
+					width: 33.3%;
+					.imgd{
+						background: #fff;
+						width: 50px;
+						height: 50px;
+						margin: 0 auto;
+						margin-top: 14px;
+						img{
+							background: #fff;
+							width: 100%;
+							height: 100%;
+						}
+					}
+					.tex{
+						margin-top: 5px;
+						width: 100%;
+						text-align: center;
+						font-size: 12px;
+						color: #323232;
+					}
+				}
+			}
+		}
+		.guide_foot{
+			background: #fff;
+			.mony{
+				width: 100%;
+				height: 90px;
+				box-sizing: border-box;
+				padding-top: 28px;
+				.monys{
+					font-weight: bold;
+					text-align: center;
+					font-size: 20px;
+					color: #fc2a35;
+					.ya{
+						font-size: 10px;
+					}
+				}
+				.gro{
+					text-align: center;
+					color: #666;
+					font-size: 11px;
+				}
+			}
+			.foot_ul{
+				/*margin-bottom: 60px;*/
+				border-bottom: 1px solid #e7e7e7;
+				border-top: 1px solid #e7e7e7;
+				overflow:hidden;
+				width: 100%;
+				height: 60px;
+				box-sizing: border-box;
+				li{
+					padding-top: 13px;
+					height: 100%;
+					box-sizing: border-box;
+					float: left;
+					width: 33.3%;
+					.sons{
+						height: 32px;
+						width: 100%;
+						border-right: 1px solid #e7e7e7;
+						.prce{
+							color: #333;
+							font-size: 14px;
+							text-align: center;
+							span{
+								font-size: 10px;
+							}
+						}
+						.tit{
+							font-size: 11px;
+							color: #666;
+							text-align: center;
+						}
+					}
+				}
+				li:last-child{
+					.sons{
+						border-right: none;
+					}
+				}
+
+			}
+		}
+		
+
+	}
+}

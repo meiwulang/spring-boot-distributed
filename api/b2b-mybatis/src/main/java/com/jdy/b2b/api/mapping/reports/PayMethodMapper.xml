@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.reports.PayMethodMapper">
+    <resultMap id="PayMethodResultMap" type="com.jdy.b2b.api.model.reports.PayMethodQueryDO">
+        <result column="c_group" jdbcType="VARCHAR" property="cGroup" />
+        <result column="totalPrice" jdbcType="DECIMAL" property="totalPrice" />
+        <result column="orderCounts" jdbcType="INTEGER" property="orderCounts" />
+        <result column="flag" jdbcType="INTEGER" property="flag" />
+    </resultMap>
+
+    <select id="queryPayMethodList" parameterType="com.jdy.b2b.api.model.reports.PayMethodQueryDTO" resultMap="PayMethodResultMap">
+        SELECT
+        company.c_group,
+        sum(slOrder.o_total_price) as totalPrice,
+        count(1) as orderCounts,
+        1 AS flag
+        FROM
+        sl_order slOrder
+        LEFT JOIN sm_company company ON slOrder.o_saler_company_id = company.id
+        LEFT JOIN ct_schedule schedule on slOrder.o_schedule_id = schedule.id
+        <where>
+            slOrder.o_pay_method = 0
+            AND (
+            slOrder.o_status = 2
+            OR slOrder.o_status = 3
+            )
+            <if test="cGroup != null and cGroup!=''">
+                AND company.c_group = #{cGroup,jdbcType=VARCHAR}
+            </if>
+            <if test="province != null and province !=''">
+                AND company.c_province = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null and city !=''">
+                AND company.c_city = #{city,jdbcType=VARCHAR}
+            </if>
+            <choose>
+                <when test="dateType == 1">
+                    <if test="minDate != null">
+                        AND schedule.s_calendar &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND schedule.s_calendar &lt;= #{maxDate}
+                    </if>
+                </when>
+                <when test="dateType == 2">
+                    <if test="minDate != null">
+                        AND slOrder.createTime &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND slOrder.createTime &lt;= #{maxDate}
+                    </if>
+                </when>
+            </choose>
+        </where>
+        GROUP BY
+        company.c_group
+
+        union all
+
+        SELECT
+        company.c_group,
+        sum(slOrder.o_total_price) as totalPrice,
+        count(1) as orderCounts,
+        2 AS flag
+        FROM
+        sl_order slOrder
+        LEFT JOIN sm_company company ON slOrder.o_saler_company_id = company.id
+        LEFT JOIN ct_schedule schedule on slOrder.o_schedule_id = schedule.id
+        <where>
+            slOrder.o_pay_method = 1
+            AND (
+            slOrder.o_status = 2
+            OR slOrder.o_status = 3
+            )
+            <if test="cGroup != null and cGroup!=''">
+                AND company.c_group = #{cGroup,jdbcType=VARCHAR}
+            </if>
+            <if test="province != null and province !=''">
+                AND company.c_province = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null and city !=''">
+                AND company.c_city = #{city,jdbcType=VARCHAR}
+            </if>
+            <choose>
+                <when test="dateType == 1">
+                    <if test="minDate != null">
+                        AND schedule.s_calendar &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND schedule.s_calendar &lt;= #{maxDate}
+                    </if>
+                </when>
+                <when test="dateType == 2">
+                    <if test="minDate != null">
+                        AND slOrder.createTime &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND slOrder.createTime &lt;= #{maxDate}
+                    </if>
+                </when>
+            </choose>
+        </where>
+        GROUP BY
+        company.c_group
+
+        union all
+
+        SELECT
+        company.c_group,
+        sum(slOrder.o_total_price) as totalPrice,
+        count(1) as orderCounts,
+        3 AS flag
+        FROM
+        sl_order slOrder
+        LEFT JOIN sm_company company ON slOrder.o_saler_company_id = company.id
+        LEFT JOIN ct_schedule schedule on slOrder.o_schedule_id = schedule.id
+        <where>
+            slOrder.o_pay_method = 2
+            AND (
+            slOrder.o_status = 2
+            OR slOrder.o_status = 3
+            )
+            <if test="cGroup != null and cGroup!=''">
+                AND company.c_group = #{cGroup,jdbcType=VARCHAR}
+            </if>
+            <if test="province != null and province !=''">
+                AND company.c_province = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null and city !=''">
+                AND company.c_city = #{city,jdbcType=VARCHAR}
+            </if>
+            <choose>
+                <when test="dateType == 1">
+                    <if test="minDate != null">
+                        AND schedule.s_calendar &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND schedule.s_calendar &lt;= #{maxDate}
+                    </if>
+                </when>
+                <when test="dateType == 2">
+                    <if test="minDate != null">
+                        AND slOrder.createTime &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND slOrder.createTime &lt;= #{maxDate}
+                    </if>
+                </when>
+            </choose>
+        </where>
+        GROUP BY
+        company.c_group
+
+        union all
+
+        SELECT
+        company.c_group,
+        sum(slOrder.o_total_price) as totalPrice,
+        count(1) as orderCounts,
+        4 AS flag
+        FROM
+        sl_order slOrder
+        LEFT JOIN sm_company company ON slOrder.o_saler_company_id = company.id
+        LEFT JOIN ct_schedule schedule on slOrder.o_schedule_id = schedule.id
+        <where>
+            slOrder.o_status = 0
+            <if test="cGroup != null and cGroup!=''">
+                AND company.c_group = #{cGroup,jdbcType=VARCHAR}
+            </if>
+            <if test="province != null and province !=''">
+                AND company.c_province = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null and city !=''">
+                AND company.c_city = #{city,jdbcType=VARCHAR}
+            </if>
+            <choose>
+                <when test="dateType == 1">
+                    <if test="minDate != null">
+                        AND schedule.s_calendar &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND schedule.s_calendar &lt;= #{maxDate}
+                    </if>
+                </when>
+                <when test="dateType == 2">
+                    <if test="minDate != null">
+                        AND slOrder.createTime &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND slOrder.createTime &lt;= #{maxDate}
+                    </if>
+                </when>
+            </choose>
+        </where>
+        GROUP BY
+        company.c_group
+
+        union all
+
+        SELECT
+        company.c_group,
+        sum(slOrder.o_total_price) as totalPrice,
+        count(1) as orderCounts,
+        5 AS flag
+        FROM
+        sl_order slOrder
+        LEFT JOIN sm_company company ON slOrder.o_saler_company_id = company.id
+        LEFT JOIN ct_schedule schedule on slOrder.o_schedule_id = schedule.id
+        <where>
+            slOrder.o_status = 1
+            <if test="cGroup != null and cGroup!=''">
+                AND company.c_group = #{cGroup,jdbcType=VARCHAR}
+            </if>
+            <if test="province != null and province !=''">
+                AND company.c_province = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null and city !=''">
+                AND company.c_city = #{city,jdbcType=VARCHAR}
+            </if>
+            <choose>
+                <when test="dateType == 1">
+                    <if test="minDate != null">
+                        AND schedule.s_calendar &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND schedule.s_calendar &lt;= #{maxDate}
+                    </if>
+                </when>
+                <when test="dateType == 2">
+                    <if test="minDate != null">
+                        AND slOrder.createTime &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND slOrder.createTime &lt;= #{maxDate}
+                    </if>
+                </when>
+            </choose>
+        </where>
+        GROUP BY
+        company.c_group
+
+        union all
+
+        SELECT
+        company.c_group,
+        sum(slOrder.o_total_price) as totalPrice,
+        count(1) as orderCounts,
+        6 AS flag
+        FROM
+        sl_order slOrder
+        LEFT JOIN sm_company company ON slOrder.o_saler_company_id = company.id
+        LEFT JOIN ct_schedule schedule on slOrder.o_schedule_id = schedule.id
+        <where>
+            slOrder.o_status != 4
+            <if test="cGroup != null and cGroup!=''">
+                AND company.c_group = #{cGroup,jdbcType=VARCHAR}
+            </if>
+            <if test="province != null and province !=''">
+                AND company.c_province = #{province,jdbcType=VARCHAR}
+            </if>
+            <if test="city != null and city !=''">
+                AND company.c_city = #{city,jdbcType=VARCHAR}
+            </if>
+            <choose>
+                <when test="dateType == 1">
+                    <if test="minDate != null">
+                        AND schedule.s_calendar &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND schedule.s_calendar &lt;= #{maxDate}
+                    </if>
+                </when>
+                <when test="dateType == 2">
+                    <if test="minDate != null">
+                        AND slOrder.createTime &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND slOrder.createTime &lt;= #{maxDate}
+                    </if>
+                </when>
+            </choose>
+        </where>
+        GROUP BY
+        company.c_group
+
+    </select>
+
+</mapper>

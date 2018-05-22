@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <title>成功页面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>成功页面：</h1>
+<p th:text="'Hello！, ' + ${name} + '!'" >3333</p>
+
+<div shiro:authenticated="true" >
+</div>
+
+<shiro:hasPermission name="a" >
+      <input type="button" value="有权限a"/>
+</shiro:hasPermission>
+<shiro:hasPermission name="b" >
+    <input type="button" value="有权限b"/>
+</shiro:hasPermission>
+<shiro:hasPermission name="c" >
+    <input type="button" value="有权限c"/>
+</shiro:hasPermission>
+<div shiro:hasPermission="d" >
+    <input type="button" value="有权限d"/>
+</div>
+<shiro:hasPermission name="system:user:update" >
+    <input type="button" value="system:user:update"/>
+</shiro:hasPermission>
+<shiro:hasPermission name="system:user:delete" >
+    <input type="button" value="system:user:delete"/>
+</shiro:hasPermission>
+</body>
+</html>
+

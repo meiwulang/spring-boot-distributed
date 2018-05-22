@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.ticketdeparture.TicketDepartureMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.ticketdeparture.TicketDeparture">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ticket_id" jdbcType="BIGINT" property="ticketId" />
+    <result column="departue_id" jdbcType="BIGINT" property="departueId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap id="QueryListResultMap" type="com.jdy.b2b.api.model.station.Departure">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="d_name" jdbcType="VARCHAR" property="dName" />
+    <result column="d_city" jdbcType="VARCHAR" property="dCity" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ticket_id, departue_id, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ct_ticket_departure
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_ticket_departure
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.ticketdeparture.TicketDeparture">
+    insert into ct_ticket_departure (id, ticket_id, departue_id, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{id,jdbcType=BIGINT}, #{ticketId,jdbcType=BIGINT}, #{departueId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.ticketdeparture.TicketDeparture">
+    insert into ct_ticket_departure
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ticketId != null">
+        ticket_id,
+      </if>
+      <if test="departueId != null">
+        departue_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="ticketId != null">
+        #{ticketId,jdbcType=BIGINT},
+      </if>
+      <if test="departueId != null">
+        #{departueId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.ticketdeparture.TicketDeparture">
+    update ct_ticket_departure
+    <set>
+      <if test="ticketId != null">
+        ticket_id = #{ticketId,jdbcType=BIGINT},
+      </if>
+      <if test="departueId != null">
+        departue_id = #{departueId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.ticketdeparture.TicketDeparture">
+    update ct_ticket_departure
+    set ticket_id = #{ticketId,jdbcType=BIGINT},
+      departue_id = #{departueId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="saveTicketDepartureBash" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+    insert into ct_ticket_departure (id, ticket_id, departue_id,
+    create_time, create_user, update_time,
+    update_user)
+    values
+    <foreach collection="list" separator="," item="departure">
+    (#{departure.id,jdbcType=BIGINT}, #{departure.ticketId,jdbcType=BIGINT}, #{departure.departueId,jdbcType=BIGINT},
+    #{departure.createTime,jdbcType=TIMESTAMP}, #{departure.createUser,jdbcType=BIGINT}, #{departure.updateTime,jdbcType=TIMESTAMP},
+    #{departure.updateUser,jdbcType=BIGINT})
+    </foreach>
+
+  </insert>
+
+
+  <delete id="deleteDepartureByTicketId" parameterType="java.lang.Long">
+    delete from ct_ticket_departure
+    where ticket_id = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="queryTicketDepartureList" parameterType="long" resultMap="QueryListResultMap">
+    select
+    departure.id,
+    departure.d_name,
+    departure.d_city
+    FROM
+    ct_ticket_departure ticketdeparture
+    left join sr_departure departure
+    on departure.id = ticketdeparture.departue_id
+    where ticketdeparture.ticket_id = #{id}
+    AND departure.d_status != 1
+  </select>
+
+  <select id="queryDepartureByName" parameterType="string" resultType="com.jdy.b2b.api.model.station.Departure">
+    select * from sr_departure where d_name = #{d}
+  </select>
+  <select id="selectOldTicketDepartureList" parameterType="list" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from ct_ticket_departure where ticket_id
+    in
+    <foreach collection="list" item="id" close=")" open="("
+             separator=",">
+      #{id}
+    </foreach>
+  </select>
+
+</mapper>

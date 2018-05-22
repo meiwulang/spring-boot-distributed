@@ -1,0 +1,129 @@
+/*
+	author : zhupinglei,
+	desc : select
+*/
+
+.select-simulate{
+	width: 100%;
+	height: 100%;
+	border: 1px solid #ddd;
+	position: relative;
+}
+
+.select-simulate input.select-simulate-input{
+	text-indent: 10px;
+	width: 100%;
+	height: 38px;
+	line-height: 38px;
+	overflow: hidden;
+	padding-right: 30px;
+	box-sizing: border-box;
+	border: none;
+}
+
+.select-simulate .select-simulate-arr{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	margin-top: -3px;
+}
+
+.select-simulate .select-simulate-arr.select-down{
+	border-width: 6px 6px 0px 6px;
+	border-color: #666 transparent transparent transparent;
+}
+
+.select-simulate .select-simulate-arr.select-up{
+	border-width: 0px 6px 6px 6px;
+	border-color: transparent transparent #666 transparent;
+}
+
+.select-simulate .select-simulate-input-mask{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,0.1);
+	cursor: default;
+}
+
+.select-simulate .select-simulate-list{
+	position: absolute;
+	width: 100%;
+	left: -1px;
+	top: 100%;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	display: none;
+	max-height: 280px;
+	overflow-y: auto;
+    z-index: 3;
+}
+
+.select-simulate .select-simulate-list li{
+	/*height: 40px;
+	line-height: 40px;
+	padding: 0 10px;*/
+	padding: 10px;
+	font-size: 14px;
+	.TextOverflow(1);
+}
+
+.select-simulate .select-simulate-list li:hover{
+	background-color: #f1f1f1;
+	color: #444;
+}
+
+.select-simulate .select-simulate-list li.hover{
+	background-color: #FFA600;
+	color: #fff;
+}
+
+.select-simulate .select-simulate-list li.select-default,.select-simulate .select-simulate-list i.select-default:hover{
+	background-color: #fff;
+	color: #999;
+}
+.px_right{
+	cursor: pointer;
+	width: 22px;
+	height: 30px;
+	float: right;
+	line-height: 70%;
+	font-size: 12px;
+	padding-top: 8px;
+}
+.px_right span{
+	line-height: 40%;
+}
+.px_right .active{
+	color: #ffa600;
+}
+.px_padding{
+	padding: 0 16px 0 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

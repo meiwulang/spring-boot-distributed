@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>金豆云旅游</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="Public/Css/icon/css/font-awesome.min.css" rel="stylesheet">
+    <script id="link-css" type="text/javascript">
+        if( window.top.location != window.location ){
+            window.top.location.href = window.location.href;
+        }
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/perfect.css?t='+_TimeStamp+'">'
+        );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/common/configs.js"></script>
+    <script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+<body>
+<div id="header">
+
+</div>
+<div id="main">
+    <div class="main_navbar">
+        <div class="box_wrapper ">
+            <ul class="nav nav-tabs index_navbar">
+                <li role="presentation" class="active first_child">
+                    <a href="index.html">首页</a>
+                </li>
+                <li role="presentation"><a href="product_list.html?type=10">周边短线</a></li>
+                <li role="presentation"><a href="product_list.html?type=11">国内长线</a></li>
+                <li role="presentation"><a href="product_list.html?type=20">出境游</a></li>
+                <li role="presentation"><a href="product_list.html?type=30">邮轮</a></li>
+                <li role="presentation"><a href="product_list.html?type=40">特色游</a></li>
+                <li role="presentation"><a href="product_list.html?type=50">自助游</a></li>
+                <li role="presentation"><a class="businessLink" href="business.html">商家大全</a></li>
+            </ul>
+
+            <div class="login_registerBtn"> <span> <span class="ion_login"></span><span class="adde"></span> <a class="sp" data-toggle="modal" data-target="#myModal"><span>登录</span></a> </span> <span class="raid"> <span class="ion_register"></span> <a href="register0.html"><span>注册</span></a> </span> </div>
+
+        </div>
+
+    </div>
+    <div class="index_content">
+        <div class="box_wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-3 col-md-3 recommend_left" style="overflow: hidden">
+                        <ul id="TopconditionDta">
+                        </ul>
+                        <script id="TopconditionDta-template" type="text/x-dot-template">
+                            {{ for(var i in it) { }}
+                            <li class="destination_recommend">
+                                <div class="recommend_title">
+                                    <h4>{{=it[i].title_level_1}}</h4>
+                                </div>
+                                {{ for(var j in it[i].list_velve_1) { }}
+                                <ul class="recommend_content clearfloat">
+                                    <span class="hotsoso pull-left">{{=it[i].list_velve_1[j].title_level_2}}：</span>
+                                    {{ for(var p in it[i].list_velve_1[j].list_level_2) { }}
+                                    <li class="pull-left"><a href="product_list.html?{{= it[i].list_velve_1[j].list_level_2[p].label}}={{= it[i].list_velve_1[j].list_level_2[p].name_search}}{{=it[i].list_velve_1[j].title_level_type}}"><span>{{= it[i].list_velve_1[j].list_level_2[p].name_search}}</span></a></li>
+                                    {{ } }}
+
+                                </ul>
+                                {{ } }}
+                            </li>
+                            {{ } }}
+                        </script>
+                    </div>
+                    <div class="col-xs-6 col-md-6 recommend_center">
+                        <div id="carousel-example-generic" class="carousel slide My_indexBigCarousel">
+                        </div>
+                        <script id="BannerData-template" type="text/x-dot-template">
+
+                            <!-- <ol class="carousel-indicators">
+                                {{ for(var i in it) { }}
+                                {{? i == 0}}
+                                <li data-target="#carousel-example-generic" data-slide-to="{{=i}}" class="active"></li>
+                                {{??}}
+                                <li data-target="#carousel-example-generic" data-slide-to="{{=i}}"></li>
+                                {{?}}
+                                {{ } }}
+                            </ol> -->
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner" role="listbox">
+                                {{ for(var x in it) { }}
+                                {{? x == 0}}
+                                <div class="item carousel_img active">
+                                    <a href="{{=it[x].ad_url}}" target="_{{=it[x].ad_opentype}}">
+                                        <img src="{{=it[x].ad_pic}}?x-oss-process=image/resize,m_fill,h_330,w_678" alt="" >
+                                    </a>
+                                </div>
+                                {{??}}
+                                <div class="item carousel_img">
+                                    <a href="{{=it[x].ad_url}}" target="_{{=it[x].ad_opentype}}">
+                                        <img src="{{=it[x].ad_pic}}?x-oss-process=image/resize,m_fill,h_330,w_678" alt="" >
+                                    </a>
+                                </div>
+                                {{?}}
+                                {{ } }}
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                <span class="index_carouselControlLeft" aria-hidden="true">&lsaquo;</span>
+                                <!-- <span class="sr-only">Previous</span> -->
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                <span class="index_carouselControlRight" aria-hidden="true">&rsaquo;</span>
+                                <!-- <span class="sr-only">Next</span> -->
+                            </a>
+
+                        </script>
+                        <ul class="clearfloat brand_merchants wello" id="BoutiquelistDataTop">
+                        </ul>
+                        <script id="BoutiquelistDataTop-template" type="text/x-dot-template">
+                            {{ for(var i =0; i<10; i++) { }}
+                            {{? i<it.length }}
+                            <li class="pull-left well-item">
+                             <div class="correct">
+                             	<div class="">{{=it[i].org_sname}}</div>
+                             </div>
+                                <div class="opposite">
+                                	<div class="">
+                                		<a class="opposite-content" href="product_list.html?business={{=it[i].org_sname}}" title="{{=it[i].org_sname}}">
+											<img class="opposite-content-text" src="{{=it[i].org_logo}}?x-oss-process=image/resize,m_pad,h_69,w_134" />
+										</a>
+                                	</div>
+                                </div>
+                                  
+                            </li>
+                            {{?? }}
+                            <li class="pull-left well-item">
+                                <div class="correct">
+                                    <div class="">诚邀加盟</div>
+                                </div>
+                                <div class="opposite">
+                                    <div class="">
+                                        <a class="opposite-content" href="/register0.html">
+                                            <img class="opposite-content-text" src="s.gif" data-echo="/img/rem.png" />
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </li>
+                            {{? }}
+                            {{ } }}
+                        </script>
+                    </div>
+                    <div class="col-xs-3 col-md-3 recommend_right">
+                        <div class="smallPropagate_img"></div>
+                        <div class="active_propagate"  id="NewslistsData">
+
+                        </div>
+                        <script id="NewslistsData-template" type="text/x-dot-template">
+                            {{ for(var i in it) { }}
+
+                            <p>
+                                <span><a href="contentDetail.html?id={{=it[i].id}}">{{=it[i].title}}</a></span>
+                            </p>
+                            {{ } }}
+                        </script>
+                         <div class="loadMore">
+                            <a href="infor_list.html">查看更多... </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="">
+        <div id="buslistData"></div>
+        <script id="buslistData-template" type="text/x-dot-template">
+            {{ for(var i in it) { }}
+            <div class="box_wrapper surrounded_line">
+                <div class="container-fluid ">
+                    <div class="row travel_detailTip">
+                        <div class="col-xs-4">
+                            <h3 class="pull-left travelLine_name"><span class="orange_border"></span><span>{{=it[i].title}}</span></h3>
+                            <span class="pull-left adv_lang"></span>
+                        </div>
+                        <ul class="col-xs-6 travel_detailBtnSelect">
+                            {{ for(var k in it[i].tabs) { }}
+                            {{? k == 0}}
+                            <li class="pull-left active"><a href="#{{=it[i].tabs[k].title}}_{{=it[i].id}}" data-toggle="tab">{{=it[i].tabs[k].title}}</a></li>
+                            {{??}}
+                            <li class="pull-left"><a href="#{{=it[i].tabs[k].title}}_{{=it[i].id}}" data-toggle="tab">{{=it[i].tabs[k].title}}</a></li>
+                            {{?}}
+                            {{}}}
+                        </ul>
+                        <div class="col-xs-2 load_moreLine">
+                            <a href="product_list.html?type={{=it[i].id}}">更多>> </a>
+                        </div>
+                    </div>
+                    <div class="row travel_detailContent">
+                        <div class="col-md-3 col-xs-3 travel_detailContentLeft">
+                            <div class="advertising_chart">
+							{{? it[i].adver}}
+                                <a href="{{=it[i].adver.url}}" target="_{{=it[i].opentype}}" title="{{=it[i].title}}">
+                                    <img src="{{=it[i].adver.pic}}?x-oss-process=image/resize,m_fill,h_550,w_227"/>
+                                </a>
+							{{?}}
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-xs-9 travel_adverContentList tab-content">
+                            {{ for(var ti in it[i].list) {}}
+                            {{? ti == 0}}
+                            <ul class="travel_detailContentTop clearfloat tab-pane fade in active" id="{{=it[i].list[ti].title}}_{{=it[i].id}}">
+                                {{??}}
+                                <ul class="travel_detailContentTop clearfloat tab-pane fade" id="{{=it[i].list[ti].title}}_{{=it[i].id}}">
+                                    {{?}}
+
+                                    {{ for(var mi in it[i].list[ti].list) {}}
+                                    <li class="pull-left">
+                                        <a href="detail.html?p_id={{=it[i].list[ti].list[mi].id}}">
+                                            <div class="travel_productDetail">
+                                                <div class="prodDetail_pic">
+                                                    <img  src="s.gif"  data-echo="{{=it[i].list[ti].list[mi].image}}?x-oss-process=image/resize,m_fill,h_190,w_306" />
+                                                    <!--&lt;!&ndash; <div class="destination_mark"><span></span></div>&ndash;&gt;-->
+                                                </div>
+                                                <div class="travel_productDetailIntros">
+                                                    <p title="{{=it[i].list[ti].list[mi].title}}">
+                                                        <span>{{=it[i].list[ti].list[mi].title}}</span>
+                                                    </p>
+                                                    <p title="{{=it[i].list[ti].list[mi].short}}">
+                                                        <span>{{=it[i].list[ti].list[mi].short}}</span>
+                                                    </p>
+                                                    <div class="clearfloat">
+                                                        <div class="pull-left travel_proPrice priceColor_danger">
+                                                            <span>&yen</span><span class="price_promptBigFont">{{=it[i].list[ti].list[mi].price}}</span><span>起</span>
+                                                        </div>
+                                                        <div class="pull-right sales_volume" title="{{=it[i].list[ti].list[mi].business}}">
+                                                            <a href="company.html?org_id={{=it[i].list[ti].list[mi].business_id}}">{{=it[i].list[ti].list[mi].business}}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {{}}}
+                                </ul>
+                                {{}}}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ } }}
+
+        </script>
+        <div class="box_wrapper surrounded_line">
+            <div class="container-fluid ">
+                <div class="clearfix travel_detailTip">
+                    <div class="pull-left">
+                        <h3 class="pull-left travelLine_name"><span class="orange_border"></span><span>精品</span><span class="hotsoso">商家</span></h3>
+                        <span class="pull-left adv_lang">与我相约，来一场说走就走的旅行！</span>
+                    </div>
+
+                    <div class="pull-right load_moreLine">
+                        <span></span>
+                        <!--<i class="ionRight_moreLoad"> <a href="#"></a></i>-->
+                    </div>
+                </div>
+                <ul class="row greatBrands clearfloat" id="BoutiquelistData">
+
+                </ul>
+                <script id="BoutiquelistData-template" type="text/x-dot-template">
+                    {{ for(var i =0; i<8 && i<it.length; i++) { }}
+                    <li class="pull-left">
+                        <div>
+                            <a class="businessLinkBot" href="product_list.html?business={{=it[i].org_sname}}">
+                                <div class="foot_img"><img src="s.gif"  data-echo="{{=it[i].org_logo}}?x-oss-process=image/resize,m_mfit,h_60,w_116" alt=""/></div>
+                                <p>{{=it[i].org_sname}}</p>
+                            </a>
+                        </div>
+                    </li>
+                    {{ } }}
+                </script>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="footer"></div>
+<div id="login_mask"></div>
+</body>
+<script src="js/lib/jquery-1.11.3.js"></script>
+<script src="js/lib/bootstrap.js"></script>
+<script src="js/lib/echo.min.js"></script>
+<script src="js/lib/doT.min.js"></script>
+<script id="link-js" type="text/javascript">
+    document.write(
+        '<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/travel_index.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/statistics.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

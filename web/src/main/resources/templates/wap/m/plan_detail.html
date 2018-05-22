@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>计划详情</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/plan_detail.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> --> 
+</head>
+<body>
+<div id="wrap">
+	<div class="acti_header">计划详情
+		<a class="lef" href="javascript:;"></a>
+	</div>
+	<div class="main">
+	<script id="tpl-condition" type="text/html">
+		<div class="nav">
+			<ul>
+				<li><a class="active" href="javascript:;">基本信息</a></li>
+				<li><a href="javascript:;">游客信息</a></li>
+				<li><a href="javascript:;">项目明细</a></li>
+				<li><a href="javascript:;">行程内容</a></li>
+			</ul>
+		</div>
+		{if team_detail}
+		<div class="mation cons">
+			{if team_detail.blacklist_user && team_detail.blacklist_user == '1'}
+			<div class="mati"><span></span>当前团内有黑名单游客，请注意接待！</div>
+			{/if}
+			<dl>
+			<dd>
+				<div class="tit">{team_detail.team_p_name}</div>
+				<div class="cont">
+					<div class="lefts">
+						<span class="tim"><span></span>{team_detail.team_num}</span>
+						<span class="tim tims"><span></span>{team_detail.team_start_date}至{team_detail.team_end_date}</span>
+					</div>
+					<div class="rights">
+						<p>{team_detail.team_saled}人</p>
+						<span>{team_detail.team_adult}大{team_detail.team_children}小</span>
+					</div>
+				</div>
+			</dd>
+			
+		</dl>
+		<ul class="lx">
+			<li class="tit">联系信息</li>
+			{if team_detail.team_user}
+			<li>
+				<div class="titls">计调人</div>
+				<div class="mations">
+				{team_detail.team_user}
+				{if team_detail.team_user_mob}
+				<span> <a href="tel:{team_detail.team_user_mob}" style="color: #84b6fb;">{team_detail.team_user_mob}</a></span>
+				{/if}
+				</div>
+			</li>
+			{/if}
+			{if team_detail.team_guide_name}
+			<li>
+				<div class="titls">全程导游</div>
+				<div class="mations">{team_detail.team_guide_name}
+				{if team_detail.team_guide_tel}
+				<span> <a href="tel:{team_detail.team_guide_tel}" style="color: #84b6fb;">{team_detail.team_guide_tel}</a></span>
+				{/if}
+				</div>
+			</li>
+			{/if}
+			{if team_detail.team_local_guide_name}
+			<li>
+				<div class="titls">地接导游</div>
+				<div class="mations">{team_detail.team_local_guide_name}
+				{if team_detail.team_local_guide_tel}
+				<span> <a href="tel:{team_detail.team_local_guide_tel}" style="color: #84b6fb;">{team_detail.team_local_guide_tel}</a></span>
+				{/if}
+				</div>
+			</li>
+			{/if}
+			{if team_detail.team_driver_name}
+			<li>
+				<div class="titls">司机车辆</div>
+				<div class="mations">{team_detail.team_driver_name}
+				{if team_detail.team_driver_tel}
+				<span> <a href="tel:{team_detail.team_driver_tel}" style="color: #84b6fb;">{team_detail.team_driver_tel}</a></span>
+				{/if}
+				{if team_detail.team_bus}
+				<i>({team_detail.team_bus})</i>
+				{/if}
+				</div>
+			</li>
+			{/if}
+		
+		
+		</ul>
+		<ul class="lx">
+			<li class="tit">其他信息</li>
+			{if team_detail.team_org_name}
+			<li>
+				<div class="titls">公司名称</div>
+				<div class="mations">{team_detail.team_org_name}</div>
+			</li>
+			{/if}
+			{if team_detail.team_org_tel}
+			<li>
+				<div class="titls">公司电话</div>
+				<div class="mations"><a href="tel:{team_detail.team_org_tel}" style="color: #84b6fb;">{team_detail.team_org_tel}</a></div>
+			</li>
+			{/if}
+			{if team_detail.team_org_addr}
+			<li>
+				<div class="titls">公司地址</div>
+				<div class="mations">{team_detail.team_org_addr}</div>
+			</li>
+			{/if}
+			{if team_detail.team_total_fee}
+			<li>
+				<div class="titls">导游领款</div>
+				<div class="mations prace"><span class="mon">￥</span>{team_detail.team_total_fee}</div>
+			</li>
+			{/if}
+		</ul>
+		</div>
+		{/if}
+		{if team_seat}
+		<div class="trip cons display">
+			<dl>
+				<dt class="no_border">
+					<div class="one">
+						<span>游客信息（{team_seat.big_num}成人/{team_seat.small_num}儿童、共{team_seat.bed_num}床）</span>
+					</div>
+					<div class="two tw"><span></span>所有游客</div>
+				</dt>
+			</dl>
+			{each team_seat.list as value i}
+			<dl>
+				
+				<dt class="parint">
+					<div class="one ones">
+						<p>{team_seat.list[i].o_name}<span class="tel"> <a href="tel:{team_seat.list[i].o_mobile}" style="color: #84b6fb;">{team_seat.list[i].o_mobile}</a></span>
+						{if team_detail.team_show_sorg == '1'}
+						<span class="org_nam">({team_seat.list[i].o_sorg_name})</span>
+						{/if}
+						</p>
+						<div class="two twos">{team_seat.list[i].o_bed_num}床</div>
+						{if team_seat.list[i].o_remark}
+						<span class="son">备注：{team_seat.list[i].o_remark}</span>
+
+						{/if}
+						
+					</div>
+					
+				</dt>
+				{each team_seat.list[i].list as value j}
+				<dd type="{team_seat.list[i].list[j].s_tname}" stname="{team_seat.list[i].list[j].s_start_stname}">
+					<div class="ones">
+						{j + 1} . {if team_seat.list[i].list[j].s_is_bl && team_seat.list[i].list[j].s_is_bl == '1'}<span class="mations"></span>{/if}{team_seat.list[i].list[j].s_vip_name}<span><a href="tel:{team_seat.list[i].list[j].s_vip_mob}" style="color: #84b6fb;">{team_seat.list[i].list[j].s_vip_mob}</a></span>
+					</div>
+					<div class="twos">
+						<span>{team_seat.list[i].list[j].s_sex}
+						{if team_seat.list[i].list[j].s_age}
+						<span>({team_seat.list[i].list[j].s_age})</span>
+						{/if}
+						</span>
+					</div>
+				</dd>
+				{/each}
+				
+			</dl>
+			{/each}
+			<div class="but bu">接送 信息</div>
+			<div class="but buts">票种 信息</div>
+		</div>
+		{/if}
+		<div class="xm cons display">
+		{if team_items}
+			{each team_items as value i}
+			<dl>
+				<dt>{i}信息  <span class="down"></span></dt>
+				{each team_items[i] as value j}
+				{if team_items[i][j].tpi_name && team_items[i][j].tpi_date && team_items[i][j].tpi_price}
+				<dd>
+					<div class="far">
+						<div class="lefts">
+							<p>{team_items[i][j].tpi_name}</p>
+							{if team_items[i][j].tpi_settle == '签单' && team_detail.team_show_sign == '0'}
+							<span>共***人({team_items[i][j].tpi_date})</span>
+							{else}
+							<span>共{team_items[i][j].tpi_num}人({team_items[i][j].tpi_date})</span>
+							{/if}
+						</div>
+						<div class="rights">
+							<p>
+								{if team_items[i][j].tpi_settle == '签单' && team_detail.team_show_sign == '0'}
+								***
+								{else}
+								<span>￥</span>{team_items[i][j].tpi_money}
+								{/if}
+							</p>
+							{if team_items[i][j].tpi_settle == '签单' && team_detail.team_show_sign == '0'}
+							<span>{team_items[i][j].tpi_settle}：***/人</span>
+							{else}
+							<span>{team_items[i][j].tpi_settle}：￥{team_items[i][j].tpi_price}/人</span>
+							{/if}
+						</div>
+					</div>
+				</dd>
+				{/if}
+				{/each}
+			</dl>
+			{/each}
+			{else}
+			<p class="mi">暂无项目明细!</p>
+		{/if}
+		</div>
+		{if team_product}
+		<div class="xc cons display">
+			<div class="header">
+				<p></p>
+				<span class="xz"></span>
+				<ul class="shows">
+					{each team_product as value i}
+					<li>{team_product[i].p_name}</li>
+					{/each}
+
+				</ul>
+			</div>
+			{each team_product as value i}
+			<div class="tabse dis">
+				<div class="gare">
+					<dl>
+						<dt>
+							<div class="le">行程描述</div>
+							<div num="1" class="jh">详情</div>
+							<div num="0" class="jh active">简易</div>
+						</dt>
+						<div class="jy deta">
+							{each team_product[i].stroke as value j}
+							<dd class="faci">
+								<div class="lef">
+									<p>第{j + 1}天</p>
+									<span>{team_product[i].stroke[j].day_date_str}</span>
+								</div>
+								<div class="rig">
+									<p class="tops">【住宿】
+									{if team_product[i].stroke[j].hotel}
+									{each team_product[i].stroke[j].hotel as value k}
+										{team_product[i].stroke[j].hotel[k]}
+									{/each}
+									{/if}
+									{if !team_product[i].stroke[j].hotel.length}
+										住宿自理
+									{/if}
+									
+									【用餐】
+									{if team_product[i].stroke[j].food}
+									{each team_product[i].stroke[j].food as value k}
+										{team_product[i].stroke[j].food[k]}
+									{/each}
+									{/if}
+									{if !team_product[i].stroke[j].food.length}
+										三餐自理
+									{/if}
+									</p>
+									<p class="bott">{team_product[i].stroke[j].source_text}</p>
+								</div>
+							</dd>
+							{/each}
+						</div>
+						<div class="deta dis">
+							{each team_product[i].stroke as value j}
+							<dd class="faci">
+								<div class="lef">
+									<p>第{j + 1}天</p>
+									<span>{team_product[i].stroke[j].day_date_str}</span>
+								</div>
+								<div class="rig">
+									<p class="tops">【住宿】
+									{if team_product[i].stroke[j].hotel}
+									{each team_product[i].stroke[j].hotel as value k}
+										{team_product[i].stroke[j].hotel[k]}
+									{/each}
+									{/if}
+									{if !team_product[i].stroke[j].hotel.length}
+										住宿自理
+									{/if}
+									
+									【用餐】
+									{if team_product[i].stroke[j].food}
+									{each team_product[i].stroke[j].food as value k}
+										{team_product[i].stroke[j].food[k]}
+									{/each}
+									{/if}
+									{if !team_product[i].stroke[j].food.length}
+										三餐自理
+									{/if}
+									</p>
+									<p class="bott">{team_product[i].stroke[j].detail}</p>
+								</div>
+							</dd>
+							{/each}
+						</div>
+					</dl>
+				</div>
+				{if team_product[i].cost_in}
+				<div class="cost">
+					<div class="tot">费用包含</div>
+					<div class="cont">
+						{team_product[i].cost_in}
+					</div>
+				</div>
+				{/if}
+				{if team_product[i].cost_noin}
+				<div class="cost">
+					<div class="tot">费用不包含</div>
+					<div class="cont">
+						{team_product[i].cost_noin}
+					</div>
+				</div>
+				{/if}
+			</div>
+			{/each}
+		</div>
+		{/if}
+		<div class="actiss fa">
+			<div class="go_back_header">游客接送</div>
+			<div class="conss">
+				{if team_seat.shuttle_info}
+				{each team_seat.shuttle_info as value i}
+				<dl class="go_back go_ba">
+					<dt>{i}</dt>
+					{each team_seat.shuttle_info[i] as value j}
+					<dd stname="{team_seat.shuttle_info[i][j].s_start_stname}">
+						<div class="far clearfix">
+							<div class="le">
+							{if team_seat.shuttle_info[i][j].s_start_time == '0'}
+
+							{else}
+							<span class="tim"></span>
+							{/if}
+							<span class="nai"> {team_seat.shuttle_info[i][j].s_start_stname}</span></div>
+							<div class="rig">{team_seat.shuttle_info[i][j].num}人</div>
+						</div>
+					</dd>
+					{/each}
+				</dl>
+				{/each}
+				{/if}
+			</div>
+			<div class="less">
+				
+			</div>
+		</div>
+
+		<div class="list fa">
+			<div class="go_back_header">票种汇总信息</div>
+			<div class="conss">
+				<dl class="go_back go_backs">
+				{if team_seat.ticket_type}
+					{each team_seat.ticket_type as value i}
+					<dd types="{i}">
+						<div class="far">
+							<div class="les">{i}</div>
+							<div class="rigs">{team_seat.ticket_type[i]}人</div>
+						</div>
+					</dd>
+					{/each}
+				{/if}	
+				</dl>
+			</div>
+			<div class="less">
+				
+			</div>
+		</div>
+		</script>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/plan_detail.build.js"></script>
+</html>

@@ -1,0 +1,56 @@
+#dev环境
+server:
+  port: 8888
+  context-path: /api/controllCenter
+spring:
+  profiles: dev
+  application:
+    name: b2b-controllCenter
+  aop :
+    proxy-target-class : true
+
+  datasource:
+
+        name: dev_sp_db
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://47.96.30.236:3306/dev_sp_db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false
+        type: com.alibaba.druid.pool.DruidDataSource
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: true
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        username: sp_user
+        password: 123456
+        filters: log4j
+
+  #accesstoken加密串
+  accessKey: 535bb3fdd47250f2dc7f2c617a835698
+
+  #shiro
+  shiro:
+    password:
+      algorithmName: md5
+      hashIterations: 3
+      originPassword: 123456
+  distributionSystemUrl: http://sp.test.fingercrm.cn/distribution-system-management
+#同步产品时把b2b的web前缀
+syncProductListUrl:  http://localhost:8080/
+#通知分销产品有变化的前缀
+product_notify_url: http://sp.test.fingercrm.cn/distribution-web
+#礼品卡接口调用url
+shp_card_web_interface_url: http://localhost:8101/shp-card-web
+#游客虚拟分组
+GNO: 15125085666499PLOE7AF014XT2YMWP4V
+
+mq:
+  appId: SP
+  appSecret: 0E6A12D3A2421A876715DC66AE3F283D
+  requestUrl: http://localhost:8085/data-warehouse

@@ -1,0 +1,99 @@
+input[type=checkbox] {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+label {
+    cursor: pointer;
+    padding-right: 5px;
+}
+.float-left {
+    float:left;
+    margin-right: 5px;
+}
+body {
+    background: #f2f4f8;
+}
+.cover-cls {
+    width: 240px;
+    height: 140px;
+    background-size: 230px 130px;
+    border:1px solid #EEEEEE;
+    float:left;
+}
+.cover-img {
+    width: 233px;
+    height: 140px;
+    width:100%;
+    overflow: hidden;
+    padding:5px;
+}
+
+#cover-img_1 {
+    width: 230px;
+    height: 110px;
+    overflow: hidden;
+    padding:5px;
+    background: url('../Images/cover-img.png') no-repeat #f9f9f9;
+}
+
+.cover-img img {
+    width: 230px;
+    height: 130px;
+    float:left;
+}
+#upload_file {
+    position: absolute;
+    right: 160px;
+    margin-top:5px;
+    background:#2288e3;
+    border:1px solid #207ccd;
+    border-radius: 3px;
+    color:#ffffff;
+    width:80px !important;
+    text-align: center;
+    height: 22px !important;
+    line-height: 20px !important;
+    cursor: pointer;
+    z-index: 99;
+}
+#upload_file #upload_file-button {
+    width:80px !important;
+    height: 20px !important;
+    line-height: 20px !important;
+}
+#upload_file:hover {
+    background:#207ccd;
+}
+
+/*上传控件样式(start)*/
+.files,.files .img-l {width:330px;height:230px;overflow: hidden;position: relative}
+.files .load-img {display: inline-block;height:16px;width:100%;border-top: 1px solid green;border-bottom: 1px solid green;position: absolute;bottom: 0;font-size: 12px;text-align: center;left:0;}
+.files .load_200 { background:green;color:#fff}
+.files .upload-file {display: none}
+.upload-msg {font-size: 12px;font-family: '宋体';color:#999;display: block; text-align: center;}
+/*上传控件样式(end)*/
+
+#ad_sarea_id {float:left; }
+
+.x-form-item {
+    display: inline-block;
+    vertical-align: middle;
+}
+.ad_cm {
+    padding:5px;
+}
+.ad_from {
+    border:1px solid #ccc;padding:3px;
+}
+.ad_main {
+    margin-top:10px;
+    padding:10px;
+    background:#fff
+}
+.ad_input {
+    width:358px;vertical-align: middle
+}
+#ad_place_id .x-form-text-field-body-default {
+    min-width: 365px;
+    max-width: 365px;
+}

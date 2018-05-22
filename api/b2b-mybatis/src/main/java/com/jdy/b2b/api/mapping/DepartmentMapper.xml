@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.Department" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="d_pid" property="dPid" jdbcType="BIGINT" />
+    <result column="d_no" property="dNo" jdbcType="VARCHAR" />
+    <result column="d_name" property="dName" jdbcType="VARCHAR" />
+    <result column="d_phone" property="dPhone" jdbcType="VARCHAR" />
+    <result column="d_fax" property="dFax" jdbcType="VARCHAR" />
+    <result column="d_introduce" property="dIntroduce" jdbcType="VARCHAR" />
+    <result column="d_level" property="dLevel" jdbcType="INTEGER" />
+    <result column="d_status" property="dStatus" jdbcType="INTEGER" />
+    <result column="d_type" property="dType"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="BIGINT" />
+    <result column="d_leader" property="leader" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company_id, d_pid, d_no, d_name, d_phone, d_fax, d_introduce,  d_level,
+    d_status,d_type, create_time, create_user, update_time, update_user,d_leader
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from sm_department
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sm_department
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.Department" useGeneratedKeys="true" keyProperty="id">
+    insert into sm_department (id, company_id, d_pid,
+    d_no, d_name, d_phone,
+    d_fax, d_introduce,
+    d_level, d_status,d_type,d_leader, create_time,
+    create_user, update_time, update_user
+    )
+    values (#{id,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{dPid,jdbcType=BIGINT},
+    #{dNo,jdbcType=VARCHAR}, #{dName,jdbcType=VARCHAR}, #{dPhone,jdbcType=VARCHAR},
+    #{dFax,jdbcType=VARCHAR}, #{dIntroduce,jdbcType=VARCHAR},
+    #{dLevel,jdbcType=INTEGER}, #{dStatus,jdbcType=INTEGER},#{dType},#{leader}, #{createTime,jdbcType=TIMESTAMP},
+    #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT}
+    )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.jdy.b2b.api.model.Department" >
+    insert into sm_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="dPid != null" >
+        d_pid,
+      </if>
+      <if test="dNo != null" >
+        d_no,
+      </if>
+      <if test="dName != null" >
+        d_name,
+      </if>
+      <if test="dPhone != null" >
+        d_phone,
+      </if>
+      <if test="dFax != null" >
+        d_fax,
+      </if>
+      <if test="dIntroduce != null" >
+        d_introduce,
+      </if>
+      <if test="dLevel != null" >
+        d_level,
+      </if>
+      <if test="dStatus != null" >
+        d_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="dPid != null" >
+        #{dPid,jdbcType=BIGINT},
+      </if>
+      <if test="dNo != null" >
+        #{dNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dName != null" >
+        #{dName,jdbcType=VARCHAR},
+      </if>
+      <if test="dPhone != null" >
+        #{dPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="dFax != null" >
+        #{dFax,jdbcType=VARCHAR},
+      </if>
+      <if test="dIntroduce != null" >
+        #{dIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="dLevel != null" >
+        #{dLevel,jdbcType=INTEGER},
+      </if>
+      <if test="dStatus != null" >
+        #{dStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.Department" >
+    update sm_department
+    <set >
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="dPid != null" >
+        d_pid = #{dPid,jdbcType=BIGINT},
+      </if>
+      <if test="dNo != null" >
+        d_no = #{dNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dName != null" >
+        d_name = #{dName,jdbcType=VARCHAR},
+      </if>
+      <if test="dPhone != null" >
+        d_phone = #{dPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="dFax != null" >
+        d_fax = #{dFax,jdbcType=VARCHAR},
+      </if>
+      <if test="dType != null" >
+        d_type = #{dType,jdbcType=INTEGER},
+      </if>
+      <if test="dIntroduce != null" >
+        d_introduce = #{dIntroduce,jdbcType=VARCHAR},
+      </if>
+
+      <if test="dLevel != null" >
+        d_level = #{dLevel,jdbcType=INTEGER},
+      </if>
+      <if test="dStatus != null" >
+        d_status = #{dStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="dPid != null">
+        d_pid = #{dPid,jdbcType=BIGINT},
+      </if>
+      <if test="leader!=null">
+        d_leader = #{leader},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.Department" >
+    update sm_department
+    set company_id = #{companyId,jdbcType=BIGINT},
+      d_pid = #{dPid,jdbcType=BIGINT},
+      d_no = #{dNo,jdbcType=VARCHAR},
+      d_name = #{dName,jdbcType=VARCHAR},
+      d_phone = #{dPhone,jdbcType=VARCHAR},
+      d_fax = #{dFax,jdbcType=VARCHAR},
+      d_introduce = #{dIntroduce,jdbcType=VARCHAR},
+
+      d_level = #{dLevel,jdbcType=INTEGER},
+      d_status = #{dStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updatePids">
+    UPDATE sm_department SET d_pids = getDepartmentLevelIds(id,10)
+  </update>
+
+  <select id="selectByCompanyId" resultMap="BaseResultMap" >
+    SELECT <include refid="Base_Column_List" /> from sm_department WHERE
+    d_status = 0
+    <if test="companyId != null">
+      AND company_id = #{companyId,jdbcType=BIGINT}
+    </if>
+    <if test="fastSearchStr != null and fastSearchStr != ''">
+      <bind name="fastSearchStrLike" value="'%'+fastSearchStr+'%'"/>
+      AND CONCAT(IFNULL(d_name,''),IFNULL(d_no,'')) LIKE #{fastSearchStrLike}
+    </if>
+    <if test="departmentLevel != null">AND d_level = #{departmentLevel}</if>
+  </select>
+
+  <select id="selectByIdAndName" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List"/>
+    from sm_department
+    WHERE d_status = 0
+    AND company_id = #{companyId,jdbcType=BIGINT}
+    AND d_name =#{name,jdbcType=VARCHAR}
+    <if test="id!=null and id != 0">AND id != #{id,jdbcType=BIGINT}</if>
+    <if test="departmentPid != null">AND d_pid = #{departmentPid,jdbcType=BIGINT}</if>
+  </select>
+
+
+  <select id="selectDepartmentAll"  parameterType="com.jdy.b2b.api.model.Department" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+      from sm_department
+    <where>
+    <if test="id!=null and id != 0">
+      AND id = #{id,jdbcType=BIGINT}
+    </if>
+      <if test="companyId!=null and companyId != 0">
+        AND company_id = #{companyId,jdbcType=BIGINT}
+      </if>
+    <if test="dPid != null and dPid != ''">
+      AND d_pid = #{dPid,jdbcType=BIGINT}
+    </if>
+      <if test="dName != null and dName != ''">
+        AND d_name like concat('%',#{dName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="startDate != null and endDate !=null">
+        <![CDATA[
+                 AND ( (#{startDate,jdbcType=TIMESTAMP} < update_time and #{endDate,jdbcType=TIMESTAMP} > update_time)
+                    OR
+                (#{startDate,jdbcType=TIMESTAMP} < create_time and #{endDate,jdbcType=TIMESTAMP} > create_time))
+                 ]]>
+      </if>
+    </where>
+
+  </select>
+
+  <select id="selectByIdAndNo" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List"/>
+    from sm_department
+    WHERE d_status = 0
+    AND company_id = #{companyId,jdbcType=BIGINT}
+    AND d_no =#{no,jdbcType=VARCHAR}
+    <if test="id!=null and id != 0">AND id != #{id,jdbcType=BIGINT}</if>
+    <if test="departmentPid != null">AND d_pid = #{departmentPid,jdbcType=BIGINT}</if>
+  </select>
+
+  <select id="selectMaxDepartmentCode" resultMap="BaseResultMap">
+    select
+      id as id,
+      company_id as companyId,
+      d_pid as dPid,
+      d_no as dNo,
+      d_name as dName,
+      d_phone as dPhone,
+      d_fax as dFax,
+      d_introduce as dIntroduce,
+
+      d_level as dLevel,
+      d_status as dStatus,
+      create_time as createTime,
+      create_user as createUser,
+      update_time as updateTime,
+      update_user as updateUser
+    from sm_department
+    where company_id = #{companyId,jdbcType=BIGINT}
+    and d_pid = #{departmentPid}
+    and d_status = #{status}
+  </select>
+
+  <select id="selectChildDepartmentByPid" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+    <include refid="Base_Column_List" />
+    from sm_department
+    where company_id = #{companyId}
+    and d_pid = #{departmentPid}
+    <if test="status != null">and d_status = #{status}</if>
+    <if test="fastSearchStr != null and fastSearchStr!=''">and d_name like CONCAT(CONCAT('%', #{fastSearchStr}), '%')</if>
+    order by id asc
+  </select>
+
+  <select id="selectAllParentDepartment" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sm_department
+    where company_id = #{companyId}
+    <if test="status != null">and d_status = #{status}</if>
+    and FIND_IN_SET(id,getParentList(#{departmentId}))
+    order by d_level asc
+  </select>
+  <select id="queryChildDepartmentIdsByDepartmentIds" resultType="long">
+	SELECT
+		id
+	FROM
+		sm_department
+	WHERE
+		d_pid IN
+	<foreach collection="list" item="t" open="(" close=")" separator=",">#{t}</foreach>
+	AND d_status=0
+  </select>
+  <select id="selectByNameAndCompanyId" resultMap="BaseResultMap">
+	select * from sm_department where d_name =#{name} and company_id=#{companyId} and d_status=0 limit 0,1
+  </select>
+
+  <select id="selectDepartmentListForUserRolePrivilegeByCompanyIdList" resultType="java.util.Map" parameterType="java.util.List">
+    SELECT
+      CONCAT('d',a.id) AS id,
+      a.d_name AS text,
+      a.d_type AS departmentType,
+      c.u_real_name leaderName,
+      IF(a.d_pid=0, CONCAT('c',a.company_id), CONCAT('d',a.d_pid)) AS parentId,
+      a.company_id AS companyId,
+      b.u_real_name AS personInCharge
+    FROM
+      sm_department a
+    LEFT JOIN sm_user b ON b.u_department_id = a.id AND b.u_charge_type = 1
+    LEFT JOIN sm_user c ON a.d_leader = c.id
+    WHERE
+      a.d_status = 0
+    AND
+      a.company_id IN
+    <foreach item="item" collection="companyIdList" separator="," open="(" close=")" index="">
+      #{item}
+    </foreach>
+  </select>
+  <select id="selectAllDepartments" resultType="com.jdy.b2b.api.model.department.DepartmentTreeDTO">
+    SELECT id, d_pid as dPid from sm_department
+  </select>
+    <select id="selectPidsById" resultType="java.lang.String">
+      select
+      d_pids
+      from sm_department
+      where id = #{departmentId,jdbcType=BIGINT}
+    </select>
+  <update id="deleteByIds">
+    UPDATE sm_department SET d_status = 1 WHERE id IN <foreach collection="ids" item="id" open="(" close=")" separator=",">
+    #{id}
+  </foreach>
+  </update>
+
+  <update id="updateDept">
+    update sm_department SET
+    company_id = #{companyId},
+    d_pid = #{parentId},
+    d_name = #{deptName}
+    where id = #{deptId}
+  </update>
+  <insert id="insertDepts">
+    INSERT INTO sm_department
+    (id,oa_id, d_no,company_id,d_pid, d_name,d_status,d_type) VALUES
+    <foreach collection="addList" item ="item" separator=",">
+    (#{item.deptId},
+    #{item.deptId},
+      '',
+    #{item.companyId},
+    #{item.parentId},
+    #{item.deptName},0,1)
+    </foreach>
+  </insert>
+  <insert id="insertDept">
+    INSERT INTO sm_department
+    (id,oa_id,d_no, company_id,d_pid, d_name,d_status,d_type) VALUES
+    (#{deptId},#{deptId},
+    '',
+    #{companyId},
+    #{parentId},
+    #{deptName},1,1)
+  </insert>
+</mapper>

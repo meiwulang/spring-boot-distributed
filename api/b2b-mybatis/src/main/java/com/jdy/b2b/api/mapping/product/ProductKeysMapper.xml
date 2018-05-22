@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.product.ProductKeysMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.product.ProductKeys">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pk_key_id" jdbcType="BIGINT" property="pkKeyId" />
+    <result column="pk_product_id" jdbcType="BIGINT" property="pkProductId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pk_key_id, pk_product_id, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sm_product_keys
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_product_keys
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByRelated" parameterType="com.jdy.b2b.api.model.product.ProductKeyRelationDTO">
+    delete from sm_product_keys
+    where pk_product_id = #{productId,jdbcType=BIGINT}
+    AND pk_key_id IN <foreach collection="keyIds" item="t" close=")" open="(" separator=",">#{t}</foreach>
+  </delete>
+  <delete id="deleteByKeysId">
+    delete from sm_product_keys
+    where pk_key_id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByProductId">
+    delete from sm_product_keys
+        where pk_product_id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByProductIdAndKeyId">
+    delete from sm_product_keys
+    where pk_product_id = #{productId,jdbcType=BIGINT} and pk_key_id = #{keyId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.product.ProductKeys">
+    insert into sm_product_keys (id, pk_key_id, pk_product_id, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{id,jdbcType=BIGINT}, #{pkKeyId,jdbcType=BIGINT}, #{pkProductId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="saveByRelated" parameterType="com.jdy.b2b.api.model.product.ProductKeyRelationDTO" useGeneratedKeys="true">
+    insert into sm_product_keys (pk_key_id, pk_product_id, 
+      create_time, create_user, update_time, 
+      update_user)
+    values 
+    <foreach collection="keyIds" item="t" separator=",">
+      (#{t,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.product.ProductKeys">
+    insert into sm_product_keys
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pkKeyId != null">
+        pk_key_id,
+      </if>
+      <if test="pkProductId != null">
+        pk_product_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pkKeyId != null">
+        #{pkKeyId,jdbcType=BIGINT},
+      </if>
+      <if test="pkProductId != null">
+        #{pkProductId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.product.ProductKeys">
+    update sm_product_keys
+    <set>
+      <if test="pkKeyId != null">
+        pk_key_id = #{pkKeyId,jdbcType=BIGINT},
+      </if>
+      <if test="pkProductId != null">
+        pk_product_id = #{pkProductId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.product.ProductKeys">
+    update sm_product_keys
+    set pk_key_id = #{pkKeyId,jdbcType=BIGINT},
+      pk_product_id = #{pkProductId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByProductIdAndKeyId" resultType="int">
+  select count(1) from sm_product_keys
+    where pk_product_id = #{productId,jdbcType=BIGINT} and pk_key_id = #{keyId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByProductId" resultType="int">
+  select count(1) from sm_product_keys
+    where pk_product_id = #{productId,jdbcType=BIGINT} 
+  </select>
+  <resultMap id="ProductKeySynDTOMap" type="com.jdy.b2b.api.model.product.ProductKeySynDTO">
+    <id property="kId" column="kId" jdbcType="BIGINT"/>
+    <result property="pId" column="pId" jdbcType="BIGINT"/>
+    <result property="kName" column="kName" jdbcType="VARCHAR"/>
+    <result property="kColor" column="kColor" jdbcType="VARCHAR"/>
+  </resultMap>
+    <select id="selectByPIds" resultMap="ProductKeySynDTOMap">
+      SELECT k.id as kId,
+      k.k_name as kName,
+      pk.pk_product_id as pId,
+      k.k_color as kColor
+      FROM
+      sm_product_keys pk ,sm_keys k where pk.pk_key_id = k.id
+      <if test="list != null and list.size > 0">
+        and pk.pk_product_id IN (
+        <foreach collection="list" item="id" separator=",">
+          #{id}
+        </foreach>
+         )
+      </if>
+    </select>
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.labelgroup.LabelGroupMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.labelgroup.LabelGroup">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="lg_name" jdbcType="VARCHAR" property="lgName" />
+    <result column="lg_pid" jdbcType="BIGINT" property="lgPid" />
+    <result column="lg_status" jdbcType="INTEGER" property="lgStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, company_id,lg_name, lg_pid, lg_status, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sm_label_group
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_label_group
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.labelgroup.LabelGroup" useGeneratedKeys="true" keyProperty="id">
+    insert into sm_label_group (id, company_id,lg_name, lg_pid,
+      lg_status, create_time, create_user, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT},#{companyId,jdbcType=BIGINT}, #{lgName,jdbcType=VARCHAR}, #{lgPid,jdbcType=BIGINT},
+      #{lgStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.labelgroup.LabelGroup">
+    insert into sm_label_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="lgName != null">
+        lg_name,
+      </if>
+      <if test="lgPid != null">
+        lg_pid,
+      </if>
+      <if test="lgStatus != null">
+        lg_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="lgName != null">
+        #{lgName,jdbcType=VARCHAR},
+      </if>
+      <if test="lgPid != null">
+        #{lgPid,jdbcType=BIGINT},
+      </if>
+      <if test="lgStatus != null">
+        #{lgStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.labelgroup.LabelGroup">
+    update sm_label_group
+    <set>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="lgName != null">
+        lg_name = #{lgName,jdbcType=VARCHAR},
+      </if>
+      <if test="lgPid != null">
+        lg_pid = #{lgPid,jdbcType=BIGINT},
+      </if>
+      <if test="lgStatus != null">
+        lg_status = #{lgStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.labelgroup.LabelGroup">
+    update sm_label_group
+    set company_id = #{companyId,jdbcType=BIGINT},
+      lg_name = #{lgName,jdbcType=VARCHAR},
+      lg_pid = #{lgPid,jdbcType=BIGINT},
+      lg_status = #{lgStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryForLabelGroupList" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM
+    sm_label_group
+    <where>
+      <if test="id != null">
+        id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="companyId != null">
+        AND company_id = #{companyId,jdbcType=BIGINT}
+      </if>
+      <if test="lgName != null">
+        AND lg_name = #{lgName,jdbcType=VARCHAR}
+      </if>
+      <if test="lgPid != null">
+        AND lg_pid = #{lgPid,jdbcType=BIGINT}
+      </if>
+      <if test="lgStatus != null">
+        AND lg_status = #{lgStatus,jdbcType=INTEGER}
+      </if>
+      <if test="createTime != null">
+        AND create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createUser != null">
+        AND create_user = #{createUser,jdbcType=BIGINT}
+      </if>
+      <if test="updateTime != null">
+        AND update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateUser != null">
+        AND update_user = #{updateUser,jdbcType=BIGINT}
+      </if>
+    </where>
+    order by create_time DESC
+  </select>
+
+</mapper>

@@ -1,0 +1,201 @@
+body{font:12px/180% Arial,"宋体",Helvetica, sans-serif,Verdana;color:#444;margin:0; text-align:center; background:#fff;}
+table,td{font:12px/180% Arial, "宋体",Helvetica, sans-serif,Verdana; color:#444;}
+table{border-collapse:collapse; border-spacing:0; empty-cells:show; }
+th, td { border-collapse:collapse; }
+a{blr:expression(this.onFocus=this.blur())} /*for IE*/
+a{outline:none;} /*for Firefox*/
+A:link{text-decoration:none; color:#444;}
+A:visited{text-decoration:none; color:#444;}
+A:hover{text-decoration:none; color: #9329bd;}
+#blue_font,#blue_font a,#blue_font a:visited{ color:#0053b9;}
+img{ border:0; }
+div,p,img,ul,li,form,input,label,span,dl,dt,dd,h1,h2,h3,h4,h5,h6{margin:0;padding:0;}
+ol,ul,li{list-style-type:none;}
+del {color: #aaa;}
+
+/************* 单位注册界面start *************/
+#reg_top { width: 960px; margin: auto; text-align: left; height: 40px; position: relative;}
+#reg_top div {padding: 10px; font: 18px 'Microsoft Yahei';font-weight:bold; color: #666;}
+
+#reg_div { width: 960px; margin: auto; text-align: left; border: 1px solid #ddd; background: #fff;display: inline-block;}
+.reg_div_top {
+    width: 100%; height: 87px;
+    border-bottom: 1px dotted #ddd;  position: relative;
+    color: #666666;
+    font-size:14px;
+    text-align: center;
+}
+/*.reg_div_top span { padding: 10px 0px; display: inline-block;}
+.reg_div_top span font { font-weight: bold;}*/
+
+.reg_dt1 {
+    width: 233px; height: 39px;
+    position: absolute; left: 25px; top:23px;
+    background: url("../Images/login/icon_bk.png") no-repeat left top;
+    font-weight: bold; color: #fff;
+}
+.reg_dt1_t {
+    width: 233px; height: 39px;
+    position: absolute; left: 25px; top:23px;
+    background: url("../Images/login/icon_bk.png") no-repeat left -40px;
+}
+
+.reg_dt2 {
+    width: 235px; height: 39px;
+    position: absolute; left: 253px; top:23px;
+    background: url("../Images/login/icon_bk.png") no-repeat left -120px;
+}
+
+.reg_dt2_t{
+    width: 235px; height: 39px;
+    position: absolute; left: 253px; top:23px;
+    background: url("../Images/login/icon_bk.png") no-repeat left -80px;
+    font-weight: bold; color: #fff;
+}
+
+.reg_dt3 {
+    width: 235px; height: 39px;
+    position: absolute; left: 483px; top:23px;
+    background: url("../Images/login/icon_bk.png") no-repeat left -120px;
+}
+
+.reg_dt3_t {
+    width: 235px; height: 39px;
+    position: absolute; left: 483px; top:23px;
+    background: url("../Images/login/icon_bk.png") no-repeat left -80px;
+    font-weight: bold; color: #fff;
+}
+
+.reg_dt4 {
+    width: 235px; height: 39px;
+    position: absolute; left: 712px; top:23px;
+    background: url("../Images/login/icon_bk.png") no-repeat left -200px;
+}
+
+.reg_dt4_t {
+    width: 235px; height: 39px;
+    position: absolute; left: 712px; top:23px;
+    background: url("../Images/login/icon_bk.png") no-repeat left -160px;
+    font-weight: bold; color: #fff;
+}
+
+.reg_left { width: 100%; float: left; text-align: center; display: inline-block; padding-bottom: 20px;}
+.reg_l_div {width: 96%; margin: auto; text-align: left;}
+.reg_right { width: 250px; float: left; padding-top:10px;  padding-bottom: 20px;display: none}
+
+.auto_height { height: 15px;}
+.reg_notice,.reg_msg {
+    padding: 2px 10px 3px 30px; border: 1px solid #FFE0CE; color: #F89B49;
+    background: url("../Images/exclamation.gif") no-repeat 10px 5px #FFF1E1;
+}
+
+.reg_form li { padding: 10px; width: 96%; }
+.reg_li_bk { background: #f6f6f6;}
+.reg_li_label_block,.reg_li_pic {
+    background: none !important;
+    border: none !important;
+    color: #666 !important;
+    padding-left:10px !important;
+    display: inline !important;
+    color:#999 !important;
+}
+.reg_file_pic {
+    border: none !important;
+    width: 140px !important;
+}
+
+.reg_block_color { border: 1px solid #ff6733 !important;}
+.reg_block {
+    display: inline !important;
+}
+.reg_form a { color: #2aaaff;}
+.reg_form li input { padding:5px 3px; width: 240px; border: 1px solid #ccc;}
+.reg_form li .reg_ftext { width: 110px; display: inline-table; margin-right: 10px;text-align: right; font-size: 14px;}
+.reg_form li .reg_ftext font { color: red; font-size:16px}
+.reg_form li .reg_msg { color: red; margin-left:10px; font-size: 12px !important;display: none; background-position: 5px 2px; padding-top: 3px;padding-bottom: 3px}
+.reg_fdl { width: 500px; display: inline-block; padding-left:130px;padding-top:8px;}
+.reg_fdl dd {
+    float: left;
+    width: 54px;
+    margin-left: 4px;
+    display: inline;
+    text-align: center;
+}
+.reg_fdl dd p {
+    padding: 0;
+    margin: 0;
+    height: 8px;
+    overflow: hidden;
+    background-color: #ddd;
+}
+.regfpsw_1 { display: inline-block; margin-bottom: 5px; height: 30px !important;}
+.regfpsw_1 .reg_ftext { float: left; padding-top:3px;}
+.regfpsw_1 input { float: left;}
+.regfpsw_1 .reg_msg { float: left; width: 208px;background-position: 10px 3px; line-height: 16px; margin-top:-5px}
+.regcheckbox { padding: 0px; margin: 0px; vertical-align: middle;width: 12px !important;}
+.reg_form .reg_submit {
+    background: #ff7c2b;
+    border: none;
+    font: 16px 'Microsoft Yahei';
+    color:#ffffff;
+    width:140px !important;
+    cursor: pointer;
+    padding: 7px 0;
+}
+.reg_form .reg_submit:hover {background: #e9752b}
+.reg_fdl_bk { background: #ff6415 !important;}
+.reg_t_ck2 { display: none;}
+
+.reg_ftitle {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0px !important;
+    padding-left: 0px !important;
+    margin-bottom: 5px;;
+}
+.reg_ftitle span {
+    font: 14px '宋体';
+    font-weight: bold;
+    display: inline-block;
+    border-bottom: 2px solid #ff4500;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+.reg_m { color: red; padding-left: 10px;}
+.reg_bk { width: 17px; height: 16px;vertical-align: middle; display: inline-block; background: url("../Images/login/icon_bk.png") no-repeat right top;}
+.reg_bk_load { background:url("../Images/done.gif") no-repeat !important;}
+
+.reg_readonly { background: #eee;}
+.reg_pic { width: 480px; display: inline-block;padding-left:120px;display: none;}
+
+.label_release { display: inline-table; width: 80px; cursor: pointer;}
+.release { width: 25px !important;vertical-align: middle;}
+.org_release { display: none;}
+
+/*注册进度条*/
+.rate-box {width: 800px;margin: auto;padding: 20px 0;margin-top: 10px}
+.rate-box .r-list {width: 25%;float: left;position: relative}
+.rate-box .r-list .r-span {width: 100%;display: inline-block}
+.rate-box .r-list .r-t {height: 3px;background: #c6c6c6;position: absolute;top:20%;left: 0;z-index: 1}
+.rate-box .r-list .r-font {width: 25px;height:25px;line-height:25px;background: #c6c6c6;border-radius: 50%;display: inline-block;z-index: 2;position: relative;color: #ffffff;font-family: 'Microsoft YaHei'}
+.rate-box .r-list .r-txt {color: #999999;font-size: 14px;font-family: 'Microsoft YaHei';padding: 5px 0}
+.rate-box .rate-hover .r-t {background: #ff4500}
+.rate-box .rate-hover .r-font {background: #ff4500}
+.rate-box .rate-hover .r-txt {color:#ff4500}
+
+/*单位类型*/
+.pr-type .type-l {width: 100px;height: 30px;line-height: 30px;display: inline-block;background: #eee;text-align: center;color: #999999;margin-right: 10px;cursor: pointer}
+.pr-type .type-hover {background: #ff7c2b;color: #ffffff}
+.not-submit {background: #DDDDDD !important;}
+.footer-box {height:40px;line-height: 40px;color: #999999}
+
+
+.body_bk {width: 100%;background:rgba(0,0,0,0.5);position: fixed;top:0;left: 0;z-index: 999999;display: none;}
+.body_bk .body-text {width: 300px;background: #ffffff;border-radius: 3px;position: absolute;top: 240px;}
+.body_bk .title {padding: 8px;font:14px 'Microsoft YaHei';text-align: left;border-bottom: 1px solid #dddddd;background:#F6F6F6;border-top-left-radius: 3px;border-top-right-radius: 3px;}
+.body_bk .text {padding: 8px;text-align: left;}
+.body_bk .text .t-l {padding-bottom: 8px;}
+.body_bk .yzm-cls {border: 1px solid #cccccc;width: 180px;padding: 5px;outline: none;font:16px 'Microsoft YaHei';}
+.body_bk .but_yzm {background:orangered;border: 1px solid #f14400;width: 80px;height:30px;line-height: 30px;color:#ffffff;cursor: pointer;font: 14px 'Microsoft YaHei';outline: none;}
+.body_bk .but_yzm:hover {background:#f14400}
+.body_bk .yzm-more,.body_bk .fa-times {float: right;margin-right: 10px;cursor: pointer;}
+.body_bk .fa-times {color:#999999;font-size: 16px;margin-right: 5px;}

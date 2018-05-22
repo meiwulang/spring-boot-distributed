@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>上传支付凭证</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/order_payproof.css">
+</head>
+<body>
+<div id="wrap">
+    <script id="tpl-order" type="text/html">
+    <div class="main">
+        <div class="t-bar"><a class="left"></a><span>上传支付凭证</span></div>
+        <div class="tourist-info-con">
+            { each resultList as value i }
+            <ul class="ul-info" uid="{ resultList[i].id }">
+                <li class="clearfix">
+                    <span>姓名</span>
+                    <div>
+                        <input class="name" type="text" value="{ resultList[i].otName }" placeholder="请输入姓名">
+                        <i class="icon-error">!</i>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <span>手机号</span>
+                    <div>
+                        <input class="tel" type="tel" value="{ resultList[i].otPhone }" placeholder="请输入手机号">
+                        <i class="icon-error">!</i>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <span>证件类型</span>
+                    <div>
+                        <select class="card_type">
+                            {if resultList[i].otLicenceType == 0 }
+                                <option selected="selected" value="0">身份证</option>
+                                <option value="1">护照</option>
+                            {else}
+                                <option value="0">身份证</option>
+                                <option selected="selected" value="1">护照</option>
+                            {/if}
+
+                        </select>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <span>证件号码</span>
+                    <div>
+                        <input class="card_no" type="text" value="{ resultList[i].otLincese }" placeholder="请输入证件号码">
+                        <i class="icon-error">!</i>
+                    </div>
+                </li>
+                <button class="saveBtn">保存</button>
+            </ul>
+            {/each}
+        </div>        
+    </div>
+    </script>
+</div>
+
+</body>
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/order_payproof.build.js"></script>
+</html>

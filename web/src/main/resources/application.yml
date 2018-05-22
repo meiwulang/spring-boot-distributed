@@ -1,0 +1,27 @@
+connection:
+  path:
+    maxHop: 6
+
+#restTemplate timeout config
+custom:
+  rest:
+    connection:
+      connection-request-timeout: 10000
+      connect-timeout: 10000
+      read-timeout: 10000
+
+spring:
+  profiles:
+    active: @profiles.active@
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true 
+      force: true
+  thymeleaf:   
+      mode: LEGACYHTML5
+  groupAdviceNoteForMessageKey: cc5OU3UxdmycbmadGIRviRnZg8mH7McHv8c4HSa882wbv7jiIQ
+
+#短信appkey
+sms: 
+  appkey: 56e055c6d992441576dce3ab43efc34c

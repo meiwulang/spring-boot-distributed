@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>信用账单</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/credit.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->     
+</head>
+<body>
+<div id="wrap">
+	<div class="acti_header">信用账单
+		<a class="lef" href="javascript:;"></a>
+		<!-- <a class="rig" href="javascript:;"></a> -->
+	</div>
+	<div class="main">
+		<div class="nav">
+			<ul>
+				<li><a class="active" status="全部" href="javascript:;">全部</a></li>
+				<li><a status="未还款" href="javascript:;">未还款</a></li>
+				<li><a status="未还完" href="javascript:;">未还完</a></li>
+				<li><a status="已还完" href="javascript:;">已还完</a></li>
+			</ul>
+		</div>
+		<div class="content">
+		<script id="tpl-condition" type="text/html">
+			{if all_money || not_money}
+				<div class="bar">
+					<div class="lef_bar">
+						{if all_money}
+						<p>{all_money}</p>
+						{/if}
+						<span>还款总额(元)</span>
+					</div>
+					<div>
+						{if not_money}
+						<p>{not_money}</p>
+						{/if}
+						{if not_money == '0'}
+						<p>0.00</p>
+						{/if}
+						<span>未还总额(元)</span>
+					</div>
+				</div>
+			{/if}
+			<ul class="list_ul">
+			{if list}
+				{each list as value i}
+					<li>
+						<a href="/bills_detail.html?no={list[i].cb_number}&order_type={ order_type }">
+							<div>
+								<p>账单日</p>
+								<span>{list[i].cb_bill_date}</span>
+							</div>
+							<div>
+								<p>{list[i].org_name}</p>
+								<span><span>已还：</span>￥{list[i].cb_repay_amount}</span>
+							</div>
+							<div>
+								<p class="colo">{list[i].cb_status}</p>
+								<span>￥{list[i].cb_bill_amount}</span>
+							</div>
+						</a>
+					</li>
+				{/each}
+				{else}	
+					<p class="no">暂无记录！</p>
+				
+			{/if}
+			
+			</ul>
+		</script>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/credit.build.js"></script>
+</html>

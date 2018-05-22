@@ -1,0 +1,23 @@
+/**/
+.top-right span, .top-right a { margin-left:8px; display: inline-block; }
+
+/*预订成功页面开始*/
+.pay_success .operations{ padding:20px 120px; }
+.pay_success .congratulation { padding: 30px 0; height: auto; }
+.congratulation .fa { font-size: 60px; margin: 10px 10px 10px 60px; color: #009E00;}
+.congratulation div { margin-left: 140px; margin-top:0; }
+.congratulation div h3{ margin:10px 0; }
+.operations .printer{ height: auto; padding:30px 0;}
+.operations .printer .fa { font-size: 40px; margin: 10px; color:#aaa; }
+.operations .printer div { margin-left: 80px; }
+.operations .printer:hover a { color: red; }
+.operations .printer:hover .fa { color: #ff7633; }
+.operations .printer:hover span { color: #ff7633; cursor: default; }
+.operations .printer:last-child { border-bottom: none; }
+/*预订成功页面结束*/
+
+/*预订失败页面开始*/
+.pay_error .congratulation { border: 1px solid #ff7633; background: #fffce5;}
+.pay_error .congratulation h3 { color: red !important;}
+.pay_error .congratulation .fa { color: red !important;}
+/*预订失败页面结束*/

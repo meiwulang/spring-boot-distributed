@@ -1,0 +1,54 @@
+@import './common.less';
+
+#wrap{
+	overflow: hidden;
+	position: relative;
+	padding-bottom: 0;
+	.link{
+		position: absolute;
+		height: 100%;
+		border-left: 1px solid #e7e7e7;
+		left: 32px;
+		top: 24px;
+		z-index: 0;
+	}
+	.look{
+		background-color: #fff;
+		li{
+			overflow: hidden;
+			.look_lef{
+				position: relative;
+				z-index: 99;
+				width: 64px;
+				height: 62px;
+				float: left;
+				background: url('@{img}/mades/made-red.png') center center no-repeat;
+				background-size: 12px 20px;
+			}
+			.look_lef.active{
+				background: url('@{img}/mades/made-blue.png') center center no-repeat;
+				background-size: 13px 16px;
+			}
+			.look_rig{
+				color: #333;
+				font-size: 14px;
+				padding: 13px 15px 13px 0;
+				margin-left: 64px;
+				overflow: hidden;
+				border-bottom: 1px solid #e7e7e7;
+				.indent{
+					/*text-indent: -5px;*/
+				}
+				.tim{
+					font-size: 10px;
+					color: #666;
+				}
+			}
+		}
+		li:last-child{
+			.look_rig{
+				border-bottom: none;
+			}
+		}
+	}
+}

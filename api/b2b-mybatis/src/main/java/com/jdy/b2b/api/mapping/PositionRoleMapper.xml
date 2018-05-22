@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.PositionRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.position.PositionRole" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="position_id" property="positionId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, role_id, position_id, create_time, create_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ct_position_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ct_position_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.position.PositionRole" >
+    insert into ct_position_role (role_id, position_id,
+      create_time, create_user)
+    values ( #{roleId,jdbcType=BIGINT}, #{positionId,jdbcType=BIGINT},
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.position.PositionRole" >
+    insert into ct_position_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="positionId != null" >
+        position_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="positionId != null" >
+        #{positionId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.position.PositionRole" >
+    update ct_position_role
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="positionId != null" >
+        position_id = #{positionId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.position.PositionRole" >
+    update ct_position_role
+    set role_id = #{roleId,jdbcType=BIGINT},
+      position_id = #{positionId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByPositionId">
+    DELETE from ct_position_role WHERE position_id = #{positionId}
+  </delete>
+  <insert id="bathInsert" >
+    INSERT INTO ct_position_role (role_id, position_id,
+    create_time, create_user) VALUES
+    <foreach collection="roleIds" item="roleId" separator=",">
+      (#{roleId,jdbcType=BIGINT}, #{positionId,jdbcType=BIGINT},
+      now(), #{puserId,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+  <resultMap id="RolesDTOMap" type="com.jdy.b2b.api.model.role.RolesDTO" extends="com.jdy.b2b.api.dao.role.RoleMapper.BaseResultMap">
+    <collection property="menus" select="com.jdy.b2b.api.dao.module.ModuleMapper.selectModulesTreeByPositionId" column="{positionId=id,pid=pid}"/>
+    <collection property="buttonClassNames" select="com.jdy.b2b.api.dao.module.ModuleMapper.selectButtonClassNames" column="{positionId=id}"/>
+  </resultMap>
+  <select id="selectRolesByPositionId" resultMap="RolesDTOMap">
+      select r.*,0 pid from sm_roles r
+            JOIN ct_position_role pr on r.id = pr.role_id
+            WHERE pr.position_id = #{positionId}
+  </select>
+  <select id="selectRolesIdsByPositionId" resultType="long">
+      select r.id pid from sm_roles r
+            JOIN ct_position_role pr on r.id = pr.role_id
+            WHERE pr.position_id = #{positionId}
+  </select>
+  <select id="selectModulesByPositionId" resultMap="com.jdy.b2b.api.dao.module.ModuleMapper.BaseResultMap">
+    select m.* from cm_position p
+              JOIN ct_position_role pr ON p.id = pr.position_id
+              JOIN sm_role_module rm ON pr.role_id = rm.rm_role_id
+              JOIN sm_module m ON rm.rm_module_id = m.id
+  </select>
+
+</mapper>

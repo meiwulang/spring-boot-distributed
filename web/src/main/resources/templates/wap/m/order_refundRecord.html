@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>退款记录</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/order_list.css">
+    <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> 
+</head>
+<body>
+        <div id="wrap" style="display: none">
+                <div class="main">
+                    <div class="t-bar">
+                    <a class="left"></a>
+                    <span>退款记录</span>
+                    <!-- <a style="display: none;" class="links" href="javascript:;">礼品卡订单</a> -->
+                    <a class="right"></a>
+                    </div>
+                    <div class="recordlist">
+                        <div class="content">
+                                <script id="tpl-lists" type="text/html">
+                                {if body && body.length}
+                                { each body as value i }
+                                <li>
+                                    <div class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide content">
+                                            <a href="">
+                                                <div class="title clearfix">
+                                                    <div class="infor">
+                                                        <span>退款状态：</span>
+                                                        {if body[i].status==0}
+                                                            <span class="refundcancel">退款关闭</span>
+                                                        {else if body[i].status==1}
+                                                            <span class="refunding">退款中</span>
+                                                        {else}
+                                                            <span class="refunddone">退款成功</span>
+                                                        {/if}
+                                                    </div>
+                                                </div>
+                                                <div class="detail clearfix">
+                                                    {if body[i].status==2}
+                                                        <div class="head">
+                                                            <div>
+                                                                <span>退款金额：</span>
+                                                                <span>{body[i].refundAmount}</span>
+                                                            </div>
+                                                            <div>
+                                                                <span>退款时间：</span>
+                                                                <span>{body[i].refundableTime}</span>                                                            
+                                                            </div>
+                                                            <div>
+                                                                <span>退款人员：</span>
+                                                                <span>
+                                                                    <span>{body[i].refundableSalerName}</span>
+                                                                    <span class="tips">退款金额使用线下退回方式，请及时查收</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    {/if}
+
+                                                    <div class="body">
+                                                        <div class="ticketouter clearfix">
+                                                            <span class="ticket_title">退款信息：</span>
+                                                            <div class="ticket_part">
+                                                                <div class="ticket">
+                                                                    <span>{body[i].ticketInfo}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <span>申请退款金额：</span>
+                                                            <span>{body[i].applyAmount}</span>                                                            
+                                                        </div>
+                                                        <div>
+                                                            <span>申请退款时间：</span>
+                                                            <span>{body[i].applyRefundTime}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>申请退款人员：</span>
+                                                            <span>{body[i].refundableBuyerName}</span>                                                            
+                                                        </div>
+                                                        <div>
+                                                            <span>申请退款说明：</span>
+                                                            <span>{body[i].refundExplain}</span>
+                                                        </div>                                                        
+                                                    </div>
+
+                                                </div>
+                                                
+                                            </a> 
+                                            </div> 
+                                        </div> 
+                                    </div>                       
+                                </li>
+                                { /each }
+                                {else}
+                                <p style="color: #999;padding-left: 15px;margin-top: 20px;">该状态没有数据！</p>
+                                {/if}
+                            </script>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/order_refundRecord.build.js"></script>
+</html>

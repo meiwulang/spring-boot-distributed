@@ -1,0 +1,31 @@
+#dev环境
+server:
+  port: 6666
+  context-path: /api/reportsCenter
+spring:
+  profiles: dev
+  application:
+    name: b2b-reports
+  aop :
+    proxy-target-class : true
+
+  datasource:
+        name: dev_sp_db
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://47.96.30.236:3306/dev_sp_db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false
+        type: com.alibaba.druid.pool.DruidDataSource
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: true
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        username: sp_user
+        password: 123456
+        filters: log4j

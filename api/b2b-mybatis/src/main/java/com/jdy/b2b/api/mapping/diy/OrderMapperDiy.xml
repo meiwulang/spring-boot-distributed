@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.OrderMapperDiy">
+
+    <resultMap id="OrderPayRecordsResultMap" type="com.jdy.b2b.api.model.diy.OrderPayRecordsDTO" extends="com.jdy.b2b.api.dao.OrderMapper.BaseResultMap">
+
+        <collection property="pays" ofType="com.jdy.b2b.api.model.diy.OrderPayDTO">
+            <id property="id" column="op_id"/>
+            <result property="opOrderId" column="op_order_id"/>
+            <result property="opPayNo" column="op_pay_no"/>
+            <result property="opPayAmount" column="op_pay_amount"/>
+            <result property="opPayMethod" column="op_pay_method"/>
+            <result property="opComments" column="op_comments"/>
+            <result property="opOprater" column="op_oprater"/>
+            <result property="opPayTime" column="op_pay_time"/>
+            <result property="oIsmerge" column="o_isMerge"/>
+
+            <association property="bill" javaType="com.jdy.b2b.api.model.bill.Bill">
+                <id property="id" column="b_id"/>
+                <result property="bBillNo" column="b_bill_no"/>
+                <result property="bAmount" column="b_amount"/>
+                <result property="bPayedAmount" column="b_payed_amount"/>
+                <result property="bBillType" column="b_bill_type"/>
+                <result property="bType" column="b_type"/>
+                <result property="bStatus" column="b_status"/>
+                <result property="bRemark" column="b_remark"/>
+                <result property="createTime" column="b_create_time"/>
+            </association>
+        </collection>
+    </resultMap>
+    <update id="updatePeopleNumById">
+        UPDATE sl_order SET o_people_num = o_people_num - #{reduceNum} WHERE id = #{orderId}
+    </update>
+    <select id="orderPayRecords" resultMap="OrderPayRecordsResultMap">
+        SELECT
+            p.op_order_id id,
+            p.id op_id,
+            p.op_order_id,
+            p.op_pay_no,
+            p.op_pay_amount,
+            p.op_pay_method,
+            p.op_comments,
+            p.op_oprater,
+            p.op_pay_time,
+            p.o_isMerge,
+
+            b.id b_id,
+            b.b_bill_no,
+            b.b_amount,
+            b.b_payed_amount,
+            b.b_bill_type,
+            b.b_type,
+            b.b_status,
+            b.b_remark,
+            b.create_time b_create_time
+        FROM
+            sl_order_pay p
+        LEFT JOIN fn_bill_detail bd ON bd.db_order_pay_id = p.id
+        LEFT JOIN fn_bill b ON bd.db_bill_id = b.id
+        WHERE
+            p.op_order_id = #{id}
+    </select>
+
+    <resultMap id="OrderSmsResultMap" type="com.jdy.b2b.api.model.diy.OrderSMSDTO" extends="com.jdy.b2b.api.dao.OrderMapper.BaseResultMap">
+        <result property="pName" column="p_name"/>
+        <result property="sCalendar" column="s_calendar"/>
+    </resultMap>
+    <select id="selectOrderSmsDTO" resultMap="OrderSmsResultMap">
+        SELECT
+            o.*,
+            p.p_name,
+            s.s_calendar
+        FROM
+            sl_order o
+        INNER JOIN ct_product p ON p.id = o.o_product_id
+        INNER JOIN ct_schedule s on s.id = o.o_schedule_id
+        WHERE
+            o.id = #{id}
+        LIMIT 1
+    </select>
+
+    <resultMap id="OrderSynchroDTOResultMap" type="com.jdy.b2b.api.model.diy.OrderSynchroDTO" extends="com.jdy.b2b.api.dao.OrderMapper.BaseResultMap">
+        <result property="buyerOpenId" column="buyerOpenId"/>
+        <result property="buyerName" column="buyerName"/>
+        <result property="buyerPhone" column="buyerPhone"/>
+        <result property="buyerUid" column="buyerUid"/>
+        <result property="salerOpenId" column="salerOpenId"/>
+        <result property="pNo" column="p_no"/>
+        <result property="pid" column="pid"/>
+        <result property="pName" column="p_name"/>
+        <result property="opPayNo" column="op_pay_no"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="pDays" column="p_days"/>
+        <result property="sCalendar" column="s_calendar"/>
+        <result property="buyerCompanyId" column="buyerCompanyId"/>
+        <result property="buyerUstype" column="buyerUstype"/>
+    </resultMap>
+    <select id="selectOrderSynchroDTO" resultMap="OrderSynchroDTOResultMap">
+        SELECT
+            b.u_wx_openid buyerOpenId,
+            b.u_real_name buyerName,
+            b.u_tel buyerPhone,
+            b.u_uid buyerUid,
+			b.u_stype buyerUstype,
+			b.company_id buyerCompanyId,
+			
+            p.id pid,
+            p.p_no,
+            p.p_name,
+            p.p_days,
+            s.s_calendar,
+
+            d.id,
+            d.o_saler_company_name,
+            d.o_status,
+            d.o_buyer_id,
+            d.o_order_no,
+            d.o_real_pay,
+            d.o_to_pay,
+            d.create_user,
+            d.create_time,
+            d.o_product_id,
+
+            pay.op_pay_no,
+            pay.create_time pay_time
+
+        FROM
+            ct_product p,
+            ct_schedule s,
+            sm_user b,
+            sl_order d
+        INNER JOIN sl_order_pay pay
+            on pay.op_order_id=d.id
+        WHERE
+            d.o_status = 3
+        <if test="oSource != null and oSource == 3">
+            AND d.o_source = #{oSource}
+        </if>
+        <if test="oSource != null and oSource != 3">
+            AND d.o_source != 3
+        </if>
+        AND d.o_un_pay = 0 <!--付完尾款-->
+        AND (
+            d.o_synchro IS NULL
+            OR d.o_synchro = 0
+        )
+        AND d.o_buyer_id = b.id
+        AND d.o_product_id = p.id
+        AND d.o_schedule_id = s.id
+        <if test="orderId != null">
+            AND d.id = #{orderId}
+        </if>
+        ORDER BY
+            d.id DESC, pay.id DESC
+        limit 1
+    </select>
+    
+    <select id="listUnpayOrders" resultType="map">
+        SELECT
+          d.id,
+          d.o_order_no,
+          d.o_people_num,
+          d.o_saler_company_name,
+          d.o_source,
+          s.id scheduleId,
+          ifnull(s.s_seat_sold, 0) s_seat_sold,
+          s.s_calendar,
+          s.s_leave_time,
+          s.s_stop_sale,
+          s.s_stop_type,
+          s.s_status
+        FROM sl_order d INNER JOIN ct_schedule s ON d.o_schedule_id = s.id AND s.s_status = 0
+        WHERE d.o_status IN (0, 1, 6)
+    </select>
+
+    <select id="selectExperiencedOrderCount" resultType="int">
+        SELECT count(*)
+        FROM sl_order d, sl_order_tourist t
+        WHERE d.o_status = 3 AND d.o_product_id = #{pid} AND t.ot_order_id = d.id
+        AND t.ot_name = #{name} AND t.ot_phone = #{phone} limit 1
+    </select>
+    
+    <select id="selectAgentSuperUser" resultType="hashmap">
+        SELECT
+          sp.id,
+          sp.u_wx_openid,
+          sp.u_pid,
+          sp.u_uid,
+          sp.u_puserid,
+          sp.u_real_name,
+          sp.u_tel,
+          sp.u_status,
+          sp.company_id companyId,
+          sp.u_stype usType
+        FROM sm_user sb, sm_user sp
+        WHERE sb.u_pid = sp.u_wx_openid
+              AND sb.u_wx_openid != sb.u_pid
+              AND sb.id = #{uid} limit 1
+    </select>
+
+    <select id="selectSuperUser" resultType="hashmap">
+        SELECT
+          sp.id,
+          sp.u_wx_openid,
+          sp.u_pid,
+          sp.u_uid,
+          sp.u_puserid,
+          sp.u_real_name,
+          sp.u_tel,
+          sp.u_status,
+          sp.company_id companyId,
+          sp.u_stype usType
+        FROM sm_user sb, sm_user sp
+        WHERE sb.u_puserid = sp.id AND sb.u_puserid is not NULL
+          AND sb.id = #{uid} limit 1
+    </select>
+
+    <resultMap id="orderContractMap" type="com.jdy.b2b.api.model.orderRefund.ContractOrder">
+            <result property="orderId" column="id"/>
+            <result property="status" column="o_status"/>
+            <result property="url" column="view_pdf_url"/>
+            <result property="contractId" column="sid"/>
+            <result property="contractAgreement" column="o_contract_agreement"/>
+    </resultMap>
+    <select id="selectContractByOrderId" parameterType="int" resultMap="orderContractMap">
+      SELECT o.id,o_status,o_contract_agreement,s.view_pdf_url,s.id sid from sl_order o LEFT JOIN sm_sign_contract_info s ON  o.o_order_no = s.order_no
+      WHERE o.id = #{orderId}
+      order by sid desc
+      limit 0 ,1
+    </select>
+
+    <resultMap id="OrderPay4H5DTOMap" type="com.jdy.b2b.api.model.diy.OrderPay4H5DTO">
+        <result property="createTime" column="op_pay_time"/>
+        <result property="money" column="op_pay_amount"/>
+        <result property="payMethod" column="op_pay_method"/>
+        <result property="orderStatus" column="o_status"/>
+        <collection property="orderOfflineList" select="com.jdy.b2b.api.dao.orderOffline.OrderOfflineMapper.selectByPayId" column="id"/>
+    </resultMap>
+    <select id="selectOrderPayRecords" parameterType="com.jdy.b2b.api.model.Order" resultMap="OrderPay4H5DTOMap">
+        select pay.op_pay_time,pay.op_pay_amount,pay.op_pay_method,pay.id,o.o_status from sl_order_pay pay JOIN sl_order o ON pay.op_order_id = o.id WHERE pay.op_order_id = #{id}
+    </select>
+    <select id="selectTouristNum" parameterType="long" resultType="map">
+        select count(*) num ,t.ot_type order_type from sl_order o JOIN sl_order_tourist t on o.id = t.ot_order_id WHERE o.o_schedule_id = #{scheduleId} and o.o_status = 3 GROUP BY t.ot_type
+    </select>
+
+    <update id="reducePeopleNum">
+      UPDATE sl_order SET o_people_num = o_people_num - #{num} WHERE id = #{orderId} AND o_people_num >= #{num}
+    </update>
+</mapper>

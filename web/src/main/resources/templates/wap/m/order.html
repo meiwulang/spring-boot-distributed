@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="assets/css/order.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->
+</head>
+<body>
+<div id="wrap">
+	<div class="main">
+		<script id="tpl-order" type="text/html">
+			<div class="t-bar"><a class="back"></a><span>订单预定</span></div>
+			<div class="ticket-info">
+				<div class="name"><!-- <span>杭州出发</span> -->{ p_name }{ p_sname }</div>
+				<div class="date">
+					<div class="corner"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>
+					<div class="date-range clearfix">
+						<div class="start" v="{ bl_start_date }">
+							<span><i>{ start_date_m }</i>月<i>{ start_date_d }</i>日</span>
+							<p>{ start_date_y }</p>
+						</div>
+						<div class="end" v="{ bl_end_date }">
+							<span><i>{ end_date_m }</i>月<i>{ end_date_d }</i>日</span>
+							<p>{ end_date_y }</p>
+						</div>
+					</div>
+				</div>
+				<div class="list">
+					<span class="toggle"></span>
+					<ul>
+						{ each ticket_show as value i }
+						<li>{ ticket_show[i].t_name } - { ticket_show[i].t_preset_type }：{ ticket_show[i].t_standards_name } x { ticket_show[i].base_num }</li>
+						{ /each }
+					</ul>
+				</div>
+			</div>
+			<div class="bed show_hide" style="display: none">
+				<h4>房差选择<div class="tourist-more"><span>展开所有</span></div></h4>
+				<div class="bed-list">
+					<ul>
+						{ each ticket_show as value i }
+							{ if ticket_show[i].t_preset_type == '套票' }
+								{ each ticket_show[i].list as value j }
+									<li 
+										type="group" 
+										pid="{ ticket_show[i].t_id }" 
+										tid="{ ticket_show[i].list[j].t_id }" 
+										people_num="{ ticket_show[i].list[j].people_num }" 
+										class="clearfix nolimit"
+									>
+										<div class="list-l">
+											<span class="name">
+											{ ticket_show[i].list[j].t_standards_name }
+											<span>
+											（{ ticket_show[i].t_preset_type }）
+											</span>
+											</span>
+											
+										</div>
+										<div class="list-r clearfix">
+											<span class="price"><i>￥</i><span>0.00</span></span>
+											
+											<div class="num-check">
+												{ if ticket_show[i].list[j].t_spread_price != 0 || ticket_show[i].list[j].t_out_room_price != 0 }
+												<span class="reduce">-</span>
+												{ /if }
+												<input type="text" readonly="readonly" value="{ ticket_show[i].list[j].bed_num }">
+												{ if ticket_show[i].list[j].t_spread_price != 0 || ticket_show[i].list[j].t_out_room_price != 0 }
+												<span class="add">+</span>
+												{ /if }
+											</div>
+											<span style="float: right;font-size: 12px;color: #999999;padding-top: 8px;">床位：</span>
+										</div>
+									</li>
+								{ /each }
+							{ else }
+								<li 
+									type="normal" 
+									tid="{ ticket_show[i].t_id }" 
+									people_num="{ ticket_show[i].people_num }" 
+									class="clearfix nolimit"
+								>
+									<div class="list-l">
+										<span class="name">
+										{ ticket_show[i].t_standards_name }
+										<span>
+										（{ ticket_show[i].t_preset_type }）
+										</span>
+										</span>
+										
+									</div>
+									<div class="list-r clearfix">
+										<span class="price"><i>￥</i><span>0.00</span></span>
+										
+										<div class="num-check">
+											{ if ticket_show[i].t_spread_price != 0 || ticket_show[i].t_out_room_price != 0 }
+											<span class="reduce">-</span>
+											{ /if }
+											<input type="text" readonly="readonly" value="{ ticket_show[i].bed_num }">
+											{ if ticket_show[i].t_spread_price != 0 || ticket_show[i].t_out_room_price != 0 }
+											<span class="add">+</span>
+											{ /if }
+										</div>
+										<span style="float: right;font-size: 12px;color: #999999;padding-top: 8px;">床位：</span>
+									</div>
+								</li>
+							{ /if }
+						{ /each }
+					</ul>
+				</div>
+			</div>
+			<div class="tourist show_hide">
+				<h4>游客信息<div class="tourist-more"><span>展开所有</span></div></h4>
+				<div class="tourist-list">
+					<ul>
+						{ each ticket_show as value i }
+							{ if ticket_show[i].t_preset_type == '套票' }
+								{ each ticket_show[i].list as value j }
+									{ each ticket_show[i].list[j].people_num_round as value x }
+									<li 
+										type="group" 
+										pid="{ ticket_show[i].t_id }" 
+										tid="{ ticket_show[i].list[j].t_id }"
+										{ if ticket_show[i].list[j].t_limit_type != '无限制' }
+										class="limit" 
+										name="{ ticket_show[i].list[j].t_standards_name }"
+										limit_type="{ ticket_show[i].list[j].t_limit_type }" 
+										limit_condition="{ ticket_show[i].list[j].t_limit_condition }" 
+										{ else } 
+										class="nolimit"
+										{ /if }
+									>
+										<div class="number">1</div>
+										<div class="info">
+											<div class="name"><u>填写游客信息</u><span>（{ ticket_show[i].list[j].t_standards_name }-{ ticket_show[i].t_preset_type }）</span></div>
+											<div class="tel"></div>
+											<div class="card">
+												<span class="card-type"></span>
+												<span class="card-no"></span>
+											</div>
+										</div>
+									</li>
+									{ /each }
+								{ /each }
+							{ else }
+								{ each ticket_show[i].people_num_round as value x  }
+								<li 
+									type="normal" 
+									tid="{ ticket_show[i].t_id }"
+									{ if ticket_show[i].t_limit_type != '无限制' }
+									class="limit" 
+									name="{ ticket_show[i].t_standards_name }" 
+									limit_type="{ ticket_show[i].t_limit_type }" 
+									limit_condition="{ ticket_show[i].t_limit_condition }" 
+									{ else }
+									class="nolimit"
+									{ /if }
+								>
+									<div class="number">1</div>
+									<div class="info">
+										<div class="name"><u>填写游客信息</u><span>（{ ticket_show[i].t_standards_name }-{ ticket_show[i].t_preset_type }）</span></div>
+										<div class="tel"></div>
+										<div class="card">
+											<span class="card-type"></span>
+											<span class="card-no"></span>
+										</div>
+									</div>
+								</li>
+								{ /each }
+							{ /if }
+						{ /each }
+					</ul>
+				</div>
+				
+				<div class="tourist-info">
+					<div class="tourist-info-bar">
+						<a class="back" href="javascript:;"></a>
+						<span>请填写出游人信息</span>
+						<div class="save">保存</div>
+					</div>
+					<div class="tourist-info-con">
+						<ul>
+							<li class="clearfix">
+								<span>姓名</span>
+								<div>
+									<input class="name" type="text" value="" placeholder="请输入姓名">
+									<i class="icon-error">!</i>
+								</div>
+							</li>
+							<li class="clearfix">
+								<span>手机号</span>
+								<div>
+									<input class="tel" type="tel" value="" placeholder="请输入手机号">
+									<i class="icon-error">!</i>
+								</div>
+							</li>
+							<li class="clearfix">
+								<span>证件类型</span>
+								<div>
+									<select class="card_type">
+										<option>身份证</option>
+										<option>护照</option>
+										<option>军官证</option>
+										<option>回乡证</option>
+										<option>台胞证</option>
+										<option>国际海员证</option>
+										<option>港澳通行证</option>
+										<option>赴台证</option>
+									</select>
+								</div>
+							</li>
+							<li class="clearfix">
+								<span>证件号码</span>
+								<div>
+									<input class="card_no" type="text" value="" placeholder="请输入证件号码">
+									<i class="icon-error">!</i>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="tips"><i>*</i><span>成人双飞票价</span><u>(限制：20-50岁)</u></div>
+				</div>
+			</div>
+			<div class="site">
+				<h4>接送信息</h4>
+				<div class="item site-go clearfix">
+					<span class="tit">接客站点</span>
+					<div class="con">
+						<div class="no-check">请选择接客上车点</div>
+						<div class="checked clearfix"><p></p><i></i></div>
+					</div>
+				</div>
+				<div class="item site-back clearfix">
+					<span class="tit">送客站点</span>
+					<div class="con">
+						<div class="no-check">请选择送客上车点</div>
+						<div class="checked clearfix"><p></p><i></i></div>
+					</div>
+				</div>
+				<div class="site-select">
+					<div class="site-select-bar">
+						<a class="back" href="javascript:;"></a>
+						<span>上车地点</span>
+						<div class="save" style="display: none;">确认选择</div>
+					</div>
+					<div class="site-select-con">
+						<div class="site-input" style="display: none;">
+							<input type="text" value="" placeholder="请输入上车站点" />
+						</div>
+						<div class="site-select-list"></div>
+					</div>
+				</div>
+			</div>
+			{if contractTemplate != null}
+			<div class="prime">
+				<div class="texi">合同补充约定:</div>
+				<div class="prime-text"></div>
+			</div>
+			{/if}
+			{ if p_promotion.length }
+			<div class="promotion">
+				<h4>优惠信息<div class="promotion-more"><span>展开所有</span></div></h4>
+				<div class="promotion-list">
+					<ul>
+						{ each p_promotion as value i }
+						<li lid="{ p_promotion[i].pp_id }" { if i == 0 }class="active"{ /if }>
+							<div class="info">{ p_promotion[i].pp_title }</div>
+							<!-- <div class="price">￥20/人</div> -->
+						</li>
+						{ /each }
+					</ul>
+				</div>
+			</div>
+			{ /if }
+			<div class="companyorsingleWrap">
+				<div class="payment2">
+					<ul class="fullOrTwo">
+						<div class="pay-item">
+							用户类型
+						</div>
+						<li class="pay-item pay-single">
+							<div class="pay-item clearfix">
+								个人
+								<span class="active"></span>
+							</div>
+						</li>
+						<li class="pay-item pay-company">
+							<div class="pay-item clearfix">
+								企业
+								<span class=""></span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			{ if pay_way == 1 }
+			<div class="payment1">
+				<ul class="fullOrFirst">
+					<div class="pay-item">
+						支付方式
+					</div>
+					<li class="pay-item pay-full">
+						<div class="pay-item clearfix">
+							全款支付
+							<span class="active"></span>
+						</div>
+					</li>
+					<li class="pay-item pay-first">
+						<div class="pay-item clearfix">
+							首款支付
+							<span class=""></span>
+						</div>
+					</li>
+				</ul>
+			</div>
+			{ /if }
+
+			<div class="payment" style="display: none;">
+				<ul>
+					<!-- <li class="pay-wechat">
+						<div class="pay-item clearfix">
+							<img src="">
+							微信支付
+							<span class="active"></span>
+						</div>
+					</li> -->
+					<li class="pay-card imgg">
+						<div class="pay-item clearfix">
+							卡券支付
+						</div>
+						<div class="card-detail">
+							<div class="card-mor">
+								<!-- <dl>
+									<dd>
+										<span>卡号：</span>
+										<span>
+											<input class="card-num" type="text" value="" placeholder="请输入卡号">
+										</span>
+										<span class="pwd-check">验证</span>
+									</dd>
+									<dd class="items clearfix">
+									<span>
+										<span>密码：</span>
+										<span>
+											<input class="pass" type="password" value="" placeholder="请输入卡密码">
+										</span>
+									</dd>
+								</dl> -->
+							</div>
+							<div class="add-card">+新增卡片</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="remark">
+				<h4>其他特殊要求<span></span></h4>
+				<div class="remark-text"><textarea placeholder="简单说说你所需要的其他要求"></textarea></div>
+			</div>
+			<div class="submit clearfix">
+				<div class="total">
+					<span>实付金额</span>
+					<span class="price"><i>￥</i><span>1980</span></span>
+					<span class="see-detail">查看明细</span>
+				</div>
+				<div class="btn">立即预订</div>
+			</div>
+			<div class="pos">
+				<div class="pos-bar">
+					<a class="back" href="javascript:;"></a>
+					<span>查看明细</span>
+					<!-- <div class="change"></div> -->
+				</div>
+				<div class="pos-con"></div>
+			</div>
+		</script>
+	</div>
+	<div class="primes">
+		<div class="headers">
+			<a class="pri_a" href="javascript:;"></a>
+			<span>合同补充约定</span>
+		</div>
+		<div class="texs">
+			<textarea class="text_area"></textarea>
+		</div>
+		<div class="pri_btn">提交</div>
+	</div>
+</div>
+</body>
+<script id="tpl-site-select-list" type="text/html">
+	<dl>
+		<dd>
+			<ul>
+				<li style="display: none" lid="" time="" name="自行前往始发站" price="0.00">自行前往始发站</li>
+			</ul>
+		</dd>
+	</dl>
+	{ if type == "go" }
+		{if stop == '0'}
+			{ each data["去程"] as value i }
+			<dl>
+				{if data["去程"][i].st_type == "始发站"}
+				<dt>{ data["去程"][i].st_type }</dt>
+				{else}
+				<dt>{ data["去程"][i].site_name }</dt>
+				
+			{/if}
+				<dd>
+					<ul>
+						{ each data["去程"][i].data as value j }
+						<li 
+							lid="{ data['去程'][i].data[j].id }"
+							types = "{data['去程'][i].data[j].st_type}"
+							time = "{ data['去程'][i].data[j].go_time } "
+							class="on_btn"
+							name="{ data['去程'][i].data[j].station_name }"
+							price="{ data['去程'][i].data[j].price }"
+							bus_id="{ data['去程'][i].data[j].bus_id }"
+						>
+						
+						<i class="is"><span class="fc">{ data['去程'][i].data[j].go_time }</span>{ data['去程'][i].data[j].station_name }</i>
+						<span class="spans"><i>￥</i>{ data['去程'][i].data[j].price }/人</span>
+						{if data['去程'][i].data[j].go_time}
+						
+						{/if}
+						</li>
+						{ /each }
+					</ul>
+				</dd>
+			</dl>
+			{ /each }
+			{else}
+				{ each data["去程"] as value i }
+				<dl>
+					{if data["去程"][i].st_type == "始发站"}
+					<dt>{ data["去程"][i].st_type }</dt>
+					{else}
+					<dt>{ data["去程"][i].site_name }</dt>
+					
+				{/if}
+					<dd>
+						<ul>
+							{ each data["去程"][i].data as value j }
+							{if data['去程'][i].data[j].st_type == "班车站"}
+							<li 
+								lid="{ data['去程'][i].data[j].id }"
+								types = "{data['去程'][i].data[j].st_type}"
+								time = "{ data['去程'][i].data[j].go_time } "
+								class="on_btn_no"
+								name="{ data['去程'][i].data[j].station_name }"
+								price="{ data['去程'][i].data[j].price }"
+								bus_id="{ data['去程'][i].data[j].bus_id }"
+							>
+							
+							<i class="is"><span class="fc">{ data['去程'][i].data[j].go_time }</span>{ data['去程'][i].data[j].station_name }</i>
+							<span class="spans"><i>￥</i>{ data['去程'][i].data[j].price }/人</span>
+							{if data['去程'][i].data[j].go_time}
+							
+							{/if}
+							</li>
+							{else}
+							<li 
+								lid="{ data['去程'][i].data[j].id }"
+								types = "{data['去程'][i].data[j].st_type}"
+								time = "{ data['去程'][i].data[j].go_time } "
+								class="on_btn"
+								name="{ data['去程'][i].data[j].station_name }"
+								price="{ data['去程'][i].data[j].price }"
+								bus_id="{ data['去程'][i].data[j].bus_id }"
+							>
+							
+							<i class="is"><span class="fc">{ data['去程'][i].data[j].go_time }</span>{ data['去程'][i].data[j].station_name }</i>
+							<span class="spans"><i>￥</i>{ data['去程'][i].data[j].price }/人</span>
+							{if data['去程'][i].data[j].go_time}
+							
+							{/if}
+							</li>
+							{/if}
+							{ /each }
+						</ul>
+					</dd>
+				</dl>
+				{ /each }
+		{/if}
+	{ else }
+		{if stop == '0'}
+			{ each data["返程"] as value i }
+			<dl>
+				{if data["返程"][i].st_type == "始发站"}
+				<dt>{ data["返程"][i].st_type }</dt>
+				{else}
+				<dt>{ data["返程"][i].site_name }</dt>
+				
+			{/if}
+				<dd>
+					<ul>
+						{ each data["返程"][i].data as value j }
+						<li 
+							lid="{ data['返程'][i].data[j].id }"
+							types = "{data['返程'][i].data[j].st_type}"
+							time = "{ data['返程'][i].data[j].go_time } "
+							class="on_btn"
+							name="{ data['返程'][i].data[j].station_name }"
+							price="{ data['返程'][i].data[j].price }"
+							bus_id="{ data['返程'][i].data[j].bus_id }"
+						>
+						
+						<i class="is"><span class="fc">{ data['返程'][i].data[j].go_time }</span>{ data['返程'][i].data[j].station_name }</i>
+						<span class="spans"><i>￥</i>{ data['返程'][i].data[j].price }/人</span>
+						{if data['返程'][i].data[j].go_time}
+						
+						{/if}
+						</li>
+						{ /each }
+					</ul>
+				</dd>
+			</dl>
+			{ /each }
+			{else}
+				{ each data["返程"] as value i }
+				<dl>
+					{if data["返程"][i].st_type == "始发站"}
+					<dt>{ data["返程"][i].st_type }</dt>
+					{else}
+					<dt>{ data["返程"][i].site_name }</dt>
+					
+				{/if}
+					<dd>
+						<ul>
+							{ each data["返程"][i].data as value j }
+							{if data['返程'][i].data[j].st_type == "班车站"}
+							<li 
+								lid="{ data['返程'][i].data[j].id }"
+								types = "{data['返程'][i].data[j].st_type}"
+								time = "{ data['返程'][i].data[j].go_time } "
+								class="on_btn_no"
+								name="{ data['返程'][i].data[j].station_name }"
+								price="{ data['返程'][i].data[j].price }"
+								bus_id="{ data['返程'][i].data[j].bus_id }"
+							>
+							
+							<i class="is"><span class="fc">{ data['返程'][i].data[j].go_time }</span>{ data['返程'][i].data[j].station_name }</i>
+							<span class="spans"><i>￥</i>{ data['返程'][i].data[j].price }/人</span>
+							{if data['返程'][i].data[j].go_time}
+							
+							{/if}
+							</li>
+							{else}
+							<li 
+								lid="{ data['返程'][i].data[j].id }"
+								types = "{data['返程'][i].data[j].st_type}"
+								time = "{ data['返程'][i].data[j].go_time } "
+								class="on_btn"
+								name="{ data['返程'][i].data[j].station_name }"
+								price="{ data['返程'][i].data[j].price }"
+								bus_id="{ data['返程'][i].data[j].bus_id }"
+							>
+							
+							<i class="is"><span class="fc">{ data['返程'][i].data[j].go_time }</span>{ data['返程'][i].data[j].station_name }</i>
+							<span class="spans"><i>￥</i>{ data['返程'][i].data[j].price }/人</span>
+							{if data['返程'][i].data[j].go_time}
+							
+							{/if}
+							</li>
+							{/if}
+							{ /each }
+						</ul>
+					</dd>
+				</dl>
+				{ /each }
+		{/if}
+	{ /if }
+</script>
+<script id="tpl-pos" type="text/html">
+	<div class="pos-s1">
+		<ul>
+			{ each ticket_show as value i }
+				{ if ticket_show[i].t_preset_type != '套票' }
+					<li class="clearfix">
+						<h6>{ ticket_show[i].t_standards_name }</h6>
+						<div class="item">
+							<div class="key">报名：{ ticket_show[i].people_num }人 x { ticket_show[i].t_price }</div>
+							<div class="price">￥<span>{ ticket_show[i].base_num * ticket_show[i].t_price }</span></div>
+						</div>
+						{ if ticket_show[i].bed_price != 0 }
+						<div class="item">
+							<div class="key">
+								补房差：{ ticket_show[i].bed_dec }人 x 
+								{ if ticket_show[i].bed_dec > 0 }
+									{ ticket_show[i].t_spread_price }
+								{ else }
+									{ ticket_show[i].t_out_room_price }
+								{ /if }
+							</div>
+							<div class="price">￥<span>{ ticket_show[i].bed_price }</span></div>
+						</div>
+						{ /if }
+					</li>
+				{ else }
+					<li class="clearfix">
+						<h6>{ ticket_show[i].t_standards_name }</h6>
+						<div class="item">
+							<div class="key">报名：{ ticket_show[i].people_num }人 { ticket_show[i].base_num } x { ticket_show[i].t_price }</div>
+							<div class="price">￥<span>{ ticket_show[i].base_num * ticket_show[i].t_price }</span></div>
+						</div>
+						{ each ticket_show[i].list as value j }
+							{ if ticket_show[i].list[j].bed_price != 0 }
+							<div class="item">
+								<div class="key">
+									{ ticket_show[i].list[j].t_standards_name }：{ ticket_show[i].list[j].bed_dec }人 x 
+									{ if ticket_show[i].list[j].bed_dec > 0 }
+										{ ticket_show[i].list[j].t_spread_price }
+									{ else }
+										{ ticket_show[i].list[j].t_out_room_price }
+									{ /if }
+								</div>
+								<div class="price">￥<span>{ ticket_show[i].list[j].bed_price }</span></div>
+							</div>
+							{ /if }
+						{ /each }
+					</li>
+				{ /if }
+			{ /each }
+			{ if Go.price }
+			<li class="clearfix">
+				<h6>【去程】</h6>
+				<div class="item">
+					<div class="key">{ Go.name } x { Go.num }</div>
+					<div class="price">￥<span>{ Go.price }</span></div>
+				</div>
+			</li>
+			{ /if }
+			{ if Back.price }
+			<li class="clearfix">
+				<h6>【返程】</h6>
+				<div class="item">
+					<div class="key">{ Back.name } x { Back.num }</div>
+					<div class="price">￥<span>{ Back.price }</span></div>
+				</div>
+			</li>
+			{ /if }
+			<li class="clearfix">
+				<div class="item">
+					<div class="key" style="font-size: 14px; color: #333;">总额：</div>
+					<div class="price">￥<span>{ AllPrice }</span></div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="pos-s2">
+		<ul>
+			<li class="clearfix">
+				<div class="item">
+					<div class="key">票价金额：</div>
+					<div class="price">￥<span>{ TicketTradePrice }</span></div>
+				</div>
+			</li>
+			{ if BedPrice != 0 }
+			<li class="clearfix">
+				<div class="item">
+					<div class="key">房差金额：</div>
+					<div class="price">￥<span>{ BedPrice }</span></div>
+				</div>
+			</li>
+			{ /if }
+			{ if SitePrice != 0 }
+			<li class="clearfix">
+				<div class="item">
+					<div class="key">接送金额：</div>
+					<div class="price">￥<span>{ SitePrice }</span></div>
+				</div>
+			</li>
+			{ /if }
+			<li class="clearfix">
+				<div class="item">
+					<div class="key">实际结算：</div>
+					<div class="price">￥<span>{ FactTotal }</span></div>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="item">
+					<div class="key">佣金：</div>
+					<div class="price price_blue">￥<span>{ GetTotal }</span></div>
+				</div>
+			</li>
+			{ if Active.ActiveTotal != 0 }
+			<li class="clearfix">
+				<div class="item">
+					<div class="key">活动优惠：</div>
+					<div class="price price_green">￥<span>{ Active.ActiveTotal }</span></div>
+				</div>
+			</li>
+			{ /if }
+		</ul>
+	</div>
+</script>
+<script type="text/javascript" src="assets/js/lib/md5.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/order.build.js"></script>
+</html>

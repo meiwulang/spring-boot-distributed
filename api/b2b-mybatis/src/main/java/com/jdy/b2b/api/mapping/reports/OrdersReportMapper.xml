@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.reports.OrdersReportMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.reports.OrdersReport">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="depart_name" jdbcType="VARCHAR" property="departName" />
+    <result column="depart_id" jdbcType="BIGINT" property="departId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="pid" jdbcType="VARCHAR" property="pid" />
+    <result column="ss_day" jdbcType="TIMESTAMP" property="ssDay" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="tourist_count" jdbcType="BIGINT" property="touristCount" />
+    <result column="order_money" jdbcType="DECIMAL" property="orderMoney" />
+  </resultMap>
+  <resultMap id="ordersReportDTOMap" type="com.jdy.b2b.api.model.reports.OrdersReportDTO">
+    <result column="user_id" property="userId" jdbcType="BIGINT"/>
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="orderNum" property="orderNum" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+      <result column="product_name" property="productName" jdbcType="VARCHAR" />
+      <result column="dateTime" property="dateTime" jdbcType="VARCHAR" />
+      <result column="incomeAmount" property="incomeAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, company_id, depart_name, depart_id, user_name, user_id, openid, 
+    pid, ss_day, order_id, tourist_count, order_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_orders_report
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectListByDepartIdAndTime" resultMap="ordersReportDTOMap" parameterType="com.jdy.b2b.api.model.department.DepartmentSaleCountVO">
+      SELECT
+          u.id as user_id,
+          u.u_real_name as user_name,
+          u.u_wx_openid as openid,
+          u.u_pid as pid,
+          count(order_id) AS orderNum,
+          ifnull(sum(order_money),0) AS amount,
+          ifnull(sum(r.op_pay_amount),0) AS incomeAmount
+      FROM sm_user u
+      LEFT JOIN
+      (
+          select
+              r.order_money,r.order_id,r.depart_id,r.user_id,r.ss_day,
+              sum(IFNULL(p.op_pay_amount,0)) as op_pay_amount
+          from sl_orders_report r
+          LEFT JOIN (select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay GROUP BY op_order_id) p ON (r.order_id = p.op_order_id)
+          GROUP BY r.order_id
+      ) r ON u.u_department_id = r.depart_id and u.id = r.user_id
+      <if test='startDate != null and startDate != ""'>
+            and r.ss_day >= #{startDate}
+          </if>
+          <if test='endDate != null and endDate != ""'>
+            and r.ss_day &lt; #{endDate}
+          </if>
+      WHERE 
+      <choose>
+      	<when test="groupConcat !=null">
+      		u.u_department_id in (${groupConcat}) AND
+      	</when>
+      	<otherwise>
+	      <if test="uDepartmentCode != null and uDepartmentCode != -1">
+	      u.u_department_id = #{uDepartmentCode} AND 
+	      </if>
+	      <if test="uDepartmentCode == -1">
+	      u.u_department_id is null AND
+	      </if>
+      	</otherwise>
+      </choose>
+      <if test="companyId != null">u.company_id=#{companyId} AND </if>
+<!--       <if test="userId != null">u.id=#{userId} AND</if> -->
+      u.u_status = 0 AND u.u_type = 1
+
+      GROUP BY u.id
+  </select>
+  <select id="getTimeInfo" resultMap="ordersReportDTOMap" parameterType="com.jdy.b2b.api.model.department.DepartmentSaleCountVO">
+<choose>
+		<when test="queryType == 5">
+			SELECT 
+			"第一季度" dateTime,
+				IFNULL(SUM(order_money),0.00)amount
+                ,IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount
+				,COUNT(order_id)orderNum 
+			FROM `sl_orders_report`
+            LEFT JOIN
+            (
+              select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+              GROUP BY op_order_id
+            ) p ON (sl_orders_report.order_id = p.op_order_id)
+			WHERE 
+			1=1 AND
+<!-- 			<if test="uDepartmentCode != null and uDepartmentCode != -1">depart_id = #{uDepartmentCode} AND</if> -->
+<!-- 			<if test="uDepartmentCode == -1">depart_id is null  AND</if> -->
+	      <choose>
+	      	<when test="groupConcat !=null">
+	      		depart_id in (${groupConcat}) AND
+	      	</when>
+	      	<otherwise>
+		      <if test="uDepartmentCode != null and uDepartmentCode != -1">
+		        depart_id = #{uDepartmentCode} AND 
+		      </if>
+		      <if test="uDepartmentCode == -1">
+		     	 depart_id is null AND
+		      </if>
+	      	</otherwise>
+	      </choose>			
+		    <if test="companyId != null">company_id=#{companyId} AND</if>
+			<if test="userIdsStr != null">user_id in (${userIdsStr} )AND</if>			
+			DATE_FORMAT(ss_day,"%Y%m%d") &gt;=CONCAT(left(#{startDate},4),"0101")
+			AND DATE_FORMAT(ss_day,"%Y%m%d") &lt;=CONCAT(left(#{startDate},4),"0331")
+			UNION ALL
+			SELECT 
+			"第二季度" dateTime,
+				IFNULL(SUM(order_money),0.00)amount
+                ,IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount
+                ,COUNT(order_id)orderNum
+            FROM `sl_orders_report`
+            LEFT JOIN
+            (
+                select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+                GROUP BY op_order_id
+            ) p ON (sl_orders_report.order_id = p.op_order_id)
+			WHERE 
+			1=1 AND
+<!-- 			<if test="uDepartmentCode != null and uDepartmentCode != -1">depart_id = #{uDepartmentCode} AND</if> -->
+<!-- 			<if test="uDepartmentCode == -1">depart_id is null  AND</if> -->
+	      <choose>
+	      	<when test="groupConcat !=null">
+	      		depart_id in (${groupConcat}) AND
+	      	</when>
+	      	<otherwise>
+		      <if test="uDepartmentCode != null and uDepartmentCode != -1">
+		        depart_id = #{uDepartmentCode} AND 
+		      </if>
+		      <if test="uDepartmentCode == -1">
+		     	 depart_id is null AND
+		      </if>
+	      	</otherwise>
+	      </choose>	
+		    <if test="companyId != null">company_id=#{companyId} AND</if>
+			<if test="userIdsStr != null">user_id in (${userIdsStr} )AND</if>	
+			DATE_FORMAT(ss_day,"%Y%m%d") &gt;=CONCAT(left(#{startDate},4),"0401")
+			AND DATE_FORMAT(ss_day,"%Y%m%d") &lt;=CONCAT(left(#{startDate},4),"0630")
+			UNION ALL
+			SELECT 
+			"第三季度" dateTime,
+				IFNULL(SUM(order_money),0.00)amount
+                ,IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount
+                ,COUNT(order_id)orderNum
+            FROM `sl_orders_report`
+            LEFT JOIN
+            (
+                select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+                GROUP BY op_order_id
+            ) p ON (sl_orders_report.order_id = p.op_order_id)
+			WHERE 
+			1=1 AND
+<!-- 			<if test="uDepartmentCode != null and uDepartmentCode != -1">depart_id = #{uDepartmentCode} AND</if> -->
+<!-- 			<if test="uDepartmentCode == -1">depart_id is null  AND</if> -->
+	      <choose>
+	      	<when test="groupConcat !=null">
+	      		depart_id in (${groupConcat}) AND
+	      	</when>
+	      	<otherwise>
+		      <if test="uDepartmentCode != null and uDepartmentCode != -1">
+		        depart_id = #{uDepartmentCode} AND 
+		      </if>
+		      <if test="uDepartmentCode == -1">
+		     	 depart_id is null AND
+		      </if>
+	      	</otherwise>
+	      </choose>	
+		    <if test="companyId != null">company_id=#{companyId} AND</if>
+			<if test="userIdsStr != null">user_id in (${userIdsStr} )AND</if>	
+			DATE_FORMAT(ss_day,"%Y%m%d") &gt;=CONCAT(left(#{startDate},4),"0701")
+			AND DATE_FORMAT(ss_day,"%Y%m%d") &lt;=CONCAT(left(#{startDate},4),"0930")
+			UNION ALL
+			SELECT 
+			"第四季度" dateTime,
+				IFNULL(SUM(order_money),0.00)amount
+                ,IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount
+                ,COUNT(order_id)orderNum
+            FROM `sl_orders_report`
+            LEFT JOIN
+            (
+                select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+                GROUP BY op_order_id
+            ) p ON (sl_orders_report.order_id = p.op_order_id)
+			WHERE 
+			1=1 AND
+<!-- 			<if test="uDepartmentCode != null and uDepartmentCode != -1">depart_id = #{uDepartmentCode} AND</if> -->
+<!-- 			<if test="uDepartmentCode == -1">depart_id is null  AND</if> -->
+	      <choose>
+	      	<when test="groupConcat !=null">
+	      		depart_id in (${groupConcat}) AND
+	      	</when>
+	      	<otherwise>
+		      <if test="uDepartmentCode != null and uDepartmentCode != -1">
+		        depart_id = #{uDepartmentCode} AND 
+		      </if>
+		      <if test="uDepartmentCode == -1">
+		     	 depart_id is null AND
+		      </if>
+	      	</otherwise>
+	      </choose>	
+		    <if test="companyId != null">company_id=#{companyId} AND</if>
+			<if test="userIdsStr != null">user_id in (${userIdsStr} )AND</if>	
+			DATE_FORMAT(ss_day,"%Y%m%d") &gt;=CONCAT(left(#{startDate},4),"1001")
+			AND DATE_FORMAT(ss_day,"%Y%m%d") &lt;=CONCAT(left(#{startDate},4),"1231")		
+		</when>
+		<otherwise>
+				SELECT 
+				<choose>
+			<!-- 	0表示总计，1表示月统计，2表示日统计，3表示周统计，4表示季统计，5表示年统计 -->
+				<when test="queryType == 1">
+					DATE_FORMAT(ss_day,'%Y年%m月%d日') dateTime,
+				</when>
+				<when test="queryType == 2">
+					CONCAT(date_format(ss_day,'%H'),":00-",DATE_FORMAT(timestamp(ss_day, '01:00:00'),'%H'),":00") 
+					 dateTime,
+				</when>
+				<when test="queryType == 3">	
+					CASE
+						DAYOFWEEK(ss_day)
+						WHEN 1 THEN '周日'
+						WHEN 2 THEN '周一'
+						WHEN 3 THEN '周二'
+						WHEN 4 THEN '周三'
+						WHEN 5 THEN '周四'
+						WHEN 6 THEN '周五'
+						WHEN 7 THEN '周六'
+					END  dateTime,
+				</when>
+				<when test="queryType == 4">DATE_FORMAT(ss_day,'%Y年%m月') dateTime,</when>
+			<!-- 	<when test="queryType == 5"></when> -->
+				</choose>
+					IFNULL(SUM(order_money),0.00)amount
+                    ,IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount
+                    ,COUNT(order_id)orderNum
+                FROM `sl_orders_report`
+                LEFT JOIN
+                (
+                    select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+                    GROUP BY op_order_id
+                ) p ON (sl_orders_report.order_id = p.op_order_id)
+				<where>
+<!-- 		            <if test="uDepartmentCode != null and uDepartmentCode != -1"> depart_id = #{uDepartmentCode}</if> -->
+<!-- 		            <if test="uDepartmentCode == -1"> depart_id is null</if> -->
+			      <choose>
+			      	<when test="groupConcat !=null">
+			      		depart_id in (${groupConcat}) 
+			      	</when>
+			      	<otherwise>
+				      <if test="uDepartmentCode != null and uDepartmentCode != -1">
+				        depart_id = #{uDepartmentCode}  
+				      </if>
+				      <if test="uDepartmentCode == -1">
+				        depart_id is null 
+				      </if>
+			      	</otherwise>
+			      </choose>
+				    <if test="companyId != null">AND company_id=#{companyId}</if>
+					<if test="userIdsStr != null">AND user_id in (${userIdsStr} )</if>	
+					<choose>
+						<when test="queryType == 1">
+							AND DATEDIFF(ss_day,#{startDate}) &gt;=0
+							AND DATEDIFF(ss_day,#{endDate}) &lt;0		
+						</when>
+						<when test="queryType == 2">
+							AND date_format(ss_day,'%Y-%m-%d') =#{startDate}
+						</when>
+						<when test="queryType == 3 or queryType == 4">
+							AND DATEDIFF(ss_day,#{startDate}) &gt;=0
+							AND DATEDIFF(ss_day,#{endDate}) &lt;=0
+						</when>
+					</choose>
+					
+				</where>
+				<choose>
+					<when test="queryType == 1">GROUP BY date_format(ss_day,'%Y-%m-%d')</when>
+					<when test="queryType == 2">GROUP BY date_format(ss_day,'%Y-%m-%d %h')</when>
+					<when test="queryType == 3">GROUP BY dayofweek(ss_day)</when>
+					<when test="queryType == 4">GROUP BY date_format(ss_day,'%Y-%m')</when>
+				</choose>		
+			</otherwise>
+		</choose>
+  </select>
+  <select id="getProductInfo" resultMap="ordersReportDTOMap" parameterType="com.jdy.b2b.api.model.department.DepartmentSaleCountVO">
+      SELECT
+		product_id,
+		product_name,
+		count(order_id)  AS orderNum,
+        IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount,
+        ifnull(sum(order_money),0) AS amount
+        FROM sl_orders_report
+      LEFT JOIN
+      (select op_order_id,op_pay_amount from sl_order_pay) p
+      ON (sl_orders_report.order_id = p.op_order_id)
+    	<where>
+<!--           <if test="uDepartmentCode != null and uDepartmentCode != -1"> depart_id = #{uDepartmentCode}</if> -->
+<!--           <if test="uDepartmentCode == -1"> depart_id is null</if> -->
+	      <choose>
+	      	<when test="groupConcat !=null">
+	      		depart_id in (${groupConcat}) 
+	      	</when>
+	      	<otherwise>
+		      <if test="uDepartmentCode != null and uDepartmentCode != -1">
+		        depart_id = #{uDepartmentCode}  
+		      </if>
+		      <if test="uDepartmentCode == -1">
+		        depart_id is null 
+		      </if>
+	      	</otherwise>
+	      </choose>
+		  <if test="companyId != null">AND company_id=#{companyId}</if>
+			<if test="userIdsStr != null">AND user_id in (${userIdsStr} )</if>	
+          <if test="startDate != null and startDate != ''">
+            and ss_day &gt;= #{startDate}
+          </if>
+          <if test="endDate != null and endDate != ''">
+            and ss_day &lt; #{endDate}
+          </if>
+          </where> 
+      GROUP BY product_id
+  </select>
+<select id="getUserWxIdByPid" resultType="Map">
+		SELECT
+			GROUP_CONCAT(u1.id) userId,
+			GROUP_CONCAT(u1.u_wx_openid)wxId
+		FROM
+			sm_user u1
+		WHERE
+			u1.u_pid IN <foreach collection="pids" item="t" open="(" close=")" separator=",">#{t}</foreach>
+			AND
+			u1.u_level !=1
+<!-- 			AND	u1.pid IN <foreach collection="pids" item="t" open="(" close=")" separator=",">#{t}</foreach> -->
+<!-- 			<choose> -->
+<!-- 				<when test="queryType == 1"> -->
+<!-- 					AND DATEDIFF(ss_day,#{startDate}) &gt;=0 -->
+<!-- 					AND DATEDIFF(ss_day,#{endDate}) &lt;0		 -->
+<!-- 				</when> -->
+<!-- 				<when test="queryType == 2"> -->
+<!-- 					AND date_format(ss_day,'%Y-%m-%d') =#{startDate} -->
+<!-- 				</when> -->
+<!-- 				<when test="queryType == 3 or queryType == 4"> -->
+<!-- 					AND DATEDIFF(ss_day,#{startDate}) &gt;=0 -->
+<!-- 					AND DATEDIFF(ss_day,#{endDate}) &lt;=0 -->
+<!-- 				</when> -->
+<!-- 				<when test="queryType == 5"> -->
+<!-- 					AND DATE_FORMAT(ss_day,"%Y%m%d") =left(#{startDate},4)		 -->
+<!-- 				</when> -->
+<!-- 			</choose> -->
+	</select>  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sl_orders_report
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.reports.OrdersReport">
+    insert into sl_orders_report (id, create_time, company_id, 
+      depart_name, depart_id, user_name, 
+      user_id, openid, pid, 
+      ss_day, order_id, tourist_count, 
+      order_money)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{companyId,jdbcType=BIGINT}, 
+      #{departName,jdbcType=VARCHAR}, #{departId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, 
+      #{ssDay,jdbcType=TIMESTAMP}, #{orderId,jdbcType=BIGINT}, #{touristCount,jdbcType=BIGINT}, 
+      #{orderMoney,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.reports.OrdersReport">
+    insert into sl_orders_report
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="departName != null">
+        depart_name,
+      </if>
+      <if test="departId != null">
+        depart_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="openid != null">
+        openid,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="ssDay != null">
+        ss_day,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="touristCount != null">
+        tourist_count,
+      </if>
+      <if test="orderMoney != null">
+        order_money,
+      </if>
+        <if test="productId != null">
+            product_id,
+        </if>
+        <if test="productName != null">
+            product_name,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="departName != null">
+        #{departName,jdbcType=VARCHAR},
+      </if>
+      <if test="departId != null">
+        #{departId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="ssDay != null">
+        #{ssDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="touristCount != null">
+        #{touristCount,jdbcType=BIGINT},
+      </if>
+      <if test="orderMoney != null">
+        #{orderMoney,jdbcType=DECIMAL},
+      </if>
+        <if test="productId != null">
+            #{productId,jdbcType=BIGINT},
+        </if>
+        <if test="productName != null">
+            #{productName,jdbcType=VARCHAR},
+        </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.reports.OrdersReport">
+    update sl_orders_report
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="departName != null">
+        depart_name = #{departName,jdbcType=VARCHAR},
+      </if>
+      <if test="departId != null">
+        depart_id = #{departId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="openid != null">
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="ssDay != null">
+        ss_day = #{ssDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="touristCount != null">
+        tourist_count = #{touristCount,jdbcType=BIGINT},
+      </if>
+      <if test="orderMoney != null">
+        order_money = #{orderMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.reports.OrdersReport">
+    update sl_orders_report
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      company_id = #{companyId,jdbcType=BIGINT},
+      depart_name = #{departName,jdbcType=VARCHAR},
+      depart_id = #{departId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      openid = #{openid,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      ss_day = #{ssDay,jdbcType=TIMESTAMP},
+      order_id = #{orderId,jdbcType=BIGINT},
+      tourist_count = #{touristCount,jdbcType=BIGINT},
+      order_money = #{orderMoney,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="getWXopenIdById" resultType="String">
+  SELECT u_wx_openid from sm_user WHERE id=#{id}
+  </select>
+</mapper>

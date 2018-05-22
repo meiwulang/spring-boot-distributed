@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.admission.AdmissionBaseMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.admission.AdmissionBase">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ticket_product_code" jdbcType="VARCHAR" property="ticketProductCode" />
+    <result column="ticket_product_name" jdbcType="VARCHAR" property="ticketProductName" />
+    <result column="ticket_product_type" jdbcType="BIT" property="ticketProductType" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="product_manager" jdbcType="BIGINT" property="productManager" />
+    <result column="cost_include" jdbcType="VARCHAR" property="costInclude" />
+    <result column="reservation_rule" jdbcType="VARCHAR" property="reservationRule" />
+    <result column="refund_rules" jdbcType="VARCHAR" property="refundRules" />
+    <result column="explanation" jdbcType="VARCHAR" property="explanation" />
+    <result column="admission_status" jdbcType="TINYINT" property="admissionStatus" />
+    <result column="creater_time" jdbcType="TIMESTAMP" property="createrTime" />
+    <result column="creater_user" jdbcType="BIGINT" property="createrUser" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jdy.b2b.api.model.admission.AdmissionBaseWithBLOBs">
+    <result column="admissions" jdbcType="LONGVARCHAR" property="admissions" />
+    <result column="Attractions" jdbcType="LONGVARCHAR" property="attractions" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ticket_product_code, ticket_product_name, ticket_product_type, picture, product_manager, 
+    cost_include, reservation_rule, refund_rules, explanation, admission_status, creater_time, 
+    creater_user
+  </sql>
+  <sql id="Blob_Column_List">
+    admissions, Attractions
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ct_admission_base
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_admission_base
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.admission.AdmissionBaseWithBLOBs">
+    insert into ct_admission_base (id, ticket_product_code, ticket_product_name,
+      ticket_product_type, picture, product_manager,
+      cost_include, reservation_rule, refund_rules,
+      explanation, admission_status, creater_time,
+      creater_user, admissions, Attractions
+      )
+    values (#{id,jdbcType=BIGINT}, #{ticketProductCode,jdbcType=VARCHAR}, #{ticketProductName,jdbcType=VARCHAR},
+      #{ticketProductType,jdbcType=BIT}, #{picture,jdbcType=VARCHAR}, #{productManager,jdbcType=BIGINT},
+      #{costInclude,jdbcType=VARCHAR}, #{reservationRule,jdbcType=VARCHAR}, #{refundRules,jdbcType=VARCHAR},
+      #{explanation,jdbcType=VARCHAR}, #{admissionStatus,jdbcType=TINYINT}, #{createrTime,jdbcType=TIMESTAMP},
+      #{createrUser,jdbcType=BIGINT}, #{admissions,jdbcType=LONGVARCHAR}, #{attractions,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.admission.AdmissionBaseWithBLOBs" useGeneratedKeys="true" keyProperty="id">
+    insert into ct_admission_base
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ticketProductCode != null">
+        ticket_product_code,
+      </if>
+      <if test="ticketProductName != null">
+        ticket_product_name,
+      </if>
+      <if test="ticketProductType != null">
+        ticket_product_type,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="productManager != null">
+        product_manager,
+      </if>
+      <if test="costInclude != null">
+        cost_include,
+      </if>
+      <if test="reservationRule != null">
+        reservation_rule,
+      </if>
+      <if test="refundRules != null">
+        refund_rules,
+      </if>
+      <if test="explanation != null">
+        explanation,
+      </if>
+      <if test="admissionStatus != null">
+        admission_status,
+      </if>
+      <if test="createrTime != null">
+        creater_time,
+      </if>
+      <if test="createrUser != null">
+        creater_user,
+      </if>
+      <if test="admissions != null">
+        admissions,
+      </if>
+      <if test="attractions != null">
+        Attractions,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="ticketProductCode != null">
+        #{ticketProductCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketProductName != null">
+        #{ticketProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketProductType != null">
+        #{ticketProductType,jdbcType=BIT},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="productManager != null">
+        #{productManager,jdbcType=BIGINT},
+      </if>
+      <if test="costInclude != null">
+        #{costInclude,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationRule != null">
+        #{reservationRule,jdbcType=VARCHAR},
+      </if>
+      <if test="refundRules != null">
+        #{refundRules,jdbcType=VARCHAR},
+      </if>
+      <if test="explanation != null">
+        #{explanation,jdbcType=VARCHAR},
+      </if>
+      <if test="admissionStatus != null">
+        #{admissionStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createrTime != null">
+        #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrUser != null">
+        #{createrUser,jdbcType=BIGINT},
+      </if>
+      <if test="admissions != null">
+        #{admissions,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attractions != null">
+        #{attractions,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.admission.AdmissionBaseWithBLOBs">
+    update ct_admission_base
+    <set>
+      <if test="ticketProductCode != null">
+        ticket_product_code = #{ticketProductCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketProductName != null">
+        ticket_product_name = #{ticketProductName,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketProductType != null">
+        ticket_product_type = #{ticketProductType,jdbcType=BIT},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="productManager != null">
+        product_manager = #{productManager,jdbcType=BIGINT},
+      </if>
+      <if test="costInclude != null">
+        cost_include = #{costInclude,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationRule != null">
+        reservation_rule = #{reservationRule,jdbcType=VARCHAR},
+      </if>
+      <if test="refundRules != null">
+        refund_rules = #{refundRules,jdbcType=VARCHAR},
+      </if>
+      <if test="explanation != null">
+        explanation = #{explanation,jdbcType=VARCHAR},
+      </if>
+      <if test="admissionStatus != null">
+        admission_status = #{admissionStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createrTime != null">
+        creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createrUser != null">
+        creater_user = #{createrUser,jdbcType=BIGINT},
+      </if>
+      <if test="admissions != null">
+        admissions = #{admissions,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attractions != null">
+        Attractions = #{attractions,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jdy.b2b.api.model.admission.AdmissionBaseWithBLOBs">
+    update ct_admission_base
+    set ticket_product_code = #{ticketProductCode,jdbcType=VARCHAR},
+      ticket_product_name = #{ticketProductName,jdbcType=VARCHAR},
+      ticket_product_type = #{ticketProductType,jdbcType=BIT},
+      picture = #{picture,jdbcType=VARCHAR},
+      product_manager = #{productManager,jdbcType=BIGINT},
+      cost_include = #{costInclude,jdbcType=VARCHAR},
+      reservation_rule = #{reservationRule,jdbcType=VARCHAR},
+      refund_rules = #{refundRules,jdbcType=VARCHAR},
+      explanation = #{explanation,jdbcType=VARCHAR},
+      admission_status = #{admissionStatus,jdbcType=TINYINT},
+      creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      creater_user = #{createrUser,jdbcType=BIGINT},
+      admissions = #{admissions,jdbcType=LONGVARCHAR},
+      Attractions = #{attractions,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.admission.AdmissionBase">
+    update ct_admission_base
+    set ticket_product_code = #{ticketProductCode,jdbcType=VARCHAR},
+      ticket_product_name = #{ticketProductName,jdbcType=VARCHAR},
+      ticket_product_type = #{ticketProductType,jdbcType=BIT},
+      picture = #{picture,jdbcType=VARCHAR},
+      product_manager = #{productManager,jdbcType=BIGINT},
+      cost_include = #{costInclude,jdbcType=VARCHAR},
+      reservation_rule = #{reservationRule,jdbcType=VARCHAR},
+      refund_rules = #{refundRules,jdbcType=VARCHAR},
+      explanation = #{explanation,jdbcType=VARCHAR},
+      admission_status = #{admissionStatus,jdbcType=TINYINT},
+      creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      creater_user = #{createrUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <resultMap id="dtoMap" type="com.jdy.b2b.api.model.admission.AdmissionBaseDto" extends="ResultMapWithBLOBs">
+    <result property="productManagerName" column="u_real_name"/>
+    <result property="totalStock" column="total_stock"/>
+  </resultMap>
+  <select id="selectByParam" resultMap="dtoMap">
+    SELECT base.*,u.u_real_name,ifnull(ifnull((select -1 from ct_admission_sale_price sp where sp.pid = base.id and
+    sp.ap_stock = -1 limit 1),(SELECT sum(sp.ap_stock) from ct_admission_sale_price sp WHERE sp.pid = base.id )),0)
+    total_stock FROM ct_admission_base base
+        JOIN sm_user u on base.product_manager = u.id
+      <where>
+        <if test="admissionType!=null">
+          and base.ticket_product_type = #{admissionType}
+        </if>
+        <if test="status==null">
+          and base.admission_status != -1
+        </if>
+        <if test="status!=null">
+          and base.admission_status in  
+          <foreach collection="status" item="item" open="(" close=")" separator=",">
+            #{item}
+          </foreach>
+        </if>
+        <if test="searchString!=null">
+          <bind name="likeString" value="'%'+searchString +'%'"/>
+          and concat(ifnull(base.ticket_product_name,''),ifnull(base.ticket_product_code,'')) like #{likeString}
+        </if>
+      </where>
+    </select>
+  <select id="isAdmissionComplete" resultType="java.lang.Boolean">
+    SELECT COUNT(*) num FROM ct_admission_base base
+      JOIN ct_admission_sale_price price on base.id = price.pid
+      WHERE base.id = #{id}
+  </select>
+  <update id="updateAdmissionBaseStatus">
+    UPDATE ct_admission_base SET admission_status = #{status} where id = #{baseId}
+  </update>
+
+</mapper>

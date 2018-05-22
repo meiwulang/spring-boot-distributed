@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.marketArea.MarketAreaMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.marketArea.MarketArea">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ma_company_id" jdbcType="BIGINT" property="maCompanyId" />
+    <result column="ma_province" jdbcType="VARCHAR" property="maProvince" />
+    <result column="ma_city" jdbcType="VARCHAR" property="maCity" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ma_company_id, ma_province, ma_city, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sm_market_area
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByCompanyIdAndCityId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sm_market_area
+    where ma_company_id = #{companyId,jdbcType=BIGINT} AND
+    ma_city = #{city,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByCompanyId" resultType="com.jdy.b2b.api.model.marketArea.MarketArea">
+    select
+    <include refid="Base_Column_List" />
+    from sm_market_area
+    where ma_company_id = #{companyId,jdbcType=BIGINT}
+  </select>
+  <select id="selectCityNamesByCompanyId" resultType="java.lang.String">
+    select
+    ma_city
+    from sm_market_area
+    where ma_company_id = #{companyId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_market_area
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="removeByCompanyId">
+    DELETE FROM sm_market_area WHERE ma_company_id = #{companyId,jdbcType=BIGINT}
+  </delete>
+  <delete id="removeByCompanyIdAndCitys">
+    DELETE FROM sm_market_area WHERE ma_company_id = #{companyId,jdbcType=BIGINT}
+    AND
+      ma_city in
+    <foreach item="item" collection="citys" close=")" open="(" separator=",">
+    #{item}
+  </foreach>
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.marketArea.MarketArea">
+    insert into sm_market_area (id, ma_company_id, ma_province, 
+      ma_city, create_time, create_user, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{maCompanyId,jdbcType=BIGINT}, #{maProvince,jdbcType=VARCHAR}, 
+      #{maCity,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.marketArea.MarketArea">
+    insert into sm_market_area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="maCompanyId != null">
+        ma_company_id,
+      </if>
+      <if test="maProvince != null">
+        ma_province,
+      </if>
+      <if test="maCity != null">
+        ma_city,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="maCompanyId != null">
+        #{maCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="maProvince != null">
+        #{maProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="maCity != null">
+        #{maCity,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertList">
+   insert into sm_market_area (ma_company_id,ma_city,create_time,create_user) VALUES
+   <foreach collection="marketAreaList" item="item" separator=",">
+     (#{item.maCompanyId,jdbcType=BIGINT}, #{item.maCity,jdbcType=VARCHAR},#{item.createTime,jdbcType=TIMESTAMP},#{item.createUser,jdbcType=BIGINT})
+   </foreach>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.marketArea.MarketArea">
+    update sm_market_area
+    <set>
+      <if test="maCompanyId != null">
+        ma_company_id = #{maCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="maProvince != null">
+        ma_province = #{maProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="maCity != null">
+        ma_city = #{maCity,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.marketArea.MarketArea">
+    update sm_market_area
+    set ma_company_id = #{maCompanyId,jdbcType=BIGINT},
+      ma_province = #{maProvince,jdbcType=VARCHAR},
+      ma_city = #{maCity,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,130 @@
+{
+    "tableData": [{
+        "state": false,
+        "productNme": "成人票A",
+        "type": "成人票",
+        "money1": "11555",
+        "money2": "1",
+        "money3": "2",
+        "effective": "11",
+        "fareCategory": "",
+        "trafficCategory": "",
+        "restrictionType": "2016-05-02",
+        "limitingCondition":"",
+        "departureStation":"",
+        "inventory":"",
+        "operation": {
+            "line": 1,
+            "trip": 1,
+            "ticket": 1,
+            "schedule": 1,
+            "edit": 0,
+            "del": 1
+        }
+    }],
+    "setkeyTags": [{
+        "name": "特色游",
+        "type": "gray"
+    },
+    {
+        "name": "特色游",
+        "type": "gray"
+    }],
+    "setkeySelectTags": [{
+        "type": "gray",
+        "name": "样式二",
+        "classname": "el-tag--gray"
+    },
+    {
+        "type": "primary",
+        "name": "样式三",
+        "classname": "el-tag--primary"
+    },
+    {
+        "type": "success",
+        "name": "样式四",
+        "classname": "el-tag--success"
+    },
+    {
+        "type": "warning",
+        "name": "样式五",
+        "classname": "el-tag--warning"
+    },
+    {
+        "type": "danger",
+        "name": "样式六",
+        "classname": "el-tag--danger"
+    },
+    {
+        "type": "",
+        "name": "样式一",
+        "color": "#ff4949",
+        "classname": ""
+    }],
+    "journalCurrentData": [{
+        "table": [{
+            "describe": "关键词更新成功1！",
+            "source": "1",
+            "people": "xxxx",
+            "time": "2017-07-03"
+        },
+        {
+            "describe": "关键词更新成功2！",
+            "source": "12",
+            "people": "xxxx",
+            "time": "2017-07-05"
+        }],
+        "more": {
+            "company": "杭州正太旅行社有限公司",
+            "name": "筱筱",
+            "accountNumber": "15355410021",
+            "describe": "设置线路，订单无需确认成功!",
+            "modular": "Products",
+            "method": "not_confirm"
+        }
+    },
+    {
+        "table": [{
+            "describe": "关键词更新成功111！",
+            "source": "12",
+            "people": "xxxx",
+            "time": "2017-07-04"
+        },
+        {
+            "describe": "关键词更新成功122！",
+            "source": "112",
+            "people": "xxxx22",
+            "time": "2017-07-04"
+        }],
+        "more": {
+            "company": "杭州正太旅行社有限公司2",
+            "name": "筱筱22",
+            "accountNumber": "15355410021",
+            "describe": "设置线路，订单无需确认成功12!",
+            "modular": "Products22",
+            "method": "not_confirm11"
+        }
+    },
+    {
+        "table": [{
+            "describe": "关键词更新成功1asas！",
+            "source": "12ss",
+            "people": "xxxxaa",
+            "time": "2017-07-04"
+        },
+        {
+            "describe": "关键词更！",
+            "source": "112aaa",
+            "people": "xxxx22",
+            "time": "2017-07-04"
+        }],
+        "more": {
+            "company": "杭州正太旅行社有限公司22223",
+            "name": "筱筱wq22aaasas",
+            "accountNumber": "asdasdasd",
+            "describe": "设置线路，订单无需确认成功122222!",
+            "modular": "Products2aazz2",
+            "method": "not_confirm11aa"
+        }
+    }]
+}

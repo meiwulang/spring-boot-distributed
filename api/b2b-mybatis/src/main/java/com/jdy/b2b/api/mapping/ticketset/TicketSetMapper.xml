@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.ticketset.TicketSetMapper">
+    <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.ticketset.TicketSet">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="ts_set_id" jdbcType="BIGINT" property="tsSetId"/>
+        <result column="ts_single_id" jdbcType="BIGINT" property="tsSingleId"/>
+        <result column="ts_seats" jdbcType="INTEGER" property="tsSeats"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="BIGINT" property="updateUser"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, ts_set_id, ts_single_id, ts_seats, create_time, create_user, update_time, update_user
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ct_ticket_set
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_ticket_set
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.jdy.b2b.api.model.ticketset.TicketSet">
+    insert into ct_ticket_set (id, ts_set_id, ts_single_id, 
+      ts_seats, create_time, create_user, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{tsSetId,jdbcType=BIGINT}, #{tsSingleId,jdbcType=BIGINT}, 
+      #{tsSeats,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.ticketset.TicketSet">
+        insert into ct_ticket_set
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="tsSetId != null">
+                ts_set_id,
+            </if>
+            <if test="tsSingleId != null">
+                ts_single_id,
+            </if>
+            <if test="tsSeats != null">
+                ts_seats,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="tsSetId != null">
+                #{tsSetId,jdbcType=BIGINT},
+            </if>
+            <if test="tsSingleId != null">
+                #{tsSingleId,jdbcType=BIGINT},
+            </if>
+            <if test="tsSeats != null">
+                #{tsSeats,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.ticketset.TicketSet">
+        update ct_ticket_set
+        <set>
+            <if test="tsSetId != null">
+                ts_set_id = #{tsSetId,jdbcType=BIGINT},
+            </if>
+            <if test="tsSingleId != null">
+                ts_single_id = #{tsSingleId,jdbcType=BIGINT},
+            </if>
+            <if test="tsSeats != null">
+                ts_seats = #{tsSeats,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.ticketset.TicketSet">
+    update ct_ticket_set
+    set ts_set_id = #{tsSetId,jdbcType=BIGINT},
+      ts_single_id = #{tsSingleId,jdbcType=BIGINT},
+      ts_seats = #{tsSeats,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <insert id="saveTicketSetBash" keyProperty="id" useGeneratedKeys="true" parameterType="list">
+
+        insert into ct_ticket_set (id, ts_set_id, ts_single_id,
+        ts_seats, create_time, create_user,
+        update_time, update_user)
+        values
+        <foreach collection="list" separator="," item="set">
+            (#{set.id,jdbcType=BIGINT}, #{set.tsSetId,jdbcType=BIGINT}, #{set.tsSingleId,jdbcType=BIGINT},
+            #{set.tsSeats,jdbcType=INTEGER}, #{set.createTime,jdbcType=TIMESTAMP}, #{set.createUser,jdbcType=BIGINT},
+            #{set.updateTime,jdbcType=TIMESTAMP}, #{set.updateUser,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+
+    <delete id="deleteSetById" parameterType="long">
+        DELETE
+        FROM
+        ct_ticket_set
+        where ts_set_id = #{id}
+    </delete>
+
+    <select id="selectListSelectiveByIds" resultMap="BaseResultMap">
+        SELECT * FROM ct_ticket_set s
+        WHERE s.ts_set_id in
+        <foreach collection="setIds" item="setId" separator="," open="(" close=")">
+          #{setId}
+        </foreach>
+    </select>
+</mapper>

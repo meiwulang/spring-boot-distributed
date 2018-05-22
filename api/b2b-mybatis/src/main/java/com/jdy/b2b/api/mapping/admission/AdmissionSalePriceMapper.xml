@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.admission.AdmissionSalePriceMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.admission.AdmissionSalePrice">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="ap_name" jdbcType="VARCHAR" property="apName" />
+    <result column="ap_type" jdbcType="INTEGER" property="apType" />
+    <result column="suit_region" jdbcType="VARCHAR" property="suitRegion" />
+    <result column="workday_cost_price" jdbcType="DECIMAL" property="workdayCostPrice" />
+    <result column="workday_sale_price" jdbcType="DECIMAL" property="workdaySalePrice" />
+    <result column="weekend_cost_price" jdbcType="DECIMAL" property="weekendCostPrice" />
+    <result column="weekend_sale_price" jdbcType="DECIMAL" property="weekendSalePrice" />
+    <result column="festival_cost_price" jdbcType="DECIMAL" property="festivalCostPrice" />
+    <result column="festival_sale_price" jdbcType="DECIMAL" property="festivalSalePrice" />
+    <result column="festival_factory_price" jdbcType="DECIMAL" property="festivalFactoryPrice" />
+    <result column="weekend_factory_price" jdbcType="DECIMAL" property="weekendFactoryPrice" />
+    <result column="workday_factory_price" jdbcType="DECIMAL" property="workdayFactoryPrice" />
+    <result column="ap_stock" jdbcType="INTEGER" property="apStock" />
+    <result column="life_end_date" jdbcType="DATE" property="lifeEndDate" />
+    <result column="life_start_date" jdbcType="DATE" property="lifeStartDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="supplier_tel" jdbcType="VARCHAR" property="supplierTel" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="ad_status" jdbcType="INTEGER" property="adStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pid, ap_name, ap_type, suit_region, workday_cost_price, workday_sale_price, weekend_cost_price, 
+    weekend_sale_price, festival_cost_price, festival_sale_price, ap_stock, life_end_date, 
+    life_start_date, remark, supplier, supplier_tel, create_user, create_time, update_time, 
+    update_user,ad_status,festival_factory_price,weekend_factory_price,workday_factory_price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ct_admission_sale_price
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="getPriceInfoByPid" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ct_admission_sale_price
+    where pid = #{pid,jdbcType=BIGINT}
+    and ad_status=0
+    limit #{startNum},#{pageSize}
+  </select>
+  <select id="getPriceInfoCountByPid" parameterType="java.util.Map" resultType="int">
+    select 
+    count(1)
+    from ct_admission_sale_price
+    where pid = #{pid,jdbcType=BIGINT}
+    and ad_status = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_admission_sale_price
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.admission.AdmissionSalePrice">
+    insert into ct_admission_sale_price (id, pid, ap_name, 
+      ap_type, suit_region, workday_cost_price, 
+      workday_sale_price, weekend_cost_price, weekend_sale_price, 
+      festival_cost_price, festival_sale_price, ap_stock, 
+      life_end_date, life_start_date, remark, 
+      supplier, supplier_tel, create_user, 
+      create_time, update_time, update_user,ad_status,festival_factory_price,weekend_factory_price,workday_factory_price
+      )
+    values (#{id,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{apName,jdbcType=VARCHAR}, 
+      #{apType,jdbcType=INTEGER}, #{suitRegion,jdbcType=VARCHAR}, #{workdayCostPrice,jdbcType=DECIMAL}, 
+      #{workdaySalePrice,jdbcType=DECIMAL}, #{weekendCostPrice,jdbcType=DECIMAL}, #{weekendSalePrice,jdbcType=DECIMAL}, 
+      #{festivalCostPrice,jdbcType=DECIMAL}, #{festivalSalePrice,jdbcType=DECIMAL}, #{apStock,jdbcType=INTEGER}, 
+      #{lifeEndDate,jdbcType=DATE}, #{lifeStartDate,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, 
+      #{supplier,jdbcType=VARCHAR}, #{supplierTel,jdbcType=VARCHAR}, #{createUser,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT},#{adStatus},
+      #{festivalFactoryPrice},#{weekendFactoryPrice},#{workdayFactoryPrice}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.admission.AdmissionSalePrice" keyProperty="id" useGeneratedKeys="true">
+    insert into ct_admission_sale_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="apName != null">
+        ap_name,
+      </if>
+      <if test="apType != null">
+        ap_type,
+      </if>
+      <if test="suitRegion != null">
+        suit_region,
+      </if>
+      <if test="workdayCostPrice != null">
+        workday_cost_price,
+      </if>
+      <if test="workdaySalePrice != null">
+        workday_sale_price,
+      </if>
+      <if test="weekendCostPrice != null">
+        weekend_cost_price,
+      </if>
+      <if test="weekendSalePrice != null">
+        weekend_sale_price,
+      </if>
+      <if test="festivalCostPrice != null">
+        festival_cost_price,
+      </if>
+      <if test="festivalSalePrice != null">
+        festival_sale_price,
+      </if>
+      <if test="apStock != null">
+        ap_stock,
+      </if>
+      <if test="lifeEndDate != null">
+        life_end_date,
+      </if>
+      <if test="lifeStartDate != null">
+        life_start_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="supplierTel != null">
+        supplier_tel,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="adStatus != null">
+        ad_status,
+      </if>
+      <if test="workdayFactoryPrice != null">
+        workday_factory_price,
+      </if>
+      <if test="weekendFactoryPrice != null">
+        weekend_factory_price,
+      </if>
+      <if test="festivalFactoryPrice != null">
+        festival_factory_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="apName != null">
+        #{apName,jdbcType=VARCHAR},
+      </if>
+      <if test="apType != null">
+        #{apType,jdbcType=INTEGER},
+      </if>
+      <if test="suitRegion != null">
+        #{suitRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="workdayCostPrice != null">
+        #{workdayCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="workdaySalePrice != null">
+        #{workdaySalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="weekendCostPrice != null">
+        #{weekendCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="weekendSalePrice != null">
+        #{weekendSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="festivalCostPrice != null">
+        #{festivalCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="festivalSalePrice != null">
+        #{festivalSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="apStock != null">
+        #{apStock,jdbcType=INTEGER},
+      </if>
+      <if test="lifeEndDate != null">
+        #{lifeEndDate,jdbcType=DATE},
+      </if>
+      <if test="lifeStartDate != null">
+        #{lifeStartDate,jdbcType=DATE},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierTel != null">
+        #{supplierTel,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="adStatus != null">
+        #{adStatus,jdbcType=INTEGER},
+      </if>
+      <if test="workdayFactoryPrice != null">
+        #{workdayFactoryPrice},
+      </if>
+      <if test="weekendFactoryPrice != null">
+        #{weekendFactoryPrice},
+      </if>
+      <if test="festivalFactoryPrice != null">
+        #{festivalFactoryPrice},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.admission.AdmissionSalePrice">
+    update ct_admission_sale_price
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="apName != null">
+        ap_name = #{apName,jdbcType=VARCHAR},
+      </if>
+      <if test="apType != null">
+        ap_type = #{apType,jdbcType=INTEGER},
+      </if>
+      <if test="suitRegion != null">
+        suit_region = #{suitRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="workdayCostPrice != null">
+        workday_cost_price = #{workdayCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="workdaySalePrice != null">
+        workday_sale_price = #{workdaySalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="weekendCostPrice != null">
+        weekend_cost_price = #{weekendCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="weekendSalePrice != null">
+        weekend_sale_price = #{weekendSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="festivalCostPrice != null">
+        festival_cost_price = #{festivalCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="festivalSalePrice != null">
+        festival_sale_price = #{festivalSalePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="apStock != null">
+        ap_stock = #{apStock,jdbcType=INTEGER},
+      </if>
+      <if test="lifeEndDate != null">
+        life_end_date = #{lifeEndDate,jdbcType=DATE},
+      </if>
+      <if test="lifeStartDate != null">
+        life_start_date = #{lifeStartDate,jdbcType=DATE},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierTel != null">
+        supplier_tel = #{supplierTel,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="adStatus != null">
+        ad_status=#{adStatus,jdbcType=INTEGER},
+      </if>
+      <if test="workdayFactoryPrice != null">
+        workday_factory_price=#{workdayFactoryPrice},
+      </if>
+      <if test="weekendFactoryPrice != null">
+        weekend_factory_price=#{weekendFactoryPrice},
+      </if>
+      <if test="festivalFactoryPrice != null">
+        festival_factory_price=#{festivalFactoryPrice},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.admission.AdmissionSalePrice">
+    update ct_admission_sale_price
+    set pid = #{pid,jdbcType=BIGINT},
+      ap_name = #{apName,jdbcType=VARCHAR},
+      ap_type = #{apType,jdbcType=INTEGER},
+      suit_region = #{suitRegion,jdbcType=VARCHAR},
+      workday_cost_price = #{workdayCostPrice,jdbcType=DECIMAL},
+      workday_sale_price = #{workdaySalePrice,jdbcType=DECIMAL},
+      weekend_cost_price = #{weekendCostPrice,jdbcType=DECIMAL},
+      weekend_sale_price = #{weekendSalePrice,jdbcType=DECIMAL},
+      festival_cost_price = #{festivalCostPrice,jdbcType=DECIMAL},
+      festival_sale_price = #{festivalSalePrice,jdbcType=DECIMAL},
+      ap_stock = #{apStock,jdbcType=INTEGER},
+      life_end_date = #{lifeEndDate,jdbcType=DATE},
+      life_start_date = #{lifeStartDate,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      supplier = #{supplier,jdbcType=VARCHAR},
+      supplier_tel = #{supplierTel,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ad_status=#{adStatus,jdbcType=INTEGER},
+      workday_factory_price=#{workdayFactoryPrice},
+      weekend_factory_price=#{weekendFactoryPrice},
+      festival_factory_price=#{festivalFactoryPrice},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

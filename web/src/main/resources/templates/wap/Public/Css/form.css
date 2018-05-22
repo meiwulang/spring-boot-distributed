@@ -1,0 +1,17 @@
+
+.Sunline_form { margin: 0px; padding: 0px; text-align:left; cursor:default; }
+.Sunline_form div { padding: 3px; border-bottom: 1px dashed #ccc; }
+.Sunline_form div span { padding-left: 8px; color: #ccc; }
+.Sunline_form .lable { float: left; width: 100px; text-align: right; }
+.Sunline_form .default, .Sunline_form .textfield, .Sunline_form .numberfield, .Sunline_form .readonly, .Sunline_form .disabled, .Sunline_form .datefield, .Sunline_form .timefield { border: 1px solid #ccc; border-left-width: 3px; background: #fff; font-size: 10pt; outline: none; color: #000; padding:3px; }
+.Sunline_form .textfield { text-align: left; }
+.Sunline_form .numberfield { text-align: right; }
+.Sunline_form .datefield, .Sunline_form .timefield { text-align: center; }
+.Sunline_form .readonly { background: #f1f1f1 !important; }
+.Sunline_form .disabled { background: #ddd !important; }
+.Sunline_form .require { border-left-color: #ff900c !important; }
+.Sunline_form .emptyText { color: #ccc; }
+.Sunline_form .error { border-color:red !important; border-style: dotted !important; border-left-style: solid !important; }
+.Sunline_form .noEmpty { color: #000 !important; }
+.Sunline_form .bbar { text-align:center; border-bottom:none; }
+.Sunline_form .bbar input { padding:3px 8px; letter-spacing:3px; }

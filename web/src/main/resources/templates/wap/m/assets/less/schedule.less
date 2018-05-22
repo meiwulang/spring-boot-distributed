@@ -1,0 +1,430 @@
+@import './common.less';
+
+#wrap{
+	.t-bar{
+		height: 45px;
+		line-height: 45px;
+		background-color: #fff;
+		text-align: center;
+		position: fixed;
+		font-size: 16px;
+		box-shadow: 0px 0px 1px #ccc;
+		left: 0;
+		top: 0;
+		width: 100%;
+		z-index: 10;
+		max-width: 736px;
+		a{
+			position: absolute;
+			width: 45px;
+			height: 45px;
+			left: 0;
+			top: 0;
+			background: url('@{img}/icon_arr_back.png') center center no-repeat;
+			background-size: 9px auto;
+		}
+
+		.icon-trade{
+			position: absolute;
+			width: 45px;
+			height: 45px;
+			right: 0;
+			top: 0;
+			
+			i{
+				display: none;
+				width: 20px;
+				height: 20px;
+				background: url('@{img}/icon_eye_close.png') center center no-repeat rgba(0,0,0,0.3);
+				background-size: 16px auto;
+				margin: 13px auto;
+				border-radius: 20px;
+			}
+		}
+
+		.icon-trade.open{
+			i{
+				background: url('@{img}/icon_eye_open.png') center center no-repeat rgba(0,0,0,0.3);
+				background-size: 16px auto;
+			}
+		}
+	}
+
+	.calendar{
+		padding-top: 45px;
+		background-color: #fff;
+
+		.month-list{
+			height: 45px;
+			overflow-y: auto;
+
+			ul{
+				width: 9999px;
+			}
+
+			li{
+				width: 100px;
+				height: 45px;
+				float: left;
+				text-align: center;
+				font-size: 14px;
+
+				.month{
+					height: 18px;
+					line-height: 18px;
+					margin-top: 5px;
+				}
+
+				.price,.trade-price{
+					height: 18px;
+					line-height: 18px;
+					color: #fb2a35;
+
+					i{
+						font-size: 10px;
+					}
+
+					u{
+						font-size: 10px;
+						color: #999;
+						text-decoration: none;
+					}
+				}
+
+				.trade-price{
+					display: none;
+				}
+			}
+
+			li.active{
+				background: url('@{img}/schedule/arr_check.png') bottom center no-repeat #fed944;
+				background-size: auto 5px;
+				color: #fff;
+
+				.price,.trade-price{
+					color: #fff;
+
+					u{
+						color: #fff;
+					}
+				}
+			}
+		}
+
+		.week{
+			background-color: #373737;
+			color: #fff;
+			height: 25px;
+			line-height: 25px;
+			font-size: 12px;
+
+			li{
+				width: 14.2%;
+				float: left;
+				text-align: center;
+			}
+		}
+
+		.calendar-list{
+			.selloutbg{
+				background-color: #f1f1f1;
+			}
+			li{
+				position: relative;
+				width: 14.2%;
+				float: left;
+				height: 55px;
+				overflow: hidden;
+				border-bottom: 1px solid #f1f1f1;
+				text-align: center;
+				.nw{
+					position: absolute;
+					top: 0;
+					left: 0;
+					width:0;
+				    height:0;
+				    border-width:0 0 12px 12px;
+				    border-style:solid;
+				    border-color:transparent transparent transparent #6c6;
+				   
+				}
+
+				.day{
+					height: 20px;
+					line-height: 20px;
+					margin-top: 10px;
+					font-size: 12px;
+				}
+				
+				.price,.trade-price{
+					height: 18px;
+					line-height: 18px;
+					color: #fb2a35;
+					font-size: 11px;
+					width: 100px;
+					text-align: left;
+
+					i{
+						float: left;
+						height: 12px;
+						display: block;
+						font-size: 12px;
+						transform: scale(0.7);
+						-webkit-transform: scale(0.7);
+						-moz-transform: scale(0.7);
+						-o-transform: scale(0.7);
+						position: relative;
+						top: 2px;
+					}
+
+					u{
+						float: left;
+						height: 12px;
+						display: block;
+						font-size: 12px;
+						color: #999;
+						text-decoration: none;
+						transform: scale(0.7);
+						-webkit-transform: scale(0.7);
+						-moz-transform: scale(0.7);
+						-o-transform: scale(0.7);
+						margin-left: -1px;
+						position: relative;
+						top: 2px;
+					}
+
+					span{
+						float: left;
+						height: 12px;
+						display: block;
+						font-size: 12px;
+						/*transform: scale(0.9);
+						-webkit-transform: -webkit-scale(0.9);*/
+						margin-left: -4px;
+					}
+				}
+
+				.trade-price{
+					display: none;
+				}
+			}
+
+			li.active{
+				background-color: #fed944;
+				color: #fff;
+
+				.price,.trade-price{
+					color: #fff;
+
+					u{
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+
+	.ticket-list{
+		margin-top: 10px;
+		background-color: #fff;
+		.tpl_dl{
+			overflow: hidden;
+			box-sizing: border-box;
+			padding-bottom: 10px;
+			
+			dt{
+				background: #fff;
+				color: #999;
+				line-height: 35px;
+				height: 35px;
+				.dt_di{
+					box-sizing: border-box;
+					height: 100%;
+					margin-left: 15px;
+					border-bottom: 1px solid #f1f1f1;
+					.grou{
+						float: right;
+						color: #999;
+						font-size: 12px;
+						padding-right: 15px;
+						span{
+							display: inline-block;
+							width:0;
+						    height:0;
+						    border-width:0 0 10px 10px;
+						    border-style:solid;
+						    border-color:transparent transparent transparent #6c6;
+						}
+					}
+				}
+			}
+			dd{
+			    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+				-webkit-transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+			    -moz-transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+			    -o-transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+			    position: relative;
+				line-height: 30px;
+				text-align: center;
+				width: 40%;
+				margin-left: 15px;
+				margin-top: 10px;
+				float: left;
+				height: 30px;
+				color: #999;
+				border: 1px solid #999;
+				.nw{
+					position: absolute;
+					top: 0;
+					left: 0;
+					width:0;
+				    height:0;
+				    border-width:0 0 12px 12px;
+				    border-style:solid;
+				    border-color:transparent transparent transparent #6c6;
+				   
+				}
+			}
+			.acti{
+				border: 1px solid #fed944;
+				background: #fed944;
+				color: #fff;
+			}
+		}
+		.bl_tab{
+			display: none;
+			h3{
+				padding-left: 15px;
+				box-sizing: border-box;
+				height: 35px;
+				line-height: 35px;
+				background-color: #f3f5f9;
+			}
+			ul{
+				
+				li{
+					overflow: hidden;
+					margin-left: 15px;
+					border-bottom: 1px solid #f1f1f1;
+					padding-right: 15px;
+					padding-top: 10px;
+					padding-bottom: 9px;
+					box-sizing: border-box;
+					.list-l{
+						min-height: 22px;
+						font-size: 14px;
+						width: 100%;
+						.name{
+							color: #666;
+							/*.TextOverflow(1);*/
+							float: left;
+							span{
+								color: #999;
+							}
+						}
+
+						.price,.trade-price{
+							color: #f00;
+
+							i{
+								font-size: 10px;
+							}
+						}
+
+						.trade-price{
+							display: none;
+						}
+					}
+
+					.list-r{
+						width: 100%;
+						height: 30px;
+						.list_r_top{
+							margin-top: 6px;
+							float: left;
+							box-sizing: border-box;
+							padding-right: 15px;
+							width: 40%;
+							.price,.trade-price{
+							color: #f00;
+
+							i{
+								font-size: 10px;
+							}
+						}
+
+						.trade-price{
+							display: none;
+						}
+						}
+						.s-price,.s-trade-price{
+							font-size: 12px;
+							color: #999;
+							float: right;
+							padding-top: 7px;
+							padding-right: 5px;
+							i{
+								font-size: 10px;
+							}
+						}
+
+						.s-trade-price{
+							display: none;
+						}
+
+						.num-check{
+							float: right;
+
+							input{
+								float: left;
+								width: 30px;
+								color: #333;
+								height: 28px;
+								line-height: 28px;
+								text-align: center;
+							}
+
+							span{
+								float: left;
+								width: 28px;
+								height: 28px;
+								line-height: 28px;
+								text-align: center;
+								background-color: #ececee;
+								border-radius: 3px;
+								overflow: hidden;
+								font-weight: bold;
+							}
+						}
+					}
+				}
+
+				li:last-child{
+					border-bottom: none;
+				}
+			}
+		}
+			
+		.disp{
+			display: block;
+		}
+		
+	}
+
+	.next{
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 42px;
+		line-height: 42px;
+		position: fixed;
+		text-align: center;
+		background-color: #fc2a35;
+		color: #fff;
+		font-size: 14px;
+		max-width: 736px;
+		&.disable{
+			background-color: #ccc;
+		}
+	}
+}

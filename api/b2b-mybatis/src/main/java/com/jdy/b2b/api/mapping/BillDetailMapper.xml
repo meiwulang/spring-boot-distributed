@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.BillDetailMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.bill.BillDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="db_bill_id" jdbcType="BIGINT" property="dbBillId" />
+    <result column="db_order_pay_id" jdbcType="BIGINT" property="dbOrderPayId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="b_buyer_id" jdbcType="BIGINT" property="bBuyerId" />
+    <result column="b_buyer_name" jdbcType="VARCHAR" property="bBuyerName" />
+    <result column="b_buyer_company_id" jdbcType="BIGINT" property="bBuyerCompanyId" />
+    <result column="b_buyer_company_name" jdbcType="VARCHAR" property="bBuyerCompanyName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, db_bill_id, db_order_pay_id, b_buyer_id, b_buyer_name, b_buyer_company_id, b_buyer_company_name,create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from fn_bill_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from fn_bill_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.bill.BillDetail">
+    insert into fn_bill_detail (id, db_bill_id, db_order_pay_id,
+    create_time, create_user, update_time,
+    update_user,b_buyer_id, b_buyer_name , b_buyer_company_id , b_buyer_company_name)
+    values (#{id,jdbcType=BIGINT}, #{dbBillId,jdbcType=BIGINT}, #{dbOrderPayId,jdbcType=BIGINT},
+    #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP},
+    #{updateUser,jdbcType=BIGINT},#{bBuyerId,jdbcType=BIGINT}, #{bBuyerName,jdbcType=VARCHAR} ,#{bBuyerCompanyId,jdbcType=BIGINT}, #{bBuyerCompanyName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.bill.BillDetail">
+    insert into fn_bill_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dbBillId != null">
+        db_bill_id,
+      </if>
+      <if test="dbOrderPayId != null">
+        db_order_pay_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="bBuyerId != null">
+        b_buyer_id,
+      </if>
+      <if test="bBuyerName != null">
+        b_buyer_name,
+      </if>
+      <if test="bBuyerCompanyId != null">
+        b_buyer_company_id,
+      </if>
+      <if test="bBuyerCompanyName != null">
+        b_buyer_company_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dbBillId != null">
+        #{dbBillId,jdbcType=BIGINT},
+      </if>
+      <if test="dbOrderPayId != null">
+        #{dbOrderPayId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="bBuyerId != null">
+        #{bBuyerId,jdbcType=BIGINT},
+      </if>
+      <if test="bBuyerName != null">
+        #{bBuyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bBuyerCompanyId != null">
+        #{bBuyerCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="bBuyerCompanyName != null">
+        #{bBuyerCompanyName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="bathInsert">
+    insert into fn_bill_detail (id, db_bill_id, db_order_pay_id,
+    create_time, create_user, update_time,
+    update_user,b_buyer_id, b_buyer_name,b_buyer_company_id,b_buyer_company_name) VALUES
+    <foreach collection="billDetailList" item="billDetail" separator=",">
+      (#{billDetail.id,jdbcType=BIGINT}, #{billDetail.dbBillId,jdbcType=BIGINT}, #{billDetail.dbOrderPayId,jdbcType=BIGINT},
+      #{billDetail.createTime,jdbcType=TIMESTAMP}, #{billDetail.createUser,jdbcType=BIGINT}, #{billDetail.updateTime,jdbcType=TIMESTAMP},
+      #{billDetail.updateUser,jdbcType=BIGINT},#{billDetail.bBuyerId,jdbcType=BIGINT}, #{billDetail.bBuyerName,jdbcType=VARCHAR},
+      #{billDetail.bBuyerCompanyId,jdbcType=BIGINT}, #{billDetail.bBuyerCompanyName,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.bill.BillDetail">
+    update fn_bill_detail
+    <set>
+      <if test="dbBillId != null">
+        db_bill_id = #{dbBillId,jdbcType=BIGINT},
+      </if>
+      <if test="dbOrderPayId != null">
+        db_order_pay_id = #{dbOrderPayId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="bBuyerId != null">
+        b_buyer_id = #{bBuyerId,jdbcType=BIGINT},
+      </if>
+      <if test="bBuyerName != null">
+        b_buyer_name = #{bBuyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bBuyerCompanyId != null">
+        b_buyer_company_id = #{bBuyerCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="bBuyerCompanyName != null">
+        b_buyer_company_name = #{bBuyerCompanyName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.bill.BillDetail">
+    update fn_bill_detail
+    set db_bill_id = #{dbBillId,jdbcType=BIGINT},
+    db_order_pay_id = #{dbOrderPayId,jdbcType=BIGINT},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    create_user = #{createUser,jdbcType=BIGINT},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    update_user = #{updateUser,jdbcType=BIGINT},
+    b_buyer_id = #{bBuyerId,jdbcType=BIGINT},
+    b_buyer_name = #{bBuyerName,jdbcType=VARCHAR},
+    b_buyer_company_id = #{bBuyerCompanyId,jdbcType=BIGINT},
+    b_buyer_company_name = #{bBuyerCompanyName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

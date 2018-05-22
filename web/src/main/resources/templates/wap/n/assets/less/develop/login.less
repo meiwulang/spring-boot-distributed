@@ -1,0 +1,80 @@
+@import '../common/common.less';
+@import '../common/pub.less';
+body{
+	background-color: #fff;
+	height: 100%;
+}
+#wrap{
+	.main{
+		height: 100%;
+		width: 100%;
+		.logo{
+			height: 230px;
+			width: 100%;
+			text-align: center;
+			img{
+				width: 108px;
+				margin-top: 65px;
+			}
+		}
+		.infor{
+			width: 85%;
+			margin: 0 auto;
+			.item{
+				border-bottom: 1px solid #c6c7c9;
+				.label-img{
+					float: left;
+					width: 30px;
+					text-align: center;
+					img{
+						width: 14px;
+					}
+				}
+				.label-body{
+					input{
+						width: 80%;
+						color: #333;
+						font-size: 14px;
+					}
+				}
+				&.username{
+					.label-img{
+						img{
+							width: 17px;
+						}
+					}
+				}
+				&.password{
+					margin-top: 35px;
+				}
+			}
+		}
+		.reme{
+			width: 85%;
+			margin: 15px auto 0;
+			box-sizing: border-box;
+			padding-left: 30px;
+			height: 22px;
+			line-height: 24px;
+			font-size: 12px;
+			color: #999;
+			background: url('@{img}/login/w1.png') 8px center no-repeat;
+			background-size: 15px 15px;
+		}
+		.reme.active{
+			background: url('@{img}/login/w2.png') 8px center no-repeat;
+			background-size: 15px 15px;
+		}
+		.submit{
+			width: 85%;
+			height: 40px;
+			background-color: #269ee7;
+			color: #fff;
+			font-size: 17px;
+			text-align: center;
+			line-height: 40px;
+			margin: 45px auto 0;
+			border-radius: 5px;
+		}
+	}
+}

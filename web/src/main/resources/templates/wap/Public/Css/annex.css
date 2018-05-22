@@ -1,0 +1,86 @@
+.cover-cls {
+    width: 80%;
+    height: 100%;
+    background-size: 230px 130px;
+    border:1px solid #EEEEEE;
+    padding:2px;
+    float:left;
+    margin-left: 5px;
+    /*background: url('../Images/cover-img.png') no-repeat #f9f9f9;*/
+}
+.cover-img {
+    width: 233px;
+    /*height: 140px;*/
+    width:100%;
+    overflow: hidden;
+    padding:5px;
+    border:1px solid blue;
+}
+
+#cover-img_1 {
+    display:none;
+    width: 230px;
+    height: 130px;
+    overflow: hidden;
+    padding:5px;
+    margin-bottom: 10px;
+}
+
+.cover-img img {
+    width: 230px;
+    height: 130px;
+    float:left;
+}
+#upload_file {
+    position: absolute;
+    /*right: 144px;
+    margin-top:5px;*/
+    background:#2288e3;
+    border:1px solid #207ccd;
+    border-radius: 3px;
+    color:#ffffff;
+    width:80px !important;
+    text-align: center;
+    height: 22px !important;
+    line-height: 20px !important;
+    cursor: pointer;
+    z-index: 99;
+}
+
+#upload_file #upload_file-button {
+    width:80px !important;
+    height: 20px !important;
+    line-height: 20px !important;
+}
+#upload_file:hover {
+    background:#207ccd;
+}
+
+
+/*上传控件样式(start)*/
+.files,.files .img-l {width:330px;height:230px;overflow: hidden;position: relative}
+.files .load-img {display: inline-block;height:16px;width:100%;border-top: 1px solid green;border-bottom: 1px solid green;position: absolute;bottom: 0;font-size: 12px;text-align: center;left:0;}
+.files .load_200 { background:green;color:#fff}
+.files .upload-file {display: none}
+.upload-msg {font-size: 12px;font-family: '宋体';color:#999;display: block; text-align: center;margin-top: 7px;}
+/*上传控件样式(end)*/
+
+.upload_file_name {
+    float: left;
+    width: 80px;
+    text-align: right;
+}
+.pa_url_show {
+    margin-left: 100px;
+    height:20px;
+    line-height:20px;
+}
+
+.gd-color{
+    margin:4px 5px;
+    height:20px;
+    width:30px;
+    border:1px solid #ccc;
+    display:block;
+    float:left;
+}

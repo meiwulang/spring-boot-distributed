@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.reports.ProductCountMapper">
+    <!--产品汇总报表-->
+    <resultMap id="ProductCountResultMap" type="com.jdy.b2b.api.model.reports.ProductCountQueryDO">
+        <result column="p_no" jdbcType="VARCHAR" property="pNo" />
+        <result column="b_name" jdbcType="VARCHAR" property="brandName" />
+        <result column="p_name" jdbcType="VARCHAR" property="pName" />
+        <result column="orderCounts" jdbcType="INTEGER" property="orderCounts" />
+        <result column="peopleNum" jdbcType="INTEGER" property="peopleNum" />
+        <result column="adultNum" jdbcType="INTEGER" property="adultNum" />
+        <result column="childNum" jdbcType="INTEGER" property="childNum" />
+        <result column="marketAmount" jdbcType="DECIMAL" property="marketAmount" />
+        <result column="totalAmount" jdbcType="DECIMAL" property="totalAmount" />
+    </resultMap>
+    <!--产品汇总报表-->
+    <select id="queryProductCountPage" parameterType="com.jdy.b2b.api.model.reports.ProductCountQueryDTO" resultMap="ProductCountResultMap">
+    SELECT
+        product.p_no,
+        brand.b_name,
+        product.p_name,
+        count(
+            DISTINCT singleOrder.orderId
+        ) AS orderCounts,
+        SUM(singleOrder.peopleNum) AS peopleNum,
+        SUM(adultOrder.adultNum) AS adultNum,
+        SUM(childOrder.childNum) AS childNum,
+        SUM(singleOrder.marketAmount) AS marketAmount,
+        SUM(singleOrder.totalAmount) AS totalAmount
+    FROM
+        ct_product product
+    LEFT JOIN (
+        SELECT
+            slOrder.id AS orderId,
+            slOrder.o_product_id AS productId,
+            user2.company_id AS buyerId,
+            user1.company_id AS salerId,
+            slOrder.o_people_num AS peopleNum,
+            slOrder.o_market_price AS marketAmount,
+            slOrder.o_total_price AS totalAmount,
+            slOrder.create_time AS createTime
+        FROM
+            sl_order slOrder
+        LEFT JOIN sm_user user1 ON slOrder.o_saler_id = user1.id
+        LEFT JOIN sm_user user2 ON slOrder.o_buyer_id = user2.id
+        <where>
+        <if test="buyerId != null">
+            user2.company_id = #{buyerId,jdbcType=BIGINT}
+        </if>
+        </where>
+    ) singleOrder ON singleOrder.productId = product.id
+    LEFT JOIN (
+        SELECT
+            slOrder.id,
+            count(1) adultNum
+        FROM
+            sl_order slOrder
+        LEFT JOIN sl_order_tourist tourist ON slOrder.id = tourist.ot_order_id
+        WHERE
+            tourist.ot_type = 0
+        GROUP BY
+            slOrder.id
+    ) adultOrder ON singleOrder.orderId = adultOrder.id
+    LEFT JOIN (
+        SELECT
+            slOrder.id,
+            count(1) childNum
+        FROM
+            sl_order slOrder
+        LEFT JOIN sl_order_tourist tourist ON slOrder.id = tourist.ot_order_id
+        WHERE
+            tourist.ot_type = 1
+        GROUP BY
+            slOrder.id
+    ) childOrder ON singleOrder.orderId = childOrder.id
+    LEFT JOIN sm_brand brand ON brand.id = product.p_brand
+    LEFT JOIN ct_schedule schedule ON product.id = schedule.s_product_id
+    <where>
+        singleOrder.orderId is not null
+        <if test="searchStr != null and searchStr !=''">
+            <bind name="searchStr" value="'%'+searchStr+'%'"/>
+            AND CONCAT(IFNULL(product.p_name,''),IFNULL(product.p_no,'')) LIKE #{searchStr,jdbcType=VARCHAR}
+        </if>
+        <if test="brandId != null">
+            AND brand.id = #{brandId,jdbcType = INTEGER}
+        </if>
+        <choose>
+            <when test="dateType == 1">
+                <if test="minDate != null">
+                    AND schedule.s_calendar &gt;= #{minDate}
+                </if>
+                <if test="maxDate != null">
+                    AND schedule.s_calendar &lt;= #{maxDate}
+                </if>
+            </when>
+            <when test="dateType == 2">
+                <if test="minDate != null">
+                    AND singleOrder.createTime &gt;= #{minDate}
+                </if>
+                <if test="maxDate != null">
+                    AND singleOrder.createTime &lt;= #{maxDate}
+                </if>
+            </when>
+        </choose>
+    </where>
+    GROUP BY
+	product.id
+    </select>
+
+    <!--查询统计信息-->
+    <select id="queryAllProductCount" parameterType="com.jdy.b2b.api.model.reports.ProductCountQueryDTO" resultMap="ProductCountResultMap">
+        SELECT
+        count(
+        DISTINCT singleOrder.orderId
+        ) AS orderCounts,
+        SUM(singleOrder.peopleNum) AS peopleNum,
+        SUM(adultOrder.adultNum) AS adultNum,
+        SUM(childOrder.childNum) AS childNum,
+        SUM(singleOrder.marketAmount) AS marketAmount,
+        SUM(singleOrder.totalAmount) AS totalAmount
+        FROM
+        ct_product product
+        LEFT JOIN (
+        SELECT
+        slOrder.id AS orderId,
+        slOrder.o_product_id AS productId,
+        user2.company_id AS buyerId,
+        user1.company_id AS salerId,
+        slOrder.o_people_num AS peopleNum,
+        slOrder.o_market_price AS marketAmount,
+        slOrder.o_total_price AS totalAmount,
+        slOrder.create_time AS createTime
+        FROM
+        sl_order slOrder
+        LEFT JOIN sm_user user1 ON slOrder.o_saler_id = user1.id
+        LEFT JOIN sm_user user2 ON slOrder.o_buyer_id = user2.id
+        <where>
+            <if test="buyerId != null">
+                user2.company_id = #{buyerId,jdbcType=BIGINT}
+            </if>
+        </where>
+        ) singleOrder ON singleOrder.productId = product.id
+        LEFT JOIN (
+        SELECT
+        slOrder.id,
+        count(1) adultNum
+        FROM
+        sl_order slOrder
+        LEFT JOIN sl_order_tourist tourist ON slOrder.id = tourist.ot_order_id
+        WHERE
+        tourist.ot_type = 0
+        GROUP BY
+        slOrder.id
+        ) adultOrder ON singleOrder.orderId = adultOrder.id
+        LEFT JOIN (
+        SELECT
+        slOrder.id,
+        count(1) childNum
+        FROM
+        sl_order slOrder
+        LEFT JOIN sl_order_tourist tourist ON slOrder.id = tourist.ot_order_id
+        WHERE
+        tourist.ot_type = 1
+        GROUP BY
+        slOrder.id
+        ) childOrder ON singleOrder.orderId = childOrder.id
+        LEFT JOIN sm_brand brand ON brand.id = product.p_brand
+        LEFT JOIN ct_schedule schedule ON product.id = schedule.s_product_id
+        <where>
+            singleOrder.orderId is not null
+            <if test="searchStr != null and searchStr !=''">
+                <bind name="searchStr" value="'%'+searchStr+'%'"/>
+                AND CONCAT(IFNULL(product.p_name,''),IFNULL(product.p_no,'')) LIKE #{searchStr,jdbcType=VARCHAR}
+            </if>
+            <if test="brandId != null">
+                AND brand.id = #{brandId,jdbcType = INTEGER}
+            </if>
+            <choose>
+                <when test="dateType == 1">
+                    <if test="minDate != null">
+                        AND schedule.s_calendar &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND schedule.s_calendar &lt;= #{maxDate}
+                    </if>
+                </when>
+                <when test="dateType == 2">
+                    <if test="minDate != null">
+                        AND singleOrder.createTime &gt;= #{minDate}
+                    </if>
+                    <if test="maxDate != null">
+                        AND singleOrder.createTime &lt;= #{maxDate}
+                    </if>
+                </when>
+            </choose>
+        </where>
+    </select>
+
+
+</mapper>

@@ -1,0 +1,330 @@
+@import './common.less';
+#wrap{
+	width: 100%;
+	.acti_header{
+		color: #333;
+		height: 45px;
+	    line-height: 45px;
+	    background-color: #fff;
+	    text-align: center;
+	    position: fixed;
+	    font-size: 16px;
+	    box-shadow: 0px 0px 1px #ccc;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    z-index: 10;
+		.lef{
+			position: absolute;
+		    width: 45px;
+		    height: 45px;
+		    left: 0;
+		    top: 0;
+		    background: url('@{img}/icon_arr_back.png') center center no-repeat;
+		    background-size: 9px auto;
+		}
+		.noly{
+			font-size: 14px;
+			color: #999;
+			position: absolute;
+			right: 33px;
+			display: inline-block;
+			width: 78px;
+			height: 100%;
+			overflow: hidden;
+			span{
+				box-sizing: border-box;
+				margin-top:14px;
+				/*margin-right: 2px;*/
+				border: 1px solid #999;
+				float: left;
+				display: inline-block;
+				width: 15px;
+				height: 15px;
+				border-radius: 50%;
+			}
+			.ba{
+				border: none;
+				background: url('@{img}/order/yes.png') center center no-repeat;
+				background-size: 100% 100%;
+			}
+		}
+		.rig{
+			position: absolute;
+		    width: 45px;
+		    height: 45px;
+		    right: 0;
+		    top: 0;
+		    background: url('@{img}/ss.png') center center no-repeat;
+		    background-size: 20px 20px;
+		}
+	}
+	.main{
+		margin-top: 45px;
+		.dts{
+			overflow: hidden;
+			margin-bottom: 10px;
+			box-sizing: border-box;
+			padding-left: 15px;
+			line-height: 35px;
+			height: 35px;
+			color: #333;
+			position: relative;
+			.down{
+				position: absolute;
+				top: 14px;
+				left: 40%;
+				margin-left: 3px;
+				display: inline-block;
+				height: 7px;
+				width: 14px;
+				background: url('@{img}/bills/down.png') center center no-repeat;
+			    background-size: 100% 100%;
+			}
+			.tise{
+				color: #999;
+				font-size: 12px;
+			}
+			
+		}
+		.cxs{
+			color: #999;
+			text-align: center;
+			margin-top: 70px;
+		}
+		dl{
+			
+			dt{
+				height: 30px;
+				line-height: 30px;
+				padding-left: 15px;
+				box-sizing: border-box;
+				width: 100%;
+			}
+			dd{
+				box-sizing: border-box;
+				background: #fff;
+				padding-left: 15px;
+				.tit{
+					height: 43px;
+					line-height: 43px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: normal;
+					box-sizing: border-box;
+					padding-right: 15px;
+				}
+				.cont{
+					border-bottom: 1px solid #e7e7e7;
+					overflow: hidden;
+					box-sizing: border-box;
+					padding-right: 15px;
+					padding-bottom: 10px;
+					.lefts{
+						width: 80%;
+						float: left;
+						.tim{
+							width: 100%;
+							font-size: 12px;
+							color: #666;
+							display: inline-block;
+							height: 22px;
+							line-height: 22px;
+							span{
+								display: inline-block;
+								width: 12px;
+								height: 12px;
+								background: url('@{img}/bills/tim.png') center no-repeat;
+								background-size: 100% 100%;
+								margin-right: 8px;
+							}
+						}
+						.tims{
+							span{
+								background: url('@{img}/bills/tims.png') center center no-repeat;
+								background-size: 100% 100%;
+							}
+						}
+						.gui{
+							font-size: 12px;
+							color: #999;
+						}
+					}
+					.rights{
+						width: 20%;
+						float: right;
+						text-align: right;
+						
+						p{
+							height: 22px;
+							font-size: 14px;
+							color: #fb2a35;
+						}
+						.adu{
+							display: inline-block;
+							font-size: 11px;
+							color: #999;
+							height: 22px;
+							line-height: 22px;
+						}
+						.gui_z{
+							padding: 1px 6px;
+							border-radius: 4px;
+							color: #fff;
+							font-size: 12px;
+							display: inline-block;
+						}
+						/*未报账*/
+						.gui_w{
+							background: red;
+						}
+						/*报账中*/
+						.gui_b{
+							background: #FF6600;
+						}
+						/*审核中*/
+						.gui_s{
+							background: #84b6fb;
+						}
+						/*已驳回*/
+						.gui_y{
+							background: #ffa600;
+						}
+						/*已完成*/
+						.gui_c{
+							background: #37cc71;
+						}
+
+					}
+				}
+
+			}
+			.content {
+				width: 100%;
+			}
+			dd:last-child{
+				.cont{
+					border-bottom: none;
+				}
+			}
+		}
+		.loading{
+			text-align: center;
+			margin-top: 10px;
+			color: #aaa;			
+		}
+		.sear{
+			position: fixed;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #fff;
+			z-index: 90;
+			.TransformOut();
+			.acti_he{
+				color: #333;
+				height: 45px;
+			    line-height: 45px;
+			    background-color: #fff;
+			    text-align: center;
+			    position: fixed;
+			    font-size: 16px;
+			    box-shadow: 0px 0px 1px #ccc;
+			    left: 0;
+			    top: 0;
+			    width: 100%;
+			    z-index: 10;
+				.lef_two{
+					position: absolute;
+				    width: 45px;
+				    height: 45px;
+				    left: 0;
+				    top: 0;
+				    background: url('@{img}/icon_arr_back.png') center center no-repeat;
+				    background-size: 9px auto;
+				}
+				.rig_two{
+					position: absolute;
+				    width: 60px;
+				    height: 45px;
+				    right: 0;
+				    top: 0;
+				    color: #666;
+				    font-size: 13px;
+				}
+			}
+			.station{
+				margin-top: 45px;
+				.station_son{
+					padding-left: 15px;
+					height: 45px;
+					box-sizing: border-box;
+					.station_dis{
+						position: relative;
+						overflow: hidden;
+						line-height: 45px;
+						height: 100%;
+						width: 100%;
+						border-bottom: 1px solid #e7e7e7;
+						box-sizing: border-box;
+						.datese{
+							padding-right: 30px;
+						}
+						.ric{
+							display: inline-block;
+							width: 65px;
+							float: left;
+
+						}
+						input{
+							font-size: 14px;
+							color: #666;
+							width: 78%;
+							padding-left: 10px;
+							box-sizing: border-box;
+						}
+						.dates[type="date"]:before{
+							content: attr(placeholder);
+							color: #666 !important;
+						}
+						.dates{
+							padding-left: 5px;
+							float: left;
+							height: 100%;
+						}
+						.downs{
+						    position: absolute;
+						    top: 19px;
+						    right: 15px;
+						    display: inline-block;
+						    height: 7px;
+						    width: 15px;
+						    background: url(/assets/img/bills/down.png) center center no-repeat;
+						    background-size: 100% 100%;
+						}
+					}
+				}
+			}
+			.butt{
+				position: fixed;
+				bottom: 0px;
+				left: 0px;
+				width: 100%;
+				height: 45px;
+				background: #ccc;
+				color: #fff;
+				text-align: center;
+				line-height: 45px;
+				font-size: 13px;
+			}
+			.butts{
+				background: #fb2a35;
+				color: #fff;
+			}
+		}
+		.sear.in{
+			.TransformIn();
+		}
+	}
+}

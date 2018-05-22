@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.CityMapperDiy">
+
+    <resultMap id="cityVo" type="com.jdy.b2b.api.model.city.CityVo" extends="com.jdy.b2b.api.dao.CityMapper.BaseResultMap">
+        <result column="p_name" jdbcType="VARCHAR" property="pName"/>
+    </resultMap>
+    <select id="selectCityPutList" resultMap="cityVo">
+        SELECT c.id,c.name FROM cm_city c 
+        <where>
+            <if test="city.isopen != null">
+                and c.isopen = #{city.isopen}
+            </if>
+            <if test="cityStr != null">
+                and LOCATE(#{cityStr}, c.name)>0
+            </if>
+        </where>
+    </select>
+
+    <update id="updateCityOpenStatus" parameterType="map">
+        update cm_city c
+        set c.isopen = #{isopen}
+        where c.id in
+        <foreach item="city" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{city.id}
+        </foreach>
+    </update>
+    
+    <select id="selectCities" resultMap="com.jdy.b2b.api.dao.CityMapper.BaseResultMap">
+        SELECT
+            *
+        FROM
+            cm_city c
+        WHERE
+            c.`level` = #{level}
+        <if test="type != null">
+          AND c.type = #{type}
+        </if>
+        <if test="pid != null">
+          AND c.pid = #{pid}
+        </if>
+        <if test="groupId != null and groupId != ''">
+            AND c.group_id = #{groupId}
+        </if>
+    </select>
+
+</mapper>

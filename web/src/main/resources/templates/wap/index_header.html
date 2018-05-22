@@ -1,0 +1,192 @@
+<div class="my_navbar">
+	<div class="box_wrapper clearfloat">
+		<div class="pull-left"> <span class="pull-left"> <a href="index.html ">金豆云首页</a></span>
+
+			<!--<div class="dropdown pull-left">
+        <p class="btn dropdown-toggle btn_fontSmall" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true"> 手机金豆云 <span class="glyphicon glyphicon-chevron-down ion_bootstrapDown"></span> </p>
+        <ul class="dropdown-menu mobile_jdy_dropdown" role="menu" aria-labelledby="dropdownMenu1">
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action2</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+        </ul>
+      </div>-->
+		</div>
+		<div class="pull-right navbar_aColor">
+			<div class="pull-left">
+				<a href="javascript:;">hi 欢迎来到金豆云!</a>
+			</div>
+			<span class="pull-left">&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; </span>
+			<div class="pull-left">
+				<a href="javascript:;" data-toggle="modal" data-target="#myModal" class="index_loginBtn">登录</a>
+				<a href="register0.html">注册</a>
+			</div>
+			<!--      <span class="pull-left">&nbsp; &nbsp;&nbsp;|&nbsp; &nbsp;&nbsp; </span>
+      <div class="pull-left"> <a href="#">我的订单</a> </div>
+      <span class="pull-left">&nbsp; &nbsp;&nbsp;|&nbsp; &nbsp;&nbsp; </span>
+      <div class="pull-left"> <a href="#">我的豆豆</a> </div>-->
+			<span class="pull-left">&nbsp; &nbsp;&nbsp;|&nbsp; &nbsp;&nbsp; </span>
+			<div class="pull-left"> 
+				<a href="javascript:;" class="favorite"><span class="glyphicon glyphicon-star ion_star"></span>我要收藏</a>
+			</div>
+			<span class="pull-left">&nbsp; &nbsp;&nbsp;|&nbsp; &nbsp;&nbsp; </span>
+			<div class="pull-left">
+				<a class="help"  target='_blank'>帮助中心</a>
+			</div>
+			<span class="pull-left">&nbsp; &nbsp;&nbsp;|&nbsp; &nbsp;&nbsp; </span>
+			<div class="pull-left">
+				<a class="market"  target='_blank'>应用市场</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="index_soso">
+	<div class="box_wrapper clearfloat">
+		<div class="pull-left jdy_logo">
+			<a href="index.html"><img src="img/1_03.png" alt="" /></a>
+		</div>
+		<div class="pull-left">
+			<div class="vertMiddle">
+				<div class="dropdown city_select">
+					<p class="btn dropdown-toggle city" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true"> 杭州 <span class="caret "></span> </p>
+					<div id="citySearch" class="dropdown-menu city_card" role="menu" aria-labelledby="dropdownMenu1">
+						
+						<div id="citylist" class="clearfix">
+							<i class="fa fa-caret-up" aria-hidden="true"></i>
+							<div class="hotCity" id="hotCity">
+							</div>
+							<script id="hotCity-template" type="text/x-dot-template">
+								<h3>热门城市</h3>
+								<div class="hotList">
+									{{ for(var i in it) { }}
+										<a onClick="getCityData({{=it[i].code}})">{{=it[i].name}}</a>
+									{{ } }}
+								</div>
+							</script>
+							
+							<div class="searchCity">
+								<div class="inp">
+									<i class="fa fa-search" aria-hidden="true"></i>
+									<input id="searInp" type="text" name="" placeholder="搜索城市（支持汉字、拼音和首字母查询）">
+								</div>
+								<div class="searchList">
+								</div>
+								<script id="searchCity-template" type="text/x-dot-template">
+									{{ for(var i in it) { }}
+									<a onClick="getCityData({{=it[i]['2']}})">{{=it[i]['0']}}</a>
+									{{ } }}
+								</script>
+							</div>
+							<div class="tagBox">
+							</div>
+							<script id="cityList-template" type="text/x-dot-template">
+								<ul class="title clearfix">
+								{{ for(var i in it) { }}
+									<!-- <li class="pull-left active">ABCDE</li> -->
+									<li class="pull-left">{{=i}}</li>
+								{{ } }}
+								</ul>
+								<div class="allReasult">
+								{{ for(var i in it) { }}
+									<ul class="listCont{{=i}}">
+										{{for(var j in it[i]){ }}
+										<li class="clearfix">
+											<div class="label pull-left">{{=j}}</div>
+											<div class="detail clearfix">
+												{{for(var k in it[i][j]){ }}
+												<a class="pull-left" onClick="getCityData({{=it[i][j][k].code}})">{{=it[i][j][k].name}}</a>
+												{{ } }}
+											</div>
+										</li>
+										{{ } }}
+									</ul>
+								{{ } }}
+									
+								
+								</div>
+								
+							
+							</script>
+						</div>
+						
+					</div>
+				</div>
+				<div class="switch_tip">切换城市更精确</div>
+			</div>
+		</div>
+		<div class="pull-left index_sosoRight">
+			
+			<!-- 搜索框右侧 -->
+			<div class="div_soso clearfloat">
+				<div class="pull-left proTypeSreach">
+					<p class="proTypeShow"><span class="proTypeShowName">全部类型</span><span class="selectDown glyphicon glyphicon-triangle-bottom"></span><!-- <span class="selectUp glyphicon glyphicon-triangle-top"></span> --></p>
+					<ul class="proTypeLists">
+						<li value="0">全部类型</li>
+						<li value="10">周边短线</li>
+						<li value="11">国内长线</li>
+						<li value="20">出境旅游</li>
+						<li value="30">邮轮</li>
+						<li value="40">特色游</li>
+						<li value="50">自助游</li>
+					</ul>
+				</div>
+				<input class="pull-left" id="modal_CityiesBtn" type="text" />
+				<button class="pull-left" id="search_btn">搜索</button>
+				<div class="modal_Cityies" id="modal_Cityies">
+					<div class="recommend_left">
+						<ul id="TopconditionsearchData">
+
+						</ul>
+
+						<script id="TopconditionsearchDta-template" type="text/x-dot-template">
+							{{ for(var i in it) { }}
+
+							<li class="destination_recommend">
+								<div class="recommend_title">
+									<h4>{{=it[i].title_level_1}}</h4>
+								</div>
+								{{ for(var j in it[i].list_velve_1) { }}
+								<ul class="recommend_content clearfloat">
+
+									<span class="hotsoso pull-left">{{=it[i].list_velve_1[j].title_level_2}}：</span> {{ for(var p in it[i].list_velve_1[j].list_level_2) { }}
+									<li class="pull-left"><span><a href="product_list.html?{{= it[i].list_velve_1[j].list_level_2[p].label}}={{= it[i].list_velve_1[j].list_level_2[p].name_search}}"><span>{{= it[i].list_velve_1[j].list_level_2[p].name_search}}</span></a>
+										</span>
+									</li>
+									{{ } }}
+
+								</ul>
+								{{ } }}
+
+							</li>
+
+							{{ } }}
+						</script>
+					</div>
+				</div>
+			</div>
+			<!--<div class="clearfloat soso_recommend"> <span class="pull-left">热卖:&nbsp;&nbsp;:&nbsp;&nbsp;</span>
+        <ul class="pull-left">
+          <li class="pull-left">马尔代夫</li>
+          <li class="pull-left hotsoso">泰国</li>
+          <li class="pull-left">三亚</li>
+        </ul>
+      </div>-->
+		</div>
+		<div class="contactCustomer pull-right clearfloat">
+			<div class="icon_phone pull-left"></div>
+			<div class="serverTel pull-left">
+				<p>客服电话</p>
+				<h3>400-666-1861<i class="fa fa-caret-down"></i></h3>
+			</div>
+			<div class="icon_tree"></div>
+			<div class="floating">
+				<p><a href="tencent://message/?uin=3002991545&Site=金豆云旅游&Menu=yes" target="_blank">值班QQ：3002991545</a></p>
+				<p><a href="http://www.yy.com/yy8/" target="_blank">YY频道：15679544</a></p>
+				<div><a href="contentDetail.html?id=71" target="_blank" class="clearfloat"><span class="pull-left">更多联系方式</span><span class="pull-right">>></span></a></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="message"></div>
+<script type="text/javascript" src="js/common/alert.js"></script>
+<script type="text/javascript" src="js/index_header.js"></script>

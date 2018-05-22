@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.pic.AlbumMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.pic.Album">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="a_city" jdbcType="VARCHAR" property="aCity" />
+    <result column="a_type" jdbcType="INTEGER" property="aType" />
+    <result column="a_pid" jdbcType="BIGINT" property="aPid" />
+    <result column="a_name" jdbcType="VARCHAR" property="aName" />
+    <result column="a_status" jdbcType="INTEGER" property="aStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap type="com.jdy.b2b.api.model.pic.AlbumExt" id="AlbumExtMap">
+  	<id column="id" jdbcType="BIGINT" property="attachId" />
+	<result column="attachTotal" jdbcType="INTEGER" property="attachTotal" />
+	<result column="attachUrl" jdbcType="VARCHAR" property="attachUrl" />
+  </resultMap>
+  <resultMap id="ExtResultMap" extends="BaseResultMap" type="com.jdy.b2b.api.model.pic.Album">
+  <association property="albumExt" javaType="com.jdy.b2b.api.model.pic.AlbumExt" column="id" select="selecAlbumExt"></association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, company_id, a_city, a_type, a_pid, a_name, a_status, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <select id="selecAlbumExt" parameterType="long" resultMap="AlbumExtMap">
+	SELECT
+	count(1) AS attachTotal,
+	p_oss_name AS attachUrl,
+	id AS attachId
+	FROM
+		`cm_attach` c
+	WHERE
+		c.p_album_id =#{id}
+  </select>
+  <sql id="tableName">sr_album</sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sr_album
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sr_album
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.pic.Album" keyProperty="id" useGeneratedKeys="true">
+    insert into sr_album (id, company_id, a_city, 
+      a_type, a_pid, a_name, 
+      a_status, create_time, create_user, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT}, #{aCity,jdbcType=VARCHAR}, 
+      #{aType,jdbcType=INTEGER}, #{aPid,jdbcType=BIGINT}, #{aName,jdbcType=VARCHAR}, 
+      #{aStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.pic.Album">
+    insert into sr_album
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="aCity != null">
+        a_city,
+      </if>
+      <if test="aType != null">
+        a_type,
+      </if>
+      <if test="aPid != null">
+        a_pid,
+      </if>
+      <if test="aName != null">
+        a_name,
+      </if>
+      <if test="aStatus != null">
+        a_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="aCity != null">
+        #{aCity,jdbcType=VARCHAR},
+      </if>
+      <if test="aType != null">
+        #{aType,jdbcType=INTEGER},
+      </if>
+      <if test="aPid != null">
+        #{aPid,jdbcType=BIGINT},
+      </if>
+      <if test="aName != null">
+        #{aName,jdbcType=VARCHAR},
+      </if>
+      <if test="aStatus != null">
+        #{aStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.pic.Album">
+    update sr_album
+    <set>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="aCity != null">
+        a_city = #{aCity,jdbcType=VARCHAR},
+      </if>
+      <if test="aType != null">
+        a_type = #{aType,jdbcType=INTEGER},
+      </if>
+      <if test="aPid != null">
+        a_pid = #{aPid,jdbcType=BIGINT},
+      </if>
+      <if test="aName != null">
+        a_name = #{aName,jdbcType=VARCHAR},
+      </if>
+      <if test="aStatus != null">
+        a_status = #{aStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.pic.Album">
+    update sr_album
+    set company_id = #{companyId,jdbcType=BIGINT},
+      a_city = #{aCity,jdbcType=VARCHAR},
+      a_type = #{aType,jdbcType=INTEGER},
+      a_pid = #{aPid,jdbcType=BIGINT},
+      a_name = #{aName,jdbcType=VARCHAR},
+      a_status = #{aStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="queryList" resultMap="ExtResultMap">
+  SELECT <include refid="Base_Column_List"/> 
+  FROM  sr_album
+  <include refid="queryListWhere"/>
+  limit #{startNum},#{pageSize}
+  </select>  
+  <select id="queryListCount" resultType="int">
+  SELECT count(1)
+  FROM  sr_album
+  <include refid="queryListWhere"/>
+  </select> 
+  <sql id="queryListWhere">
+  	<where>
+	  	<if test="pcompanyId != null">
+	  	AND company_id=#{pcompanyId}
+	  	</if>
+	  	<if test="aCity != null">
+	  	AND a_city=#{aCity}
+	  	</if>
+	  	<if test="aName != null">
+  		<bind name="likeName" value="'%' +aName + '%'" />
+	  	AND a_name LIKE #{likeName}
+	  	</if>
+	  	<if test="aStatus != null">
+	  	AND a_status=#{aStatus}
+	  	</if>
+	  	<if test="aType != null">
+	  	AND a_type=#{aType}
+	  	</if>
+	  	<if test="aPid != null">
+	  	AND a_pid=#{aPid}
+	  	</if>
+  	</where>
+  </sql> 
+  <select id="queryListForProduct" resultMap="BaseResultMap">
+  SELECT <include refid="Base_Column_List"/>
+  FROM <include refid="tableName"/>
+  <include refid="listForPrdctWhere"/>
+  LIMIT #{startNum},#{pageSize}
+  </select>  
+  <select id="queryListForProductCount" resultType="int">
+  SELECT count(1)
+  FROM <include refid="tableName"/>
+  <include refid="listForPrdctWhere"/>
+  </select>  
+  <sql id="listForPrdctWhere">
+  <where>
+  	  <if test="aType !=null">
+	  AND a_type =#{aType} 
+	  </if>
+	  <choose>
+		<when test="companyId != 1">
+		AND company_id in (#{companyId} ,1)
+		</when>
+		<otherwise>
+		AND company_id=#{companyId}
+        </otherwise>
+     </choose>
+  </where>
+  </sql>  
+</mapper>

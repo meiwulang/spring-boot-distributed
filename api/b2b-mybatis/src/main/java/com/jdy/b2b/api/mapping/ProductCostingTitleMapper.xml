@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.ProductCostingTitleMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.ProductCostingTitle" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="rel_id" property="relId" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="people_num" property="peopleNum" jdbcType="INTEGER" />
+    <result column="people_num_explain" property="peopleNumExplain" jdbcType="VARCHAR" />
+    <result column="is_exempt" property="isExempt" jdbcType="TINYINT" />
+    <result column="is_exempt_explain" property="isExemptExplain" jdbcType="VARCHAR" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="percentage" property="percentage" jdbcType="SMALLINT" />
+    <result column="product_type" property="productType" jdbcType="TINYINT" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, rel_id, type, people_num, people_num_explain, is_exempt, is_exempt_explain, begin_time,
+    end_time, percentage, product_type, company_id, create_user, create_time, update_user,
+    update_time,status,remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from ct_product_costing_title
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ct_product_costing_title
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.ProductCostingTitle" >
+    insert into ct_product_costing_title (id, rel_id, type,
+    people_num, people_num_explain, is_exempt,
+    is_exempt_explain, begin_time, end_time,
+    percentage, product_type, company_id,
+    create_user, create_time, update_user,
+    update_time,status,remark)
+    values (#{id,jdbcType=BIGINT}, #{relId,jdbcType=BIGINT}, #{type,jdbcType=TINYINT},
+    #{peopleNum,jdbcType=INTEGER}, #{peopleNumExplain,jdbcType=VARCHAR}, #{isExempt,jdbcType=TINYINT},
+    #{isExemptExplain,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+    #{percentage,jdbcType=SMALLINT}, #{productType,jdbcType=TINYINT}, #{companyId,jdbcType=BIGINT},
+    #{createUser,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT},
+    #{updateTime,jdbcType=TIMESTAMP},#{status},#{remark})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.jdy.b2b.api.model.ProductCostingTitle" >
+    insert into ct_product_costing_title
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="relId != null" >
+        rel_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="peopleNum != null" >
+        people_num,
+      </if>
+      <if test="peopleNumExplain != null" >
+        people_num_explain,
+      </if>
+      <if test="isExempt != null" >
+        is_exempt,
+      </if>
+      <if test="isExemptExplain != null" >
+        is_exempt_explain,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="percentage != null" >
+        percentage,
+      </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="relId != null" >
+        #{relId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="peopleNum != null" >
+        #{peopleNum,jdbcType=INTEGER},
+      </if>
+      <if test="peopleNumExplain != null" >
+        #{peopleNumExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="isExempt != null" >
+        #{isExempt,jdbcType=TINYINT},
+      </if>
+      <if test="isExemptExplain != null" >
+        #{isExemptExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="percentage != null" >
+        #{percentage,jdbcType=SMALLINT},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=TINYINT},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.ProductCostingTitle" >
+    update ct_product_costing_title
+    <set >
+      <if test="relId != null" >
+        rel_id = #{relId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="peopleNum != null" >
+        people_num = #{peopleNum,jdbcType=INTEGER},
+      </if>
+      <if test="peopleNumExplain != null" >
+        people_num_explain = #{peopleNumExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="isExempt != null" >
+        is_exempt = #{isExempt,jdbcType=TINYINT},
+      </if>
+      <if test="isExemptExplain != null" >
+        is_exempt_explain = #{isExemptExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="percentage != null" >
+        percentage = #{percentage,jdbcType=SMALLINT},
+      </if>
+      <if test="productType != null" >
+        product_type = #{productType,jdbcType=TINYINT},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.ProductCostingTitle" >
+    update ct_product_costing_title
+    set rel_id = #{relId,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      people_num = #{peopleNum,jdbcType=INTEGER},
+      people_num_explain = #{peopleNumExplain,jdbcType=VARCHAR},
+      is_exempt = #{isExempt,jdbcType=TINYINT},
+      is_exempt_explain = #{isExemptExplain,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      percentage = #{percentage,jdbcType=SMALLINT},
+      product_type = #{productType,jdbcType=TINYINT},
+      company_id = #{companyId,jdbcType=BIGINT},
+      create_user = #{createUser,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectProductCostingTitleListById" resultType="java.util.Map">
+    SELECT
+      a.id as id,
+      b.u_real_name as userName,
+      a.create_time as createTime,
+      a.begin_time as startDate,
+      a.end_time as endDate,
+      TRUNCATE(sum(d.unit_price*d.amount)/a.people_num,2) as unitPrice
+    FROM
+      ct_product_costing_title a
+    INNER JOIN sm_user b on b.id = a.create_user
+    LEFT JOIN ct_product_costing_category_detail d on a.id = d.product_costing_title_id
+    <where>
+    <if test="productId != null">AND a.rel_id = #{productId}</if>
+    <if test="scheduleId != null">AND a.rel_id = #{scheduleId}</if>
+    <if test="type != null">AND a.type = #{type}</if>
+    <if test="productType != null">AND a.product_type = #{productType}</if>
+    <if test="companyId != null">AND a.company_id = #{companyId}</if>
+    </where>
+    GROUP by a.id
+    ORDER BY a.create_time DESC
+  </select>
+
+  <select id="queryCostingTitleList" resultType="map">
+    SELECT
+      t.*,
+      u1.u_real_name AS createUserName,
+      u2.u_real_name AS updateUserName
+    FROM sm_user u1, ct_product_costing_title t
+      LEFT JOIN sm_user u2 ON u2.id = t.update_user
+    WHERE t.type = 2 AND t.rel_id = #{scheduleId}
+          AND u1.id = t.create_user
+    ORDER BY t.create_time DESC
+  </select>
+
+  <resultMap id="ProductCostingCategoryInformation" type="com.jdy.b2b.api.model.ProductCostingCategoryInformation">
+    <result column="category_id" property="categoryId"/>
+    <result column="d_name" property="categoryName"/>
+    <collection property="productCostingCategoryDetailList" javaType="list" ofType="com.jdy.b2b.api.model.ProductCostingCategoryDetail">
+      <result column="id" property="id"/>
+      <result column="content" property="content"/>
+      <result column="amount" property="amount"/>
+      <result column="unit" property="unit"/>
+      <result column="unit_price" property="unitPrice"/>
+      <result column="remark" property="remark"/>
+    </collection>
+  </resultMap>
+
+  <select id="selectProductCostingCategoryInformationById" resultMap="ProductCostingCategoryInformation" parameterType="java.lang.Long">
+    SELECT
+      c.id,
+      a.d_sort AS category_id,
+      a.d_name,
+      c.content,
+      c.amount,
+      c.unit,
+      c.unit_price,
+      c.remark
+    FROM
+      sm_dictionaries a
+    LEFT JOIN ct_product_costing_category_detail c ON c.category_id = a.d_sort AND c.product_costing_title_id = #{productCostingTitleId}
+    WHERE
+        a.d_group_id = 240
+    ORDER BY a.d_sort DESC, c.id ASC
+  </select>
+
+  <select id="selectProductCostingTitleByTypeAndId" resultType="com.jdy.b2b.api.model.ProductCostingAllInformation" parameterType="com.jdy.b2b.api.model.ProductCostingQueryDTO">
+    SELECT
+      a.id as id,
+      b.p_name AS productName,
+      a.people_num AS peopleNum,
+      a.people_num_explain AS peopleNumExplain,
+      a.is_exempt AS isExempt,
+      a.is_exempt_explain AS isExemptExplain,
+      a.begin_time AS beginTime,
+      a.end_time AS endTime,
+      a.percentage AS percentage
+    FROM
+        ct_product_costing_title a
+    <if test="type == 1">INNER JOIN ct_product b ON b.id = a.rel_id</if>
+    <if test="type == 2">
+      INNER JOIN ct_schedule c on c.id = a.rel_id
+      INNER JOIN ct_product b ON b.id = c.s_product_id
+    </if>
+    <where>
+      <if test="id != null">AND a.id = #{id}</if>
+      <if test="productId != null">AND a.rel_id = #{productId}</if>
+      <if test="scheduleId != null">AND a.rel_id = #{scheduleId}</if>
+      <if test="type != null">AND a.type = #{type}</if>
+      <if test="productType != null">AND a.product_type = #{productType}</if>
+      <if test="companyId != null">AND a.company_id = #{companyId}</if>
+      <if test="updateTime != null">
+        <![CDATA[
+          AND DATE_FORMAT(a.create_time,'%Y-%m-%d:%H:%i:%S') < #{updateTime}
+        ]]>
+      </if>
+      ORDER BY a.id DESC limit 1
+    </where>
+  </select>
+
+  <select id="selectGenerateCostingInformationByScheduleId" resultType="com.jdy.b2b.api.model.GenerateCostingInformation">
+    SELECT
+	  b.id AS productId,
+	  c.return_date AS updateTime,
+	  c.departure_status as departureStatus
+    FROM
+      ct_schedule a
+    INNER JOIN ct_product b on b.id = a.s_product_id
+    INNER JOIN ct_schedule_setting c ON c.schedule_id = a.id
+    WHERE a.id = #{scheduleId}
+  </select>
+
+  <delete id="deleteByIdAndType" >
+    DELETE FROM ct_product_costing_title WHERE rel_id = #{relId} AND type = #{type}
+  </delete>
+
+  <select id="selectByRelIdAndType" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List" />
+    FROM ct_product_costing_title a
+    WHERE a.rel_id = #{relId} AND a.type = #{type} AND a.company_id = #{companyId}
+  </select>
+
+  <select id="selectProductCompanyIdByProductCostingTitleIdAndType" resultType="java.lang.Long">
+    SELECT
+        b.company_id
+    FROM
+        ct_product_costing_title a
+    <if test="type == 1">
+      INNER JOIN ct_product b on b.id = a.rel_id
+    </if>
+    <if test="type == 2">
+      INNER JOIN ct_schedule c on c.id = a.rel_id
+      INNER JOIN ct_product b on b.id = c.s_product_id
+    </if>
+    WHERE
+        a.type = #{productCostingTitleId}
+    AND a.rel_id = #{type}
+  </select>
+  <select id="selectByProductId" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM ct_product_costing_title WHERE rel_id = #{productId} and type = 1
+  </select>
+    <select id="selectNewestCostUnitPriceByProductId" resultType="java.math.BigDecimal">
+       SELECT ifnull(num,0) num
+        FROM (SELECT
+                pc.create_time,
+                sum(pcd.unit_price) num
+              FROM ct_product_costing_title pc
+                JOIN ct_product_costing_category_detail pcd ON pc.id = pcd.product_costing_title_id
+              WHERE pc.rel_id = #{productId} AND pc.type = 1
+              GROUP BY pc.id) a
+        ORDER BY create_time DESC
+        LIMIT 1
+    </select>
+    <select id="selectNewestCostUnitPriceByProductIdAndDate" resultType="java.math.BigDecimal">
+       SELECT ifnull(num,0) num
+        FROM (SELECT
+                pc.create_time,
+                sum(pcd.unit_price) num
+              FROM ct_product_costing_title pc
+                JOIN ct_product_costing_category_detail pcd ON pc.id = pcd.product_costing_title_id
+              WHERE pc.rel_id = #{productId} AND pc.type = 1
+              and  (#{suitableTime} BETWEEN begin_time  and end_time)
+              GROUP BY pc.id) a
+        ORDER BY create_time DESC
+        LIMIT 1
+    </select>
+
+  <select id="queryProductCostDTOById" parameterType="java.lang.Long" resultType="com.jdy.b2b.api.model.ProductCostDTO">
+    SELECT
+        t.id,t.rel_id AS prodId,
+        t.company_id AS companyId,
+        t.type as type,
+        t.people_num as peopleNum,
+        t.people_num_explain as peopleNumExplain,
+        t.is_exempt as isExempt,
+        t.is_exempt_explain as isExemptExplain,
+        t.begin_time as beginTime,
+        t.end_time as endTime,
+        t.percentage,
+        t.product_type as productType,
+        t.status,
+        t.create_user as createUser,
+        t.update_user as updateUser,
+        t.create_time as createTime,
+        t.update_time as updateTime,
+        t.remark,
+        SUM(t1.amount*t1.unit_price) AS costAmt,
+        SUM(t1.amount*t1.unit_price)/IFNULL(t.people_num,1) AS costPersonAmt
+    FROM  ct_product_costing_title t,ct_product_costing_category_detail t1
+    WHERE t.id = t1.product_costing_title_id
+    AND t.id = #{id}
+    AND t.type =1
+    GROUP BY t.id
+    limit 1
+  </select>
+</mapper>

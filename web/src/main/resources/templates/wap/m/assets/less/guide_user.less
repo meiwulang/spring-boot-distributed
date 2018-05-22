@@ -1,0 +1,163 @@
+@import './common.less';
+@import './lib/swiper.3.4.0.less';
+
+#wrap{
+	padding-bottom: 0;
+	.acti_header{
+		color: #333;
+		height: 45px;
+	    line-height: 45px;
+	    background-color: #fff;
+	    text-align: center;
+	    position: fixed;
+	    font-size: 16px;
+	    box-shadow: 0px 0px 1px #ccc;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    z-index: 10;
+		.lef{
+			position: absolute;
+		    width: 45px;
+		    height: 45px;
+		    left: 0;
+		    top: 0;
+		    background: url('@{img}/icon_arr_back.png') center center no-repeat;
+		    background-size: 9px auto;
+		}
+		
+	}
+	.main{
+		padding-top: 45px; 
+		.mation{
+			dl{
+				dt{
+					box-sizing: border-box;
+					padding-left: 15px;
+					line-height: 35px;
+					height: 35px;
+					color: #333;
+					.down{
+						margin-left: 3px;
+						display: inline-block;
+						height: 7px;
+						width: 14px;
+						background: url('@{img}/bills/down.png') center center no-repeat;
+					    background-size: 100% 100%;
+					}
+				}
+				dd{
+					margin-top: 10px;
+					box-sizing: border-box;
+					background: #fff;
+					padding-left: 15px;
+					.tit{
+						box-sizing: border-box;
+						padding: 15px;
+						padding-left: 0;
+					}
+					.cont{
+						overflow: hidden;
+						box-sizing: border-box;
+						padding-right: 15px;
+						padding-bottom: 10px;
+						.lefts{
+							width: 80%;
+							float: left;
+							.tim{
+								width: 100%;
+								font-size: 12px;
+								color: #666;
+								display: inline-block;
+								height: 22px;
+								line-height: 22px;
+								span{
+									display: inline-block;
+									width: 14px;
+									height: 14px;
+									background: url('@{img}/bills/tim.png') center no-repeat;
+									background-size: 100% 100%;
+									margin-right: 8px;
+									margin-top: 2px;
+									float: left;
+
+								}
+							}
+							.tims{
+								span{
+									background: url('@{img}/bills/tims.png') center center no-repeat;
+									background-size: 100% 100%;
+								}
+							}
+						}
+						.rights{
+							width: 20%;
+							float: right;
+							text-align: right;
+							
+							p{
+								height: 22px;
+								font-size: 14px;
+								color: #fb2a35;
+							}
+							span{
+								font-size: 11px;
+								color: #999;
+								height: 22px;
+								line-height: 22px;
+							}
+						}
+					}
+
+				}
+			}
+			.lx{
+				margin-top: 10px;
+				background: #fff;
+				padding-left: 15px;
+				width: 100%;
+				box-sizing: border-box;
+				li{
+					border-bottom: 1px solid #e7e7e7;
+					overflow: hidden;
+					padding: 13px 0;
+					padding-right: 15px;
+					padding-left: 0px;
+					box-sizing: border-box;
+					div{
+						float: left;
+					}
+					.titls{
+						color: #666;
+						width: 25%;
+					}
+					.mations{
+						width: 75%;
+						color: #333;
+						font-size: 14px;
+						span{
+							color: #84b6fb;
+							a{
+								color: #84b6fb; 
+							}
+						}
+					}
+					.prace{
+						color: #fb2a35;
+						.mon{
+							color: #fb2a35;
+							font-size: 10px;
+						}
+					}
+				}
+				li:last-child{
+					border-bottom: none;
+				}
+				.tit{
+					font-size: 14px;
+				}
+			}
+
+		}
+	}
+}

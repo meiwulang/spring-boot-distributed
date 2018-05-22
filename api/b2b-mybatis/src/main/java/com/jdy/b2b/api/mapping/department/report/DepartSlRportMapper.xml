@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.department.report.DepartSlRportMapper">
+<!-- 	<select id="getTotalData" resultType="hashmap"> -->
+<!-- 		SELECT -->
+<!-- 		COUNT(DISTINCT o.id)orderTotalCount,IFNULL(SUM(o_market_price), "0.00") moneyTotalCount  -->
+<!-- 		FROM sm_user u LEFT JOIN sl_order o ON u.id= o.o_buyer_id AND -->
+<!-- 		u.company_id=999999 AND u.u_type=1 AND u.u_department_code IN -->
+<!-- 		<foreach collection="dIds" item="t" close=")" open="(" separator=",">#{t}</foreach> -->
+<!-- 		 AND o_buyer_company_id=999999 AND o_status=3 AND DATEDIFF(o.update_time,#{endDate}) &lt;0 -->
+<!-- 	</select> -->
+	<select id="getFirstLevelDepartments" resultType="hashmap">
+		SELECT id
+		dId,id dCode,d_name dName FROM sm_department WHERE
+		1=1<!-- company_id=999999 -->
+		<if test="companyId != null">
+		AND company_id=#{companyId}
+		</if>
+		 AND d_level=1 AND d_status=0
+	</select>
+	<select id="getAllChildCompanysInfo" parameterType="com.jdy.b2b.api.model.department.report.DepartSaleReportDO" resultType="hashmap">
+		SELECT
+			  depart.id,
+			  depart.orderCount,
+			  depart.moneyCount,
+			  depart.incomeAmount,
+			  depart.groupConcat,
+			  IFNULL(orgin.d_nick_name,IFNULL(orgin.d_name,"其他")) name,
+			  '1' type
+			FROM (
+				   SELECT
+					 left(d.d_pids, position('-' IN d.d_pids) - 1) id,
+					 count(report.id)                              orderCount,
+					 ifnull(sum(report.order_money), 0)            moneyCount,
+					ifnull(sum(report.op_pay_amount), 0) incomeAmount,
+					group_concat(d.id)  groupConcat
+				   FROM sm_department d
+					 <!-- LEFT JOIN sl_orders_report report ON report.depart_id = d.id AND report.company_id = 0 -->
+					LEFT JOIN
+					(
+						select t.id,t.company_id,t.depart_id,t.ss_day,
+						t.order_id,t.order_money,SUM(IFNULL(p.op_pay_amount,0)) as op_pay_amount
+						FROM sl_orders_report t
+						LEFT JOIN
+						(
+							select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+							GROUP BY op_order_id
+						) p ON (t.order_id = p.op_order_id)
+						GROUP BY t.order_id
+					) report ON (report.depart_id = d.id AND report.company_id = 0)
+					<choose>
+						<when test="type == 1">
+							AND DATEDIFF(ss_day,#{date}) &gt;=0
+							AND DATEDIFF(ss_day,#{endDate}) &lt;0
+						</when>
+						<when test="type == 3 or type == 4">
+							AND DATEDIFF(ss_day,#{date}) &gt;=0
+							AND DATEDIFF(ss_day,#{endDate}) &lt;=0
+						</when>
+						<when test="type == 2">
+							AND ss_day &gt;= #{date}
+							AND ss_day &lt; #{endDate}
+						</when>
+						<when test="type == 5">
+							AND DATE_FORMAT(ss_day, '%Y') = DATE_FORMAT(#{date}, '%Y')
+						</when>
+						<otherwise>
+							AND DATEDIFF(ss_day,#{endDate}) &lt;=0
+						</otherwise>
+					</choose>
+					where d.d_status = 0
+				   GROUP BY id
+				 ) depart
+			  INNER JOIN sm_department orgin ON orgin.id = depart.id and orgin.d_pid = 0 and orgin.company_id = 0
+			UNION
+			SELECT
+			  c.id,
+			  count(report.id)                   orderCount,
+			  ifnull(sum(report.order_money), 0) moneyCount,
+			  ifnull(sum(report.op_pay_amount), 0) incomeAmount,
+			  '' groupConcat,
+			  c.c_name                           name,
+			  '0' type
+			FROM sm_company c
+			  <!--LEFT JOIN sl_orders_report report ON  report.company_id != 0 AND report.company_id = c.id -->
+				LEFT JOIN
+				(
+					select t.id,t.company_id,t.depart_id,t.ss_day,
+					t.order_id,t.order_money,SUM(IFNULL(p.op_pay_amount,0)) as op_pay_amount
+					FROM sl_orders_report t
+					LEFT JOIN
+					(
+						select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+						GROUP BY op_order_id
+					) p ON (t.order_id = p.op_order_id)
+					GROUP BY t.order_id
+				) report ON (report.company_id = c.id AND report.company_id != 0)
+				<choose>
+					<when test="type == 1">
+						AND DATEDIFF(ss_day,#{date}) &gt;=0
+						AND DATEDIFF(ss_day,#{endDate}) &lt;0
+					</when>
+					<when test="type == 3 or type == 4">
+						AND DATEDIFF(ss_day,#{date}) &gt;=0
+						AND DATEDIFF(ss_day,#{endDate}) &lt;=0
+					</when>
+					<when test="type == 2">
+						AND ss_day &gt;= #{date}
+						AND ss_day &lt; #{endDate}
+					</when>
+					<when test="type == 5">
+						AND DATE_FORMAT(ss_day, '%Y') = DATE_FORMAT(#{date}, '%Y')
+					</when>
+					<otherwise>
+						AND DATEDIFF(ss_day,#{endDate}) &lt;=0
+					</otherwise>
+				</choose>
+			WHERE c.c_pid = 0 and c.c_status = 1
+			GROUP BY c.id
+			ORDER BY moneyCount DESC
+	</select>
+	<select id="getAllDepartmentsInfo" resultType="hashmap" parameterType="com.jdy.b2b.api.model.department.report.DepartSaleReportDO">
+		SELECT
+			IFNULL(depart_id,"-1") dId,
+			IFNULL(depart_id,"-1") dCode,
+<!-- 			IFNULL(depart_name,"其他") dName, -->
+			IFNULL(sm_department.d_nick_name,IFNULL(depart_name,"其他")) dName,
+			SUM(order_money) moneyCount,
+			SUM(IFNULL(p.op_pay_amount,0)) incomeAmount,
+			"" managerName,
+			COUNT(order_id) orderCount
+		FROM
+			sl_orders_report
+		LEFT JOIN
+		(
+			select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+			GROUP BY op_order_id
+		) p ON (sl_orders_report.order_id = p.op_order_id)
+		INNER JOIN sm_department ON (sm_department.id=sl_orders_report.depart_id)
+		WHERE 1=1
+        <if test="companyId != null">AND sl_orders_report.company_id=#{companyId}</if>
+		<if test="departmentId != null">AND depart_id=#{departmentId}</if>
+		<if test="userId != null">AND user_id=#{userId}</if>
+		<if test="productId != null">AND product_id=#{productId}</if>
+		<choose>
+			<when test="type == 1">
+			AND DATEDIFF(ss_day,#{date}) &gt;=0
+			AND DATEDIFF(ss_day,#{endDate}) &lt;0
+			</when>
+			<when test="type == 3 or type == 4">
+			AND DATEDIFF(ss_day,#{date}) &gt;=0
+			AND DATEDIFF(ss_day,#{endDate}) &lt;=0
+			</when>
+			<when test="type == 2">
+			AND ss_day &gt;= #{date}
+			AND ss_day &lt; #{endDate}
+			</when>
+			<when test="type == 5">
+			AND DATE_FORMAT(ss_day, '%Y') = DATE_FORMAT(#{date}, '%Y') 
+			</when>
+			<otherwise>
+			AND DATEDIFF(ss_day,#{endDate}) &lt;=0
+			</otherwise>
+		</choose>
+		GROUP BY depart_id
+	</select>
+	<select id="getReportInfoByTime" resultType="hashmap">
+		<choose>
+		<when test="type == 5">
+			SELECT 
+			"第一季度" dateTime,
+				IFNULL(SUM(order_money),0.00)moneyCount
+				,IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount
+				,COUNT(order_id)orderCount 
+			FROM `sl_orders_report`
+			LEFT JOIN
+			(
+				select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+				GROUP BY op_order_id
+			) p ON (sl_orders_report.order_id = p.op_order_id)
+			WHERE
+			DATE_FORMAT(ss_day,"%Y%m%d") &gt;=CONCAT(left(#{date},4),"0101")
+			AND DATE_FORMAT(ss_day,"%Y%m%d") &lt;=CONCAT(left(#{date},4),"0331")
+	    <if test="companyId != null">AND company_id=#{companyId}</if>
+		<if test="departmentId != null">AND depart_id=#{departmentId}</if>
+		<if test="userId != null">AND user_id=#{userId}</if>
+		<if test="productId != null">AND product_id=#{productId}</if>
+			UNION ALL
+			SELECT 
+			"第二季度" dateTime,
+				IFNULL(SUM(order_money),0.00)moneyCount
+				,IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount
+				,COUNT(order_id)orderCount
+			FROM `sl_orders_report`
+			LEFT JOIN
+			(
+				select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+				GROUP BY op_order_id
+			) p ON (sl_orders_report.order_id = p.op_order_id)
+			WHERE
+			DATE_FORMAT(ss_day,"%Y%m%d") &gt;=CONCAT(left(#{date},4),"0401")
+			AND DATE_FORMAT(ss_day,"%Y%m%d") &lt;=CONCAT(left(#{date},4),"0630")
+	    <if test="companyId != null">AND company_id=#{companyId}</if>
+		<if test="departmentId != null">AND depart_id=#{departmentId}</if>
+		<if test="userId != null">AND user_id=#{userId}</if>
+		<if test="productId != null">AND product_id=#{productId}</if>			
+			UNION ALL
+			SELECT 
+			"第三季度" dateTime,
+				IFNULL(SUM(order_money),0.00)moneyCount
+				,IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount
+				,COUNT(order_id)orderCount
+			FROM `sl_orders_report`
+			LEFT JOIN
+			(
+				select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+				GROUP BY op_order_id
+			) p ON (sl_orders_report.order_id = p.op_order_id)
+			WHERE
+			DATE_FORMAT(ss_day,"%Y%m%d") &gt;=CONCAT(left(#{date},4),"0701")
+			AND DATE_FORMAT(ss_day,"%Y%m%d") &lt;=CONCAT(left(#{date},4),"0930")
+	    <if test="companyId != null">AND company_id=#{companyId}</if>
+		<if test="departmentId != null">AND depart_id=#{departmentId}</if>
+		<if test="userId != null">AND user_id=#{userId}</if>
+		<if test="productId != null">AND product_id=#{productId}</if>			
+			UNION ALL
+			SELECT 
+			"第四季度" dateTime,
+				IFNULL(SUM(order_money),0.00)moneyCount
+				,IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount
+				,COUNT(order_id)orderCount
+			FROM `sl_orders_report`
+			LEFT JOIN
+			(
+				select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+				GROUP BY op_order_id
+			) p ON (sl_orders_report.order_id = p.op_order_id)
+			WHERE
+			DATE_FORMAT(ss_day,"%Y%m%d") &gt;=CONCAT(left(#{date},4),"1001")
+			AND DATE_FORMAT(ss_day,"%Y%m%d") &lt;=CONCAT(left(#{date},4),"1231")	
+	    <if test="companyId != null">AND company_id=#{companyId}</if>
+		<if test="departmentId != null">AND depart_id=#{departmentId}</if>
+		<if test="userId != null">AND user_id=#{userId}</if>
+		<if test="productId != null">AND product_id=#{productId}</if>				
+		</when>
+		<otherwise>
+				SELECT 
+				<choose>
+			<!-- 	0表示总计，1表示月统计，2表示日统计，3表示周统计，4表示季统计，5表示年统计 -->
+				<when test="type == 1">
+					DATE_FORMAT(ss_day,'%Y年%m月%d日')
+				</when>
+				<when test="type == 2">
+					CONCAT(date_format(ss_day,'%H'),":00-",DATE_FORMAT(timestamp(ss_day, '01:00:00'),'%H'),":00") 
+				</when>
+				<when test="type == 3">	
+					CASE
+						DAYOFWEEK(ss_day)
+						WHEN 1 THEN '周日'
+						WHEN 2 THEN '周一'
+						WHEN 3 THEN '周二'
+						WHEN 4 THEN '周三'
+						WHEN 5 THEN '周四'
+						WHEN 6 THEN '周五'
+						WHEN 7 THEN '周六'
+					END
+				</when>
+				<when test="type == 4">DATE_FORMAT(ss_day,'%Y年%m月')</when>
+			<!-- 	<when test="type == 5"></when> -->
+				</choose>
+					dateTime,
+					SUM(order_money)moneyCount
+					,IFNULL(SUM(p.op_pay_amount),0.00) AS incomeAmount
+					,COUNT(order_id)orderCount
+			FROM `sl_orders_report`
+				LEFT JOIN
+				(
+					select op_order_id,IFNULL(SUM(op_pay_amount),0) AS op_pay_amount from sl_order_pay
+					GROUP BY op_order_id
+				) p ON (sl_orders_report.order_id = p.op_order_id)
+				<where>
+				    <if test="companyId != null">AND company_id=#{companyId}</if>
+					<if test="departmentId != null">AND depart_id=#{departmentId}</if>
+					<if test="userId != null">AND user_id=#{userId}</if>
+		<if test="productId != null">AND product_id=#{productId}</if>				
+					<choose>
+						<when test="type == 1">
+							AND DATEDIFF(ss_day,#{date}) &gt;=0
+							AND DATEDIFF(ss_day,#{endDate}) &lt;0		
+						</when>
+						<when test="type == 2">
+							AND ss_day &gt;= #{date}
+							AND ss_day &lt;  #{endDate}
+						</when>
+						<when test="type == 3 or type == 4">
+							AND DATEDIFF(ss_day,#{date}) &gt;=0
+							AND DATEDIFF(ss_day,#{endDate}) &lt;=0
+						</when>
+					</choose>
+					
+				</where>
+				<choose>
+					<when test="type == 1">GROUP BY date_format(ss_day,'%Y-%m-%d')</when>
+					<when test="type == 2">GROUP BY date_format(ss_day,'%Y-%m-%d %h')</when>
+					<when test="type == 3">GROUP BY dayofweek(ss_day)</when>
+					<when test="type == 4">GROUP BY date_format(ss_day,'%Y-%m')</when>
+				</choose>		
+			
+			</otherwise>
+		</choose>
+		
+	</select>
+	<select id="getDepartmentManagerBydCode" resultType="hashmap">
+		SELECT
+		u.u_real_name managerName FROM `sm_user`u WHERE 1=1<!-- u.company_id=999999 -->
+<!-- 		<if test="companyId != null"> -->
+<!-- 		AND company_id=#{companyId} -->
+<!-- 		</if>		 -->
+		AND u.u_dtype=1 AND u_department_id =#{dCode} limit 0,1
+	</select>
+	<select id="getDepartmentOrderInfo" resultType="hashmap">
+		SELECT
+		COUNT(DISTINCT o.id)orderCount,IFNULL(SUM(o.o_real_pay), "0.00") moneyCount
+		FROM sm_user u LEFT JOIN sl_order o ON u.id= o.o_buyer_id AND
+		1=1<!-- u.company_id=999999 -->
+		<if test="companyId != null">
+		AND company_id=#{companyId}
+		</if>		 
+		 AND u.u_type=1 AND u.u_department_id =
+		#{dCode} AND o.o_status=3
+		<choose>
+			<when test="type == 1">
+			AND DATEDIFF(o.update_time,#{date}) &gt;=0
+			AND DATEDIFF(o.update_time,#{endDate}) &lt;=0
+			</when>
+			<when test="type == 2">
+			AND DATEDIFF(o.update_time,#{date}) =0
+			</when>
+			<otherwise>
+			AND DATEDIFF(o.update_time,#{endDate}) &lt;=0
+			</otherwise>
+		</choose>
+	</select>
+</mapper>

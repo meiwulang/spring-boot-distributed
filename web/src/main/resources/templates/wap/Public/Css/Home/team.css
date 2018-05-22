@@ -1,0 +1,597 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft YaHei';
+    font-size: 12px;
+}
+ul,li{
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+i,em {font-style: normal}
+.clear{
+    clear: both;
+}
+body{
+    background: #F6F6F6;
+}
+input::-webkit-input-placeholder {color:#DDDDDD;}
+textarea {
+    box-shadow:inset 0 0 4px #DDDDDD;
+}
+
+.float-right {
+    float: right;
+    font-size: 12px;
+    font-family: '宋体';
+    color:#bbb;
+    margin-right: 10px;
+}
+
+#team-box {
+    width: 1020px;
+    padding-bottom: 30px;
+    background: #ffffff;
+    border:1px solid #DDDDDD;
+    box-shadow: 1px 2px 3px #ddd;
+    margin:10px auto;
+}
+#team-top {
+    height: 100px;
+    background:#F9F9F9;
+    margin-bottom: 15px;
+}
+#team-item .tt-title {
+    width: 100px;
+    text-align: center;
+}
+#team-item .team-table td {
+    padding: 5px;
+    border:1px solid #DDDDDD;
+    font: 13px 'Microsoft Yahei';
+}
+#team-item .team-table .txt,#team-stroke .txt,#team_traffic .txt {
+    display: none;
+}
+
+#team-stroke .team-main input,#team-stroke .team-main textarea {
+    font-size: 13px;
+    font-family: '宋体' arial;
+}
+
+#team-item .team-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+}
+#team-item .team-table {
+    margin: auto;
+    border-top: 2px solid #999;
+}
+#team-item .tt-info {
+    width:185px;
+    color:#666666;
+}
+#team-item input[name=pop_big],#team-item input[name=pop_small],#team-item input[name=pop_tiny],#team-item input[name=pop_guide]{
+    width: 23px;
+    padding-right: 5px;
+    text-align: right;
+    margin-right: 2px;
+    margin-left: 3px;;
+}
+#team-item .team-from {
+    border: 1px solid #DDDDDD;
+    height:26px;
+    line-height: 26px;
+    padding-left: 8px;
+    width: 255px;
+}
+
+
+
+#team-stroke {
+    width:1000px;
+    margin: auto;
+}
+#team-stroke .team-title {
+    height:50px;
+    line-height: 50px;
+    padding:0px 5px;
+}
+#team-stroke .team-title .title {
+    font-weight: bold;
+    font-size: 18px;
+    color:#999;
+    display: inline-block;
+    width: 80px;
+}
+#team-stroke .team-title .title-txt {
+    width: 760px;
+    border:none;
+    border-bottom: 1px solid #DDDDDD;
+    height:30px;
+    line-height: 30px;
+    font-size: 16px;
+    padding: 0 10px;
+    outline: none;
+    color:#666666;
+}
+#team-stroke .title-select,#team-stroke .scenic-select {
+    display: inline-block;
+    width: 100px;
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    background:#009DD9;
+    color:#FFFFFF;
+    cursor: pointer;
+    margin-left: 5px;
+}
+#team-stroke .title-select:hover,#team-stroke .scenic-select:hover {
+    background:#008DC4;
+}
+
+#team-stroke .team-main {
+    margin-top:20px;
+}
+
+#team-stroke .tm-table {
+    margin-left:20px;
+    border-left:1px solid #DDDDDD;
+    padding-left:5px;
+    position: relative;
+}
+#team-stroke .days-id {
+    position: absolute;
+    left:-20px;
+    top:0;
+    background:#009DD9;
+    text-align: center;
+    width:28px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 50%;
+    color:#FFFFFF;
+}
+#team-stroke .days-title {
+    display: inline-block;
+    width:110px;
+    text-align: right;
+    float: left;
+    height:30px;
+    line-height: 30px;
+    padding-right: 5px;
+}
+#team-stroke .days-list {
+    padding: 8px 0;
+}
+.scenic_items_list {
+    display: none;
+}
+#team-stroke .days-from {
+    width: 840px;
+    height:30px;
+    line-height: 30px;
+    padding:0 5px;
+    border:1px solid #DDDDDD;
+}
+#team-stroke textarea[name=detail_id]{
+    line-height: 18px;
+}
+#team-stroke .days-exit {
+    width: 80px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    color:#008DC4
+}
+#team-stroke .days-exit .fa {
+    color:#999
+}
+#team-stroke .food-cls {
+    cursor: pointer;
+    padding-right: 5px;
+}
+#team-stroke .food-cls input {
+    vertical-align: middle;
+}
+#team-stroke .hide-cls {
+    display: none;
+}
+#team-stroke .scenic_msg {
+    border-top: 1px dashed #DDDDDD;
+}
+#team-stroke .team_days {
+    padding-bottom: 20px;
+    margin-top:20px;
+    border-bottom: 1px dashed #DDDDDD;
+    position:relative;
+}
+#team-stroke .msg-list {
+    padding:5px 0;
+}
+#team-stroke .scene_items_select {
+    width:100%;
+    height:200px;
+    margin-top:10px ;
+    border: 1px solid #EEEEEE;
+}
+#team-stroke .disabled {
+    display: none !important;
+}
+
+#team-items,#team-price,#team-special,#team-give,#team-out,#team_traffic,#team-user,.team-items-cls,#team-table {
+    width:990px;
+    margin: 10px auto;
+}
+div#team-items {width:1000px}
+.tm-title {
+    font-size: 16px;
+    height:30px;
+    line-height: 30px;
+    color:#666
+}
+.tm-from {
+    padding:5px;
+    /*border:1px solid #DDDDDD;*/
+    width:960px;
+}
+#team-price .tp-list {
+    padding:5px 0;
+    border-bottom: 1px dashed #DDDDDD;
+}
+#team-price .price-cls {
+    width:80px;
+    margin: 0 5px;
+    text-align: right;
+}
+#team-price .price {
+    margin-right: 8px;
+    width:320px;
+    display: inline-block;
+}
+
+#team-price .count-price {
+    color:orangered;
+}
+
+#team-price .count-pop {
+    color:#999
+}
+
+#team-items {
+    border: 1px solid #eee;
+    min-height: 500px;
+}
+#team-out .to-list {
+    height:35px;
+    line-height: 35px;
+}
+#team-out .tm-main {
+    padding:10px;
+    border:1px solid #EEEEEE;
+}
+#team-out .tf-cls {
+    width: 100px;
+    height:26px;
+    line-height: 26px;
+    border:1px solid #ddd;
+    padding:0 5px;
+    margin:0 10px;
+    text-align: right;
+}
+#team-out .to-text {
+    color:#999999;
+}
+#team-submit {
+    text-align: center;
+    height:50px;
+}
+
+#team_traffic .tf-list label {
+    color:#999999;
+    cursor: pointer;
+    margin-right: 20px;
+    margin-left: 5px;
+}
+
+#team_traffic .tf-list {
+    padding:5px;
+    height: 36px;
+    line-height: 36px;
+}
+
+#team_traffic .tf-list span {
+    float: left;
+}
+#team_traffic .arrow {
+    display: inline-block;
+    width:50px;
+    padding-top:5px;
+    font-size:18px;
+    color:#999999;
+    text-align: center;
+}
+#team_traffic .tf-title  {
+    font-size: 13px;
+    font-family: '宋体' arial;
+    color:#999
+}
+
+.team-display {
+    display:none
+}
+.display_show {
+    display:block
+}
+
+/*头部样式*/
+#yun-titile {
+    width: 1020px;
+    border-bottom: 1px solid #dddddd;
+    position: relative;
+    margin-bottom:15px;
+    z-index:1000;
+    background:#fff
+}
+#yun-titile .yun-title-left .ytl_list {
+    float: left;
+    height: 40px;
+
+}
+#yun-titile .ytl_list .ytl-txt {
+    display: inline-block;
+    padding: 0 20px;
+    line-height: 38px;
+    font-size: 16px;
+    cursor: pointer;
+    color:#666666;
+}
+#yun-titile .ytl_hover .ytl-txt,#yun-titile .ytl_list .ytl-txt:hover {
+    color:#2288e3;
+    border-bottom: 3px solid #2288e3;
+}
+
+#yun-titile .ytl_l {
+    float: left;
+    height: 40px;
+    /*width: 500px;*/
+    line-height: 38px;
+    text-align: right;
+    color:#999
+}
+
+#yun-titile .yun-title-right {
+    height: 40px;
+    position: absolute;
+    top: 12px;
+    right: 10px;
+}
+#yun-titile .yun-title-right .ytr-tool {
+    padding:5px 15px;
+    color:#ffffff;
+    background:#2288e3;
+    margin-left: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#yun-titile .yun-title-right .ytr-tool:hover {
+    background:#207ccd;
+}
+#yun-titile .yun-title-right .ytr-tool .fa {
+    font-size: 16px;
+}
+#yun-titile .yun-title-right .disabled,#yun-titile .yun-title-right .disabled:hover { background:#ccc;}
+
+/*游客信息*/
+.tour-info .fa-puzzle-piece{
+    font-size: 24px;
+    color: #009DDA;
+    padding-right: 5px;
+}
+
+.tour-info .tour-list {
+    position: relative;
+    border-bottom: 1px dotted #dddddd;
+    padding-bottom: 10px;
+    display: inline-block;
+    width:990px
+}
+.tour-info .tour-list:hover {
+    background: #f3fcfe
+}
+.tour-info .tl-left {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width:100px;
+}
+
+.tour-info .tl-left span {
+    display: inline-block;
+    width:100%;
+    text-align: center;
+    padding:6px 0;
+    color:#333;
+}
+
+.tour-info .tl-left .tl-txt {
+    font-family: \5fae\8f6f\96c5\9ed1;
+    font-size: 18px;
+    font-weight: 700;
+    color:#999;
+}
+
+.tour-info .tl-right {
+    padding-left: 120px;
+    padding-top: 5px;
+}
+
+.tour-info .tlr-from {
+    display: inline-block;
+    padding: 5px;
+    vertical-align: top;
+}
+.tour-info .msg-from {
+    padding-top: 3px;
+    font: 12px '宋体';
+    color:red;
+}
+.tour-info .tlr-txt {
+    font:12px '宋体';
+    color:#999999;
+    display: inline-block;
+    padding-right: 5px;
+}
+
+.tour-info .vip-from {
+    height: 26px;
+    line-height: 26px;
+    color: #666;
+    border: 1px solid #ddd;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.tour-info .ipt-name { width: 80px;}
+.tour-info .ipt-phone { width: 110px;}
+.tour-info .ipt-card { width: 170px;}
+.tour-info .map-id,.tour-info .map_site,.tour-info .site-select { font:12px '宋体';color:#999999}
+.tour-info .map-id { padding-top: 3px;width:225px;height: 30px;line-height: 30px;padding-left: 5px}
+.tour-info .site-select { color: #0685b8;cursor: pointer}
+.tour-info .fa-map-marker { color:#009DDA;font-size: 14px;}
+.tour-info .tlr-list {float: left}
+
+.select-wrap {
+    padding:2px 5px;
+    border: 1px solid #dddddd;
+    margin: 2px 3px;
+    display: inline-block;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width:89px;
+}
+.selected-wrap {
+    background:#009DDA;
+    color:#ffffff;
+    /*display: none;*/
+}
+.remove-cls { display: none;}
+.team-scenic {color: #999}
+
+.team-scenic .tsc-list {
+    font-size:12px;
+    color:#999;
+    border:1px solid #dddddd;
+    padding:2px 5px;
+    display: inline-block;
+    margin: 2px 3px;
+    cursor: pointer;
+}
+.sc-cls {
+    color:blue;
+}
+.heading-cls {
+    width:480px !important;
+    border: none !important;
+    border-bottom: 1px solid #CCCCCC !important;
+    border-top: 1px solid #CCCCCC !important;
+    font-weight: bold;
+    background:#F6F6F6 !important;
+    color:#666666 !important;
+    margin-top: 5px;
+}
+.scroll-cls {
+    height: 360px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.to-list .rm-title {
+    display: inline-block;
+    float: left;
+    text-align: right;
+    width: 60px;
+    font-size: 12px;
+    font-family: '宋体';
+}
+#source_name,#tm_pay_date {
+    padding-top: 5px !important;
+}
+
+.team_days .days-info {
+    position: relative;
+}
+.team_days .days-scenic {
+    position: absolute;
+    top:0;
+    left:0;
+}
+.team_days .sc_list {
+    padding:3px 5px;
+    background:#eee;
+    border:1px solid #ddd;
+    margin-left: 5px;
+    border-radius: 3px;
+}
+.team_days .scenic-box {color:white}
+.team_days .scenic-list,.team_days .hotel-box {width:740px!important}
+.team_days .add-items-cls { color: #3776ab;font-size: 12px;padding: 0 5px;margin-left: 10px;cursor: pointer}
+.team_days .add-items-cls:hover {color: #4093d1}
+.team_days .add-items-cls .fa {padding-right: 5px;}
+.team_days .sc_list:hover { background:#DFDFDF}
+.team_days .sc_list .fa-times {margin-left: 5px;color:#666}
+.team_days .sc_list .fa-times:hover {background:#dddddd;cursor: pointer}
+.profit_price {color:blue;font:12px 'Microsoft Yahei'}
+
+.batch-cls { padding:3px 15px;background: #469fe3;border-radius: 3px;display: inline-block;color: #fff;cursor: pointer;margin-left: 10px;}
+.batch-cls:hover { background:#2288e3}
+
+
+
+/*选择景区操作*/
+#tpl-id {margin: auto;padding: 0 10px;background:#ffffff;border-top:1px solid #47b6fb;padding-top:5px}
+.tpl-list {border-bottom: 1px solid #47b6fb;padding-bottom: 5px}
+.tpl-list:hover {background:#F9F9F9}
+#tpl-id .tl-title {border-bottom: 1px dotted #CCCCCC;padding: 5px 0}
+#tpl-id .tl-title span { font: 14px 'MICROSOFT YAHEI';font-weight: bold;color:#333333}
+#tpl-id .tl-title .brand-cls {color:#0000ff}
+.tl-detail { margin: 3px 0}
+.area-list {border: 1px solid #dddddd;padding: 2px 3px;display: inline-block;margin-top: 5px}
+.area-list:hover {border-color: #fe8414;cursor: pointer;color:#fe8414 }
+.area-days {border-radius: 5px;background:#dddddd;border: 1px solid #dddddd;font-weight: bold;color:#666;padding: 1px 2px;margin-left: 10px}
+#tpl-id .tl-title .tpl-days {color: #666}
+.area-icon {font-size: 16px;font-weight: bold;color:#999;padding: 0 3px}
+#tpl-id .tool-cls {float: right}
+#tpl-id .tool-cls span {font-size: 12px;font-weight: 100;background:#469fe3;padding: 3px 10px;color:#ffffff;cursor: pointer;border-radius: 3px;margin-left: 8px;}
+#tpl-id .tool-cls span:hover {background: #428fce}
+#tpl-id .tl-title .tpl-days,#tpl-id .tl-title .tpl-eat {font: 12px '宋体';font-weight: 100;color:#ffffff;border-radius: 3px;margin-left: 5px;padding:3px 5px;}
+.tpl-days {background: #61b6d3}
+.tpl-eat {background: #d58800}
+.team-supply-cls { width: 990px;margin: 10px auto; }
+.team-supply-cls .tm-from {border:none}
+.check-id {vertical-align: middle;margin-right: 5px}
+.vip-cls {cursor: pointer}
+.site-list { padding:3px 0}
+.site-list .site-id,.site-list .fly-id { padding: 0 5px;color: #666}
+.tlr-list .vip-from  { color: #3476a8;font-weight: bold}
+.site-go .site-title {color: #008000}
+.site-back .site-title {color: #d58800}
+.site-id .fa {color: #1374bb;font-size: 14px}
+.fly-id .fa {color: #ff6e87;font-size: 16px}
+.fly-id .fly-number {color: #008000;font-weight: bold}
+.fly-id .not-fly { color: #999}
+.tm_pay_date .txt {display: none}
+.team_table {width: 100%;border-collapse: collapse;}
+.team_table tr td,.team_table tr th { border:1px solid #ccc;padding: 3px 5px}
+.team_table thead {background:#2288e3;color:#fff}
+.team_table .tm_table {width: 100%;text-align: right;padding:3px 0}
+#team-table .tt-right {font:14px 'MICROSOFT YAHEI';color: #2288e3;cursor: pointer;display: inline-block;height: 30px;line-height: 30px}
+#team-table .tt-right:hover {color:#3476a8}
+#team-table input[name=tm_remark] {text-align: left}
+#team-table .offer-del {text-align: center;color:#3476a8;cursor: pointer }
+#team-table .offer-del:hover {color:#2288e3;text-decoration: underline}

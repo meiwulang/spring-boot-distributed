@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.ActivityMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.Activity">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="a_company_id" jdbcType="BIGINT" property="aCompanyId" />
+    <result column="a_activity_name" jdbcType="VARCHAR" property="aActivityName" />
+    <result column="a_brand_name" jdbcType="VARCHAR" property="aBrandName" />
+    <result column="a_activity_type" jdbcType="INTEGER" property="aActivityType" />
+    <result column="a_amount" jdbcType="DECIMAL" property="aAmount" />
+    <result column="a_limit_amount" jdbcType="DECIMAL" property="aLimitAmount" />
+    <result column="a_pay_method" jdbcType="INTEGER" property="aPayMethod" />
+    <result column="a_ticket_type" jdbcType="INTEGER" property="aTicketType" />
+    <result column="a_start_time" jdbcType="DATE" property="aStartTime" />
+    <result column="a_end_time" jdbcType="DATE" property="aEndTime" />
+    <result column="a_schedule_start" jdbcType="DATE" property="aScheduleStart" />
+    <result column="a_schedule_end" jdbcType="DATE" property="aScheduleEnd" />
+    <result column="a_sort" jdbcType="INTEGER" property="aSort" />
+    <result column="a_status" jdbcType="INTEGER" property="aStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, a_company_id, a_activity_name, a_brand_name, a_activity_type, a_amount, a_limit_amount, 
+    a_pay_method, a_ticket_type, a_start_time, a_end_time, a_schedule_start, a_schedule_end, 
+    a_sort, a_status, create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sr_activity
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sr_activity
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.Activity">
+    insert into sr_activity (id, a_company_id, a_activity_name, 
+      a_brand_name, a_activity_type, a_amount, 
+      a_limit_amount, a_pay_method, a_ticket_type, 
+      a_start_time, a_end_time, a_schedule_start, 
+      a_schedule_end, a_sort, a_status, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{id,jdbcType=BIGINT}, #{aCompanyId,jdbcType=BIGINT}, #{aActivityName,jdbcType=VARCHAR}, 
+      #{aBrandName,jdbcType=VARCHAR}, #{aActivityType,jdbcType=INTEGER}, #{aAmount,jdbcType=DECIMAL}, 
+      #{aLimitAmount,jdbcType=DECIMAL}, #{aPayMethod,jdbcType=INTEGER}, #{aTicketType,jdbcType=INTEGER}, 
+      #{aStartTime,jdbcType=DATE}, #{aEndTime,jdbcType=DATE}, #{aScheduleStart,jdbcType=DATE}, 
+      #{aScheduleEnd,jdbcType=DATE}, #{aSort,jdbcType=INTEGER}, #{aStatus,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.Activity">
+    insert into sr_activity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="aCompanyId != null">
+        a_company_id,
+      </if>
+      <if test="aActivityName != null">
+        a_activity_name,
+      </if>
+      <if test="aBrandName != null">
+        a_brand_name,
+      </if>
+      <if test="aActivityType != null">
+        a_activity_type,
+      </if>
+      <if test="aAmount != null">
+        a_amount,
+      </if>
+      <if test="aLimitAmount != null">
+        a_limit_amount,
+      </if>
+      <if test="aPayMethod != null">
+        a_pay_method,
+      </if>
+      <if test="aTicketType != null">
+        a_ticket_type,
+      </if>
+      <if test="aStartTime != null">
+        a_start_time,
+      </if>
+      <if test="aEndTime != null">
+        a_end_time,
+      </if>
+      <if test="aScheduleStart != null">
+        a_schedule_start,
+      </if>
+      <if test="aScheduleEnd != null">
+        a_schedule_end,
+      </if>
+      <if test="aSort != null">
+        a_sort,
+      </if>
+      <if test="aStatus != null">
+        a_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="aCompanyId != null">
+        #{aCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="aActivityName != null">
+        #{aActivityName,jdbcType=VARCHAR},
+      </if>
+      <if test="aBrandName != null">
+        #{aBrandName,jdbcType=VARCHAR},
+      </if>
+      <if test="aActivityType != null">
+        #{aActivityType,jdbcType=INTEGER},
+      </if>
+      <if test="aAmount != null">
+        #{aAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="aLimitAmount != null">
+        #{aLimitAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="aPayMethod != null">
+        #{aPayMethod,jdbcType=INTEGER},
+      </if>
+      <if test="aTicketType != null">
+        #{aTicketType,jdbcType=INTEGER},
+      </if>
+      <if test="aStartTime != null">
+        #{aStartTime,jdbcType=DATE},
+      </if>
+      <if test="aEndTime != null">
+        #{aEndTime,jdbcType=DATE},
+      </if>
+      <if test="aScheduleStart != null">
+        #{aScheduleStart,jdbcType=DATE},
+      </if>
+      <if test="aScheduleEnd != null">
+        #{aScheduleEnd,jdbcType=DATE},
+      </if>
+      <if test="aSort != null">
+        #{aSort,jdbcType=INTEGER},
+      </if>
+      <if test="aStatus != null">
+        #{aStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.Activity">
+    update sr_activity
+    <set>
+      <if test="aCompanyId != null">
+        a_company_id = #{aCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="aActivityName != null">
+        a_activity_name = #{aActivityName,jdbcType=VARCHAR},
+      </if>
+      <if test="aBrandName != null">
+        a_brand_name = #{aBrandName,jdbcType=VARCHAR},
+      </if>
+      <if test="aActivityType != null">
+        a_activity_type = #{aActivityType,jdbcType=INTEGER},
+      </if>
+      <if test="aAmount != null">
+        a_amount = #{aAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="aLimitAmount != null">
+        a_limit_amount = #{aLimitAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="aPayMethod != null">
+        a_pay_method = #{aPayMethod,jdbcType=INTEGER},
+      </if>
+      <if test="aTicketType != null">
+        a_ticket_type = #{aTicketType,jdbcType=INTEGER},
+      </if>
+      <if test="aStartTime != null">
+        a_start_time = #{aStartTime,jdbcType=DATE},
+      </if>
+      <if test="aEndTime != null">
+        a_end_time = #{aEndTime,jdbcType=DATE},
+      </if>
+      <if test="aScheduleStart != null">
+        a_schedule_start = #{aScheduleStart,jdbcType=DATE},
+      </if>
+      <if test="aScheduleEnd != null">
+        a_schedule_end = #{aScheduleEnd,jdbcType=DATE},
+      </if>
+      <if test="aSort != null">
+        a_sort = #{aSort,jdbcType=INTEGER},
+      </if>
+      <if test="aStatus != null">
+        a_status = #{aStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.Activity">
+    update sr_activity
+    set a_company_id = #{aCompanyId,jdbcType=BIGINT},
+      a_activity_name = #{aActivityName,jdbcType=VARCHAR},
+      a_brand_name = #{aBrandName,jdbcType=VARCHAR},
+      a_activity_type = #{aActivityType,jdbcType=INTEGER},
+      a_amount = #{aAmount,jdbcType=DECIMAL},
+      a_limit_amount = #{aLimitAmount,jdbcType=DECIMAL},
+      a_pay_method = #{aPayMethod,jdbcType=INTEGER},
+      a_ticket_type = #{aTicketType,jdbcType=INTEGER},
+      a_start_time = #{aStartTime,jdbcType=DATE},
+      a_end_time = #{aEndTime,jdbcType=DATE},
+      a_schedule_start = #{aScheduleStart,jdbcType=DATE},
+      a_schedule_end = #{aScheduleEnd,jdbcType=DATE},
+      a_sort = #{aSort,jdbcType=INTEGER},
+      a_status = #{aStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

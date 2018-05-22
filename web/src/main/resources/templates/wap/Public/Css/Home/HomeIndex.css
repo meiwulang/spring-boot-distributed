@@ -1,0 +1,144 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: "microsoft yahei";
+    font-size: 14px;
+
+}
+ul,li{
+    list-style-type:none;
+}
+a{
+    text-decoration:none;
+    color:black;
+}
+.clear{
+    clear:both;
+}
+body{
+    background: #f5f5f5;
+}
+#header{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+#header .main-header{
+    width: 1000px;
+    margin: 0 auto;
+}
+#header .logo{
+    float: left;
+}
+#header .spot{
+    float:left;
+    line-height: 50px;
+    margin-left: 10px;
+}
+#header .nav{
+    float: right;
+}
+#header .nav .a-list{
+    padding-right: 20px;
+    line-height: 50px;
+    color: #333;
+}
+#header .nav .logout {
+    color: #004d82;
+}
+#header .nav .logout:hover {
+    text-decoration: underline;
+}
+#main{
+    width:880px;
+    border:1px solid #dddddd;
+    padding:10px;
+    margin:auto;
+    margin-top:30px;
+    background: white;
+}
+#main .left{
+    float:left;
+    width:110px;
+    padding: 0 15px;
+}
+#main .left .left-img{
+    width:100px;
+    height:100px;
+    border-radius: 50%;
+    background: red;
+    overflow: hidden;
+}
+#main .left .left-name{
+    width:100px;
+    text-align: center;
+    line-height:30px;
+}
+#main .middle{
+    padding:0 20px ;
+    width:530px;
+    border-right:1px solid #dddddd;
+    border-left:1px solid #dddddd;
+    float:left;
+    line-height:36px;
+}
+#main .middle .m-left{
+    float:left;
+}
+#main .middle .m-right{
+    float:right;
+}
+#main .right{
+    float:right;
+    width:140px;
+    padding:0 10px;
+    line-height: 27px;
+}
+#middle{
+    width:890px;
+    border:1px solid #dddddd;
+    margin:auto;
+    margin-top:30px;
+    padding:0 0  30px 10px;
+    background: white;
+}
+#middle .title{
+    line-height:50px;
+    font-size:16px;
+    font-weight:bold;
+    width:880px;
+    text-align:left;
+    padding-left:10px;
+}
+#middle dl{
+    width:880px;
+   /* height:30px;*/
+    border-bottom:1px solid #dddddd;
+    display: inline-block;
+    line-height:30px;
+}
+#middle dl dt{
+    font-weight:bold;
+    float:left;
+    width:60px;
+    text-align: center;
+    color:#666666;
+}
+#middle dl dd{
+    float:right;
+    width:800px;
+}
+#middle dl dd li{
+    margin: 0px 10px;
+    float: left;
+    min-width: 50px;
+    list-style: none;
+
+}
+#bottom{
+    width:900px;
+    margin:auto;
+    line-height: 50px;
+    text-align: center;
+    color:#666666;
+}

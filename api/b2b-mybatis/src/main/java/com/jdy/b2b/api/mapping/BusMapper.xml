@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.BusMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.Bus">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="b_no" jdbcType="INTEGER" property="bNo" />
+    <result column="b_schedule_id" jdbcType="BIGINT" property="bScheduleId" />
+    <result column="b_seats_num" jdbcType="INTEGER" property="bSeatsNum" />
+    <result column="b_seats_lock" jdbcType="VARCHAR" property="bSeatsLock" />
+    <result column="b_status" jdbcType="INTEGER" property="bStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, b_no, b_schedule_id, b_seats_num, b_seats_lock, b_status, create_time, create_user, 
+    update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ct_bus
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ct_bus
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.Bus" useGeneratedKeys="true" keyProperty="id">
+    insert into ct_bus (id, b_no, b_schedule_id, 
+      b_seats_num, b_seats_lock, b_status, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{id,jdbcType=BIGINT}, #{bNo,jdbcType=INTEGER}, #{bScheduleId,jdbcType=BIGINT}, 
+      #{bSeatsNum,jdbcType=INTEGER}, #{bSeatsLock,jdbcType=VARCHAR}, #{bStatus,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.Bus" useGeneratedKeys="true" keyProperty="id">
+    insert into ct_bus
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bNo != null">
+        b_no,
+      </if>
+      <if test="bScheduleId != null">
+        b_schedule_id,
+      </if>
+      <if test="bSeatsNum != null">
+        b_seats_num,
+      </if>
+      <if test="bSeatsLock != null">
+        b_seats_lock,
+      </if>
+      <if test="bStatus != null">
+        b_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bNo != null">
+        #{bNo,jdbcType=INTEGER},
+      </if>
+      <if test="bScheduleId != null">
+        #{bScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="bSeatsNum != null">
+        #{bSeatsNum,jdbcType=INTEGER},
+      </if>
+      <if test="bSeatsLock != null">
+        #{bSeatsLock,jdbcType=VARCHAR},
+      </if>
+      <if test="bStatus != null">
+        #{bStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.Bus">
+    update ct_bus
+    <set>
+      <if test="bNo != null">
+        b_no = #{bNo,jdbcType=INTEGER},
+      </if>
+      <if test="bScheduleId != null">
+        b_schedule_id = #{bScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="bSeatsNum != null">
+        b_seats_num = #{bSeatsNum,jdbcType=INTEGER},
+      </if>
+      <if test="bSeatsLock != null">
+        b_seats_lock = #{bSeatsLock,jdbcType=VARCHAR},
+      </if>
+      <if test="bStatus != null">
+        b_status = #{bStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.Bus">
+    update ct_bus
+    set b_no = #{bNo,jdbcType=INTEGER},
+      b_schedule_id = #{bScheduleId,jdbcType=BIGINT},
+      b_seats_num = #{bSeatsNum,jdbcType=INTEGER},
+      b_seats_lock = #{bSeatsLock,jdbcType=VARCHAR},
+      b_status = #{bStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

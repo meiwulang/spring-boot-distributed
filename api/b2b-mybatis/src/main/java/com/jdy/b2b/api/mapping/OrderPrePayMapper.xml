@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.OrderPrePayMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.OrderPrePayDO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pp_order_no" property="ppOrderNo" jdbcType="VARCHAR" />
+    <result column="pp_order_random" property="ppOrderRandom" jdbcType="VARCHAR" />
+    <result column="pp_userid" property="ppUserid" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pp_order_no, pp_order_random, pp_userid, create_time, create_user, update_time, 
+    update_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sl_pre_pay
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sl_pre_pay
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.OrderPrePayDO" >
+    insert into sl_pre_pay (id, pp_order_no, pp_order_random, 
+      pp_userid, create_time, create_user, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{ppOrderNo,jdbcType=VARCHAR}, #{ppOrderRandom,jdbcType=VARCHAR}, 
+      #{ppUserid,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.OrderPrePayDO" >
+    insert into sl_pre_pay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ppOrderNo != null" >
+        pp_order_no,
+      </if>
+      <if test="ppOrderRandom != null" >
+        pp_order_random,
+      </if>
+      <if test="ppUserid != null" >
+        pp_userid,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="ppOrderNo != null" >
+        #{ppOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ppOrderRandom != null" >
+        #{ppOrderRandom,jdbcType=VARCHAR},
+      </if>
+      <if test="ppUserid != null" >
+        #{ppUserid,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.OrderPrePayDO" >
+    update sl_pre_pay
+    <set >
+      <if test="ppOrderNo != null" >
+        pp_order_no = #{ppOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="ppOrderRandom != null" >
+        pp_order_random = #{ppOrderRandom,jdbcType=VARCHAR},
+      </if>
+      <if test="ppUserid != null" >
+        pp_userid = #{ppUserid,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.OrderPrePayDO" >
+    update sl_pre_pay
+    set pp_order_no = #{ppOrderNo,jdbcType=VARCHAR},
+      pp_order_random = #{ppOrderRandom,jdbcType=VARCHAR},
+      pp_userid = #{ppUserid,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <delete id="deleteByOrderNo" parameterType="java.lang.String" >
+    delete from sl_pre_pay
+    where pp_order_no = #{orderNo,jdbcType=VARCHAR}
+  </delete>
+
+  <resultMap id="PrePayOrderInfoResultMap" extends="BaseResultMap" type="com.jdy.b2b.api.model.OrderPrePayDO">
+    <result column="o_source" property="oSource"/>
+  </resultMap>
+  <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+      p.*, d.o_source
+    from sl_pre_pay p,sl_order d
+    where p.pp_order_no = #{orderNo,jdbcType=VARCHAR}
+    and p.pp_order_no = d.o_order_no
+  </select>
+</mapper>

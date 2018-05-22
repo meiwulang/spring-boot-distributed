@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>支付订单</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/wechat.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> --> 
+</head>
+<body>
+<div id="wrap">
+	
+	<div class="main">
+	<script id="tpl-list" type="text/html">
+	{if payment_info}
+		{if payment_info.o_product_name}
+		<p>{payment_info.o_product_name}</p>
+		{/if}
+		{if payment_info.o_product_num}
+		<div class="ground"><span>产品编号：</span><span>{payment_info.o_product_num}</span></div>
+		{/if}
+		{if payment_info.o_days}
+		<div class="ground"><span>行程天数：</span><span>{payment_info.o_days}天</span></div>
+		{/if}
+		{if payment_info.o_start_date&&payment_info.o_end_date}
+		<div class="ground"><span>行程时间：</span><span>{payment_info.o_start_date} 至 {payment_info.o_end_date}</span></div>
+		{/if}
+		<div class="ground"><span>总&#x3000;&#x3000;额：</span>
+		{if payment_info.total_fee}
+		<span class="pary nos">¥{payment_info.total_fee}</span>
+		{/if}
+		</div>
+	{/if}	
+	</script>
+	</div>
+	<div class="phon">
+		<script id="tpl-img" type="text/html">
+		{if weixin_url}
+			<img src="{weixin_url}" alt="">
+		{/if}
+		</script>
+	</div>
+	<p class="tit">由于受微信长按识别二维码支付的限制,
+请直接使用其他手机扫描二维码支付!</p>
+	<div class="buttonss">
+		确认已支付
+	</div>
+	
+</div>
+</body>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/wechat.build.js"></script>
+</html>

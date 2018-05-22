@@ -1,0 +1,208 @@
+@import './common.less';
+@import './lib/swiper.3.4.0.less';
+
+#wrap{
+	.pen{
+		background: #f3f5f9;
+
+		.acti_header{
+			height: 45px;
+		    line-height: 45px;
+		    background-color: #fff;
+		    text-align: center;
+		    position: fixed;
+		    font-size: 16px;
+		    box-shadow: 0px 0px 1px #ccc;
+		    left: 0;
+		    top: 0;
+		    width: 100%;
+		    z-index: 10;
+			a{
+				position: absolute;
+			    width: 45px;
+			    height: 45px;
+			    left: 0;
+			    top: 0;
+			    background: url('@{img}/icon_arr_back.png') center center no-repeat;
+			    background-size: 9px auto;
+			}
+		}
+		.conten{
+			height: 100%;
+			.cons{
+				overflow: hidden;
+				.ban{
+					margin-top: 45px;
+					height: 137px;
+					overflow: hidden;
+					position: relative;
+
+					.swiper-container{
+						width: 100%;
+						height: 100%;
+
+				        .swiper-slide{
+				        	.ul_list{
+				        		height: 100%;
+							    margin: 0px 15px 0px;
+							    ul{
+							    	overflow: hidden;
+								    height: 100%;
+								    margin-left: -3.5%;
+								    margin-bottom: 15px;
+								    li{
+								    	position: relative;
+									    box-sizing: border-box;
+									    border: 1px solid #e7e7e7;
+									    border-radius: 3px;
+									    height: 40px;
+									    width: 29.6%;
+									    margin-left: 3.5%;
+									    margin-top: 15px;
+									    overflow: hidden;
+									    float: left;
+									    background: #fff;
+									    text-align: center;
+									    line-height: 40px;
+									    color: #333;
+
+									    a{
+									    	display: block;
+									    }
+								    }
+								    .active{
+								    	background: #fed944;
+								    	color: #fff;
+								    	border: 1px solid #fed944;
+
+								    	a{
+									    	color: #fff;
+									    }
+								    }
+							    }
+				        	}
+							
+				
+				        }
+
+				        .swiper-pagination{
+				        	bottom: 5px;
+					    	.swiper-pagination-bullet{
+					    		width: 6px;
+					    		height: 6px;
+					    		overflow: hidden;
+					    		border-radius: 50%;
+					    		background-color: #999;
+					    		opacity: 0.6;
+					    	}
+
+					    	.swiper-pagination-bullet-active{
+					    		width: 6px;
+					    		height: 6px;
+					    		border-radius: 50%;
+					    		position: relative;
+					    		opacity: 1;
+					    		background: #84b6fb;
+					    	}
+					    }
+				    }
+				}
+				.comm{
+					ul{
+						background: #fff;
+						li{
+							height: 45px;
+							box-sizing: border-box;
+							padding-left: 15px;
+							.son{
+								position: relative;
+								overflow: hidden;
+								line-height: 45px;
+								width: 100%;
+								height: 100%;
+								border-bottom: 1px solid #e7e7e7;
+								.son_s{
+									position: absolute;
+									width: 222px;
+									height: 40px;
+									line-height: 45px;
+									left: 86px;
+									top: 4px;
+									box-sizing: border-box;
+									padding-left: 3px;
+									color: #666;
+									background: #fff;
+								}
+								label{
+									color: #666;
+									font-size: 14px;
+									display: inline-block;
+									text-align: right;
+									width: 80px;
+									height: 100%;
+									span{
+										font-size: 18px;
+										color: red;
+										position: relative;
+										top: 5px;
+										margin-right: 3px;
+									}
+								}
+								input,select{
+									width: 60%;
+									padding-left: 5px;
+									font-size: 14px;
+								}
+							}
+							.son_input{
+								input{
+									width: 45px;
+									height: 20px;
+									border: 1px solid #e7e7e7;
+								}
+								.bar{
+									color: #666;
+								}
+							}
+						}
+						li:last-child{
+							.son{
+								border-bottom: none;
+							}
+						}
+					}
+				}
+
+				.hide{
+					display: none;
+				}
+			}
+		}
+
+		.boot{
+			height: 43px;
+			line-height: 43px;
+			overflow: hidden;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			div{
+				float: left;
+				width: 50%;
+				height: 100%;
+				text-align: center;
+			}
+			.nos{
+				box-sizing: border-box;
+				border-top: 1px solid #e7e7e7;
+				background: #fff;
+				color: #333;
+			}
+			.yes{
+				color: #fff;
+				background: #fc2a35;
+			}
+		}
+	}
+}

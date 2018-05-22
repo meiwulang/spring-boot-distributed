@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.schedule.ScheduleFlightMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.schedule.ScheduleFlight" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="schedule_id" property="scheduleId" jdbcType="BIGINT" />
+    <result column="line_type" property="lineType" jdbcType="TINYINT" />
+    <result column="flight_type" property="flightType" jdbcType="TINYINT" />
+    <result column="schedule_setting_id" property="scheduleSettingId" jdbcType="BIGINT" />
+    <result column="sort_day" property="sortDay" jdbcType="TINYINT" />
+    <result column="flight_num" property="flightNum" jdbcType="VARCHAR" />
+    <result column="departure_place" property="departurePlace" jdbcType="VARCHAR" />
+    <result column="destination" property="destination" jdbcType="VARCHAR" />
+    <result column="flight_time" property="flightTime" jdbcType="DATE" />
+    <result column="arrival_time" property="arrivalTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, schedule_id, line_type, flight_type, schedule_setting_id, sort_day, flight_num,
+    departure_place, destination, flight_time, arrival_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from ct_schedule_flight
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ct_schedule_flight
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.schedule.ScheduleFlight" >
+    insert into ct_schedule_flight (id, schedule_id, line_type,
+    flight_type, schedule_setting_id, sort_day,
+    flight_num, departure_place, destination,
+    flight_time, arrival_time)
+    values (#{id,jdbcType=BIGINT}, #{scheduleId,jdbcType=BIGINT}, #{lineType,jdbcType=TINYINT},
+    #{flightType,jdbcType=TINYINT}, #{scheduleSettingId,jdbcType=BIGINT}, #{sortDay,jdbcType=TINYINT},
+    #{flightNum,jdbcType=VARCHAR}, #{departurePlace,jdbcType=VARCHAR}, #{destination,jdbcType=VARCHAR},
+    #{flightTime}, #{arrivalTime})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.schedule.ScheduleFlight" >
+    insert into ct_schedule_flight
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="scheduleId != null" >
+        schedule_id,
+      </if>
+      <if test="lineType != null" >
+        line_type,
+      </if>
+      <if test="flightType != null" >
+        flight_type,
+      </if>
+      <if test="scheduleSettingId != null" >
+        schedule_setting_id,
+      </if>
+      <if test="sortDay != null" >
+        sort_day,
+      </if>
+      <if test="flightNum != null" >
+        flight_num,
+      </if>
+      <if test="departurePlace != null" >
+        departure_place,
+      </if>
+      <if test="destination != null" >
+        destination,
+      </if>
+      <if test="flightTime != null" >
+        flight_time,
+      </if>
+      <if test="arrivalTime != null" >
+        arrival_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="scheduleId != null" >
+        #{scheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="lineType != null" >
+        #{lineType,jdbcType=TINYINT},
+      </if>
+      <if test="flightType != null" >
+        #{flightType,jdbcType=TINYINT},
+      </if>
+      <if test="scheduleSettingId != null" >
+        #{scheduleSettingId,jdbcType=BIGINT},
+      </if>
+      <if test="sortDay != null" >
+        #{sortDay,jdbcType=TINYINT},
+      </if>
+      <if test="flightNum != null" >
+        #{flightNum,jdbcType=VARCHAR},
+      </if>
+      <if test="departurePlace != null" >
+        #{departurePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null" >
+        #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="flightTime != null" >
+        #{flightTime},
+      </if>
+      <if test="arrivalTime != null" >
+        #{arrivalTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.schedule.ScheduleFlight" >
+    update ct_schedule_flight
+    <set >
+      <if test="scheduleId != null" >
+        schedule_id = #{scheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="lineType != null" >
+        line_type = #{lineType,jdbcType=TINYINT},
+      </if>
+      <if test="flightType != null" >
+        flight_type = #{flightType,jdbcType=TINYINT},
+      </if>
+      <if test="scheduleSettingId != null" >
+        schedule_setting_id = #{scheduleSettingId,jdbcType=BIGINT},
+      </if>
+      <if test="sortDay != null" >
+        sort_day = #{sortDay,jdbcType=TINYINT},
+      </if>
+      <if test="flightNum != null" >
+        flight_num = #{flightNum,jdbcType=VARCHAR},
+      </if>
+      <if test="departurePlace != null" >
+        departure_place = #{departurePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="destination != null" >
+        destination = #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="flightTime != null" >
+        flight_time = #{flightTime},
+      </if>
+      <if test="arrivalTime != null" >
+        arrival_time = #{arrivalTime},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.schedule.ScheduleFlight" >
+    update ct_schedule_flight
+    set schedule_id = #{scheduleId,jdbcType=BIGINT},
+      line_type = #{lineType,jdbcType=TINYINT},
+      flight_type = #{flightType,jdbcType=TINYINT},
+      schedule_setting_id = #{scheduleSettingId,jdbcType=BIGINT},
+      sort_day = #{sortDay,jdbcType=TINYINT},
+      flight_num = #{flightNum,jdbcType=VARCHAR},
+      departure_place = #{departurePlace,jdbcType=VARCHAR},
+      destination = #{destination,jdbcType=VARCHAR},
+      flight_time = #{flightTime},
+      arrival_time = #{arrivalTime}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByScheduleSettingId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ct_schedule_flight
+    where schedule_setting_id = #{id,jdbcType=BIGINT} order by line_type , sort_day
+  </select>
+  <delete id="deleteByScheduleSettingId" parameterType="java.lang.Long" >
+    delete from ct_schedule_flight
+    where schedule_setting_id = #{id,jdbcType=BIGINT}
+  </delete>
+</mapper>

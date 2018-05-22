@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.OrderH5Mapper">
+    <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.diy.OrderH5DTO">
+        <id column="order_id" jdbcType="BIGINT" property="order_id"/>
+        <result column="o_number" jdbcType="VARCHAR" property="o_number"/>
+        <result column="o_bed_num" jdbcType="INTEGER" property="o_bed_num"/>
+        <result column="o_small_num" jdbcType="INTEGER" property="o_small_num"/>
+        <result column="o_big_num" jdbcType="INTEGER" property="o_big_num"/>
+        <result column="o_product_num" jdbcType="VARCHAR" property="o_product_num"/>
+        <result column="o_product_name" jdbcType="VARCHAR" property="o_product_name"/>
+        <result column="o_product_id" jdbcType="BIGINT" property="o_product_id"/>
+        <result column="o_product_type" jdbcType="VARCHAR" property="o_product_type"/>
+        <result column="o_days" jdbcType="INTEGER" property="o_days"/>
+        <result column="o_sell_time" jdbcType="TIMESTAMP" property="o_sell_time"/>
+        <result column="o_start_date" jdbcType="TIMESTAMP" property="o_start_date"/>
+        <result column="o_end_date" jdbcType="TIMESTAMP" property="o_end_date"/>
+        <result column="o_start_time" jdbcType="TIME" property="o_start_time"/>
+        <result column="o_confirm_time" jdbcType="TIMESTAMP" property="o_confirm_time"/>
+        <result column="o_out_num" jdbcType="VARCHAR" property="o_out_num"/>
+        <result column="o_deal_num" jdbcType="VARCHAR" property="o_deal_num"/>
+        <result column="org_name" jdbcType="VARCHAR" property="org_name"/>
+        <result column="org_id" jdbcType="BIGINT" property="org_id"/>
+        <result column="org_city" jdbcType="VARCHAR" property="org_city"/>
+        <result column="sorg_province" jdbcType="VARCHAR" property="sorg_province"/>
+        <result column="org_addr" jdbcType="VARCHAR" property="org_addr"/>
+        <result column="o_pay_method" jdbcType="VARCHAR" property="o_pay_method"/>
+        <result column="o_type" jdbcType="VARCHAR" property="o_type"/>
+        <result column="o_name" jdbcType="VARCHAR" property="o_name"/>
+        <result column="service_name" jdbcType="VARCHAR" property="service_name"/>
+        <result column="service_mob" jdbcType="VARCHAR" property="service_mob"/>
+        <result column="o_buy_real" jdbcType="DECIMAL" property="o_buy_real"/>
+        <result column="realPay" jdbcType="DECIMAL" property="realPay"/>
+        <result column="o_settle_real" jdbcType="DECIMAL" property="o_settle_real"/>
+        <result column="o_status" jdbcType="VARCHAR" property="o_status"/>
+        <result column="orderStatus" jdbcType="INTEGER" property="orderStatus"/>
+        <result column="del_order" jdbcType="INTEGER" property="del_order"/>
+        <result column="teamPlanList" jdbcType="INTEGER" property="teamPlanList"/>
+        <result column="o_worg_id" jdbcType="BIGINT" property="o_worg_id"/>
+        <result column="o_sorg_id" jdbcType="BIGINT" property="o_sorg_id"/>
+        <result column="o_vip_mob" jdbcType="VARCHAR" property="o_vip_mob"/>
+        <result column="o_vip_name" jdbcType="VARCHAR" property="o_vip_name"/>
+        <result column="site_go" jdbcType="VARCHAR" property="site_go"/>
+        <result column="site_back" jdbcType="VARCHAR" property="site_back"/>
+        <result column="o_sit_type" jdbcType="INTEGER" property="o_sit_type"/>
+        <result column="seat_detail" jdbcType="VARCHAR" property="seat_detail"/>
+        <result column="p_brokerage1" jdbcType="VARCHAR" property="p_brokerage1"/>
+        <result column="p_brokerage2" jdbcType="VARCHAR" property="p_brokerage2"/>
+        <result column="p_brokerage3" jdbcType="VARCHAR" property="p_brokerage3"/>
+        <result column="s_sit_type" jdbcType="INTEGER" property="s_sit_type"/>
+        <result column="o_remark" jdbcType="VARCHAR" property="o_remark"/>
+        <result column="o_contract_agreement" jdbcType="LONGVARCHAR" property="o_contract_agreement"/>
+        <result column="o_first_pay" jdbcType="DECIMAL" property="o_first_pay"/>
+        <result column="o_un_pay" jdbcType="DECIMAL" property="o_un_pay"/>
+        <result column="existsContract" jdbcType="INTEGER" property="existsContract"/>
+        <result column="refundStatus" jdbcType="INTEGER" property="refundStatus"/>
+        <result column="groupDeleteStatus" jdbcType="INTEGER" property="groupDeleteStatus"/>
+        <result column="groupStatus" jdbcType="INTEGER" property="groupStatus"/>
+        <result column="isDirector" jdbcType="INTEGER" property="isDirector"/>
+        <result column="firstAgentId" jdbcType="BIGINT" property="firstAgentId"/>
+        <result column="orderBuyerId" jdbcType="BIGINT" property="orderBuyerId"/>
+        <result column="orderRefundStatus" jdbcType="INTEGER" property="orderRefundStatus"/>
+    </resultMap>
+    <select id="selectOrderList" parameterType="com.jdy.b2b.api.model.diy.OrderH5Vo" resultMap="BaseResultMap">
+        select
+        a.id order_id,
+        a.o_order_no as o_number,
+        (select count(b.id) from sl_order_tourist b where b.ot_order_id = a.id and b.ot_type = 1) as o_small_num,
+        (select count(b.id) from sl_order_tourist b where b.ot_order_id = a.id and b.ot_type = 0) as o_big_num,
+        a.o_bed_num,
+        p.p_no as o_product_num,
+        case p.p_from
+        when 0 then CONCAT('【自营研发】',p.p_name)
+        when 1 then CONCAT('【散拼】',p.p_name)
+        when 2 then CONCAT('【自营定制】',p.p_name)
+        when 3 then CONCAT('【单项资源】',p.p_name)
+        when 4 then CONCAT('【途忆旅拍】',p.p_name)
+        else p.p_name
+        END as o_product_name,
+        p.id as o_product_id,
+        p.p_type as o_product_type,
+        p.p_days as o_days,
+        a.create_time as o_sell_time,
+        s.s_calendar as o_start_date,
+        DATE_ADD(s.s_calendar,INTERVAL p.p_days-1 DAY) as o_end_date,
+        s.s_leave_time as o_start_time,
+        <if test='order_type != "seller"'>
+            a.o_saler_company_name as org_name,
+            a.o_saler_company_id as org_id,
+        </if>
+        <if test='order_type == "seller"'>
+            a.o_buyer_company_name as org_name,
+            a.o_buyer_company_id as org_id,
+        </if>
+        a.o_buyer_company_id as o_sorg_id,
+        a.o_saler_company_id as o_worg_id,
+
+        sc.c_city as org_city,
+        sc.c_province as sorg_province,
+        '跟团游' as o_type,
+        a.o_buyer_name as o_name,
+        a.o_servicer as service_name,
+        a.o_market_price as o_buy_real,
+        a.o_real_price as o_settle_real,
+        a.o_real_pay as realPay,
+        <if test='status == null or status == ""'>
+            if((a.o_status in (0,1,4,6)),
+            CASE a.o_status
+              when 0 then '待审核'
+              when 1 then '已报名'
+              when 4 then '已取消'
+              when 6 then '已驳回'
+            END
+            ,if(a.o_status=3,if(a.o_un_pay=0,'已全款',if(a.o_source=4,'已首款','')),if(a.o_un_pay=0 AND a.o_sign=0 and cpct.t_id is not NULL ,'未签署','')))
+        </if>
+        <if test='status != null and status != ""'>
+            <choose>
+                <when test='status == "5"'>
+                    '未签署'
+                </when>
+                <when test='status == "7"'>
+                    '已首款'
+                </when>
+                <when test='status == "8"'>
+                    '已全款'
+                </when>
+                <otherwise>
+                    (case a.o_status
+                    when 0 then '待审核'
+                    when 1 then '已报名'
+                    when 4 then '已取消'
+                    when 6 then '已驳回'
+                    END )
+                </otherwise>
+            </choose>
+        </if>
+         as o_status,
+        a.o_first_pay ,
+        a.o_un_pay ,
+        a.o_status as orderStatus,
+        if(o_status in (0,1,6),1,0) as del_order,
+        a.o_plan as teamPlanList,
+        tourist.ot_name as o_vip_mob,
+        tourist.ot_phone as o_vip_name,
+
+        (select r.status from sl_order_refunds_record r where r.id = max(orr.id)) as refundStatus,
+        css.status as groupDeleteStatus,
+        css.departure_status as groupStatus,
+
+        if(u.u_position_id=201,1,0) as isDirector,
+        a.o_buyer_id as orderBuyerId,
+        a.refund_status as orderRefundStatus
+
+
+
+        from sl_order a
+        LEFT JOIN sm_user u ON u.id = a.o_buyer_id
+        LEFT JOIN sl_order_refunds_record orr ON orr.order_id = a.id
+        INNER JOIN ct_schedule_setting css ON css.group_no = a.o_group_order_no
+        left join (
+        select t1.ot_phone,t1.ot_name,t1.ot_order_id from sl_order_tourist t1 where t1.id = (SELECT min(id) from
+        sl_order_tourist t2 where t2.ot_order_id = t1.ot_order_id)
+        )tourist ON tourist.ot_order_id = a.id
+        LEFT join ct_product p ON a.o_product_id = p.id
+        left join ct_product_contract_template cpct ON cpct.pid = p.id
+        LEFT JOIN ct_schedule s ON s.id = a.o_schedule_id
+
+        LEFT JOIN sm_company sc ON
+        <if test='order_type == "seller"'>
+            sc.id = a.o_buyer_company_id
+        </if>
+        <if test='order_type != "seller"'>
+            sc.id = a.o_saler_company_id
+        </if>
+
+        <where>
+            <if test='status != null and status != "" '>
+                <choose>
+                    <when test='status == "5"'>
+                        a.o_un_pay = 0 and a.o_sign = 0 and a.o_status = 3 and cpct.t_id is not null and a.o_confirm_time IS NOT null
+                    </when>
+                    <when test='status == "7"'>
+                        a.o_source = 4 and a.o_status = 3 and a.o_un_pay > 0
+                    </when>
+                    <when test='status == "8"'>
+                        a.o_status = 3 and a.o_un_pay = 0
+                    </when>
+                    <otherwise>
+                        a.o_status = #{status,jdbcType=INTEGER}
+                    </otherwise>
+                </choose>
+
+            </if>
+            <if test="appletId != null and appletId != ''">
+                and a.create_user = #{userId}
+            </if>
+            <if test="appletId == null or appletId == '' or appletId == 'undefined'">
+                <if test='order_type == "seller"'>
+                    and a.o_saler_id = #{userId}
+                </if>
+                <if test='order_type != "seller"'>
+                    and a.o_buyer_id = #{userId}
+                </if>
+            </if>
+            <!--<if test="puDataLimit == 0"> 用户级别
+                <if test='order_type == "seller"'>
+                    and a.o_saler_id = #{userId}
+                </if>
+                <if test='order_type != "seller"'>
+                    and a.o_buyer_id = #{userId}
+                </if>
+            </if>
+            -->
+            <!--<if test="puDataLimit == 2"> 公司级别
+                <if test='order_type == "seller"'>
+                    and a.o_saler_company_id = #{companyId}
+                </if>
+                <if test='order_type != "seller"'>
+                    and a.o_buyer_company_id = #{companyId}
+                </if>
+            </if>
+            -->
+
+        </where>
+        group by a.id
+        order by a.create_time DESC
+    </select>
+    <select id="selectSimpleOrderList" parameterType="com.jdy.b2b.api.model.diy.OrderH5Vo" resultMap="BaseResultMap">
+        SELECT
+        a.id order_id,
+        a.o_order_no AS o_number,
+        (SELECT count(b.id)
+        FROM sl_order_tourist b
+        WHERE b.ot_order_id = a.id) AS o_num,
+
+        p.p_no AS o_product_num,
+        p.p_name AS o_product_name,
+        s.s_calendar AS o_start_date,
+        a.o_buyer_name AS o_name,
+        temp.ot_name as o_vip_name,
+        temp.ot_phone as o_vip_phone,
+        u.u_account as o_user
+
+
+        FROM sl_order a
+        LEFT JOIN (
+        select t1.ot_phone,t1.ot_name,t1.ot_order_id from sl_order_tourist t1 where t1.id = (SELECT min(id) from
+        sl_order_tourist t2 where t2.ot_order_id = t1.ot_order_id)
+        ) temp ON temp.ot_order_id = a.id
+        LEFT JOIN ct_product p ON a.o_product_id = p.id
+        LEFT JOIN ct_schedule s ON s.id = a.o_schedule_id
+        left join sm_user u ON u.id = a.o_buyer_id
+        <where>
+            CONCAT(IFNULL(a.o_order_no,''),IFNULL(temp.ot_name,''), IFNULL(temp.ot_phone,''),
+            ifnull(a.o_saler_company_name,'')) LIKE concat('%',#{key},'%')
+            <if test="puDataLimit == 0"><!-- 用户级别 -->
+                <if test='order_type == "seller"'>
+                    and a.o_saler_id = #{userId}
+                </if>
+                <if test='order_type != "seller"'>
+                    and a.o_buyer_id = #{userId}
+                </if>
+            </if>
+            <if test="puDataLimit == 2"><!-- 公司级别-->
+                <if test='order_type == "seller"'>
+                    and a.o_saler_company_id = #{companyId}
+                </if>
+                <if test='order_type != "seller"'>
+                    and a.o_buyer_company_id = #{companyId}
+                </if>
+            </if>
+        </where>
+
+        ORDER BY a.create_time DESC
+    </select>
+
+    <resultMap id="orderH5DetailMap" type="com.jdy.b2b.api.model.diy.OrderH5DetailDTO">
+        <association property="order_detail" javaType="com.jdy.b2b.api.model.diy.OrderH5DTO" resultMap="BaseResultMap">
+
+
+        </association>
+        <collection column="order_id" property="seat_detail" ofType="java.util.ArrayList" select="selectSeatDetailByBillId"/>
+        <collection column="order_id" property="pay_detail" ofType="java.util.ArrayList" select="selectPayDetailByBillId"/>
+    </resultMap>
+    <select id="selectOrderDetail" resultMap="orderH5DetailMap" parameterType="com.jdy.b2b.api.model.diy.OrderH5Vo">
+        SELECT
+          a.id                                                     order_id,
+          a.o_order_no                                          AS o_number,
+          a.o_bed_num,
+          (SELECT count(b.id)
+           FROM sl_order_tourist b
+           WHERE b.ot_order_id = a.id AND b.ot_type = 1) AS o_small_num,
+          (SELECT count(b.id)
+           FROM sl_order_tourist b
+           WHERE b.ot_order_id = a.id AND b.ot_type = 0) AS o_big_num,
+          p.p_no                                                AS o_product_num,
+          p.p_name                                              AS o_product_name,
+          p.id                                                  AS o_product_id,
+          (case p.p_type
+          WHEN 10 THEN '周边短线'
+          when 11 then '国内长线'
+          when 20 then '出境旅游'
+          when 30 then '邮轮'
+          when 40 THEN '特色旅游'
+          when 50 THEN '自助游'
+          END )                                              AS o_product_type,
+          p.p_days                                              AS o_days,
+          a.create_time                                         AS o_sell_time,
+          s.s_calendar                                          AS o_start_date,
+          DATE_ADD(s.s_calendar, INTERVAL p.p_days-1 DAY)         AS o_end_date,
+          s.s_leave_time                                        AS o_start_time,
+          a.o_confirm_time                                      AS o_confirm_time,
+          a.o_external_no                                       AS o_out_num,
+          a.o_contract_no                                       AS o_deal_num,
+          a.o_saler_company_name                                AS org_name,
+          a.o_saler_company_id                                  AS org_id,
+          a.o_saler_company_id                                  AS o_worg_id,
+          a.o_buyer_company_id                                  AS o_sorg_id,
+          sc.c_city                                             AS org_city,
+          sc.c_province                                         AS sorg_province,
+          sc.c_address                                          AS org_addr,
+          '跟团游'                                                 AS o_type,
+          (CASE a.o_pay_method
+           WHEN 0
+             THEN '在线支付'
+           WHEN 1
+             THEN '信用支付'
+           WHEN 2
+             THEN '线下支付' END)                                   AS o_pay_method,
+          a.o_buyer_name                                        AS o_name,
+          u.u_tel                                               AS o_mobile,
+          a.o_servicer                                          AS service_name,
+          a.o_servicer_phone                                    AS service_mob,
+          a.o_market_price                                      AS o_buy_real,
+          a.o_real_price                                        AS o_settle_real,
+          a.o_remark,
+          a.o_contract_agreement,
+          if(
+          (a.o_status in (0,1,4,6)),
+            CASE a.o_status
+              when 0 then '待审核'
+              when 1 then '已报名'
+              when 4 then '已取消'
+              when 6 then '已驳回'
+            END
+            ,if(a.o_status=3,if(a.o_un_pay=0,'已全款',if(a.o_source=4,'已首款','')),if(a.o_un_pay=0 AND a.o_sign=0 and cpct.status is not NULL and cpct.status != 1 and cpct.status != 3 ,'未签署','')))        AS o_status,
+            a.o_first_pay,
+            a.o_un_pay,
+          temp.ot_name                                          AS o_vip_name,
+          temp.ot_phone                                         AS o_vip_mob,
+          if(temp.ot_leave_type=0, sd.d_name, dBus1.d_name)     as site_go,
+          if(temp.ot_return_type=0, sd2.d_name, dBus2.d_name)   as site_back,
+          s.s_sit_type,
+          if(s.s_sit_type=0,'不对号入座',a.o_bus_seat)            as seat_detail,
+          ifnull(p.p_brokerage1,0.00) as p_brokerage1,
+          ifnull(p.p_brokerage2,0.00) as p_brokerage2,
+          ifnull(p.p_brokerage3,0.00) as p_brokerage3,
+          a.o_remark              as o_remark,
+          if(cpct.status is not NULL and cpct.status != 1 and cpct.status != 3 ,true,false)  as  existsContract
+        FROM sl_order a
+          LEFT JOIN sl_order_tourist temp ON temp.ot_order_id = a.id
+          LEFT JOIN ct_product p ON a.o_product_id = p.id
+          LEFT JOIN sm_sign_contract_info cpct ON cpct.order_no = a.o_order_no and cpct.status = 2
+          LEFT JOIN ct_schedule s ON s.id = a.o_schedule_id
+          LEFT JOIN sm_company sc ON sc.id = a.o_saler_company_id
+          LEFT JOIN sm_user u ON u.id = a.o_buyer_id
+          LEFT JOIN sr_shuttle_bus bus1 ON bus1.id = temp.ot_leave_id
+          LEFT JOIN sr_shuttle_bus bus2 ON bus2.id = temp.ot_return_id
+          LEFT JOIN sr_departure dBus1 ON dBus1.id = bus1.sb_departure_id
+          LEFT JOIN sr_departure dBus2 ON dBus2.id = bus2.sb_departure_id
+          left join sr_departure sd ON sd.id = temp.ot_leave_id
+          left join sr_departure sd2 ON sd2.id = temp.ot_return_id
+        where a.o_order_no = #{no}
+        GROUP BY a.id
+    </select>
+    <select id="selectSeatDetailByBillId" resultType="com.jdy.b2b.api.model.diy.SeatDetailH5DTO" parameterType="Long" >
+        SELECT
+              sot.ot_name         AS s_vip_name,
+              sot.ot_phone        AS s_vip_mob,
+              (CASE sot.ot_licence_type
+               WHEN 0
+                 THEN '身份证'
+               WHEN 1
+                 THEN '护照'
+               WHEN 2
+                 THEN '军官证'
+               WHEN 3
+                 THEN '回乡证'
+               WHEN 4
+                 THEN '台胞证'
+               WHEN 5
+                 THEN '国际海员证'
+               WHEN 6
+                 THEN '港澳通行证'
+               WHEN 7
+                 THEN '赴台证'
+               WHEN 8
+                 THEN '其他'
+               END)               AS s_vip_card_type,
+              sot.ot_lincese      AS s_vip_card,
+              ''                  AS s_vip_age,
+              if(sot.ot_ticket_type=1,ctset.t_name,ct.t_name) AS s_tname,
+              if(sot.ot_ticket_type=1,ct.t_name,'')       AS s_tfname,
+              if(sot.ot_ticket_type=0,(CASE ct.t_type
+               WHEN 0
+                 THEN '成人票'
+               WHEN 1
+                 THEN '儿童票' END),'套票')  AS s_ticket_type,
+              ''                  AS s_start_sttime,
+              if(sot.ot_leave_type=0, sd1.d_name, dBus1.d_name)   AS s_start_stname,
+              sot.ot_leave_price  AS s_start_price,
+              ''                  AS s_end_sttime,
+              if(sot.ot_return_type=0, sd2.d_name, dBus2.d_name)  AS s_end_stname,
+              sot.ot_return_price AS s_end_price,
+              sot.ot_rep
+            FROM sl_order_tourist sot
+              LEFT JOIN sr_shuttle_bus bus1 ON bus1.id = sot.ot_leave_id
+              LEFT JOIN sr_shuttle_bus bus2 ON bus2.id = sot.ot_return_id
+              LEFT JOIN sr_departure dBus1 ON dBus1.id = bus1.sb_departure_id
+              LEFT JOIN sr_departure dBus2 ON dBus2.id = bus2.sb_departure_id
+              LEFT JOIN sr_departure sd1 ON sd1.id = sot.ot_leave_id
+              LEFT JOIN sr_departure sd2 ON sd2.id = sot.ot_return_id
+              INNER JOIN ct_ticket ct ON ct.id = sot.ot_ticket_id
+              LEFT JOIN ct_ticket_set cts ON cts.ts_set_id = ct.id
+              LEFT JOIN ct_ticket ctset ON ctset.id = cts.ts_single_id
+            WHERE sot.ot_order_id = #{order_id} AND (sot.ot_type = ctset.t_type OR ctset.t_type IS NULL )
+    </select>
+    <select id="selectPayDetailByBillId" resultType="com.jdy.b2b.api.model.diy.PayDetailH5DTO" parameterType="Long">
+        select
+          op_pay_no as pay_no,
+          '订单支付' as business,
+          op_oprater as buyer_name,
+          op_pay_amount as total_fee,
+          (case op_pay_method
+          when 0 THEN '在线支付'
+          when 1 THEN '信用支付'
+          when 2 THEN '线下支付' END ) as pay_mode,
+          '已付款'  as pay_status,
+          date_format(create_time,'%H:%i') as create_time,
+          date_format(create_time,'%m/%d') as create_date,
+          op_comments as remark
+        FROM sl_order_pay
+        where op_order_id = #{order_id}
+        and op_pay_amount > 0
+    </select>
+
+    <resultMap id="orderInfoH5Map" type="com.jdy.b2b.api.model.diy.OrderInfoH5DTO" >
+        <result column="bl_name" property="bl_name" jdbcType="VARCHAR"/>
+        <result column="p_id" property="p_id" jdbcType="BIGINT"/>
+        <result column="p_days" property="p_days" jdbcType="INTEGER"/>
+        <result column="p_num" property="p_num" jdbcType="VARCHAR"/>
+        <result column="p_name" property="p_name" jdbcType="VARCHAR"/>
+        <result column="p_type" property="p_type" jdbcType="INTEGER"/>
+        <result column="p_type_name" property="p_type_name" jdbcType="VARCHAR"/>
+        <result column="p_sname" property="p_sname" jdbcType="VARCHAR"/>
+        <result column="bl_id" property="bl_id" jdbcType="BIGINT"/>
+        <result column="bl_num" property="bl_num" jdbcType="VARCHAR"/>
+        <result column="bussiness" property="bussiness" jdbcType="VARCHAR"/>
+        <result column="bussiness_id" property="bussiness_id" jdbcType="BIGINT"/>
+        <result column="bl_start_date" property="bl_start_date" jdbcType="TIMESTAMP"/>
+        <result column="bl_start_time" property="bl_start_time" jdbcType="TIME"/>
+        <result column="bl_right_seat" property="bl_right_seat" jdbcType="VARCHAR"/>
+        <result column="is_cluster" property="is_cluster" jdbcType="INTEGER"/>
+        <result column="appoint" property="appoint" jdbcType="BOOLEAN" />
+        <result column="seat_num" property="seat_num" jdbcType="INTEGER" />
+        <result column="bl_end_date" property="bl_end_date" jdbcType="TIMESTAMP" />
+        <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+        <result column="man_qq" property="man_qq" jdbcType="VARCHAR" />
+        <result column="meet_tel" property="meet_tel" jdbcType="VARCHAR" />
+        <result column="org_id" property="org_id" jdbcType="BIGINT" />
+        <result column="pay_way" property="pay_way" jdbcType="INTEGER"/>
+        <result column="pay_amount" property="pay_amount" jdbcType="DECIMAL"/>
+        <result column="firstpay_type" property="firstpay_type"/>
+        <result column="linkTel" property="linkTel"/>
+        <result column="salerName" property="salerName"/>
+        <result column="signContract" property="signContract" jdbcType="INTEGER"/>
+        <collection property="ticketList" select="selectTicketDetailBySchedulId" column="bl_id" ofType="java.util.ArrayList" />
+        <collection property="start_place" select="selectStartPlace" column="bl_id" ofType="ArrayList"/>
+
+    </resultMap>
+    <select id="selectOrderInfo" resultMap="orderInfoH5Map" parameterType="com.jdy.b2b.api.model.diy.OrderH5Vo">
+        SELECT
+          s.s_schedule_name AS bl_name,
+          s.s_product_id    AS p_id,
+          p.p_days          AS p_days,
+          p.p_no            AS p_num,
+          p.p_name          AS p_name,
+          p.p_type          AS p_type,
+          (CASE p.p_type
+           WHEN 10
+             THEN '周边短线'
+           WHEN 11
+             THEN '国内长线'
+           WHEN 20
+             THEN '出境旅游'
+           WHEN 30
+             THEN '邮轮'
+           WHEN 40
+             THEN '特色旅游'
+           WHEN 50
+             THEN '自助游'
+           END)             AS p_type_name,
+          ''                AS p_sname,
+          s.id              AS bl_id,
+          s.s_schedule_no   AS bl_num,
+          b.b_name          AS bussiness,
+          b.id              AS bussiness_id,
+          s.s_calendar      AS bl_start_date,
+          s.s_leave_time    AS bl_start_time,
+          (CASE s.s_sit_type
+           WHEN 0
+             THEN '不对号入座'
+           WHEN 1
+             THEN '对号入座(系统随机)'
+           WHEN 2
+             THEN '对号入座(人工选择)'
+           END)             AS bl_right_seat,
+          0 as is_cluster,
+          false as appoint,
+          null as seat_num,
+          date_add(s.s_calendar,INTERVAL (p.p_days-1) DAY) as bl_end_date,
+          u.u_real_name as linkman,
+          u.u_tel as linkTel,
+          p.p_qq as man_qq,
+          p.p_phone as meet_tel,
+          p.company_id as org_id,
+          p.p_pay_way as pay_way,
+          p.p_pay_amount as pay_amount,
+          p.p_firstpay_type as firstpay_type,
+          saler.u_real_name as salerName,
+          p.offline_sign_status as signContract
+
+        FROM ct_schedule s
+          INNER JOIN ct_product p ON s.s_product_id = p.id
+          LEFT JOIN sm_brand b ON b.id = p.p_brand
+          left join sm_user u ON u.id = p.p_contacts
+          LEFT JOIN sm_user saler ON saler.id = p.create_user
+        where
+          s.id = #{bl_id}
+
+    </select>
+    <resultMap id="ticketDetailChildMap" type="com.jdy.b2b.api.model.diy.TicketDetailH5DTO">
+        <id column="t_id" property="t_id" jdbcType="BIGINT"/>
+        <result column="t_product_id" property="t_product_id" jdbcType="BIGINT" />
+        <result column="t_standards_name" property="t_standards_name" jdbcType="VARCHAR" />
+        <result column="t_preset_type" property="t_preset_type" jdbcType="VARCHAR" />
+        <result column="t_price" property="t_price" jdbcType="DECIMAL" />
+        <result column="t_trade_price" property="t_trade_price" jdbcType="DECIMAL" />
+        <result column="t_store" property="t_store" jdbcType="INTEGER" />
+        <result column="t_limit_type" property="t_limit_type" jdbcType="VARCHAR" />
+        <result column="t_limit_condition" property="t_limit_condition" jdbcType="VARCHAR" />
+        <result column="t_groups" property="t_groups" jdbcType="VARCHAR" />
+        <result column="t_spread_price" property="t_spread_price" jdbcType="DECIMAL" />
+        <result column="t_out_room_price" property="t_out_room_price" jdbcType="DECIMAL" />
+        <result column="num" property="num" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="ticketDetailMap" type="com.jdy.b2b.api.model.diy.TicketDetailH5DTO">
+        <id column="t_id" property="t_id" jdbcType="BIGINT"/>
+        <result column="t_product_id" property="t_product_id" jdbcType="BIGINT" />
+        <result column="t_standards_name" property="t_standards_name" jdbcType="VARCHAR" />
+        <result column="t_preset_type" property="t_preset_type" jdbcType="VARCHAR" />
+        <result column="t_price" property="t_price" jdbcType="DECIMAL" />
+        <result column="t_trade_price" property="t_trade_price" jdbcType="DECIMAL" />
+        <result column="t_store" property="t_store" jdbcType="INTEGER" />
+        <result column="t_limit_type" property="t_limit_type" jdbcType="VARCHAR" />
+        <result column="t_limit_condition" property="t_limit_condition" jdbcType="VARCHAR" />
+        <result column="t_groups" property="t_groups" jdbcType="VARCHAR" />
+        <result column="t_spread_price" property="t_spread_price" jdbcType="DECIMAL" />
+        <result column="t_out_room_price" property="t_out_room_price" jdbcType="DECIMAL" />
+        <collection property="childList" column="t_id" columnPrefix="c_" resultMap="ticketDetailChildMap"/>
+    </resultMap>
+    <select id="selectTicketDetailBySchedulId" resultMap="ticketDetailMap" parameterType="Long">
+        SELECT
+          t.t_product_id,
+          t.id             AS t_id,
+          t.t_name         AS t_standards_name,
+          if(t.t_ticket_type=0,
+          (CASE t.t_type
+           WHEN 0
+             THEN '成人票'
+           WHEN 1
+             THEN '儿童票'
+           END)
+          ,'套票')          AS t_preset_type,
+          t.t_market_price AS t_price,
+          t.t_peer_price   AS t_trade_price,
+          t.t_stock        AS t_store,
+          (CASE t.t_limit_type
+           WHEN 0
+             THEN '无限制'
+           WHEN 1
+             THEN '实名票'
+           WHEN 2
+             THEN '限制性别'
+           WHEN 3
+             THEN '限制年龄'
+           END)            AS t_limit_type,
+          t.t_limit_condition,
+          t.t_traffic      AS t_groups,
+          t.t_price_add    AS t_spread_price,
+          t.t_price_reduce AS t_out_room_price,
+
+          t2.t_product_id,
+          t2.id             AS c_t_id,
+          t2.t_name         AS c_t_standards_name,
+          (CASE t2.t_type
+           WHEN 0
+             THEN '成人票'
+           WHEN 1
+             THEN '儿童票'
+           END)            AS c_t_preset_type,
+          t2.t_market_price AS c_t_price,
+          t2.t_peer_price   AS c_t_trade_price,
+          t2.t_stock        AS c_t_store,
+          (CASE t2.t_limit_type
+           WHEN 0
+             THEN '无限制'
+           WHEN 1
+             THEN '实名票'
+           WHEN 2
+             THEN '限制性别'
+           WHEN 3
+             THEN '限制年龄'
+           END)            AS c_t_limit_type,
+          t2.t_limit_condition,
+          t2.t_traffic      AS c_t_groups,
+          t2.t_price_add    AS c_t_spread_price,
+          t2.t_price_reduce AS c_t_out_room_price,
+          rel.ts_seats      as c_num
+
+
+
+        FROM (ct_ticket t, ct_schedule_ticket st)
+          LEFT JOIN ct_ticket_set rel ON rel.ts_set_id = t.id
+          LEFT JOIN ct_ticket t2 ON t2.id = rel.ts_single_id
+
+        WHERE st.st_schedule_id = #{bl_id} AND st.st_ticket_id = t.id
+    </select>
+
+    <select id="selectStartPlace" resultType="String" >
+        SELECT a.ta_city
+            FROM ct_ticket_area a, ct_schedule_ticket b
+            WHERE
+             b.st_schedule_id = #{bl_id} AND
+              b.st_ticket_id = a.ta_ticket_id
+            GROUP BY a.ta_city
+    </select>
+    <select id="queryOrderSimpleInfo" parameterType="String" resultType="com.jdy.b2b.api.model.diy.OrderSimpleH5DTO">
+        select
+          p.id  as o_product_id,
+          p.p_name  as o_product_name,
+          p.p_no  as o_product_num,
+          p.p_days  as o_days,
+          date_format(s.s_calendar,'%Y%m%d' ) as o_start_date,
+          date_format(date_add(s.s_calendar,INTERVAL (p.p_days-1) DAY),'%Y%m%d') AS o_end_date,
+          o.o_real_pay as total_fee,
+          o.id as o_id,
+          o.o_order_no as o_number,
+          o.o_status as o_status,
+          u.u_wx_openid,
+          o.o_source,
+          o.o_un_pay,
+          o.o_first_pay,
+          o.o_to_pay,
+          o.o_pay_method,
+          o.o_type,
+          o.offline_status,
+          (SELECT count(*) from ct_product_contract_template pct where pct.pid=p.id) contract_template_num
+        from (sl_order o ,ct_product p,ct_schedule s ) left join sm_user u ON o.o_buyer_id = u.id
+        where o.o_product_id = p.id and o.o_schedule_id = s.id
+        and o.o_order_no = #{no}
+    </select>
+
+</mapper>

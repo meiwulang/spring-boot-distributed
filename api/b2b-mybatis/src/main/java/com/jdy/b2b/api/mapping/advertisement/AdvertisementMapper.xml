@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.advertisement.AdvertisementMapper">
+
+    <resultMap id="EditResultMap" type="com.jdy.b2b.api.model.advertisement.AdvertisementDO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <id column="companyId" jdbcType="BIGINT" property="companyId"/>
+        <result column="aPlace" jdbcType="INTEGER" property="aPlace"/>
+        <result column="aStartTime" jdbcType="TIMESTAMP" property="aStartTime"/>
+        <result column="aEndTime" jdbcType="TIMESTAMP" property="aEndTime"/>
+        <result column="aTitle" jdbcType="VARCHAR" property="aTitle"/>
+        <result column="aLink" jdbcType="VARCHAR" property="aLink"/>
+        <result column="aOther" jdbcType="VARCHAR" property="aOther"/>
+        <result column="aComment" jdbcType="VARCHAR" property="aComment"/>
+        <result column="aOpenType" jdbcType="INTEGER" property="aOpenType"/>
+        <result column="sSort" jdbcType="INTEGER" property="aSort"/>
+        <result column="aShow" jdbcType="INTEGER" property="aShow"/>
+        <result column="aStatus" jdbcType="INTEGER" property="aStatus"/>
+        <result column="attachId" jdbcType="BIGINT" property="attachId"/>
+        <result column="attachUrl" jdbcType="VARCHAR" property="attachUrl"/>
+        <collection property="areaList" ofType="com.jdy.b2b.api.model.advertisement.AdverArea">
+            <id column="aId" jdbcType="BIGINT" property="id" />
+            <result column="aaAdverId" jdbcType="BIGINT" property="aaAdverId" />
+            <result column="taCountry" jdbcType="VARCHAR" property="taCountry" />
+            <result column="taProvince" jdbcType="VARCHAR" property="taProvince" />
+            <result column="taCity" jdbcType="VARCHAR" property="taCity" />
+            <result column="taArea" jdbcType="VARCHAR" property="taArea" />
+        </collection>
+    </resultMap>
+
+    <resultMap id="QueryListResultMap" type="com.jdy.b2b.api.model.advertisement.AdvertisementListDO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="aPlace" jdbcType="VARCHAR" property="aPlace"/>
+        <result column="aStartTime" jdbcType="TIMESTAMP" property="aStartTime"/>
+        <result column="aEndTime" jdbcType="TIMESTAMP" property="aEndTime"/>
+        <result column="aTitle" jdbcType="VARCHAR" property="aTitle"/>
+        <result column="aLink" jdbcType="VARCHAR" property="aLink"/>
+        <result column="aOther" jdbcType="VARCHAR" property="aOther"/>
+        <result column="aComment" jdbcType="VARCHAR" property="aComment"/>
+        <result column="aOpenType" jdbcType="INTEGER" property="aOpenType"/>
+        <result column="sSort" jdbcType="INTEGER" property="aSort"/>
+        <result column="aShow" jdbcType="INTEGER" property="aShow"/>
+        <result column="aStatus" jdbcType="INTEGER" property="aStatus"/>
+        <result column="d_name" jdbcType="VARCHAR" property="dName"/>
+    </resultMap>
+<resultMap id="IndexQueryListResultMap" type="com.jdy.b2b.api.model.advertisement.IndexAdverDO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="ad_place" jdbcType="VARCHAR" property="ad_place"/>
+        <result column="beginDate" jdbcType="TIMESTAMP" property="beginDate"/>
+        <result column="endDate" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="ad_opentype" jdbcType="VARCHAR" property="ad_opentype"/>
+        <result column="ad_title" jdbcType="VARCHAR" property="ad_title"/>
+        <result column="ad_pic" jdbcType="VARCHAR" property="ad_pic"/>
+        <result column="ad_content" jdbcType="VARCHAR" property="ad_content"/>
+        <result column="ad_url" jdbcType="VARCHAR" property="ad_url"/>
+        <result column="ad_order" jdbcType="INTEGER" property="ad_order"/>
+        <result column="ad_price" jdbcType="VARCHAR" property="ad_price"/>
+    </resultMap>
+<!--前台接口-->
+    <sql id="Index_Column_List">
+        adver.id as id,
+        dict.d_name as ad_place,
+        adver.a_start_time as beginDate,
+        adver.a_end_time as endDate,
+        adver.a_open_type as ad_opentype,
+        adver.a_title as ad_title,
+        attach.p_oss_name as ad_pic,
+        adver.a_comment as ad_content,
+        adver.a_link as ad_url,
+        adver.a_sort as ad_order,
+        adver.a_other as ad_price
+    </sql>
+    <sql id="Query_Column_List">
+        adver.id as "id",
+        adver.company_id as "companyId",
+        adver.a_place as "aPlace",
+        adver.a_start_time as "aStartTime",
+        adver.a_end_time as "aEndTime",
+        adver.a_title as "aTitle",
+        adver.a_link as "aLink",
+        adver.a_other as "aOther",
+        adver.a_comment as "aComment",
+        adver.a_open_type as "aOpenType",
+        adver.a_sort as "sSort",
+        adver.a_show as aShow,
+        adver.a_status as "aStatus",
+        area.id as "aId",
+        area.aa_adver_id as "aaAdverId",
+        area.ta_country as "taCountry",
+        area.ta_province as "taProvince",
+        area.ta_city as "taCity",
+        area.ta_area as "taArea"
+    </sql>
+
+
+    <sql id="QueryList_Column_List">
+        adver.id as "id",
+        dict.d_name as "aPlace",
+        adver.a_start_time as "aStartTime",
+        adver.a_end_time as "aEndTime",
+        adver.a_title as "aTitle",
+        adver.a_link as "aLink",
+        adver.a_other as "aOther",
+        adver.a_comment as "aComment",
+        adver.a_open_type as "aOpenType",
+        adver.a_sort as "sSort",
+        adver.a_show as aShow,
+        adver.a_status as "aStatus"
+
+    </sql>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_advertisement
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.jdy.b2b.api.model.advertisement.Advertisement" useGeneratedKeys="true" keyProperty="id">
+    insert into sm_advertisement (id,company_id, a_place, a_start_time,
+      a_end_time, a_title,
+      a_link, a_other, a_comment, 
+      a_open_type, a_sort, a_show,a_status,
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{id,jdbcType=BIGINT},#{companyId,jdbcType=BIGINT}, #{aPlace,jdbcType=INTEGER}, #{aStartTime,jdbcType=TIMESTAMP},
+      #{aEndTime,jdbcType=TIMESTAMP},  #{aTitle,jdbcType=VARCHAR},
+      #{aLink,jdbcType=VARCHAR}, #{aOther,jdbcType=VARCHAR}, #{aComment,jdbcType=VARCHAR}, 
+      #{aOpenType,jdbcType=INTEGER}, #{aSort,jdbcType=INTEGER},#{aShow,jdbcType=INTEGER}, #{aStatus,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.advertisement.Advertisement">
+        insert into sm_advertisement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="aPlace != null">
+                a_place,
+            </if>
+            <if test="aStartTime != null">
+                a_start_time,
+            </if>
+            <if test="aEndTime != null">
+                a_end_time,
+            </if>
+
+            <if test="aTitle != null">
+                a_title,
+            </if>
+            <if test="aLink != null">
+                a_link,
+            </if>
+            <if test="aOther != null">
+                a_other,
+            </if>
+            <if test="aComment != null">
+                a_comment,
+            </if>
+            <if test="aOpenType != null">
+                a_open_type,
+            </if>
+            <if test="aSort != null">
+                a_sort,
+            </if>
+            <if test="aShow != null">
+                a_show,
+            </if>
+            <if test="aStatus != null">
+                a_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="aPlace != null">
+                #{aPlace,jdbcType=INTEGER},
+            </if>
+            <if test="aStartTime != null">
+                #{aStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="aEndTime != null">
+                #{aEndTime,jdbcType=TIMESTAMP},
+            </if>
+
+            <if test="aTitle != null">
+                #{aTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="aLink != null">
+                #{aLink,jdbcType=VARCHAR},
+            </if>
+            <if test="aOther != null">
+                #{aOther,jdbcType=VARCHAR},
+            </if>
+            <if test="aComment != null">
+                #{aComment,jdbcType=VARCHAR},
+            </if>
+            <if test="aOpenType != null">
+                #{aOpenType,jdbcType=INTEGER},
+            </if>
+            <if test="aSort != null">
+                #{aSort,jdbcType=INTEGER},
+            </if>
+            <if test="aShow != null">
+                #{aShow,jdbcType=INTEGER},
+            </if>
+            <if test="aStatus != null">
+                #{aStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.advertisement.Advertisement">
+        update sm_advertisement
+        <set>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=BIGINT},
+            </if>
+            <if test="aPlace != null">
+                a_place = #{aPlace,jdbcType=INTEGER},
+            </if>
+            <if test="aStartTime != null">
+                a_start_time = #{aStartTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="aEndTime != null">
+                a_end_time = #{aEndTime,jdbcType=TIMESTAMP},
+            </if>
+
+            <if test="aTitle != null">
+                a_title = #{aTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="aLink != null">
+                a_link = #{aLink,jdbcType=VARCHAR},
+            </if>
+            <if test="aOther != null">
+                a_other = #{aOther,jdbcType=VARCHAR},
+            </if>
+            <if test="aComment != null">
+                a_comment = #{aComment,jdbcType=VARCHAR},
+            </if>
+            <if test="aOpenType != null">
+                a_open_type = #{aOpenType,jdbcType=INTEGER},
+            </if>
+            <if test="aSort != null">
+                a_sort = #{aSort,jdbcType=INTEGER},
+            </if>
+            <if test="aShow != null">
+                a_show = #{aShow,jdbcType=INTEGER},
+            </if>
+            <if test="aStatus != null">
+                a_status = #{aStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.advertisement.Advertisement">
+    update sm_advertisement
+    set a_place = #{aPlace,jdbcType=INTEGER},
+      a_start_time = #{aStartTime,jdbcType=TIMESTAMP},
+      a_end_time = #{aEndTime,jdbcType=TIMESTAMP},
+      a_title = #{aTitle,jdbcType=VARCHAR},
+      a_link = #{aLink,jdbcType=VARCHAR},
+      a_other = #{aOther,jdbcType=VARCHAR},
+      a_comment = #{aComment,jdbcType=VARCHAR},
+      a_open_type = #{aOpenType,jdbcType=INTEGER},
+      a_sort = #{aSort,jdbcType=INTEGER},
+      a_show = #{aShow,jdbcType=INTEGER},
+      a_status = #{aStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+    <select id="queryAdverListForPage" parameterType="com.jdy.b2b.api.model.advertisement.AdvertisementListDO"
+            resultMap="QueryListResultMap">
+        SELECT
+        DISTINCT
+        <include refid="QueryList_Column_List"/>,
+        company.c_name as cName,
+        dict.d_name
+        FROM sm_advertisement adver
+        left join sm_dictionaries dict
+        on adver.a_place = dict.id
+        left join sm_adver_area area on adver.id = area.aa_adver_id
+        left join sm_company company on adver.company_id = company.id
+        <where>
+            <if test="companyId != null">
+                AND adver.company_id = #{companyId,jdbcType=BIGINT}
+            </if>
+            <if test="id != null">
+                AND adver.id = #{id,jdbcType=BIGINT}
+            </if>
+            <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+
+                <if test="aTitle != null and aTitle!=''">
+                    OR adver.a_title like concat('%',#{aTitle,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="aOther != null and aOther!='' ">
+                    OR adver.a_other like concat('%',#{aOther,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="aComment != null and aComment!=''">
+                    OR adver.a_comment like concat('%',#{aComment,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="taCity != null and taCity !=''">
+                    OR area.ta_city like concat('%',#{taCity,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="aTitle != null and aTitle !=''">
+                    OR company.c_name like concat('%',#{aTitle,jdbcType=VARCHAR},'%')
+                </if>
+            </trim>
+            <if test="aPlace != null and aPlace!=''">
+                AND adver.a_place = #{aPlace,jdbcType=VARCHAR}
+            </if>
+            <if test="aStartTime != null">
+                AND adver.a_start_time = #{aStartTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="aEndTime != null">
+                AND adver.a_end_time = #{aEndTime,jdbcType=TIMESTAMP}
+            </if>
+
+            <if test="aLink != null">
+                AND adver.a_link = #{aLink,jdbcType=VARCHAR}
+            </if>
+            <if test="aOpenType != null">
+                AND adver.a_open_type = #{aOpenType,jdbcType=INTEGER}
+            </if>
+            <if test="aSort != null">
+                AND adver.a_sort = #{aSort,jdbcType=INTEGER}
+            </if>
+            <if test="aShow != null">
+                AND adver.a_show = #{aShow,jdbcType=INTEGER}
+            </if>
+            <if test="aStatus != null">
+                AND adver.a_status = #{aStatus,jdbcType=INTEGER}
+            </if>
+            <if test="createTime != null">
+                AND adver.create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createUser != null">
+                AND adver.create_user = #{createUser,jdbcType=BIGINT}
+            </if>
+            <if test="updateTime != null">
+                AND adver.update_time = #{updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updateUser != null">
+                AND adver.update_user = #{updateUser,jdbcType=BIGINT}
+            </if>
+
+        </where>
+        ORDER BY
+        adver.a_sort DESC
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="EditResultMap">
+        select
+        <include refid="Query_Column_List"/>,
+        attach.id as attachId,
+        attach.p_oss_name as attachUrl
+        from sm_advertisement adver
+        LEFT JOIN
+        sm_adver_area area
+        ON adver.id = area.aa_adver_id
+        left join cm_attach attach
+        on adver.id = attach.p_pid
+        where adver.id = #{id,jdbcType=BIGINT}
+        and attach.p_type = 4
+    </select>
+
+    <!--前台接口-->
+    <select id="indexAdverList"  resultMap="IndexQueryListResultMap">
+        select
+        DISTINCT
+        <include refid="Index_Column_List"/>
+        from sm_advertisement adver
+        left join cm_attach attach
+        on adver.id = attach.p_pid
+        left join sm_adver_area area
+        on adver.id = area.aa_adver_id
+        left join cm_city city
+        on city.name = area.ta_city
+        left join sm_dictionaries dict
+        on adver.a_place = dict.id
+        where adver.a_status = 0
+        and adver.a_show = 0
+        and attach.p_type = 4
+        and adver.a_start_time &lt;= (select now())
+        and adver.a_end_time &gt;= (select now())
+        and adver.company_id = #{companyId}
+        order by adver.a_sort desc
+        LIMIT 3
+    </select>
+
+</mapper>

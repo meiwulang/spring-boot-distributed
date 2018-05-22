@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.alterTicket.OrderAlterTicketRecordMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="new_order_id" jdbcType="BIGINT" property="newOrderId" />
+    <result column="neg_order_id" jdbcType="BIGINT" property="negOrderId" />
+    <result column="new_order_no" jdbcType="VARCHAR" property="newOrderNo" />
+    <result column="neg_order_no" jdbcType="VARCHAR" property="negOrderNo" />
+    <result column="target_schedule_id" jdbcType="BIGINT" property="targetScheduleId" />
+    <result column="target_group_no" jdbcType="VARCHAR" property="targetGroupNo" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="loss_money" jdbcType="DECIMAL" property="lossMoney" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="createUserName" jdbcType="VARCHAR" property="createUserName" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="updateUserName" jdbcType="VARCHAR" property="updateUserName" />
+  </resultMap>
+  <resultMap id="OrderAlterTicketWithTouristDTOMap" extends="BaseResultMap" type="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketWithTouristDTO" >
+    <result column="new_order_no" property="newOrderNo" jdbcType="VARCHAR"/>
+    <result column="old_order_no" property="oldOrderNo" jdbcType="VARCHAR"/>
+    <result column="old_group_no" property="oldGroupNo" jdbcType="VARCHAR"/>
+    <result column="lineName" property="lineName" jdbcType="VARCHAR" />
+    <result column="peopleNum" property="peopleNum" jdbcType="INTEGER" />
+    <result column="oldStartDate" property="oldStartDate" jdbcType="TIMESTAMP" />
+    <result column="newStartDate" property="newStartDate" jdbcType="TIMESTAMP" />
+    <collection property="touristInfo" column="id" select="com.jdy.b2b.api.dao.alterTicket.OrderAlterTicketTouristRecordMapper.selectListByRecordId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, new_order_id,neg_order_id,new_order_no,neg_order_no, target_schedule_id, target_group_no, status, loss_money, create_time,
+    create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_order_alter_ticket_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectWithTouristInfoByOrderId" parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketRecord"
+          resultMap="OrderAlterTicketWithTouristDTOMap">
+    SELECT
+    a.*,
+    o.o_order_no as old_order_no,
+    o.o_group_order_no as old_group_no,
+    o2.o_order_no as new_order_no,
+    o2.id as new_order_id,
+    createUser.u_real_name as createUserName,
+    updateUser.u_real_name as updateUserName
+
+    FROM sl_order_alter_ticket_record a
+
+    Left join sl_order o ON o.id = a.order_id
+    LEFT JOIN sl_order o2 ON o2.id = a.new_order_id
+    LEFT JOIN sm_user createUser ON createUser.id = a.create_user
+    LEFT JOIN sm_user updateUser ON updateUser.id = a.update_user
+    WHERE a.order_id = #{orderId}
+  </select>
+  <select id="selectRecordWithTouristByAlterId" parameterType="java.lang.Long"
+          resultMap="OrderAlterTicketWithTouristDTOMap">
+  SELECT
+    a.*,
+    o.o_order_no as old_order_no,
+    o.o_group_order_no as old_group_no,
+    o.o_people_num as peopleNum,
+    o2.o_order_no as new_order_no,
+    o2.id as new_order_id,
+    p.p_name as lineName,
+    oldGroup.start_date as oldStartDate,
+    newGroup.start_date as newStartDate
+    FROM sl_order_alter_ticket_record a
+
+    Left join sl_order o ON o.id = a.order_id
+    INNER JOIN ct_product p ON p.id = o.o_product_id
+    left join ct_schedule_setting oldGroup ON oldGroup.group_no = o.o_group_order_no
+    LEFT JOIN sl_order o2 ON o2.id = a.new_order_id
+    LEFT JOIN ct_schedule_setting newGroup ON newGroup.group_no = a.target_group_no
+    WHERE a.id = #{alterId}
+  </select>
+  <resultMap id="OrderAlterTicketPriceChangeDTOMap" type="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketPriceChangeDTO" >
+    <result column="touristId" property="touristId" jdbcType="BIGINT"/>
+    <result column="touristName" property="touristName" jdbcType="VARCHAR"/>
+    <result column="lincese" property="lincese" jdbcType="VARCHAR"/>
+    <result column="oldPrice" property="oldPrice" jdbcType="DECIMAL"/>
+    <result column="newPrice" property="newPrice" jdbcType="DECIMAL"/>
+    <result column="ticketName" property="ticketName" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <select id="selectPriceChangeInfoByTouristId"
+          resultMap="OrderAlterTicketPriceChangeDTOMap"
+  parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketWithTouristDTO">
+    SELECT
+      a.id touristId,
+      a.ot_name touristName,
+      a.ot_lincese lincese,
+      b.op_price oldPrice ,
+      b.op_price_name ticketName,
+      c.t_market_price newPrice
+    FROM sl_order_tourist a
+      INNER JOIN sl_order_price_detail b ON b.op_order_id = a.ot_order_id AND b.op_ticket_id = a.ot_ticket_id
+      INNER JOIN ct_schedule_ticket c ON c.st_ticket_id = a.ot_ticket_id and c.st_schedule_id = #{targetScheduleId}
+    WHERE a.id IN (
+    <foreach collection="touristInfo" separator="," item="tourist">
+      #{tourist.touristId}
+    </foreach>
+    )
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sl_order_alter_ticket_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketRecord">
+    insert into sl_order_alter_ticket_record (id, order_id, new_order_id,neg_order_id, target_schedule_id,
+      target_group_no, status, loss_money, 
+      create_time, create_user, update_time, 
+      update_user)
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{newOrderId,jdbcType=BIGINT},#{negOrderId,jdbcType=BIGINT}, #{targetScheduleId,jdbcType=BIGINT},
+      #{targetGroupNo,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{lossMoney,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketRecord">
+    insert into sl_order_alter_ticket_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="newOrderId != null">
+        new_order_id,
+      </if>
+      <if test="negOrderId != null">
+        neg_order_id,
+      </if>
+      <if test="targetScheduleId != null">
+        target_schedule_id,
+      </if>
+      <if test="targetGroupNo != null">
+        target_group_no,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="lossMoney != null">
+        loss_money,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="newOrderId != null">
+        #{newOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="negOrderId != null">
+        #{negOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="targetScheduleId != null">
+        #{targetScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="targetGroupNo != null">
+        #{targetGroupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lossMoney != null">
+        #{lossMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+    <insert id="insertByDTO" parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketWithTouristDTO" keyProperty="id" useGeneratedKeys="true">
+      insert into sl_order_alter_ticket_record
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+          id,
+        </if>
+        <if test="orderId != null">
+          order_id,
+        </if>
+        <if test="newOrderId != null">
+          new_order_id,
+        </if>
+        <if test="negOrderId != null">
+          neg_order_id,
+        </if>
+        <if test="targetScheduleId != null">
+          target_schedule_id,
+        </if>
+        <if test="targetGroupNo != null">
+          target_group_no,
+        </if>
+        <if test="status != null">
+          status,
+        </if>
+        <if test="lossMoney != null">
+          loss_money,
+        </if>
+        <if test="createTime != null">
+          create_time,
+        </if>
+        <if test="createUser != null">
+          create_user,
+        </if>
+        <if test="updateTime != null">
+          update_time,
+        </if>
+        <if test="updateUser != null">
+          update_user,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+          #{id,jdbcType=BIGINT},
+        </if>
+        <if test="orderId != null">
+          #{orderId,jdbcType=BIGINT},
+        </if>
+        <if test="newOrderId != null">
+          #{newOrderId,jdbcType=BIGINT},
+        </if>
+        <if test="negOrderId != null">
+          #{negOrderId,jdbcType=BIGINT},
+        </if>
+        <if test="targetScheduleId != null">
+          #{targetScheduleId,jdbcType=BIGINT},
+        </if>
+        <if test="targetGroupNo != null">
+          #{targetGroupNo,jdbcType=VARCHAR},
+        </if>
+        <if test="status != null">
+          #{status,jdbcType=INTEGER},
+        </if>
+        <if test="lossMoney != null">
+          #{lossMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="createTime != null">
+          #{createTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="createUser != null">
+          #{createUser,jdbcType=BIGINT},
+        </if>
+        <if test="updateTime != null">
+          #{updateTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="updateUser != null">
+          #{updateUser,jdbcType=BIGINT},
+        </if>
+      </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketRecord">
+    update sl_order_alter_ticket_record
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="newOrderId != null">
+        new_order_id = #{newOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="negOrderId != null">
+        neg_order_id = #{negOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="newOrderNo != null">
+        new_order_no = #{newOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="negOrderNo != null">
+        neg_order_no = #{negOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="targetScheduleId != null">
+        target_schedule_id = #{targetScheduleId,jdbcType=BIGINT},
+      </if>
+      <if test="targetGroupNo != null">
+        target_group_no = #{targetGroupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lossMoney != null">
+        loss_money = #{lossMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.alterTicket.OrderAlterTicketRecord">
+    update sl_order_alter_ticket_record
+    set order_id = #{orderId,jdbcType=BIGINT},
+      new_order_id = #{newOrderId,jdbcType=BIGINT},
+      neg_order_id = #{negOrderId,jdbcType=BIGINT},
+      new_order_no = #{newOrderNo,jdbcType=VARCHAR},
+      neg_order_no = #{negOrderNo,jdbcType=VARCHAR},
+      target_schedule_id = #{targetScheduleId,jdbcType=BIGINT},
+      target_group_no = #{targetGroupNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      loss_money = #{lossMoney,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

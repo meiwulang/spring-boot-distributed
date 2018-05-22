@@ -1,0 +1,13 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-size:14px;
+    font-family: 'microsoft yahei';
+}
+li{
+    list-style: none;
+}
+.clear{
+    clear: both;
+}
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.electroniccontract.ElectronicContractMapper" >
+    <select id="selectCustomerSignContractNeedInfoByOrderNo" resultType="com.jdy.b2b.api.model.electroniccontract.CustomerSignContractNeedInfo" parameterType="java.lang.String">
+        SELECT
+            c.ot_name AS customerName ,
+            c.ot_licence_type AS identType,
+            c.ot_lincese AS identNumber,
+            c.ot_phone AS mobileNumber,
+            a.contract_no AS contractNo,
+            d.template_title AS docTitle,
+            f.p_name AS productName
+        FROM
+            sm_sign_contract_info a
+        INNER JOIN sl_order b on b.o_order_no = a.order_no
+        INNER JOIN sl_order_tourist c on c.ot_order_id = b.id and c.ot_rep = 1
+        INNER JOIN sm_contract_template_info d on d.template_no = a.template_no
+        INNER JOIN ct_schedule e on e.id = b.o_schedule_id
+        INNER JOIN ct_product f on f.id = e.s_product_id
+        WHERE a.status = 2
+        and a.order_no = #{orderNo}
+    </select>
+
+    <select id="selectGenerateContractNeedInfoByOrderNo" resultType="java.util.Map" parameterType="java.lang.String">
+        SELECT
+            b.ot_name as tourist,
+            b.ot_licence_type as identType,
+            b.ot_lincese as idCardNum,
+            b.ot_phone as touristTel,
+            a.o_people_num as touristsNum,
+            c.id as scheduleId,
+            a.o_group_order_no as groupNo,
+            c.s_calendar as startTime,
+            d.p_days as totalDays,
+            a.o_real_pay as totalTravelExpenses,
+            c.s_group_num as groupMinNum,
+            e.u_tel as saleTel,
+            d.p_name as routeName,
+            d.p_no as routeNo,
+            g.template_title as templateTitle,
+            g.template_no as templateNo,
+            a.o_contract_agreement as supplementalAgreement
+        FROM
+            sl_order a
+        INNER JOIN sl_order_tourist b on b.ot_order_id = a.id and b.ot_rep = 1
+        INNER JOIN ct_schedule c on c.id = a.o_schedule_id
+        INNER JOIN ct_product d on d.id = c.s_product_id
+        INNER JOIN sm_user e on e.id = a.o_buyer_id
+        INNER JOIN ct_product_contract_template f on f.pid = d.id
+		INNER JOIN sm_contract_template_info g on g.id = f.t_id and g.company_id = a.o_saler_company_id
+        where a.o_order_no = #{orderNo}
+        limit 1
+    </select>
+
+    <update id="updateOrderContractSignInfoByContractNo" parameterType="java.lang.String">
+        UPDATE sl_order a
+        INNER JOIN sm_sign_contract_info b ON b.order_no = a.o_order_no
+        SET a.o_sign = 1
+        WHERE
+            b.contract_no = #{contractNo}
+    </update>
+
+    <select id="selectTicketPriceByScheduleId" resultType="com.jdy.b2b.api.model.electroniccontract.TicketPrice" parameterType="java.lang.Long">
+        SELECT
+            c.t_type as ticketType,
+	        c.t_market_price AS ticketPrice
+        FROM
+            ct_schedule a
+        INNER JOIN ct_schedule_ticket b ON b.st_schedule_id = a.id
+        INNER JOIN ct_ticket c ON c.id = b.st_ticket_id
+				INNER JOIN sm_dictionaries d on d.d_name = '直客' and d.id = c.t_category
+        WHERE
+            c.t_status = 0
+        AND a.id = #{scheduleId}
+    </select>
+
+    <select id="selectProductWhetherBindingContractByOrderNo" resultType="com.jdy.b2b.api.model.electroniccontract.ContractTemplateInfo" parameterType="java.lang.String">
+        SELECT
+            d.id AS id,
+            d.template_title AS templateTitle,
+            d.template_no AS templateNo,
+            d.create_time AS createTime,
+            d.update_time AS updateTime
+        FROM
+            sl_order a
+        INNER JOIN ct_product b on b.id = a.o_product_id
+        INNER JOIN ct_product_contract_template c on c.pid = b.id
+        INNER JOIN sm_contract_template_info d on d.id = c.t_id AND d.company_id = a.o_saler_company_id
+        WHERE a.o_order_no = #{orderNo}
+    </select>
+</mapper>

@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.product.ProductMapper">
+	<resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.product.Product">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="company_id" jdbcType="BIGINT" property="companyId" />
+		<result column="p_no" jdbcType="VARCHAR" property="pNo" />
+		<result column="p_name" jdbcType="VARCHAR" property="pName" />
+		<result column="p_short_name" jdbcType="VARCHAR" property="pShortName" />
+		<result column="p_brand" jdbcType="INTEGER" property="pBrand" />
+		<result column="p_type" jdbcType="INTEGER" property="pType" />
+		<result column="p_contacts" jdbcType="BIGINT" property="pContacts" />
+		<result column="p_days" jdbcType="INTEGER" property="pDays" />
+		<result column="p_qq" jdbcType="VARCHAR" property="pQq" />
+		<result column="p_phone" jdbcType="VARCHAR" property="pPhone" />
+		<result column="p_pym" jdbcType="VARCHAR" property="pPym" />
+		<result column="p_recommend" jdbcType="TINYINT" property="pRecommend" />
+		<result column="p_confirm" jdbcType="TINYINT" property="pConfirm" />
+		<result column="p_status" jdbcType="INTEGER" property="pStatus" />
+		<result column="p_sort" jdbcType="INTEGER" property="pSort" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="create_user" jdbcType="BIGINT" property="createUser" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="update_user" jdbcType="BIGINT" property="updateUser" />
+		<result column="p_from" jdbcType="INTEGER" property="pFrom" />
+		<result column="p_from_name" jdbcType="VARCHAR" property="pFromName" />
+		<result column="p_destination" jdbcType="VARCHAR" property="pDestination"/>
+		<result column="p_destination_pym" jdbcType="VARCHAR" property="pDestinationPym"/>
+		<result column="p_destination_location" jdbcType="INTEGER" property="pDestinationLocation"/>
+		<result column="p_destination_region" jdbcType="VARCHAR" property="pDestinationRegion"/>
+		<result column="p_destination_area" jdbcType="VARCHAR" property="pDestinationArea"/>
+
+		<result column="p_pay_way" property="pPayWay"/>
+		<result column="p_firstpay_type" property="pFirstPayType"/>
+
+		<result column="p_pay_amount" property="pPayAmount"/>
+		<result column="offline_sign_status" property="offlineSignStatus"/>
+		<result column="p_ascription" property="ascription"/>
+		<result column="p_group" property="pGroup"/>
+		<result column="life_start_date" property="lifeStartDate"/>
+		<result column="life_end_date" property="lifeEndDate"/>
+		<result property="pContactsEn" column="p_contacts_en"/>
+		<result property="pCreativeOfficerCn" column="p_creative_officer_cn"/>
+		<result property="pCreativeOfficerEn" column="p_creative_officer_en"/>
+		<result property="pTopicCn" column="p_topic_cn"/>
+		<result property="pTopicEn" column="p_topic_en"/>
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="com.jdy.b2b.api.model.product.Product">
+		<association property="pContactName" column="create_user"
+			select="queryForUserByIdSingle"></association>
+		<collection property="assembleCompanyIds" select="com.jdy.b2b.api.dao.product.ProductAssembleCompanyMapper.selectCompanyIdsByProductId"
+					column="id" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="hasContactNameMap"
+		type="com.jdy.b2b.api.model.product.Product">
+		<result column="template_title" property="templateTitle"/>
+		<result column="p_destination_disc" property="pDestinationDisc"/>
+		<result column="updated" property="updated"/>
+		<association property="pContactName" column="p_contacts"
+			select="queryForUserByIdSingle"></association>
+	</resultMap>
+
+	<resultMap id="productRecommendResultMap"
+		type="com.jdy.b2b.api.model.product.ProductRecommendDTO">
+		<id column="pId" jdbcType="BIGINT" property="id" />
+		<result column="pNo" jdbcType="VARCHAR" property="pNo" />
+		<result column="pName" jdbcType="VARCHAR" property="pName" />
+		<result column="pDays" jdbcType="INTEGER" property="pDays" />
+		<result column="cName" jdbcType="VARCHAR" property="cName" />
+		<result column="pRecommend" jdbcType="TINYINT" property="pRecommend" />
+		<result column="uRealName" jdbcType="VARCHAR" property="uRealName" />
+		<collection property="areaList"
+			ofType="com.jdy.b2b.api.model.ticketarea.TicketArea" select="com.jdy.b2b.api.dao.ticket.TicketMapper.queryAreaList"
+			column="pId" jdbcType="BIGINT" />
+	</resultMap>
+
+	<resultMap id="DestCitysResultMap"
+		type="com.jdy.b2b.api.model.product.ProductRecommendDTO">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<collection property="spots"
+			ofType="com.jdy.b2b.api.model.scenicspot.ScenicSpot">
+			<result column="sCustomPlace" jdbcType="VARCHAR" property="sCustomPlace" />
+		</collection>
+	</resultMap>
+
+	<!--列表页筛选条件接口-->
+	<resultMap id="ConditionResultMap" type="com.jdy.b2b.api.model.product.MobileListConditionDO">
+		<id column="pId" jdbcType="BIGINT" property="pId" />
+		<result column="pDays" jdbcType="INTEGER" property="pDays" />
+		<association property="company" javaType="com.jdy.b2b.api.model.company.MobileCompanyConditionDO" column="pId" select="selectCompanyByProductId"/>
+		<collection property="spots" ofType="com.jdy.b2b.api.model.scenicspot.ScenicSpot" column="pId" select="selectSpotsByProductId"/>
+	</resultMap>
+
+	<resultMap id="SpotsConditonResultMap" type="com.jdy.b2b.api.model.scenicspot.ScenicListConditionDO">
+		<result column="sName" jdbcType="VARCHAR" property="scenic" />
+		<result column="attribute" jdbcType="VARCHAR" property="attribute" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, company_id, p_no, p_name, p_short_name, p_brand,
+		p_type, p_contacts,
+		p_days,
+		p_qq, p_phone, p_recommend, p_confirm,
+		p_status,p_sort, p_pay_way,p_firstpay_type,p_pay_amount,
+		create_time,
+		create_user, update_time,
+		update_user,p_pym,p_from,p_from_name,
+		p_destination,p_destination_pym,offline_sign_status,p_ascription,p_group,life_start_date,life_end_date,
+		p_destination_location,p_destination_region,p_destination_area,p_contacts_en,p_creative_officer_cn,p_creative_officer_en,
+		p_topic_cn,p_topic_en
+	</sql>
+		
+	<sql id="Product_Recommend_List">
+		p.id as pId,
+		p.p_no as pNo,
+		p.p_name as pName,
+		p.p_days as
+		pDays,
+		c.c_name as cName,
+		p.p_recommend as pRecommend,
+		u.u_real_name as
+		uRealName
+	</sql>
+	<sql id="Blob_Column_List">
+		p_special, p_cost_include, p_cost_exclude, p_notes, p_visa
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		
+		from ct_product
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		ct_product
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.jdy.b2b.api.model.product.Product"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into ct_product (id,
+		company_id, p_no,
+		p_name, p_short_name, p_brand,
+		p_type, p_contacts,
+		p_days,
+		p_qq, p_phone, p_recommend,
+		p_confirm, p_status, p_pay_way,p_firstpay_type,p_pay_amount,
+		create_time,
+		create_user, update_time, update_user,
+		p_sort,p_pym,
+		p_from,p_from_name,
+		p_destination,p_destination_pym,p_ascription,p_group,life_start_date,life_end_date,
+		p_destination_location,p_destination_region,p_destination_area,
+		p_contacts_en,p_creative_officer_cn,p_creative_officer_en,
+		p_topic_cn,p_topic_en
+		)
+		values
+		(#{id,jdbcType=BIGINT}, #{companyId,jdbcType=BIGINT},
+		#{pNo,jdbcType=VARCHAR},
+		#{pName,jdbcType=VARCHAR},
+		#{pShortName,jdbcType=VARCHAR}, #{pBrand,jdbcType=INTEGER},
+		#{pType,jdbcType=INTEGER}, #{pContacts,jdbcType=BIGINT},
+		#{pDays,jdbcType=INTEGER},
+		#{pQq,jdbcType=VARCHAR},
+		#{pPhone,jdbcType=VARCHAR}, #{pRecommend,jdbcType=TINYINT},
+		#{pConfirm,jdbcType=TINYINT}, #{pStatus,jdbcType=INTEGER},
+		#{pPayWay},#{pFirstPayType},
+		#{pPayAmount},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{createUser,jdbcType=BIGINT},
+		#{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT},
+		#{pSort,jdbcType=INTEGER},
+		#{pPym,jdbcType=VARCHAR},
+		#{pFrom},
+		#{pFromName,jdbcType=VARCHAR},
+		#{pDestination},#{pDestinationPym},#{ascription},#{pGroup},#{lifeStartDate},#{lifeEndDate},
+		#{pDestinationLocation},#{pDestinationRegion},#{pDestinationArea},
+		#{pContactsEn},#{pCreativeOfficerCn},#{pCreativeOfficerEn},#{pTopicCn},#{pTopicEn}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.jdy.b2b.api.model.product.Product">
+		insert into ct_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="companyId != null">
+				company_id,
+			</if>
+			<if test="pNo != null">
+				p_no,
+			</if>
+			<if test="pName != null">
+				p_name,
+			</if>
+			<if test="pShortName != null">
+				p_short_name,
+			</if>
+			<if test="pBrand != null">
+				p_brand,
+			</if>
+			<if test="pType != null">
+				p_type,
+			</if>
+			<if test="pContacts != null">
+				p_contacts,
+			</if>
+			<if test="pDays != null">
+				p_days,
+			</if>
+			<if test="pQq != null">
+				p_qq,
+			</if>
+			<if test="pPhone != null">
+				p_phone,
+			</if>
+			<if test="pRecommend != null">
+				p_recommend,
+			</if>
+			<if test="pConfirm != null">
+				p_confirm,
+			</if>
+			<if test="pStatus != null">
+				p_status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUser != null">
+				create_user,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUser != null">
+				update_user,
+			</if>
+			<if test="pSort != null">
+				p_sort,
+			</if>
+			<if test="pPym != null">
+				p_pym,
+			</if>
+			<if test="pGroup != null">
+				p_group,
+			</if>
+			<if test="lifeStartDate != null">
+				life_start_date,
+			</if>
+			<if test="lifeEndDate != null">
+				life_end_date,
+			</if>
+			<if test="pDestinationLocation != null">
+				p_destination_location,
+			</if>
+			<if test="pDestinationRegion != null">
+				p_destination_region,
+			</if>
+			<if test="pDestinationArea != null">
+				p_destination_area,
+			</if>
+			<if test="pContactsEn != null">
+				p_contacts_en,
+			</if>
+			<if test="pCreativeOfficerCn != null">
+				p_creative_officer_cn,
+			</if>
+			<if test="pCreativeOfficerEn != null">
+				p_creative_officer_en,
+			</if>
+			<if test="pTopicCn != null">
+				p_topic_cn,
+			</if>
+			<if test="pTopicEn != null">
+				p_topic_en,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="companyId != null">
+				#{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="pNo != null">
+				#{pNo,jdbcType=VARCHAR},
+			</if>
+			<if test="pName != null">
+				#{pName,jdbcType=VARCHAR},
+			</if>
+			<if test="pShortName != null">
+				#{pShortName,jdbcType=VARCHAR},
+			</if>
+			<if test="pBrand != null">
+				#{pBrand,jdbcType=INTEGER},
+			</if>
+			<if test="pType != null">
+				#{pType,jdbcType=INTEGER},
+			</if>
+			<if test="pContacts != null">
+				#{pContacts,jdbcType=BIGINT},
+			</if>
+			<if test="pDays != null">
+				#{pDays,jdbcType=INTEGER},
+			</if>
+			<if test="pQq != null">
+				#{pQq,jdbcType=VARCHAR},
+			</if>
+			<if test="pPhone != null">
+				#{pPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="pRecommend != null">
+				#{pRecommend,jdbcType=INTEGER},
+			</if>
+			<if test="pConfirm != null">
+				#{pConfirm,jdbcType=INTEGER},
+			</if>
+			<if test="pStatus != null">
+				#{pStatus,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=BIGINT},
+			</if>
+			<if test="pSort != null">
+				#{pSort,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="pPym != null">
+				#{pPym,jdbcType=VARCHAR},
+			</if>
+			<if test="pGroup != null">
+				#{pGroup,jdbcType=BIGINT},
+			</if>
+			<if test="lifeStartDate != null">
+				#{lifeStartDate},
+			</if>
+			<if test="lifeEndDate != null">
+				#{lifeEndDate},
+			</if>
+			<if test="pDestinationLocation != null">
+				#{pDestinationLocation},
+			</if>
+			<if test="pDestinationRegion != null">
+				#{pDestinationRegion},
+			</if>
+			<if test="pDestinationArea != null">
+				#{pDestinationArea},
+			</if>
+			<if test="pContactsEn != null">
+				#{pContactsEn},
+			</if>
+			<if test="pCreativeOfficerCn != null">
+				#{pCreativeOfficerCn},
+			</if>
+			<if test="pCreativeOfficerEn != null">
+				#{pCreativeOfficerEn},
+			</if>
+			<if test="pTopicCn != null">
+				#{pTopicCn},
+			</if>
+			<if test="pTopicEn != null">
+				#{pTopicEn},
+			</if>			
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.product.Product">
+		update ct_product
+		<set>
+			<if test="companyId != null">
+				company_id = #{companyId,jdbcType=BIGINT},
+			</if>
+			<if test="pNo != null">
+				p_no = #{pNo,jdbcType=VARCHAR},
+			</if>
+			<if test="pName != null">
+				p_name = #{pName,jdbcType=VARCHAR},
+			</if>
+			<if test="pShortName != null">
+				p_short_name = #{pShortName,jdbcType=VARCHAR},
+			</if>
+			<if test="pBrand != null">
+				p_brand = #{pBrand,jdbcType=INTEGER},
+			</if>
+			<if test="pType != null">
+				p_type = #{pType,jdbcType=INTEGER},
+			</if>
+			<if test="pContacts != null">
+				p_contacts = #{pContacts,jdbcType=BIGINT},
+			</if>
+			<if test="pDays != null">
+				p_days = #{pDays,jdbcType=INTEGER},
+			</if>
+			<if test="pQq != null">
+				p_qq = #{pQq,jdbcType=VARCHAR},
+			</if>
+			<if test="pPhone != null">
+				p_phone = #{pPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="pRecommend != null">
+				p_recommend = #{pRecommend,jdbcType=INTEGER},
+			</if>
+			<if test="pConfirm != null">
+				p_confirm = #{pConfirm,jdbcType=INTEGER},
+			</if>
+			<if test="pStatus != null">
+				p_status = #{pStatus,jdbcType=INTEGER},
+			</if>
+			<if test="pPayWay != null">
+				p_pay_way = #{pPayWay},
+			</if>
+			<if test="pFirstPayType != null">
+				p_firstpay_type = #{pFirstPayType},
+			</if>
+			<if test="pPayAmount != null">
+				p_pay_amount = #{pPayAmount},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser,jdbcType=BIGINT},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser,jdbcType=BIGINT},
+			</if>
+			<if test="pSort != null">
+				p_sort = #{pSort,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="pPym != null">
+				p_pym = #{pPym,jdbcType=VARCHAR},
+			</if>
+			<if test="pDestination != null">
+				p_destination = #{pDestination},
+			</if>
+			<if test="pDestinationPym != null">
+				p_destination_pym = #{pDestinationPym},
+			</if>
+			<if test="pFrom != null">
+				p_from = #{pFrom},
+			</if>
+			<if test="pFromName != null">
+				p_from_name = #{pFromName},
+			</if>
+			<if test="brokerage1 !=null" >
+				p_brokerage1 = #{brokerage1},
+			</if>
+			<if test="brokerage2 !=null" >
+				p_brokerage2 = #{brokerage2},
+			</if>
+			<if test="brokerage3 !=null" >
+				p_brokerage3 = #{brokerage3},
+			</if>
+			<if test="offlineSignStatus !=null" >
+				offline_sign_status = #{offlineSignStatus},
+			</if>
+			<if test="ascription !=null" >
+				p_ascription = #{ascription},
+			</if>
+			<if test="pGroup !=null" >
+				p_group = #{pGroup},
+			</if>
+			<if test="lifeStartDate != null">
+				life_start_date = #{lifeStartDate},
+			</if>
+			<if test="pDestinationLocation != null">
+				p_destination_location = #{pDestinationLocation},
+			</if>
+			<if test="pDestinationRegion != null">
+				p_destination_region = #{pDestinationRegion},
+			</if>
+			<if test="pDestinationArea != null">
+				p_destination_area = #{pDestinationArea},
+			</if>
+			<if test="pContactsEn != null">
+				p_contacts_en=#{pContactsEn},
+			</if>
+			<if test="pCreativeOfficerCn != null">
+				p_creative_officer_cn=#{pCreativeOfficerCn},
+			</if>
+			<if test="pCreativeOfficerEn != null">
+				p_creative_officer_en=#{pCreativeOfficerEn},
+			</if>
+			<if test="pTopicCn != null">
+				p_topic_cn=#{pTopicCn},
+			</if>
+			<if test="pTopicEn != null">
+				p_topic_en=#{pTopicEn},
+			</if>			
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.product.Product">
+		update ct_product
+		set company_id = #{companyId,jdbcType=BIGINT},
+		p_no =
+		#{pNo,jdbcType=VARCHAR},
+		p_name = #{pName,jdbcType=VARCHAR},
+		p_short_name = #{pShortName,jdbcType=VARCHAR},
+		p_brand =
+		#{pBrand,jdbcType=INTEGER},
+		p_type = #{pType,jdbcType=INTEGER},
+		p_contacts = #{pContacts,jdbcType=BIGINT},
+		p_days =
+		#{pDays,jdbcType=INTEGER},
+		p_qq = #{pQq,jdbcType=VARCHAR},
+		p_phone =
+		#{pPhone,jdbcType=VARCHAR},
+		p_recommend =
+		#{pRecommend,jdbcType=TINYINT},
+		p_confirm =
+		#{pConfirm,jdbcType=TINYINT},
+		p_status = #{pStatus,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		create_user =
+		#{createUser,jdbcType=BIGINT},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
+		update_user =
+		#{updateUser,jdbcType=BIGINT},
+		p_sort = #{pSort,jdbcType=LONGVARCHAR},
+		p_pym =
+		#{pPym,jdbcType=VARCHAR},
+		life_start_date = #{lifeStartDate},
+		life_end_date = #{lifeEndDate},
+		p_group = #{pGroup},
+		p_destination_location = #{pDestinationLocation},
+		p_destination_region = #{pDestinationRegion},
+		p_destination_area = #{pDestinationArea},
+		p_contacts_en=#{pContactsEn},
+		p_creative_officer_cn=#{pCreativeOfficerCn},
+		p_creative_officer_en=#{pCreativeOfficerEn},
+		p_topic_cn=#{pTopicCn},
+		p_topic_en=#{pTopicEn}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="queryList" resultMap="hasContactNameMap">
+		SELECT
+			a.id,
+			a.company_id,
+			a.p_no,
+			case a.p_from
+			when 0 then CONCAT('【自营研发】',a.p_name)
+			when 1 then CONCAT('【散拼】',a.p_name)
+			when 2 then CONCAT('【自营定制】',a.p_name)
+			when 3 then CONCAT('【单项资源】',a.p_name)
+		    when 4 then CONCAT('【途忆旅拍】',a.p_name)
+			else a.p_name
+			END as p_name,
+			a.p_short_name,
+			a.p_brand,
+			a.p_type,
+			a.p_contacts,
+			a.p_days,
+			a.p_qq,
+			a.p_phone,
+			a.p_recommend,
+			a.p_confirm,
+			a.p_status,p_sort,
+			a.p_pay_way,
+			a.p_pay_amount,
+			a.create_time,
+			a.create_user,
+			a.update_time,
+			a.update_user,
+			a.p_pym,p_from,
+			a.p_from_name,
+			a.p_destination,
+			a.p_destination_pym,
+			a.offline_sign_status,
+			a.p_ascription,
+			a.p_group,
+			(SELECT
+			c.template_title
+			FROM
+			ct_product_contract_template b
+			INNER JOIN sm_contract_template_info c ON c.id = b.t_id
+			AND c.company_id = #{pcompanyId,jdbcType=BIGINT}
+			WHERE b.pid = a.id) templateTitle,
+			(select city.name from cm_city city where city.id = a.p_destination limit 1) p_destination_disc,
+			if(b.updated IS null,0,1)updated
+		FROM ct_product a 
+		<!-- 出厂票修改标识  -->
+		left join (SELECT COUNT(id) updated,product_id FROM ct_factory_ticket WHERE ticket_status = 2 GROUP BY product_id)b 
+		on a.id=b.product_id
+		<include refid="listWhere" />
+		ORDER BY p_sort DESC,
+		id DESC
+		LIMIT #{startNum} ,#{pageSize}
+	</select>
+	<select id="countList" resultType="int">
+		SELECT count(1)
+		FROM ct_product a
+		<include refid="listWhere" />
+	</select>
+	<sql id="listWhere">
+		<where>
+			1=1
+			<!-- 			<choose> -->
+			<!-- 				<when test="pcType !=null and pcType==2 and companyId == null"></when> -->
+			<!-- 				<otherwise>AND company_id = #{companyId,jdbcType=BIGINT}</otherwise> -->
+			<!-- 			</choose> -->
+			<choose>
+				<when test="pStatus != null">
+					AND p_status = #{pStatus,jdbcType=INTEGER}
+				</when>
+				<otherwise>AND p_status != 1		
+				</otherwise>
+			</choose>
+			<!-- 数据级别0:用户级 1:部门级2:单位级3:系统级 -->
+			<choose>
+				<when test="puDataLimit != 3">
+					AND a.company_id = #{pcompanyId,jdbcType=BIGINT}
+				</when>
+
+				<when test="puDataLimit == 3">
+					<choose>
+						<when test="companyId != null">AND a.company_id = #{companyId,jdbcType=BIGINT}</when>
+						<otherwise></otherwise>
+					</choose>
+				</when>
+				<otherwise></otherwise>
+			</choose>
+			<if test="pBrand != null">
+				AND p_brand = #{pBrand,jdbcType=INTEGER}
+			</if>
+			<if test="pType != null">
+				AND p_type = #{pType,jdbcType=INTEGER}
+			</if>
+			<if test="pPym != null">
+				<bind name="pPymLike" value="'%'+pPym+'%'" />
+				AND p_pym like #{pPymLike,jdbcType=VARCHAR}
+			</if>
+			<if test="pName != null">
+				<bind name="pNameLike" value="'%'+pName+'%'" />
+				AND (p_name like #{pNameLike,jdbcType=VARCHAR} OR p_short_name like
+				#{pNameLike,jdbcType=VARCHAR}  OR p_no like
+				#{pNameLike,jdbcType=VARCHAR} )
+			</if>
+			<if test="ascription!=null">
+				and p_ascription = #{ascription}
+			</if>
+			<if test="pDestination!=null and pDestination!=''">
+				and p_destination = #{pDestination}
+			</if>
+			<if test="pGroup!=null">
+				and p_group = #{pGroup}
+			</if>
+			<if test="isSaler == 1">AND p_status != 4</if>
+		</where>
+	</sql>
+	<!--产品推荐列表查询 -->
+	<select id="queryProductRecommendListForPage"
+		parameterType="com.jdy.b2b.api.model.product.ProductRecommendQueryVo"
+		resultMap="productRecommendResultMap">
+		SELECT
+		<include refid="Product_Recommend_List" />
+		FROM ct_product p
+		left join sm_company c
+		on p.company_id = c.id
+		left join
+		sm_user u
+		on u.id = p.create_user
+		/*LEFT JOIN ct_ticket t
+		ON p.id =
+		t.t_product_id
+		left join ct_ticket_area ta
+		on t.id = ta.ta_ticket_id*/
+		<where>
+			c.c_status = 1
+			AND u.u_status = 0
+			<trim prefix="AND (" suffix=")" prefixOverrides="OR | AND">
+
+				<if test="pName != null and pName!=''">
+					OR p.p_name like concat('%',#{pName,jdbcType=VARCHAR},'%')
+				</if>
+				<if test="pPym != null and pPym!=''">
+					OR p.p_pym like concat('%',#{pPym,jdbcType=VARCHAR},'%')
+				</if>
+			</trim>
+			<if test="productCompanyId != null">
+				AND p.company_id = #{productCompanyId,jdbcType=BIGINT}
+			</if>
+			<if test="pType != null">
+				AND p.p_type = #{pType,jdbcType=INTEGER}
+			</if>
+			<if test="pRecommend != null">
+				AND p.p_recommend = #{pRecommend,jdbcType=TINYINT}
+			</if>
+			<if test="pStatus != null">
+				AND p.p_status = #{pStatus,jdbcType=INTEGER}
+			</if>
+		</where>
+
+	</select>
+
+	<select id="queryDestCitys" parameterType="com.jdy.b2b.api.model.product.ProductRecommendDTO"
+		resultMap="DestCitysResultMap">
+		select
+		p.id as id,
+		ss.s_custom_place as sCustomPlace
+		from ct_product p
+		left join ct_trip_scenic ts
+		on p.id = ts.ph_pid
+		left join sr_scenic_spot
+		ss
+		on ts.ph_scenic_id = ss.id
+		<where>
+			p_status = 0
+		</where>
+	</select>
+	<select id="queryForUserByIdSingle" parameterType="long"
+		resultType="java.lang.String">
+		SELECT u_real_name AS pContactName FROM sm_user WHERE id =
+		#{id} limit 1
+	</select>
+
+
+	<select id="selectListConditionProductIds" resultType="com.jdy.b2b.api.model.product.MobileProductProvince">
+		select
+		DISTINCT
+		p.id as pId
+		from ct_ticket_area area
+		inner join ct_ticket t
+		on area.ta_ticket_id = t.id
+		inner join cm_city city
+		on area.ta_city = city.name
+		inner join ct_product p
+		on t.t_product_id = p.id
+		where city.code = #{code}
+		and p.p_type = #{type}
+	</select>
+
+	<!--列表页筛选条件接口-->
+	<select id="listCondition" parameterType="list" resultMap="ConditionResultMap">
+		select
+		p.id as pId,
+		p.p_days as pDays
+		from ct_product p
+		where p.id in
+		<foreach item="province" collection="list" open="(" separator="," close=")">
+			#{province.pId}
+		</foreach>
+	</select>
+
+	<!--根据产品id查公司信息&ndash;&gt;-->
+	<select id="selectCompanyByProductId" parameterType="long" resultType="com.jdy.b2b.api.model.company.MobileCompanyConditionDO">
+		select
+		c.id,
+		c.c_name as name,
+		c.c_name as sname
+		from ct_product p
+		inner join sm_company c
+		on p.company_id = c.id
+		where p.id = #{pId}
+	</select>
+
+	<select id="selectSpotsByProductId" parameterType="long" resultMap="SpotsConditonResultMap">
+		select
+		spot.s_name as sName,
+		spot.s_additional as attribute,
+		spot.s_province province,
+		spot.s_city city
+		from ct_product p
+		inner join ct_trip_scenic trip
+		on p.id = trip.ph_pid
+		inner join sr_scenic_spot spot
+		on trip.ph_scenic_id = spot.id
+		where p.id = #{pId}
+	</select>
+    <select id="selectShelfProductList" resultType="com.jdy.b2b.api.model.fingercrm.ProductSyncInfoDTO" parameterType="long">
+		SELECT
+		t.id             unitPriceId,
+		t.t_name         priceName,
+		t.t_category     categoryId,
+		t.t_market_price unit_pirce,
+		t.t_gather_price gatherPrice,
+		d.d_name         category,
+		p.id          AS product_id,
+		p.p_name      AS name,
+		a.p_oss_name  AS image,
+		p.p_no        AS product_code,
+		p.update_time AS lastUpdateTime,
+		p.p_type      AS product_type_value,
+		ct_info.template_title AS contractName,
+		p.p_no 		  AS productNo,
+		t.t_company_id AS companyId,
+		c.c_name AS companyName,
+		t.t_type AS ticketType,
+		t.t_traffic AS trafficType,
+		ifnull(sd2.d_name,sd.d_name)  AS  startPlace,
+		ifnull(sd2.id,sd.id) as startPlaceId,
+		p.p_destination as endPlace,
+		if(t.t_from_ticket_id is null,0,1) AS isGather,
+		t.t_from_ticket_id as fromTicketId,
+		p.company_id as productCompanyId,
+		p.p_sort as sort,
+		t.factory_price as factoryPrice,
+
+		p.p_contacts_en as pContactsEn,
+		p.p_creative_officer_cn as pCreativeOfficerCn,
+		p.p_creative_officer_en as pCreativeOfficerEn,
+		p.p_topic_cn as pTopicCn,
+		p.p_topic_en as pTopicEn
+
+
+		FROM ct_ticket t
+		INNER JOIN sm_company c ON c.id = t.t_company_id
+		INNER JOIN ct_ticket_departure ctd ON ctd.ticket_id = t.id
+		INNER JOIN sr_departure sd ON sd.id = ctd.departue_id and sd.d_status = 0
+		LEFT JOIN sr_shuttle_bus sb ON sb.sb_departure_id = sd.id and sb.sb_status = 0
+		LEFT JOIN sr_departure sd2 ON sd2.id = sb.sb_shuttle_stop_id and sd2.d_status = 0
+		LEFT JOIN ct_product p ON t.t_product_id = p.id <if test="productId != null" >and p.id = #{productId}</if>
+
+		LEFT JOIN ct_product_contract_template p_c_rel ON p_c_rel.pid = p.id
+		LEFT JOIN sm_contract_template_info ct_info ON ct_info.id = p_c_rel.t_id
+
+		LEFT JOIN cm_attach a ON a.p_type = 6 AND a.p_pid = p.id
+		INNER JOIN sm_dictionaries d ON d.id = t.t_category
+		WHERE (p.p_status = 3 OR p.p_status = 0) and t.t_status = 0
+		<if test="companyId != null">
+			and t.t_company_id = #{companyId}
+		</if>
+
+		GROUP BY unitPriceId
+		<!--select * from (
+		  SELECT
+			t.id             unitPriceId,
+			t.t_name         priceName,
+			t.t_category     categoryId,
+			t.t_market_price unit_pirce,
+			t.t_gather_price gatherPrice,
+			d.d_name         category,
+			p.id          AS product_id,
+			p.p_name      AS name,
+			a.p_oss_name  AS image,
+			p.p_no        AS product_code,
+			p.update_time AS lastUpdateTime,
+			p.p_type      AS product_type_value,
+			pg.t_id,
+			if(pg.t_id is null,FALSE ,TRUE ) isPublish,
+			ct_info.template_title AS contractName,
+			p.p_no 		  AS productNo,
+			t.t_company_id AS companyId,
+			c.c_name AS companyName,
+			t.t_type AS ticketType,
+			t.t_traffic AS trafficType,
+			ifnull(sd2.d_name,sd.d_name)  AS  startPlace,
+			ifnull(sd2.id,sd.id) as startPlaceId,
+			substring_index(mudidi.d_name,',',1) AS endPlace,
+			p.p_destination as endPlaceId,
+			if(t.t_from_ticket_id is null,0,1) AS isGather,
+			t.t_from_ticket_id as fromTicketId
+
+
+		  FROM ct_ticket t
+			INNER JOIN sm_company c ON c.id = t.t_company_id
+			INNER JOIN ct_ticket_departure ctd ON ctd.ticket_id = t.id
+			INNER JOIN sr_departure sd ON sd.id = ctd.departue_id and sd.d_status = 0
+			LEFT JOIN sr_shuttle_bus sb ON sb.sb_departure_id = sd.id and sb.sb_status = 0
+			LEFT JOIN sr_departure sd2 ON sd2.id = sb.sb_shuttle_stop_id and sd2.d_status = 0
+			LEFT JOIN ct_product p ON t.t_product_id = p.id
+			left join sm_dictionaries mudidi ON mudidi.id = p.p_destination
+			left join sm_dictionaries_group mudidig ON mudidi.d_group_id = mudidig.id and mudidig.dg_name = '产品目的地'
+		<if test="companyId != null">
+			and (t.t_company_id = #{companyId} )
+		</if>
+			LEFT JOIN ct_product_contract_template p_c_rel ON p_c_rel.pid = p.id
+			LEFT JOIN sm_contract_template_info ct_info ON ct_info.id = p_c_rel.t_id
+
+			LEFT JOIN cm_attach a ON a.p_type = 6 AND a.p_pid = p.id
+			INNER JOIN sm_dictionaries d ON d.id = t.t_category
+			LEFT JOIN ct_product_group pg ON pg.t_id = t.id
+		  WHERE (p.p_status = 3 OR p.p_status = 0) and t.t_status = 0
+		UNION
+		SELECT
+		t.id             unitPriceId,
+		t.t_name         priceName,
+		t.t_category     categoryId,
+		t.t_market_price unit_pirce,
+		t.t_gather_price gatherPrice,
+		d.d_name         category,
+		p.id          AS product_id,
+		p.p_name      AS name,
+		a.p_oss_name  AS image,
+		p.p_no        AS product_code,
+		p.update_time AS lastUpdateTime,
+		p.p_type      AS product_type_value,
+		pu.t_id,
+		if(pu.t_id is null,FALSE ,TRUE ) isPublish,
+		ct_info.template_title AS contractName,
+		p.p_no 		  AS productNo,
+		t.t_company_id AS companyId,
+		c.c_name AS companyName,
+		t.t_type AS ticketType,
+		t.t_traffic AS trafficType,
+		ifnull(sd2.d_name,sd.d_name)  AS  startPlace,
+		ifnull(sd2.id,sd.id) as startPlaceId,
+		substring_index(mudidi.d_name,',',1) AS endPlace,
+		p.p_destination as endPlaceId,
+		if(t.t_from_ticket_id is null,0,1) AS isGather,
+		t.t_from_ticket_id as fromTicketId
+
+		FROM ct_ticket t
+		INNER JOIN sm_company c ON c.id = t.t_company_id
+		INNER JOIN ct_ticket_departure ctd ON ctd.ticket_id = t.id
+		INNER JOIN sr_departure sd ON sd.id = ctd.departue_id and sd.d_status = 0
+		LEFT JOIN sr_shuttle_bus sb ON sb.sb_departure_id = sd.id and sb.sb_status = 0
+		LEFT JOIN sr_departure sd2 ON sd2.id = sb.sb_shuttle_stop_id and sd2.d_status = 0
+		LEFT JOIN ct_product p ON t.t_product_id = p.id
+		left join sm_dictionaries mudidi ON mudidi.id = p.p_destination
+		left join sm_dictionaries_group mudidig ON mudidi.d_group_id = mudidig.id and mudidig.dg_name = '产品目的地'
+		<if test="companyId != null">
+			and (t.t_company_id = #{companyId} )
+		</if>
+		LEFT JOIN ct_product_contract_template p_c_rel ON p_c_rel.pid = p.id
+		LEFT JOIN sm_contract_template_info ct_info ON ct_info.id = p_c_rel.t_id
+
+		LEFT JOIN cm_attach a ON a.p_type = 6 AND a.p_pid = p.id
+		INNER JOIN sm_dictionaries d ON d.id = t.t_category
+		LEFT JOIN ct_product_user pu ON pu.t_id = t.id
+		WHERE (p.p_status = 3 OR p.p_status = 0) and t.t_status = 0
+		)temp where isPublish = FALSE
+		  GROUP BY unitPriceId-->
+	</select>
+
+	<select id="selectShelfToPresentProductList" resultType="com.jdy.b2b.api.model.fingercrm.ProductSyncInfoDTO">
+		select * from (
+		SELECT
+		t.id             unitPriceId,
+		t.t_name         priceName,
+		t.t_category     categoryId,
+		t.t_market_price unit_pirce,
+		d.d_name         category,
+		p.id          AS product_id,
+		p.p_name      AS name,
+		a.p_oss_name  AS image,
+		p.p_no        AS product_code,
+		p.update_time AS lastUpdateTime,
+		pg.t_id,
+		if(pg.t_id is null,FALSE ,TRUE ) isPublish
+
+		FROM ct_ticket t
+		LEFT JOIN ct_product p ON t.t_product_id = p.id
+		LEFT JOIN cm_attach a ON a.p_type = 6 AND a.p_pid = p.id
+		INNER JOIN sm_dictionaries d ON d.id = t.t_category
+		LEFT JOIN ct_product_group pg ON pg.t_id = t.id
+		WHERE (p.p_status = 3 OR p.p_status = 0) and t.t_status = 0
+		)temp where isPublish = TRUE
+		GROUP BY unitPriceId
+	</select>
+
+	<select id="selectProductById" parameterType="Long" resultType="com.jdy.b2b.api.model.product.Product">
+		SELECT id from ct_product where id = #{productId}
+	</select>
+
+	<select id="selectMinTicketPrice" parameterType="long" resultType="decimal">
+		select MIN(t_market_price) minTicketPrice from ct_ticket t inner join ct_product p on p.id = t.t_product_id
+		where t.t_product_id = #{id} and t.t_status != 2
+	</select>
+	<select id="selectProductsByCompanyId" resultType="com.jdy.b2b.api.model.product.Product">
+		select
+		<include refid="Base_Column_List" />
+		from ct_product
+		<where>
+			<if test="companyId != null">company_id = #{companyId}</if>
+		</where>
+	</select>
+
+	<select id="selectProductsByCompanyIds" resultType="java.lang.Long">
+		select
+		id
+		from ct_product
+		<where>
+			<if test="companyId != null">company_id = #{companyId}</if>
+		</where>
+	</select>
+
+
+</mapper>

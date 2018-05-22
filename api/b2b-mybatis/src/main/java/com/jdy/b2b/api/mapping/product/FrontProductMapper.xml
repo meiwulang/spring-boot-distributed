@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.product.FrontProductMapper">
+<resultMap type="com.jdy.b2b.api.model.product.FrontProduct" id="detailBaseMap">
+	<result column="p_id" property="p_id"/>
+	<result column="org_id" property="org_id"/>
+	<result column="p_num" property="p_num"/>
+	<result column="p_name" property="p_name"/>
+	<result column="p_sname" property="p_sname"/>
+	<result column="p_cb_id" property="p_cb_id"/>
+	<result column="p_type" property="p_type"/>
+	<result column="linkman" property="linkman"/>
+	<result column="p_days" property="p_days"/>
+	<result column="man_qq" property="man_qq"/>
+	<result column="meet_tel" property="meet_tel"/>
+	<result column="p_status" property="p_status"/>
+	<result column="p_cover" property="p_cover"/>
+	<result column="p_brokerage1" property="p_brokerage1"/>
+	<result column="p_brokerage2" property="p_brokerage2"/>
+	<result column="p_brokerage3" property="p_brokerage3"/>
+	<result column="business" property="business"/>
+	<result column="p_ascription" property="pAscription"/>
+<!-- 	<collection property="start_place_detail" column="p_id" select="getStartPlaceDetail"/> -->
+	<collection property="slide_img" column="p_id" select="getSlideImg"/>
+</resultMap>
+<resultMap type="com.jdy.b2b.api.model.product.FrontProduct" extends="detailBaseMap" id="detailMap">
+	<association property="start_place" column="p_id" select="getStartPlace"/>
+</resultMap>
+	<select id="getStartPlaceDetail" resultType="map">
+	SELECT DISTINCT
+		c. CODE code,
+		ta.ta_city name
+	FROM
+		ct_ticket AS t,
+		ct_ticket_area ta,
+		cm_city c
+	WHERE
+		t.t_product_id = #{p_id}
+	AND ta.ta_ticket_id = t.id
+	AND c. NAME = ta.ta_city			
+	</select>
+	<select id="getStartPlace" resultType="string">
+		SELECT
+			DISTINCT ta.ta_city 
+		FROM
+			ct_ticket AS t,
+			ct_ticket_area ta
+		WHERE
+			t.t_product_id = #{p_id}
+		AND ta.ta_ticket_id = t.id		
+	</select>
+	<select id="getSlideImg" resultType="string">
+		SELECT
+			a.p_oss_name
+		FROM
+			ct_trip t,
+			cm_attach a
+		WHERE
+			t.t_product_id = #{p_id}
+		AND a.p_pid = t.id
+		AND a.p_type = 1	
+	</select>
+	<select id="getTicket" resultType="map">
+		SELECT
+			t_market_price AS price,
+			t_peer_price AS trade_price,
+			t_type
+		FROM
+			ct_ticket
+		WHERE
+			t_product_id = #{p_id}	
+	</select>
+	<select id="detail" resultMap="detailMap" >
+		SELECT
+			p_b.id AS p_id,
+			p_b.company_id AS org_id,
+			p_b.p_no AS p_num,
+			p_b.p_name AS p_name,
+			p_b.p_short_name p_sname,
+			p_b.p_brand AS p_cb_id,
+			p_b.p_type AS p_type,
+			p_b.p_contacts AS linkman,
+			p_b.p_days AS p_days,
+			p_b.p_qq AS man_qq,
+			p_b.p_phone AS meet_tel,
+			p_b.p_status AS p_status,
+			p_c.p_oss_name AS p_cover,
+			p_org.c_name AS business,
+			p_b.p_ascription,
+	IFNULL(0, p_b.p_brokerage1) p_brokerage1,
+	IFNULL(0, p_b.p_brokerage2) p_brokerage2,
+	IFNULL(0, p_b.p_brokerage3) p_brokerage3
+		FROM
+			ct_product AS p_b,
+			cm_attach p_c,
+			sm_company p_org
+		WHERE
+			p_b.id = #{p_id}
+		AND p_b.id = p_c.p_pid
+		AND p_c.p_type = 6
+		AND p_org.id = p_b.company_id
+	</select>
+	<resultMap type="com.jdy.b2b.api.model.product.AppProduct" id="AppProductMap">
+	<result column="p_id" property="p_id"/>
+	<result column="business_id" property="business_id"/>
+	<result column="p_num" property="p_num"/>
+	<result column="p_name" property="p_name"/>
+	<result column="p_sname" property="p_sname"/>
+	<result column="p_type" property="p_type"/>
+	<result column="p_days" property="p_days"/>
+	<result column="p_status" property="p_status"/>
+	<result column="p_cover" property="p_cover"/>
+	<result column="business" property="business"/>
+<!-- 	<collection property="start_place_detail" column="p_id" select="getStartPlaceDetail"/> -->
+<!-- 	<collection property="slide_img" column="p_id" select="getSlideImg"/> -->
+<!-- 	<collection property="ticket_detail_min" column="p_id" select="getTicket"/>	 -->
+	</resultMap>
+	<select id="appPdtlists" resultType="map">
+		SELECT
+			DISTINCT p.id p_id,
+			p_name,
+			p_short_name p_sname,
+			p_no p_num,
+			p.p_type,
+			p_days,
+			p_oss_name p_cover,
+			p.company_id business_id,
+			c.c_name business,
+			if(p.p_status=0,"发布","下架") p_status,
+			MIN(t.t_market_price) ticket_min,
+			p_confirm,
+	IFNULL('0.00', p.p_brokerage1) p_brokerage1,
+	IFNULL('0.00', p.p_brokerage2) p_brokerage2,
+	IFNULL('0.00', p.p_brokerage3) p_brokerage3
+		FROM
+			ct_product p,
+			cm_attach a,
+			sm_company c,
+			ct_ticket t
+		WHERE
+		<if test="city_code != null">
+		EXISTS (
+			SELECT DISTINCT
+				t.t_product_id
+			FROM
+				ct_ticket_area ta,
+				cm_city c,
+				ct_ticket t
+			WHERE
+				c.code = #{city_code}
+			AND ta.ta_city = c.`name`
+			AND t.id = ta.ta_ticket_id	
+			AND p.id = t.t_product_id 	
+		) AND
+		</if>
+		<if test="type != null">
+		p.p_type=#{type} AND
+		</if>
+		<if test="business !=null">
+		c.c_name = #{business} AND
+		</if>
+		<if test="days !=null">
+		p_days=#{days} AND
+		</if>
+		<if test="province !=null">
+		EXISTS (
+			SELECT DISTINCT
+				t.t_product_id
+			FROM
+				ct_ticket_area ta,
+				ct_ticket t
+			WHERE
+				ta.ta_province = #{province}
+			AND t.id = ta.ta_ticket_id
+			AND p.id = t.t_product_id
+		) AND		
+		</if>
+		<if test="destination !=null">
+		EXISTS (
+			SELECT DISTINCT
+				t.t_product_id
+			FROM
+				sr_departure d,
+				ct_ticket_departure td,
+				ct_ticket t
+			WHERE
+				d.d_name = #{destination}
+			AND td.departue_id = d.id
+			AND t.id = td.ticket_id
+		) AND 		
+		</if>
+		<if test="scenic !=null">
+		EXISTS (
+			SELECT DISTINCT
+				ts.ph_pid
+			FROM
+				sr_scenic_spot s,
+				ct_trip_scenic ts
+			WHERE
+				s.s_name = #{scenic}
+			AND ts.ph_scenic_id = s.id
+			AND p.id = ts.ph_pid
+		) AND		
+		</if>
+		<if test="startDate !=null">
+		EXISTS (
+			SELECT DISTINCT
+				st.st_product_id
+			FROM
+				ct_schedule s,
+				ct_schedule_ticket st
+			WHERE
+				s.s_calendar &gt;= #{startDate}
+			<if test="endDate !=null">
+			AND s.s_calendar &lt;= #{endDate}
+			</if>
+			AND p.id = st.st_product_id
+		) AND  
+		</if>
+		<if test="attribute !=null">
+		</if>
+		p.id = a.p_pid
+		AND a.p_type=6
+		AND p.p_status=0
+		AND p.company_id = c.id
+		AND p.id = t.t_product_id
+		AND t.t_type=0
+		GROUP BY p.id
+		LIMIT #{start}, #{limit}
+	</select>
+	<select id="wapBuslist" resultType="map">
+	SELECT DISTINCT
+		p.id id,
+		p_name title,
+		p_short_name short,
+		p_no p_num,
+		p_oss_name image,
+<!-- 		c.c_name business, -->
+		MIN(t.t_market_price) price<!-- ,
+	IFNULL('0.00', p.p_brokerage1) p_brokerage1,
+	IFNULL('0.00', p.p_brokerage2) p_brokerage2,
+	IFNULL('0.00', p.p_brokerage3) p_brokerage3 -->
+	FROM
+		ct_product p
+	LEFT JOIN cm_attach a ON p.id = a.p_pid
+<!-- 	LEFT JOIN sm_company c ON p.company_id = c.id -->
+	LEFT JOIN ct_ticket t ON t.t_product_id = p.id
+	,ct_schedule_ticket st 
+	WHERE
+	1=1
+	<if test="city_code != null">
+		EXISTS (
+			SELECT DISTINCT
+				t.t_product_id
+			FROM
+				cm_city c,
+				ct_ticket_area ta
+			LEFT JOIN ct_ticket t ON ta.ta_ticket_id = t.id
+			WHERE
+			c. CODE = #{city_code}
+			AND ta.ta_city = c. NAME
+			AND p.id = t.t_product_id
+		)
+		</if>
+	AND a.p_type=6
+	AND p.p_status = 0
+<!-- 	AND t.t_type=0 -->
+	AND t.t_status = 0
+	AND st.st_product_id=p.id
+	AND st.st_ticket_id=t.id
+	<if test="pIds != null">
+	AND p.id IN <foreach collection="pIds" item="t" open="(" close=")" separator=",">#{t}</foreach>
+	</if>
+	<if test="tIds != null">
+	AND t.id IN <foreach collection="tIds" item="t" open="(" close=")" separator=",">#{t}</foreach>
+	</if>
+	GROUP BY
+	p.id
+	ORDER BY p.p_sort DESC
+	LIMIT 0,
+	 999
+	</select>
+	<select id="startStations" parameterType="com.jdy.b2b.api.model.station.AppStation" resultType="map">
+		SELECT DISTINCT
+			0 bus_id,
+			d.id id,
+			"" go_back,
+			"始发站" st_type,
+			CASE d.d_traffic
+			WHEN 0 THEN
+				'飞机场'
+			WHEN 1 THEN
+				'火车站'
+			WHEN 2 THEN
+				'汽车站'
+			ELSE '邮轮站' END station_type,
+			"" site_name,
+			"--" go_time,
+			"0" price,
+			d.d_name station_name,
+			d.id end_sid
+		FROM
+			ct_ticket_departure td,
+			sr_departure d
+			<if test="p_id != null">
+			,ct_ticket t
+			</if>
+		WHERE
+		1=1
+		<choose>
+			<when test="p_id != null">
+			AND EXISTS (
+				SELECT ctt.id FROM ct_ticket ctt WHERE 
+				( ctt.t_product_id=#{p_id} 
+				<if test="t_ids != null and t_ids.size() > 0">
+				  AND ctt.id in <foreach collection="t_ids" separator="," open="(" close=")" item="t">#{t}</foreach>
+				</if>
+				)
+				AND	td.ticket_id =ctt.id 
+			)		
+			</when>
+			<otherwise>
+			<if test="t_ids != null and t_ids.size() > 0">
+			AND	td.ticket_id  in <foreach collection="t_ids" separator="," open="(" close=")" item="t">#{t}</foreach>
+			</if>
+			</otherwise>
+		</choose>
+		AND td.departue_id = d.id
+	</select>
+	<select id="stationAndTickets" resultType="map">
+	SELECT DISTINCT
+		b.id bus_id,
+		b.sb_return go_back,
+		IFNULL(b.sb_time,'--') go_time,
+		b.sb_price price,
+
+		d.id sp_site_id,
+		d.d_name site_name,
+		d.d_traffic station_type,
+		d.d_type st_type,
+	
+		d1.id sp_site_end_id,
+		d1.d_name site_end_name,
+		d1.d_traffic station_end_type,
+		d1.d_type st_end_type
+	FROM
+		sr_departure d,
+		sr_shuttle_bus b,
+		sr_departure d1
+	WHERE
+	    1=1
+		<if test="p_ids != null and p_ids.size()>0">
+		AND d.id in <foreach collection="p_ids" close=")" item="t" open="(" separator=",">#{t}</foreach>
+		</if>
+		AND d1.id=b.sb_departure_id
+		AND b.sb_shuttle_stop_id =d.id
+	<if test="start_date != null">
+	AND b.sb_start_time &lt;=#{start_date}
+	</if>
+	<if test="end_date != null">
+	AND b.sb_end_time &gt;=#{end_date}
+	</if>
+	<if test="goDateTime !=null">
+	AND (
+		TIMEDIFF(#{goDateTime} , b.sb_time) &gt;= b.sb_time_length
+		OR b.sb_time IS NULL
+	)	
+	</if>
+	</select>
+	<select id="selectBusList" resultType="String" >
+	SELECT
+		GROUP_CONCAT(
+			date_format(s_calendar, "%Y/%c"),
+			"(",
+			s_week_day,
+			")、"
+		) bus_lists
+	FROM
+		ct_schedule s
+	WHERE
+	s.s_status != 2
+        AND s.s_product_id = #{p_id}	
+	</select>
+	<select id="getAdultTicket" resultType="map">
+	SELECT
+		MIN(t_market_price) AS price,
+		MIN(t_peer_price) AS trade_price,
+		MAX(t_default_price) t_default
+	FROM
+		ct_ticket,ct_schedule_ticket,
+		ct_schedule  s
+	WHERE
+		t_product_id = #{p_id}
+<!-- 	AND  -->
+<!-- 	t_type=0 -->
+	AND t_status=0
+	AND ct_schedule_ticket.st_ticket_id=ct_ticket.id
+	AND s.id=ct_schedule_ticket.st_schedule_id
+	<if test="from != 'preview'">
+	AND ct_ticket.id in(SELECT
+	t_id
+FROM
+	sm_user_group ug,
+	ct_product_group pg
+WHERE
+	ug.g_no = pg.g_no
+AND ug.u_account = #{openId}
+AND pg.p_no = #{p_id})
+	</if>
+	AND s.s_status=0
+	AND	IF (
+		s.s_stop_type = 0,
+		TIMESTAMPDIFF(
+			MINUTE,
+			now(),
+			CONCAT(
+				s.s_calendar,
+				' ',
+				s.s_leave_time
+			)
+		) >= s.s_stop_sale,
+	
+	IF (
+		s.s_stop_type = 1,
+		TIMESTAMPDIFF(
+			HOUR,
+			now(),
+			CONCAT(
+				s.s_calendar,
+				' ',
+				s.s_leave_time
+			)
+		) >= s.s_stop_sale,
+		TIMESTAMPDIFF(
+			DAY,
+			now(),
+			CONCAT(
+				s.s_calendar,
+				' ',
+				s.s_leave_time
+			)
+		) >= s.s_stop_sale
+	)
+	)	
+	</select>
+	<select id="getChildrenTicket" resultType="map">
+	SELECT
+		MIN(t_market_price) AS price,
+		MIN(t_peer_price) AS trade_price,
+		MAX(t_default_price) t_default
+	FROM
+		ct_ticket,ct_schedule_ticket
+	WHERE
+		t_product_id = #{p_id}
+	AND 
+	t_type=1
+	AND t_status=0	
+	AND ct_schedule_ticket.st_ticket_id=ct_ticket.id
+	AND ct_ticket.id in( SELECT t_id FROM ct_product_group WHERE p_no=#{p_id})
+	</select>
+	<select id="getPackageTicket" resultType="map">
+	SELECT
+		MIN(t_market_price) AS price,
+		MIN(t_peer_price) AS trade_price,
+		MAX(t_default_price) t_default
+	FROM
+		ct_ticket,ct_schedule_ticket
+	WHERE
+		t_product_id = #{p_id}
+	AND 
+	t_ticket_type=1
+	AND t_status=0
+	AND ct_schedule_ticket.st_ticket_id=ct_ticket.id
+	AND ct_ticket.id in( SELECT t_id FROM ct_product_group WHERE p_no=#{p_id})	
+	</select>
+	<select id="getProdudtRoute" resultType="map">
+	SELECT
+	pr.pe_special feature ,
+	pr.pe_cost_include cost_in,
+	pr.pe_cost_exclude cost_noin,
+	pr.pe_notes notice,
+	pr.pe_visa visa,
+	pr.pe_retiree  retiree,
+	pr.pe_professional  professional,
+	pr.pe_preschool preschool,
+	pr.pe_student student,
+	pr.pe_jobless jobless,
+	pr.pe_staff staff,
+	pr.pe_cost_remark cost_remark
+	FROM
+	ct_product_extends AS pr
+	WHERE
+	pr.pe_product_id = #{p_id} limit 0, 1
+	</select>
+
+	<select id="getBusList" resultType="map">
+	SELECT DISTINCT
+		t.t_type,
+		s.id bl_id,
+		s.s_calendar bl_start_date,
+		s.s_schedule_no bl_num,
+		"1" sell_status,
+		MIN(t.t_market_price) t_price,
+		CASE
+			WHEN s.s_week_day = 1 THEN
+				'周一'
+			WHEN s.s_week_day = 2 THEN
+				'周二'
+			WHEN s.s_week_day = 3 THEN
+				'周三'
+			WHEN s.s_week_day = 4 THEN
+				'周四'
+			WHEN s.s_week_day = 5 THEN
+				'周五'
+			WHEN s.s_week_day = 6 THEN
+				'周六'
+			WHEN s.s_week_day = 7 THEN
+			'周日'
+		END week_desc,
+		 s.s_seat_total bl_seat_count,
+	
+		IF (
+			s.s_seat_sold IS NULL,
+			0,
+			s.s_seat_sold
+		) bl_saled,
+	
+		IF (
+			s.s_seat_sold = s.s_seat_total,
+			"售完",
+			"充足"
+		) seat_num,
+		 date_format(s.s_calendar, '%Y') date_year,
+		 date_format(s.s_calendar, '%c') date_month,
+		 date_format(s.s_calendar, '%d') date_day,
+		 date_format(s.s_calendar, '%c-%d') date_desc
+	FROM
+		(
+			SELECT DISTINCT
+				s.id bl_id
+			FROM
+				ct_schedule s,
+				ct_schedule_ticket st,
+				ct_ticket t
+			WHERE
+				s.s_product_id = #{p_id}
+			AND s.id = st.st_schedule_id
+			AND st.st_product_id = #{p_id}
+			AND t.id = st.st_ticket_id
+<!-- 			AND t.t_type = 1 -->
+			AND t.t_status = 0
+			<if test="companyId != null">
+			AND t.t_company_id= #{companyId}
+			</if>
+			AND s_status = 0
+			<if test="from != 'preview'">
+			AND t.id IN (
+				SELECT
+					t_id
+				FROM
+					sm_user_group ug,
+					ct_product_group pg
+				WHERE
+					ug.g_no = pg.g_no
+				AND ug.u_account = #{openId}
+				AND pg.p_no = #{p_id}
+			)
+			</if>
+			AND
+			IF (
+				s.s_stop_type = 0,
+				TIMESTAMPDIFF(
+					MINUTE,
+					now(),
+					CONCAT(
+						s.s_calendar,
+						' ',
+						s.s_leave_time
+					)
+				) >= s.s_stop_sale,
+	
+			IF (
+				s.s_stop_type = 1,
+				TIMESTAMPDIFF(
+					HOUR,
+					now(),
+					CONCAT(
+						s.s_calendar,
+						' ',
+						s.s_leave_time
+					)
+				) >= s.s_stop_sale,
+				TIMESTAMPDIFF(
+					DAY,
+					now(),
+					CONCAT(
+						s.s_calendar,
+						' ',
+						s.s_leave_time
+					)
+				) >= s.s_stop_sale
+			)
+			)
+			LIMIT 0,
+			8
+		) sidSet,
+		ct_schedule s,
+		ct_schedule_ticket st,
+		ct_ticket t
+	WHERE
+		sidSet.bl_id = s.id
+		AND s.s_product_id = #{p_id}
+		AND s.id = st.st_schedule_id
+		AND st.st_product_id = #{p_id}
+		AND t.id = st.st_ticket_id
+		AND t.t_status = 0
+		AND s_status = 0
+		<if test="from != 'preview'">
+		AND t.id IN (
+			SELECT
+				t_id
+			FROM
+				sm_user_group ug,
+				ct_product_group pg
+			WHERE
+				ug.g_no = pg.g_no
+			AND ug.u_account = #{openId}
+			AND pg.p_no = #{p_id}
+		)
+		</if>
+		AND
+		IF (
+			s.s_stop_type = 0,
+			TIMESTAMPDIFF(
+				MINUTE,
+				now(),
+				CONCAT(
+					s.s_calendar,
+					' ',
+					s.s_leave_time
+				)
+			) >= s.s_stop_sale,
+	
+			IF (
+			s.s_stop_type = 1,
+			TIMESTAMPDIFF(
+				HOUR,
+				now(),
+				CONCAT(
+					s.s_calendar,
+					' ',
+					s.s_leave_time
+				)
+			) >= s.s_stop_sale,
+				TIMESTAMPDIFF(
+					DAY,
+					now(),
+					CONCAT(
+						s.s_calendar,
+						' ',
+						s.s_leave_time
+					)
+				) >= s.s_stop_sale
+			)
+		)
+	GROUP BY
+		t.t_type,
+		s.s_calendar
+	ORDER BY
+		s.s_calendar ASC
+	</select>
+	<select id="getCalendarMonth" resultType="map">
+	SELECT DISTINCT
+<!-- 		c.`name` city_name, -->
+		t.t_product_id p_id,
+		date_format(s.s_calendar, '%Y') `year`,
+		date_format(s.s_calendar, '%c') `month`,
+		MIN(t.t_market_price) ticket_min_price,
+		t_peer_price ticket_trade_price
+	FROM
+<!-- 		cm_city c, -->
+<!-- 		ct_ticket_area ta, -->
+<!-- 		ct_ticket t  -->
+<!-- 		ct_schedule s, -->
+<!-- 		ct_schedule_ticket cst -->
+		ct_ticket t 
+	LEFT JOIN  	ct_schedule s ON t.t_product_id =  s.s_product_id  AND s.s_product_id = #{p_id} 
+	LEFT JOIN ct_schedule_ticket cst ON cst.st_ticket_id = t.id
+	WHERE
+	1=1
+<!-- 	<if test="city_code != null"> -->
+<!-- 	AND	c.`code` = #{city_code} -->
+<!-- 	AND ta.ta_city = c.`name` -->
+<!-- 	</if> -->
+<!-- 	AND t.id = ta.ta_ticket_id -->
+<!-- 	AND t.t_product_id = #{p_id} -->
+<!-- 	AND s.s_product_id = #{p_id} -->
+	AND t_status=0
+<!-- 	AND t.t_type=0 -->
+<!-- 	AND cst.st_ticket_id=t.id -->
+<!-- 	AND t.id in( SELECT t_id FROM ct_product_group WHERE p_no=#{p_id}) -->
+	AND s.s_calendar>= CURDATE()
+	group by date_format(s.s_calendar, '%Y'),date_format(s.s_calendar, '%c') order by s.s_calendar
+	</select>
+	<select id="getLeaveTime" resultType="String">
+	SELECT
+	s_leave_time
+	FROM
+		`ct_schedule`
+	WHERE
+		id = #{bl_id};
+		</select>
+	<select id="getAllSingleTickets" resultType="String">
+	select ts_single_id from ct_ticket_set where ts_set_id in <foreach collection="list" close=")" open="(" item="t" separator=",">#{t}</foreach>
+	</select>
+	
+	<select id="getProductIdsByOpenId" resultType="long">
+	SELECT DISTINCT p_no FROM sm_user_group ug LEFT JOIN ct_product_group pg ON ug.g_no=pg.g_no AND ug.u_account=#{openId}
+	</select>
+	<select id="countGroupInfo" resultType="int">
+	SELECT count(1) FROM sm_user_group ug LEFT JOIN ct_product_group pg ON ug.g_no=pg.g_no AND ug.u_account=#{openId} and ug.g_no ='01360780-f326-11e7-a84c-00163e0ebb1a' 
+	</select>
+	<select id="getProductIdsByIdsAndCompany" resultType="long">
+	SELECT id FROM ct_product WHERE id in <foreach collection="ids" separator="," item="t" open="(" close=")">#{t}</foreach> AND company_id in ( #{companyId} , 0 )
+	</select>
+	<select id="getTicketsByOpenId" resultType="long">
+	SELECT DISTINCT t_id FROM sm_user_group ug LEFT JOIN ct_product_group pg ON ug.g_no=pg.g_no AND ug.u_account=#{openId}
+	</select>
+	<select id="getTicketsByOpenIdInProductUserTable" resultType="long">
+	SELECT DISTINCT t_id FROM ct_product_user WHERE uid=#{openid}
+	</select>
+	<select id="getProductBasicInfoByOpenId" resultType="map">
+	SELECT DISTINCT
+		p.id id,
+		p_name title,
+		p_short_name short,
+		p.p_no p_num,
+		p_oss_name image,
+		p_from pFrom
+	FROM
+		sm_user_group ug
+	LEFT JOIN ct_product_group pg ON ug.g_no = pg.g_no
+	AND ug.u_account = #{openid}
+	<if test="gno != null">
+	AND ug.g_no !=#{gno}
+	</if>
+	INNER JOIN ct_product p ON pg.p_no = p.id
+	INNER JOIN cm_attach a ON p.id = a.p_pid
+	WHERE
+		a.p_type = 6
+	AND p.p_status = 0
+	union
+	SELECT DISTINCT
+		p.id id,
+		p_name title,
+		p_short_name short,
+		p.p_no p_num,
+		p_oss_name image,
+		p_from pFrom
+	FROM
+	ct_product_user,ct_product p INNER JOIN cm_attach a ON p.id = a.p_pid WHERE uid=#{openid} 
+	</select>
+	<select id="getProductsMinTicket" resultType="java.math.BigDecimal">
+	SELECT getProductMinTicket(#{pid})
+	</select>
+	<select id="getAdultZhiKeMinTicket" resultType="map">
+	SELECT
+		MIN(t_market_price) AS price,
+		MIN(t_peer_price) AS trade_price,
+		MAX(t_default_price) t_default
+	FROM
+		ct_ticket t
+	WHERE
+	t_product_id = #{p_id}
+	AND t.t_status = 0
+	AND t.t_category=5
+	AND t.t_type =0	
+	</select>
+	<select id="getMinTicket" resultType="map">
+	SELECT
+		getProductMinTicket(#{p_id}) AS price,
+		getProductMinTicket(#{p_id}) AS trade_price,
+		getProductMinTicket(#{p_id}) AS t_default
+	</select>
+	<select id="getAdultMinTicket" resultType="map">
+	SELECT
+		MIN(t_market_price) AS price,
+		MIN(t_peer_price) AS trade_price,
+		MAX(t_default_price) t_default
+	FROM
+		ct_ticket t
+	WHERE
+	t_product_id = #{p_id}
+	AND t.t_status = 0
+	AND t.t_type =0	
+	</select>
+	<select id="getChildMinTicket" resultType="map">
+	SELECT
+		MIN(t_market_price) AS price,
+		MIN(t_peer_price) AS trade_price,
+		MAX(t_default_price) t_default
+	FROM
+		ct_ticket t
+	WHERE
+	t_product_id = #{p_id}
+	AND t.t_status = 0
+	AND t.t_type =1	
+	</select>
+</mapper>

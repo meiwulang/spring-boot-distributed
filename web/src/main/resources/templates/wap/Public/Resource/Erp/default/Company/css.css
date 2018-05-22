@@ -1,0 +1,98 @@
+/*.tab-button-custom{ border: none;background-color: red}*/
+/*.tab-button-custom .x-btn-default-toolbar-small{ background-image: none}*/
+/*.tab-button-custom .x-btn-inner{ font-size: 16px;padding: 0}*/
+.dd{ padding: 0;border-bottom:1px solid red }
+.x-toolbar-custom{
+    border: 5px solid #ececec;
+}
+.label-custom{
+    font-size:14px;
+    font-family: "Microsoft Yahei";
+    overflow: hidden;
+    display: table-cell;
+}
+.x-mask{
+    background: rgba(255,255,255,.6);
+}
+
+.tab-button-custom{
+    background:#fff;
+    border:none;
+    border-bottom:3px solid #fff;
+    border-radius: 0;
+}
+.tab-button-custom.x-btn-default-toolbar-small{
+    background: none !important;
+    color:#1E88E5 !important;
+}
+.x-btn-over.x-btn-default-toolbar-small{
+    border-color:#1E88E5
+}
+/*.x-btn-over .x-btn-inner,.x-btn-focus .x-btn-inner,.x-btn-pressed .x-btn-inner{
+    color: #1E88E5;
+}*/
+.x-btn-pressed.x-btn-default-toolbar-small{
+    border-color:#1E88E5
+}
+.x-btn-focus.x-btn-default-toolbar-small{
+    border-color:#1E88E5;
+    background: none;
+}
+.tab-button-custom.tab-button-custom-pressed{
+    border-bottom:3px solid #1E88E5;
+    background:#fff;
+}
+.tab-button-custom:hover{
+    background: #fff;
+}
+.tab-button-custom .x-btn-inner{
+    /*color:#1E88E5;*/
+    font-size:16px;
+    font-weight: normal;
+    line-height:30px;
+    padding:0 5px;
+    font-family:Microsoft Yahei;
+}
+
+.control-button-custom{
+    background:#009DD9;
+    border-radius: 5px;
+}
+.control-button-custom .fa{
+    color:#fff;
+    font-size:20px;
+    padding:0px 0px 5px 5px;
+}
+.control-button-custom .x-btn-inner{
+    color:#fff;
+    font-size:14px;
+    line-height:20px;
+    font-weight: normal;
+    padding:3px 12px 0px 10px;
+    font-family:Microsoft Yahei;
+}
+.edit-button-custom{
+    background: #1E88E5 !important;
+}
+.edit-button-custom.x-btn-default-toolbar-small{
+    border: none;
+    background: none;
+}
+.edit-button-custom .x-btn-inner{
+    color: #fff;
+    font-size: 15px;
+    padding:3px;
+    font-family:Microsoft Yahei;
+}
+.basic_class{ margin:0 auto;}
+.basic_class .x-form-item-label-inner{ font-family: "Microsoft Yahei"; }
+.basic_class .x-anchor-form-item{ margin-bottom: 8px; }
+.basic_class .x-fieldset-default{ margin: 0 0 15px; }
+.basic_class .x-component-default{ color: #1E88E5;
+    font-size: 16px;
+    font-family: "Microsoft Yahei";
+    line-height: 30px; }
+.org-info-box {padding:10px 0;font-size: 14px;font-family: "Microsoft Yahei";}
+.org-info-box .org-list { padding: 5px 0;position: relative}
+.org-info-box .org-title {font-weight: bold;position: absolute;left:0;width:90px;display: inline-block;text-align: right;color:#333}
+.org-info-box .org-text {padding-left:95px;display: inline-block}

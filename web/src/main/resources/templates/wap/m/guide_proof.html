@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>凭证管理</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/guide_proof.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> -->     
+</head>
+<body>
+<div id="wrap">
+	<div class="acti_header">凭证管理
+		<a class="lef" href="javascript:;"></a>
+		<div class="three">
+			<span class="comp">编辑</span>
+			<span class="del">删除</span>
+			<span class="clee">取消</span>
+		</div>
+	</div>
+	<div class="ups">
+		<div class="upse">
+			<span>上传凭证</span>
+		</div>
+	</div>
+	<div class="main">
+		<div class="pro">
+			<div class="pro_lef">
+				<select id="mysele" class="mainse">
+					<option value="0">全部项目</option>
+					<script id="tpl-condition" type="text/html">
+					{each data as value i}
+					<option value="{data[i].tpi_id}">{data[i].tpi_name}</option>
+					{/each}
+					</script>
+				</select> 
+				<span class="save"></span>
+			</div>
+			<div class="pro_rig"></div>
+		</div>	
+		<div class="fa">
+			<div class="ul_list">
+				<ul class="phon_ul phon_uls">
+					<script id="tpl-conditions" type="text/html">
+					{if data != null}
+					{each data as value i}
+					<li class="len" lid="{data[i].at_id}">
+						<img src="{data[i].at_url}" d-src="{data[i].at_url}" alt="">
+					</li>
+					{/each}
+					{else}
+					<li style="color: #666; width: 100%;">没有凭证信息！</li>
+					{/if}
+					</script>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="upsed">
+		<div class="acti_header">上传凭证
+			<a class="lefs" href="javascript:;"></a>
+		</div>
+		<div class="boot">
+			<div class="nos">返&#x3000;回</div>
+			<div class="yes">确认上传</div>
+		</div>
+		<div class="fa">
+			<div class="pro">
+				<div class="pro_lef">
+					<select id="mysele_two" class="mainse">
+					<script id="tpl-condition" type="text/html">
+					{each data as value i}
+					<option value="{data[i].tpi_id}">{data[i].tpi_name}</option>
+					{/each}
+					</script>
+				</select> 
+				<span class="save"></span>
+				</div>
+				<!-- <div class="pro_rig"></div> -->
+			</div>	
+			<div class="bage">
+				<div class="ul_list">
+					<ul class="phon_ul phon_wx">
+						
+						<li class="add">
+							<img src="assets/img/guide/ten.png" alt="">
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/html" id="tpl-bigimg">
+	<div id="bigimg">
+		<div class="close">&times;</div>
+		<div class="swiper-container">
+		    <div class="swiper-wrapper">
+		    	{ each list as value i }
+		        <div class="swiper-slide">
+		        	<img src="{ list[i] }" />
+		        </div>
+		        { /each }
+		    </div>
+		    <!-- 如果需要分页器 -->
+		    <div class="swiper-pagination"></div>
+		</div>
+	</div>
+</script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/guide_proof.build.js"></script>
+</html>

@@ -1,0 +1,6 @@
+#plan_id .x-column-header-first,#plan_box_id .x-column-header-first {display: none}
+#plan_id .span_not_plan,#plan_box_id .span_not_plan {color: blue}
+
+/*票务管理操作*/
+.check-no-cls .x-column-header-first {display: none}
+.span_not_check {color:red}

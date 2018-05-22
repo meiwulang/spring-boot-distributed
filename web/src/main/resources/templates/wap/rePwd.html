@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>修改密码 - 金豆云旅游</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'
+        );
+    </script>
+
+	<!--[if lt IE 9]>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+	<script src="js/lib/jquery-1.11.3.js"></script>
+	<script src="js/lib/bootstrap.js"></script>
+	<script src="js/common/configs.js"></script>
+	<script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+
+<body>
+	<div class="repwd_wrap">
+		<div class="box_wrapper clearfloat">
+			<div class="pull-left rp_logo">
+				<a href="index.html"><img src="img/logo.png" alt="" /></a>
+			</div>
+			<div class="pull-right rp_info">
+				<span>欢迎您！&nbsp</span>
+				<span class="rp_name">&nbsp余秋雨&nbsp</span>
+				<span class="rp_business">&nbsp杭州金豆云旅游公司</span>
+			</div>
+		</div>
+		<div class="rp_wrap" id="">
+			<div class="repwd_inner">
+				<div class="rp_title">账号安全</div>
+				<div>
+					<p class="rp_tips">为保证您的账户安全，请修改默认密码！</p>
+					<div class="rp_form">
+						<div class="rp_username input clearfloat">
+							<label class="pull-left icon_reuser"></label>
+							<input type="text" placeholder="" value="" name="" id="rp_username" readonly="readonly">
+						</div>
+						<div class="rp_def input clearfloat">
+							<label class="pull-left icon_repwd"></label>
+							<input type="password" placeholder="原密码" name="" id="rp_def">
+						</div>
+						<div class="re_new input clearfloat">
+							<label class="pull-left icon_repwd"></label>
+							<input type="password" placeholder="新密码" name="" id="rp_new">
+						</div>
+						<div class="re_sure input clearfloat">
+							<label class="pull-left icon_resurepwd"></label>
+							<input type="password" placeholder="确认新密码" name="" id="rp_sure">
+						</div>
+						
+						<div class="clearfloat">
+							<div class="rp_mit pull-left" id="sub">确定</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="rp_footer">
+			<div class="permission">
+	            <p>Copyright &copy; 2017 www.jdytrip.cn. 金豆云旅游</p>
+	            <div class="clearfloat friendly_link">
+	                <div style="display: inline-block;">
+	                    <span>友情链接：</span>
+	                    <a target="_blank" href="http://www.chunxiao.cn/index.html"><span>春晓资本</span></a>
+	                    <a target="_blank" href="http://www.rongcapital.cn/"><span>融数金服</span></a>
+	                    <a target="_blank" href="http://www.fingercrm.cn/"><span>指尖微客</span></a>
+	                    <a target="_blank" href="http://www.ruixuesoft.com/home"><span>瑞雪科技</span></a>
+	                    <a target="_blank" href="http://www.fangcang.com/"><span>泰坦云</span></a>
+	                    <a target="_blank" href="http://www.eventown.com/"><span>会唐网</span></a>
+	                </div>
+	            </div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="register_modal"></div>
+
+	<script src="js/lib/Popt.js"></script>
+	<script src="js/common/alert.js"></script>
+
+</body>
+<script id="link-js" type="text/javascript">
+    document.write(
+    	'<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/rePwd.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

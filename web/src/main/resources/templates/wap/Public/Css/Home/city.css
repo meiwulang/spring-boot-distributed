@@ -1,0 +1,180 @@
+a {
+    color: #333;
+    text-decoration: none;
+    -webkit-transition: all .3s ease;
+}
+ul, ol, dl, li, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, body, p, html, blockquote, fieldset, div, textarea, address {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: #333;
+    font-family: 'MICROSOFT YAHEI';
+}
+#show-city{
+    border: 1px solid #06c;
+    box-shadow: 2px 2px 3px rgba(0,0,0,.3);
+    overflow: scroll;
+    width: 510px;
+    height:265px;
+    background-color: #fff;
+    padding: 20px;
+    z-index:999;
+    position: absolute;
+}
+#show-city .city-search-box{
+    border: 1px solid #d2d2d2;
+    border-radius: 4px;
+    box-shadow: 1px 1px 3px #ddd inset;
+    height: 28px;
+    position: relative;
+    z-index: 3;
+}
+#show-city .city-search-result{
+    font-weight: bold;
+    padding: 2px;
+}
+#show-city .city-search-result p{
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: #333;
+}
+#show-city .city-search-input {
+    background-color: transparent;
+    border: 0 none!important;
+    box-shadow: none!important;
+    height: 22px;
+    margin: 2px 2%;
+    outline: medium none;
+    padding: 0!important;
+    width: 96%;
+    font-family: "Microsoft yahei";
+}
+#show-city .select_list{
+    height: 24px;
+    margin-top: 10px;
+}
+#show-city .select_list .selectTag{
+    color: #666;
+    cursor: pointer;
+    display: inline;
+    float: left;
+    list-style: outside none none;
+    margin-left: 4px;
+    padding: 0 6px;
+    line-height: 24px;
+    height: 24px;
+}
+#show-city .select_list .hover{
+    background-color: #1d74e6;
+    height: 24px;
+    position: relative;
+    color: #fff;
+}
+#show-city .tag_con{
+    clear: left;
+    overflow: hidden;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-top: 5px;
+}
+#show-city .tag_con .cityTab{
+    overflow: hidden;
+    display: none;
+}
+#show-city .tag_con .hide{
+    display: block;
+}
+#show-city .tag_con .cityTab dl{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#show-city .tag_con .cityTab dl dt{
+    float: left;
+    padding-left: 3px;
+    color: #f30;
+    text-indent: 5px;
+    font-family: "Lucida console","consolas","courier new";
+    line-height: 22px;
+    font-size: 14px;
+    width: 20px;
+}
+#show-city .tag_con .cityTab dl dd{
+    margin-left: 2px;
+    float: left;
+    width: 480px;
+}
+#show-city .tag_con .cityTab dl dd a{
+    padding-left: 5px;
+    width: 88px;
+    line-height: 25px;
+    display: inline-block;
+    color: #000;
+    text-decoration: none;
+    overflow: hidden;
+    height:25px;
+}
+
+#city-box {
+    background:#fff;
+    padding:5px 10px;
+    width:500px;
+}
+#city-box .city-info .c-list {
+    height:30px;
+    line-height: 30px;
+    position: relative;
+    border-top: 1px dashed #dddddd;
+    display: inline-block;
+    margin-top: 5px;
+}
+#city-box .c-top {
+    border-top: 0 !important;
+}
+#city-box .cl-title {
+    font-weight: bold;
+    display: inline-block;
+    width: 50px;
+}
+#city-box .city-title {
+    color: #999;
+    font-weight: bold;
+    font:16px 'Microsoft Yahei';
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 5px;
+    padding-left:5px;
+    height:30px;
+    line-height: 30px;
+}
+#city-box .cl-main {
+    padding-left: 50px;
+    display: inline-block;
+    width:440px;
+}
+#city-box .cl-title {
+    position: absolute;
+    left:0;
+    top:0
+}
+#city-box .city-info {
+    padding: 5px;
+    overflow-y: auto;
+}
+#city-box .cl-a {
+    width:58px;
+    display: inline-block;
+}
+#city-box .f_right {
+    font: 12px 'Microsoft Yahei' !important;
+    color:#999;
+    padding:9px 0;
+    float: right;
+}
+#city-box .cl-a:hover {
+    color:red;
+    text-decoration: underline;
+}
+#city-box .f_right:hover {
+    color:red;
+}

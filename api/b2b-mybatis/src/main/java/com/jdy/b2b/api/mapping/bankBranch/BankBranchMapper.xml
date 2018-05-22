@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.bankBranch.BankBranchMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.bankBranch.BankBranch">
+    <id column="bb_id" jdbcType="INTEGER" property="bbId" />
+    <result column="bb_name" jdbcType="VARCHAR" property="bbName" />
+    <result column="bb_number" jdbcType="VARCHAR" property="bbNumber" />
+    <result column="bb_ba_id" jdbcType="INTEGER" property="bbBaId" />
+    <result column="bb_p_id" jdbcType="INTEGER" property="bbPId" />
+    <result column="bb_c_id" jdbcType="INTEGER" property="bbCId" />
+    <result column="bb_co_id" jdbcType="INTEGER" property="bbCoId" />
+  </resultMap>
+  <resultMap id="QueryListResultMap" type="com.jdy.b2b.api.model.bankBranch.BankBranch">
+    <id column="bb_id" jdbcType="INTEGER" property="bbId" />
+    <result column="bb_name" jdbcType="VARCHAR" property="bbName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bb_id, bb_name, bb_number, bb_ba_id, bb_p_id, bb_c_id, bb_co_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_bank_branch
+    where bb_id = #{bbId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sl_bank_branch
+    where bb_id = #{bbId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.bankBranch.BankBranch">
+    insert into sl_bank_branch (bb_id, bb_name, bb_number, 
+      bb_ba_id, bb_p_id, bb_c_id, 
+      bb_co_id)
+    values (#{bbId,jdbcType=INTEGER}, #{bbName,jdbcType=VARCHAR}, #{bbNumber,jdbcType=VARCHAR}, 
+      #{bbBaId,jdbcType=INTEGER}, #{bbPId,jdbcType=INTEGER}, #{bbCId,jdbcType=INTEGER}, 
+      #{bbCoId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.bankBranch.BankBranch">
+    insert into sl_bank_branch
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bbId != null">
+        bb_id,
+      </if>
+      <if test="bbName != null">
+        bb_name,
+      </if>
+      <if test="bbNumber != null">
+        bb_number,
+      </if>
+      <if test="bbBaId != null">
+        bb_ba_id,
+      </if>
+      <if test="bbPId != null">
+        bb_p_id,
+      </if>
+      <if test="bbCId != null">
+        bb_c_id,
+      </if>
+      <if test="bbCoId != null">
+        bb_co_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bbId != null">
+        #{bbId,jdbcType=INTEGER},
+      </if>
+      <if test="bbName != null">
+        #{bbName,jdbcType=VARCHAR},
+      </if>
+      <if test="bbNumber != null">
+        #{bbNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bbBaId != null">
+        #{bbBaId,jdbcType=INTEGER},
+      </if>
+      <if test="bbPId != null">
+        #{bbPId,jdbcType=INTEGER},
+      </if>
+      <if test="bbCId != null">
+        #{bbCId,jdbcType=INTEGER},
+      </if>
+      <if test="bbCoId != null">
+        #{bbCoId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.bankBranch.BankBranch">
+    update sl_bank_branch
+    <set>
+      <if test="bbName != null">
+        bb_name = #{bbName,jdbcType=VARCHAR},
+      </if>
+      <if test="bbNumber != null">
+        bb_number = #{bbNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bbBaId != null">
+        bb_ba_id = #{bbBaId,jdbcType=INTEGER},
+      </if>
+      <if test="bbPId != null">
+        bb_p_id = #{bbPId,jdbcType=INTEGER},
+      </if>
+      <if test="bbCId != null">
+        bb_c_id = #{bbCId,jdbcType=INTEGER},
+      </if>
+      <if test="bbCoId != null">
+        bb_co_id = #{bbCoId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bb_id = #{bbId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.bankBranch.BankBranch">
+    update sl_bank_branch
+    set bb_name = #{bbName,jdbcType=VARCHAR},
+      bb_number = #{bbNumber,jdbcType=VARCHAR},
+      bb_ba_id = #{bbBaId,jdbcType=INTEGER},
+      bb_p_id = #{bbPId,jdbcType=INTEGER},
+      bb_c_id = #{bbCId,jdbcType=INTEGER},
+      bb_co_id = #{bbCoId,jdbcType=INTEGER}
+    where bb_id = #{bbId,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryBankBranchPage" parameterType="com.jdy.b2b.api.model.bankBranch.BankBranch" resultMap="QueryListResultMap">
+    select bb_id,bb_name from sl_bank_branch
+    where bb_ba_id = #{bbBaId,jdbcType=INTEGER}
+    and bb_p_id = #{bbPId,jdbcType=INTEGER}
+    and bb_c_id = #{bbCId,jdbcType=INTEGER}
+  </select>
+</mapper>

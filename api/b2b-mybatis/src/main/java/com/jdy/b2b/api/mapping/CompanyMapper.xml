@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.CompanyMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.Company">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="c_pid" jdbcType="BIGINT" property="cPid" />
+    <result column="c_name" jdbcType="VARCHAR" property="cName" />
+    <result column="c_type" jdbcType="INTEGER" property="cType" />
+    <result column="c_address" jdbcType="VARCHAR" property="cAddress" />
+    <result column="c_no" jdbcType="VARCHAR" property="cNo" />
+    <result column="c_fax" jdbcType="VARCHAR" property="cFax" />
+    <result column="c_country" jdbcType="VARCHAR" property="cCountry" />
+    <result column="c_province" jdbcType="VARCHAR" property="cProvince" />
+    <result column="c_city" jdbcType="VARCHAR" property="cCity" />
+    <result column="c_area" jdbcType="VARCHAR" property="cArea" />
+    <result column="c_settlement" jdbcType="BIT" property="cSettlement" />
+    <result column="c_product_type" jdbcType="VARCHAR" property="cProductType" />
+    <result column="c_charge_name" jdbcType="VARCHAR" property="cChargeName" />
+    <result column="c_tel" jdbcType="VARCHAR" property="cTel" />
+    <result column="c_phone" jdbcType="VARCHAR" property="cPhone" />
+    <result column="c_introduce" jdbcType="VARCHAR" property="cIntroduce" />
+    <result column="c_logo" jdbcType="VARCHAR" property="cLogo" />
+    <result column="c_seal" jdbcType="VARCHAR" property="cSeal" />
+    <result column="c_idcard" jdbcType="VARCHAR" property="cIdcard" />
+    <result column="c_idcard_front" jdbcType="VARCHAR" property="cIdcardFront" />
+    <result column="c_idcard_back" jdbcType="VARCHAR" property="cIdcardBack" />
+    <result column="c_license_code" jdbcType="VARCHAR" property="cLicenseCode" />
+    <result column="c_license" jdbcType="VARCHAR" property="cLicense" />
+    <result column="c_open_account" jdbcType="BIT" property="cOpenAccount" />
+    <result column="c_status" jdbcType="INTEGER" property="cStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="c_sevice_phone" jdbcType="VARCHAR" property="cSevicePhone" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, c_pid, c_name, c_type, c_address, c_no, c_fax, c_country, c_province, c_city,
+    c_area, c_settlement,c_product_type, c_charge_name, c_tel, c_phone, c_introduce, c_logo, c_seal,
+    c_idcard, c_idcard_front, c_idcard_back, c_license_code, c_license, c_open_account,
+    c_status, create_time, create_user, update_time, update_user,c_sevice_phone
+  </sql>
+  <resultMap id="CompanyVo" type="com.jdy.b2b.api.model.company.CompanyVo" extends="BaseResultMap">
+    <result column="p_name" jdbcType="VARCHAR" property="pName"/>
+  </resultMap>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="CompanyVo">
+    select
+    c.*,d.c_name p_name
+    from sm_company c LEFT JOIN sm_company d ON c.c_pid = d.id
+    where c.id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByNameAndPid"  resultMap="CompanyVo">
+    select * from sm_company where c_name = #{name} and c_pid=#{pId}
+  </select>
+  <select id="selectByName"  resultMap="CompanyVo">
+    select * from sm_company where c_name = #{name} and c_status=1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sm_company
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.Company" useGeneratedKeys="true" keyProperty="id">
+    insert into sm_company (id, c_pid, c_name,
+    c_type, c_address, c_no,
+    c_fax, c_country, c_province,
+    c_city, c_area, c_settlement,c_product_type,
+    c_charge_name, c_tel, c_phone,
+    c_introduce, c_logo, c_seal,
+    c_idcard, c_idcard_front, c_idcard_back,
+    c_license_code, c_license, c_open_account,
+    c_status, create_time, create_user,
+    update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{cPid,jdbcType=BIGINT}, #{cName,jdbcType=VARCHAR},
+    #{cType,jdbcType=INTEGER}, #{cAddress,jdbcType=VARCHAR}, #{cNo,jdbcType=VARCHAR},
+    #{cFax,jdbcType=VARCHAR}, #{cCountry,jdbcType=VARCHAR}, #{cProvince,jdbcType=VARCHAR},
+    #{cCity,jdbcType=VARCHAR}, #{cArea,jdbcType=VARCHAR}, #{cSettlement,jdbcType=BIT},#{cProductType,jdbcType=VARCHAR},
+    #{cChargeName,jdbcType=VARCHAR}, #{cTel,jdbcType=VARCHAR}, #{cPhone,jdbcType=VARCHAR},
+    #{cIntroduce,jdbcType=VARCHAR}, #{cLogo,jdbcType=VARCHAR}, #{cSeal,jdbcType=VARCHAR},
+    #{cIdcard,jdbcType=VARCHAR}, #{cIdcardFront,jdbcType=VARCHAR}, #{cIdcardBack,jdbcType=VARCHAR},
+    #{cLicenseCode,jdbcType=VARCHAR}, #{cLicense,jdbcType=VARCHAR}, #{cOpenAccount,jdbcType=BIT},
+    #{cStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT},
+    #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.Company" useGeneratedKeys="true" keyProperty="id">
+    insert into sm_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cPid != null">
+        c_pid,
+      </if>
+      <if test="cName != null">
+        c_name,
+      </if>
+      <if test="cType != null">
+        c_type,
+      </if>
+      <if test="cAddress != null">
+        c_address,
+      </if>
+      <if test="cNo != null">
+        c_no,
+      </if>
+      <if test="cFax != null">
+        c_fax,
+      </if>
+      <if test="cCountry != null">
+        c_country,
+      </if>
+      <if test="cProvince != null">
+        c_province,
+      </if>
+      <if test="cCity != null">
+        c_city,
+      </if>
+      <if test="cArea != null">
+        c_area,
+      </if>
+      <if test="cSettlement != null">
+        c_settlement,
+      </if>
+      <if test="cChargeName != null">
+        c_charge_name,
+      </if>
+      <if test="cTel != null">
+        c_tel,
+      </if>
+      <if test="cPhone != null">
+        c_phone,
+      </if>
+      <if test="cIntroduce != null">
+        c_introduce,
+      </if>
+      <if test="cLogo != null">
+        c_logo,
+      </if>
+      <if test="cSeal != null">
+        c_seal,
+      </if>
+      <if test="cIdcard != null">
+        c_idcard,
+      </if>
+      <if test="cIdcardFront != null">
+        c_idcard_front,
+      </if>
+      <if test="cIdcardBack != null">
+        c_idcard_back,
+      </if>
+      <if test="cLicenseCode != null">
+        c_license_code,
+      </if>
+      <if test="cLicense != null">
+        c_license,
+      </if>
+      <if test="cOpenAccount != null">
+        c_open_account,
+      </if>
+      <if test="cStatus != null">
+        c_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="cProductType != null">
+        c_product_type,
+      </if>
+      <if test="cSevicePhone != null">
+        c_sevice_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cPid != null">
+        #{cPid,jdbcType=BIGINT},
+      </if>
+      <if test="cName != null">
+        #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cType != null">
+        #{cType,jdbcType=INTEGER},
+      </if>
+      <if test="cAddress != null">
+        #{cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cNo != null">
+        #{cNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cFax != null">
+        #{cFax,jdbcType=VARCHAR},
+      </if>
+      <if test="cCountry != null">
+        #{cCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvince != null">
+        #{cProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="cCity != null">
+        #{cCity,jdbcType=VARCHAR},
+      </if>
+      <if test="cArea != null">
+        #{cArea,jdbcType=VARCHAR},
+      </if>
+      <if test="cSettlement != null">
+        #{cSettlement,jdbcType=BIT},
+      </if>
+      <if test="cChargeName != null">
+        #{cChargeName,jdbcType=VARCHAR},
+      </if>
+      <if test="cTel != null">
+        #{cTel,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null">
+        #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cIntroduce != null">
+        #{cIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="cLogo != null">
+        #{cLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="cSeal != null">
+        #{cSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="cIdcard != null">
+        #{cIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="cIdcardFront != null">
+        #{cIdcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="cIdcardBack != null">
+        #{cIdcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="cLicenseCode != null">
+        #{cLicenseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cLicense != null">
+        #{cLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="cOpenAccount != null">
+        #{cOpenAccount,jdbcType=BIT},
+      </if>
+      <if test="cStatus != null">
+        #{cStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="cProductType != null">
+        #{cProductType,jdbcType=VARCHAR},
+      </if>
+      <if test="cSevicePhone != null">
+        #{cSevicePhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.Company">
+    update sm_company
+    <set>
+      <if test="cPid != null">
+        c_pid = #{cPid,jdbcType=BIGINT},
+      </if>
+      <if test="cName != null">
+        c_name = #{cName,jdbcType=VARCHAR},
+      </if>
+      <if test="cType != null">
+        c_type = #{cType,jdbcType=INTEGER},
+      </if>
+      <if test="cAddress != null">
+        c_address = #{cAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cNo != null">
+        c_no = #{cNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cFax != null">
+        c_fax = #{cFax,jdbcType=VARCHAR},
+      </if>
+      <if test="cCountry != null">
+        c_country = #{cCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="cProvince != null">
+        c_province = #{cProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="cCity != null">
+        c_city = #{cCity,jdbcType=VARCHAR},
+      </if>
+      <if test="cArea != null">
+        c_area = #{cArea,jdbcType=VARCHAR},
+      </if>
+      <if test="cSettlement != null">
+        c_settlement = #{cSettlement,jdbcType=BIT},
+      </if>
+      <if test="cChargeName != null">
+        c_charge_name = #{cChargeName,jdbcType=VARCHAR},
+      </if>
+      <if test="cTel != null">
+        c_tel = #{cTel,jdbcType=VARCHAR},
+      </if>
+      <if test="cPhone != null">
+        c_phone = #{cPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cIntroduce != null">
+        c_introduce = #{cIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="cLogo != null">
+        c_logo = #{cLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="cSeal != null">
+        c_seal = #{cSeal,jdbcType=VARCHAR},
+      </if>
+      <if test="cIdcard != null">
+        c_idcard = #{cIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="cIdcardFront != null">
+        c_idcard_front = #{cIdcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="cIdcardBack != null">
+        c_idcard_back = #{cIdcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="cLicenseCode != null">
+        c_license_code = #{cLicenseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cLicense != null">
+        c_license = #{cLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="cOpenAccount != null">
+        c_open_account = #{cOpenAccount,jdbcType=BIT},
+      </if>
+      <if test="cStatus != null">
+        c_status = #{cStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="cProductType != null">
+        c_product_type = #{cProductType,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        c_reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="cSevicePhone != null">
+        c_sevice_phone = #{cSevicePhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.Company">
+    update sm_company
+    set c_pid = #{cPid,jdbcType=BIGINT},
+      c_name = #{cName,jdbcType=VARCHAR},
+      c_type = #{cType,jdbcType=INTEGER},
+      c_address = #{cAddress,jdbcType=VARCHAR},
+      c_no = #{cNo,jdbcType=VARCHAR},
+      c_fax = #{cFax,jdbcType=VARCHAR},
+      c_country = #{cCountry,jdbcType=VARCHAR},
+      c_province = #{cProvince,jdbcType=VARCHAR},
+      c_city = #{cCity,jdbcType=VARCHAR},
+      c_area = #{cArea,jdbcType=VARCHAR},
+      c_settlement = #{cSettlement,jdbcType=BIT},
+       c_product_type = #{cProductType,jdbcType=VARCHAR},
+      c_charge_name = #{cChargeName,jdbcType=VARCHAR},
+      c_tel = #{cTel,jdbcType=VARCHAR},
+      c_phone = #{cPhone,jdbcType=VARCHAR},
+      c_introduce = #{cIntroduce,jdbcType=VARCHAR},
+      c_logo = #{cLogo,jdbcType=VARCHAR},
+      c_seal = #{cSeal,jdbcType=VARCHAR},
+      c_idcard = #{cIdcard,jdbcType=VARCHAR},
+      c_idcard_front = #{cIdcardFront,jdbcType=VARCHAR},
+      c_idcard_back = #{cIdcardBack,jdbcType=VARCHAR},
+      c_license_code = #{cLicenseCode,jdbcType=VARCHAR},
+      c_license = #{cLicense,jdbcType=VARCHAR},
+      c_open_account = #{cOpenAccount,jdbcType=BIT},
+      c_status = #{cStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updatePids">
+    UPDATE sm_company
+    SET c_pids = getCompanyLevelIds(id, 10)
+  </update>
+  <resultMap id="indexMap" extends="BaseResultMap" type="com.jdy.b2b.api.model.Company">
+    <result column="hasSetting" javaType="boolean" property="hasSetting"></result>
+  </resultMap>
+  <!--根据类型和城市查询，以及类型和编号和名称模糊查询。条件全部动态凭借，为避免where错误，用where 1=1 补充。-->
+  <select id="selectByTypeAndCityAndBhAndName" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>,(select COUNT(1) from sm_company_setting where cs_company_id = sm_company.id)hasSetting from sm_company where c_status=1
+    <if test="type != null">
+      AND c_type =  #{type,jdbcType=INTEGER}
+    </if>
+    <if test="city != null and city != ''">
+      AND c_city =  #{city,jdbcType=VARCHAR}
+    </if>
+    <if test="pid != null and 1!=searchType">
+      AND c_pid =  #{pid,jdbcType=BIGINT}
+    </if>
+    <if test="pid != null and 1==searchType">
+      and (c_pid =  #{pid,jdbcType=BIGINT} or id =  #{pid,jdbcType=BIGINT})
+    </if>
+    <if test="fastSearchStr != null and fastSearchStr != ''">
+      <bind name="fastSearchStrLike" value="'%'+fastSearchStr+'%'"/>
+      AND CONCAT(IFNULL(c_no,''),IFNULL(c_name,''),IFNULL(c_type,'')) LIKE #{fastSearchStrLike}
+    </if>
+    order by id
+  </select>
+
+
+  <!--获取顶级单位的sql 根据name模糊查询-->
+  <select id="selectTopCompanyByName" resultMap="simpleSelectListMap">
+    select id,c_name from sm_company where c_pid = 0
+    <if test="name != null and name != ''">
+      <bind name="nameLike" value="'%'+name+'%'"/>
+      AND c_name like #{nameLike}
+      AND c_status = 1
+    </if>
+  </select>
+
+  <!--获取单位列表的映射，用于查询条件 只需要展示name，id作为下一个查询的条件-->
+  <resultMap id="simpleSelectListMap" type="com.jdy.b2b.api.model.Company">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="c_name" jdbcType="VARCHAR" property="cName" />
+  </resultMap>
+  <!--获取子单位-->
+  <select id="selectChildrenByParentId" parameterType="java.lang.Integer" resultMap="simpleSelectListMap">
+    select  id,c_name from sm_company where c_pid = #{id,jdbcType=BIGINT} AND c_status = 1
+  </select>
+  <!--获取单位附带子单位的映射。利用mybatis的collection标签二次查询。但在一次链接中-->
+  <resultMap id="CompanyDtoMap" type="com.jdy.b2b.api.model.company.CompanyDto" extends="simpleSelectListMap">
+    <collection property="children" column="id" select="selectChildrenByParentId" ofType="com.jdy.b2b.api.model.Company" javaType="java.util.ArrayList"/>
+  </resultMap>
+  <!--获取所有的单位，树结构。-->
+  <select id="selectAllCompanyWithTree" resultMap="CompanyDtoMap"  >
+    select id,c_name from sm_company where c_pid = 0 AND c_status =1
+    <if test="name != null and name != ''">
+      <bind name="nameStrLike" value="'%'+name+'%'"/>
+      AND c_name like #{nameStrLike,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="selectByOrgName" resultMap="simpleSelectListMap">
+    select id,c_name from sm_company where c_name = #{name,jdbcType=VARCHAR} AND c_status = 1
+    <if test="id != null and id != 0">
+      and id != #{id,jdbcType=BIGINT}
+    </if>
+    limit 0 ,1
+  </select>
+
+  <select id="selectByNo" resultMap="simpleSelectListMap">
+    select id,c_name from sm_company where c_no = #{no,jdbcType=VARCHAR} AND c_status = 1
+    <if test="id != null and id != 0">
+      and id != #{id,jdbcType=BIGINT}
+    </if>
+    limit 0,1
+  </select>
+
+  <select id="selectByOrgMob" resultMap="simpleSelectListMap" >
+    select id,c_name from sm_company where c_tel = #{tel,jdbcType=VARCHAR}
+    <if test="id != null and id != 0">
+      AND id != #{id,jdbcType=BIGINT}
+    </if>
+    limit 0 ,1
+  </select>
+  <select id="selectChildrenById" resultMap="simpleSelectListMap">
+    select id,c_name from sm_company where (id = #{id,jdbcType=BIGINT} or c_pid = #{id,jdbcType=INTEGER})
+    AND c_status = 1
+    <if test="fastSearchStr != null and fastSearchStr != ''">
+      <bind name="fastSearchStrLike" value="'%'+fastSearchStr+'%'"/>
+      AND CONCAT(IFNULL(c_no,''),IFNULL(c_name,'')) LIKE #{fastSearchStrLike}
+    </if>
+  </select>
+
+
+
+  <select id="selectCompanyAll" parameterType="com.jdy.b2b.api.model.Company" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from sm_company
+    <where>
+      <if test="id != null and id != 0">
+        AND id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="cPid != null and cPid != 0">
+        AND c_pid = #{c_pid,jdbcType=BIGINT}
+      </if>
+      <if test="cName != null and cName != ''">
+        AND c_name like concat('%',#{cName,jdbcType=VARCHAR},'%')
+      </if>
+
+      <if test="startDate != null and endDate !=null">
+        <![CDATA[
+                 AND ( (#{startDate,jdbcType=TIMESTAMP} < update_time and #{endDate,jdbcType=TIMESTAMP} > update_time)
+                    OR
+                (#{startDate,jdbcType=TIMESTAMP} < create_time and #{endDate,jdbcType=TIMESTAMP} > create_time))
+                 ]]>
+      </if>
+    </where>
+  </select>
+
+  <select id="selectAuditingCompanies" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from sm_company WHERE c_status = #{status,jdbcType=INTEGER}
+    <if test="fastSearchStr != null and fastSearchStr != ''">
+      <bind name="fastSearchStrLike" value="'%'+fastSearchStr+'%'"/>
+      AND CONCAT(IFNULL(c_charge_name,''),IFNULL(c_name,''),IFNULL(c_tel,'')) LIKE #{fastSearchStrLike}
+    </if>
+  </select>
+  <select id="selectReceivablesCompany" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from sm_company where id IN (select o.o_saler_company_id from sl_order o
+    <where>
+      <if test="name != null  and name !=''">
+        locate(#{name},o.o_saler_company_name)>0
+      </if>
+    </where>
+     GROUP BY o.o_saler_company_id)
+  </select>
+  <select id="selectPaymentCompany" resultType="com.jdy.b2b.api.model.Company">
+    select <include refid="Base_Column_List"/> from sm_company where id IN (select o.o_buyer_company_id from sl_order o
+    <where>
+      <if test="name != null  and name !=''">
+        locate(#{name},o.o_buyer_company_id)>0
+      </if>
+      <if test="salerCompany !=null">
+        and o.o_saler_company_id = #{salerCompany}
+      </if>
+    </where>
+    GROUP BY o.o_buyer_company_id)
+  </select>
+
+  <select id="selectCompanyListForUserRolePrivilegeByCompanyId" resultType="java.util.Map" parameterType="com.jdy.b2b.api.common.BaseVO">
+    SELECT
+        CONCAT('c', id) AS id,
+        c_name AS text,
+        <if test="puDataLimit != 3"> null AS parentId,</if>
+        <if test="puDataLimit == 3"> CONCAT('c', c_pid) AS parentId,</if>
+        id AS companyId,
+        c_charge_name AS personInCharge
+    FROM
+        sm_company
+    WHERE
+        c_status = 1
+    <if test="puDataLimit != 3">AND id = #{pcompanyId}</if>
+    <if test="puDataLimit == 3">
+    AND
+        FIND_IN_SET(
+            id,
+            getCompanyChildList (#{pcompanyId})
+        )
+    </if>
+  </select>
+  <select id="selectAllCompanies" resultType="com.jdy.b2b.api.model.company.CompanyTreeDTO">
+    SELECT id, c_pid as cPid from sm_company
+  </select>
+    <select id="selectPidsById" resultType="java.lang.String">
+      SELECT c_pids from sm_company WHERE id = #{companyId}
+    </select>
+  <select id="selectByCompanyId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM sm_company WHERE id = #{companyId}
+  </select>
+    <insert id="insertDepts">
+      INSERT  INTO  sm_company (id,oa_id,c_pid,c_name,c_type,c_address,c_no,c_province,c_city,c_area,c_settlement,c_charge_name,c_tel,c_status)
+    VALUES <foreach collection="addList" item="item" separator=",">
+      (#{item.deptId},#{item.deptId},
+        <if test="item.orgChart!=null">
+          #{item.orgChart.fDeptId},
+        </if>
+        <if test="item.orgChart==null">
+          null,
+        </if>
+      #{item.deptName},3,'', '',  '',   '',   '',  1  ,'',   '',  1)
+    </foreach>
+    </insert>
+  <insert id="insertDept">
+    INSERT  INTO  sm_company (id,oa_id, c_pid, c_name,c_type,c_address,c_no,c_province,c_city,c_area,c_settlement,c_charge_name,c_tel,c_status) VALUES
+    (#{deptId},#{deptId},
+    <if test="orgChart!=null">
+      #{item.orgChart.fDeptId},
+    </if>
+    <if test="orgChart==null">
+      null,
+    </if>
+    #{deptName},3,'', '',  '',   '',   '',  1  ,'',   '',  1)
+  </insert>
+  <update id="updateDept">
+    update  sm_company set
+    c_name = #{deptName}
+    where id = #{deptId}
+  </update>
+  <delete id="deleteByIds">
+    DELETE sm_company WHERE id IN
+    <foreach collection="ids" separator="," item="id" close=")" open="(" >
+      #{id}
+    </foreach>
+  </delete>
+</mapper>

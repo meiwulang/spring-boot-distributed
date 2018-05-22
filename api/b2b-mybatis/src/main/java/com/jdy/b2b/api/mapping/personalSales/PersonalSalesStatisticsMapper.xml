@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.personalSales.PersonalSalesStatisticsMapper">
+
+    <resultMap id="baseMap" type="com.jdy.b2b.api.model.personalSales.PersonalSalesList">
+            <result column="u_real_name" property="userName"/>
+            <result column="department_name" property="departmentName"/>
+            <result column="people_num" property="touristNum"/>
+            <result column="sales" property="sales"/>
+            <result column="order_num" property="orderNum"/>
+            <result column="p_name" property="parentName"/>
+            <result column="department_id" property="departmentId"/>
+            <result column="company_id" property="companyId"/>
+            <result column="c_pids" property="firstCompanyId"/>
+            <result column="c_name" property="companyName"/>
+    </resultMap>
+    <select id="selectList" resultMap="baseMap" parameterType="com.jdy.b2b.api.model.personalSales.PersonalSalesParam">
+        select u.id, u.u_real_name,ifnull(department.d_nick_name,department.d_name) department_name,sum(o.o_people_num) people_num,sum(o.o_real_pay) sales,count(o.id) order_num
+        <if test="identityLevel==2">
+            ,concat('总监： ',p.u_real_name) p_name
+        </if>
+        <if test="identityLevel==3">
+            ,concat('销售经理： ',p.u_real_name) p_name
+        </if>
+        <if test="identityLevel==4">
+            ,concat('一级： ',p.u_real_name) p_name
+        </if>
+        ,u.company_id company_id
+        ,company.c_name
+        ,u.u_department_id department_id
+        ,company.c_pids
+        from sm_user u
+          <if test="identityLevel==2">
+              JOIN sm_user p ON u.u_puserid = p.id
+          </if>
+          <if test="identityLevel==3 or identityLevel==4">
+              JOIN sm_user p ON u.u_pid = p.u_wx_openid
+          </if>
+          JOIN sm_department department ON u.u_department_id = department.id
+          JOIN sm_company company on u.company_id = company.id
+          LEFT JOIN sl_order o ON u.id = o.o_buyer_id AND o.o_status = 3 AND o.update_time IS NOT NULL
+            <if test="startDate!=null">
+                AND DATEDIFF(DATE_FORMAT(o.update_time, '%Y-%m-%d'), #{startDate,jdbcType=TIMESTAMP})&gt;=0
+            </if>
+            <if test="endDate!=null">
+                AND DATEDIFF(DATE_FORMAT(o.update_time, '%Y-%m-%d'), #{endDate,jdbcType=TIMESTAMP})&lt;0
+            </if>
+        WHERE
+        o.o_source != 3
+        <if test="identityLevel==1">
+        and  u.u_position_id = 201
+        </if>
+        <if test="identityLevel==2">
+            and   u.u_position_id = 202
+        </if>
+        <if test="departmentId!=null">
+            and u.u_department_id = #{departmentId}
+        </if>
+        <if test="companyId!=null">
+            and u.company_id = #{companyId}
+        </if>
+        <if test="identityLevel==3">
+            and   u.u_level = 2
+        </if>
+        <if test="identityLevel==4">
+            and  u.u_level = 3
+        </if>
+        GROUP BY u.id ORDER BY sales DESC
+    </select>
+</mapper>

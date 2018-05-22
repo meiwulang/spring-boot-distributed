@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>定制游</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/made_list.css">
+    <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> 
+</head>
+<body>
+<div id="wrap">
+    <div class="main">
+        <div class="infor-bar">
+            <ul class="clearfix">
+                <li typ = "全部" typeNum=""><a href="javascript:;" class="active" typeNum="">全部</a></li>
+                <li typ = "待处理" typeNum="1"><a href="javascript:;" typeNum="1">待受理</a></li>
+                <li typ = "定制中" typeNum="2"><a href="javascript:;" typeNum="2">定制中</a></li>
+                <li typ = "已反馈" typeNum="3"><a href="javascript:;" typeNum="3">已反馈</a></li>
+                <li typ = "已确认" typeNum="4"><a href="javascript:;" typeNum="4">已确认</a></li>
+            </ul>
+        </div>
+        
+        <div class="lists">
+            <div class="content">
+            <script id="tpl-lists" type="text/html">
+            {if list && list.length}
+            { each list as value i }
+                <li>
+                    <a href="made_lookup.html?id={ list[i].dId }&status={ list[i].dStatus}">
+                        <div class="title clearfix">
+                            <div class="infor">
+                                <!-- <label class="state bg-red">待受理</label> -->
+
+                                { if list[i].dStatus == '1'}
+                                <label class="state bg-red">待受理</label>
+                                { else if  list[i].dStatus == '2'}
+                                <label class="state bg-blue">定制中</label>
+                                { else if  list[i].dStatus == '3'}
+                                <label class="state bg-green">已反馈</label>
+                                { else if  list[i].dStatus == '4'}
+                                <label class="state bg-orange">已确认</label>
+                                { /if }
+                                <div class="numb">{ list[i].title }</div>
+                            </div>
+                            <p class="made-cont">
+                            	{ list[i].subTitle }
+                            </p>
+                        </div>
+                        <div class="detail clearfix">
+                            <p>
+                            	{ list[i].rHeadName }&nbsp ({ list[i].rHeadPhone })&nbsp { list[i].createTime }
+                            </p>
+                            <p>
+                            	<span>{ list[i].totalPeople }</span>名游客
+                            </p>
+                        </div>
+                    </a>                  
+                </li>
+                { /each }
+                {else}
+                <p style="color: #999;padding-left: 15px;margin-top: 20px;">该状态没有数据！</p>
+                {/if}
+            </script>
+            </div>
+        </div>
+
+        <div class="new-list">
+        	<a href="made_message.html">新建需求单</a>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/made_list.build.js"></script>
+</html>

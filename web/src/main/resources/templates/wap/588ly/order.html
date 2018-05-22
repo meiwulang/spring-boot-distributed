@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>下订单 - 芒果卉旅游</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link href="/Public/Css/icon/css/font-awesome.min.css" rel="stylesheet">
+    <script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/zplSelect.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/order.css?t='+_TimeStamp+'">'
+        );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/lib/jquery-1.11.3.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/doT.min.js"></script>
+    <script src="js/common/configs.js"></script>
+    <script src="js/common/alert.js"></script>
+    <script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+</head>
+<body>
+<a class="sp" style="display: none;" data-toggle="modal" data-target="#myModal"><span>登录</span></a>
+<div class="order_navbar">
+    <div class="box_wrapper clearfloat">
+        <div class="pull-left order_jdyLogo">
+            <a href="index.html"><img src="img/1_03.png" alt=""></a>
+        </div>
+        <div class="pull-right">
+            <div class="pull-left"> <span>欢迎您!</span> <span class="hotsoso" id="user_name"></span> </div>
+            <span class="pull-left">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <div class="pull-left"> <span id="org_name"></span> </div>
+            <span class="pull-left">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <div class="pull-left"> <a href='/index/main.shtml'>管理中心</a> </div>
+            <span class="pull-left">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <div class="pull-left"> <a href="logout.html">安全退出</a> </div>
+        </div>
+    </div>
+</div>
+<div class="order_step">
+    <div class="box_wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-xs-4 order_stepWriting"> <span>1:填写订单信息</span> </div>
+                <div class="col-md-4 col-xs-4 order_stepPayMethod"> <span>2:选择支付方式</span> </div>
+                <div class="col-md-4 col-xs-4 order_stepSuccess"> <span>3:预定成功</span> </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="order_detail">
+    <script type="text/x-dot-template" id="order-detail">
+    <div class="box_wrapper clearfix">
+        <div class="order_informations">
+            <!-- start 行程信息 -->
+            <div class="order_tripInfo">
+                <div class="title">行程信息</div>
+                <div class="info_content">
+                    <h4>【{{= it.p_name}}】<span>{{= it.p_sname}}<span class="sub_order"></span></span></h4>
+                    <p class="hotsoso"><span>编号</span><span>{{= it.bl_num}}</span></p>
+                    <div class="custom_service">
+                        <span class="small_titleGray">客服电话: </span>
+                        <span>{{= it.meet_tel}}</span>
+                        <span>({{= it.linkman}})</span>
+                        {{? it.man_qq}}
+                        <div class="immediate_contact">
+                            <a href="tencent://message/?uin={{=it.man_qq}}&Site=金豆云旅游&Menu=yes">
+                                <i class="qq_logo"></i>
+                                <span>在线咨询</span>
+                            </a>
+                        </div>
+                        {{?}}     
+                    </div>
+                    <div class="clearfloat">
+                        <div class="pull-left fixWidth">
+                            <p>
+                                <span class="small_titleGray">出发城市: </span>
+                                <span class="cityList">{{= it.city_name }}</span>
+                            </p>
+                            <p>
+                                <span class="small_titleGray" id="startdate">出发日期: </span>
+                                <span>{{= it.bl_start_date}} {{= it.bl_start_time}}　星期{{= it.bl_start_week}}</span>
+                            </p>
+                            <p>
+                                <span class="small_titleGray">余&#x3000;&#x3000;座: </span>
+                                <span>{{= it.num}}</span>
+                            </p>
+                        </div>
+                        <div class="pull-left fixWidth">
+                            <p>
+                                <span class="small_titleGray">行程天数: </span>
+                                <span>{{= it.p_days}}</span>
+                            </p>
+                            <p>
+                                <span class="small_titleGray">返程日期: </span>
+                                <span>{{= it.bl_end_date}}</span>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end 行程信息 -->
+
+            <!-- start 代报名信息 -->
+            {{? it.DbmFlag == 1 }}
+            <div class="order_replaceSignUp">
+                <div class="title">代报名信息</div>
+                <div class="info_content">
+                    <label>
+                        <div id="dbmlist">
+                            <div class="select-simulate">
+                                <input class="select-simulate-input" type="text" lid="" value="" placeholder="请在下拉列表中选择分销商
+                                ">
+                                <div class="select-simulate-arr select-down"></div>
+                                <div class="select-simulate-list" style="width: 400px;">
+                                    <ul>
+                                        <li class="select-default">分销商</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    <label>
+                        <div id="bmrlist">
+                            <div class="select-simulate">
+                                <input class="select-simulate-input" readonly="readonly" type="text" lid="" value="" placeholder="请在下拉列表中选择报名人">
+                                <div class="select-simulate-arr select-down"></div>
+                                <div class="select-simulate-list" style="width: 300px;">
+                                    <ul><li class="select-default">报名人</li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    <div id="account-cls">可用信用额度:<span>0.00</span></div>
+                </div>
+            </div>
+            {{?}} 
+            <!-- end 代报名信息 -->
+
+            <!-- start 票价信息 -->
+            <div class="order_ticketlist">
+                <div class="title">票价信息</div>
+                <div class="ticket-group">
+                    <ul class="clearfix">
+                        <li gname="all" class="active"><span>全部</span></li>
+                        {{ for(var i = 0; i < it.ticket_group_arr.length; i++ ) { }}
+                        <li gname="{{=it.ticket_group_arr[i].gname}}"><span>{{=it.ticket_group_arr[i].gname}}</span></li>
+                        {{ } }}
+                    </ul>
+                </div>
+                <div class="ticket-table">
+                    <table>
+                        <colgroup>
+                            <col width="20%">
+                            <col>
+                            <col>
+                            <col width="20%">
+                            <col width="20%">
+                            <col>
+                            <col width="20%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>票种名称</th>
+                                <th>票种类型</th>
+                                <th>门市价</th>
+                                <th>人数</th>
+                                <th>床位</th>
+                                <th>库存</th>
+                                <th>小计</th>
+                            </tr>
+                        </thead>
+                        {{ for(var i = 0; i < it.ticket_group_arr.length; i++ ) { }}
+                        <tbody gname="{{=it.ticket_group_arr[i].gname}}">
+                            <tr tid="0" type="tit">
+                                <td class="ticket-group-title" colspan="7">
+                                    <div>{{=it.ticket_group_arr[i].gname}}</div>
+                                </td>
+
+                            </tr>
+                            {{ for(var j = 0; j < it.ticket_group_arr[i].list.length; j++ ) { }}
+                                {{? it.ticket_group_arr[i].list[j].t_preset_type == "套票" }}
+                                <tr tid="{{=it.ticket_group_arr[i].list[j].t_id}}" type="group">
+                                {{??}}
+                                <tr tid="{{=it.ticket_group_arr[i].list[j].t_id}}" type="normal">
+                                {{?}}
+                                    <td>
+                                        <div class="table-tit iQuest" title="{{=it.ticket_group_arr[i].list[j].t_standards_name}}">
+                                        
+                                        {{? it.ticket_group_arr[i].list[j].t_remark.length != 0}}
+                                         <i class="fa fa-question-circle faQueat" aria-hidden="true" title="{{=it.ticket_group_arr[i].list[j].t_remark}}"></i>
+                                         {{??}}
+                                         <i class="fa faQueat"></i>
+                                        {{?}}
+                                        <span>{{=it.ticket_group_arr[i].list[j].t_standards_name}}</span></div>
+                                    </td>
+                                    <td>{{=it.ticket_group_arr[i].list[j].t_preset_type}}</td>
+                                    <td>
+                                        <span class="price" title="同行价：￥{{=it.ticket_group_arr[i].list[j].t_trade_price}}">￥{{=it.ticket_group_arr[i].list[j].t_price}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="order_numberBtnBox people_num"> 
+                                            <span class="glyphicon glyphicon-minus order_reduceBtn active"></span>
+                                            {{? it.ticket_group_arr[i].list[j].t_preset_type == "套票" }}
+                                            <input type="text" class="people_number" value="0" readonly="readonly" />
+                                            {{??}}
+                                            <input type="text" class="people_number" value="0"/>
+                                            {{?}}
+                                            <span class="glyphicon glyphicon-plus order_addBtn"></span> 
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{? (it.ticket_group_arr[i].list[j].t_spread_price==0 && it.ticket_group_arr[i].list[j].t_out_room_price==0) || it.ticket_group_arr[i].list[j].t_preset_type == "套票" }}
+                                        <div class="order_numberBtnBox bed_num"> 
+                                            <input type="text" class="people_number" value="0" style="border:none;background:none;" readonly="readonly" />
+                                        </div>
+                                        {{??}}
+                                        <div class="order_numberBtnBox bed_num"> 
+                                            <span class="glyphicon glyphicon-minus order_reduceBtn active" title="-{{=it.ticket_group_arr[i].list[j].t_out_room_price}}"></span>
+                                            <input type="text" class="people_number" value="0"/>
+                                            <span class="glyphicon glyphicon-plus order_addBtn" title="+{{=it.ticket_group_arr[i].list[j].t_spread_price}}"></span> 
+                                        </div>
+                                        {{?}}
+                                    </td>
+                                    {{? it.ticket_group_arr[i].list[j].t_store == '-1'}}
+                                    <td><span class="priced">--</span></td>
+                                    {{??}}
+                                    <td><span class="priced">{{=it.ticket_group_arr[i].list[j].t_store}}</span></td>
+                                    {{?}}
+                                    <td><span class="price tr_total">￥0.00</span></td>
+                                </tr>
+                                {{? it.ticket_group_arr[i].list[j].t_preset_type == "套票" }}
+                                    <!-- 如果是套票，遍历子票数据 -->
+                                    {{ for(var k in it.ticket_group_arr[i].list[j].list ) { }}
+                                    <tr tid="{{=it.ticket_group_arr[i].list[j].list[k].t_id}}" pid="{{=it.ticket_group_arr[i].list[j].t_id}}" type="group-normal">
+                                        <td>
+                                            <div class="table-tit" title="{{=it.ticket_group_arr[i].list[j].list[k].t_standards_name}}">{{=it.ticket_group_arr[i].list[j].list[k].t_standards_name}}</div>
+                                        </td>
+                                        <td>{{=it.ticket_group_arr[i].list[j].list[k].t_preset_type}}</td>
+                                        <td><span class="price"><!-- ￥{{=it.ticket_group_arr[i].list[j].list[k].t_price}} --></span></td>
+                                        <td>
+                                            <div class="order_numberBtnBox people_num"> 
+                                                <input type="text" class="people_number" value="0" style="border:none;background:none;" readonly="readonly" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{? (it.ticket_group_arr[i].list[j].list[k].t_spread_price==0 && it.ticket_group_arr[i].list[j].list[k].t_out_room_price==0) }}
+                                            <div class="order_numberBtnBox bed_num"> 
+                                                <input type="text" class="people_number" value="0" style="border:none;background:none;" readonly="readonly" />
+                                            </div>
+                                            {{??}}
+                                            <div class="order_numberBtnBox bed_num"> 
+                                                <span class="glyphicon glyphicon-minus order_reduceBtn active" title="-{{=it.ticket_group_arr[i].list[j].list[k].t_out_room_price}}"></span>
+                                                <input type="text" class="people_number" value="0" readonly="readonly"/>
+                                                <span class="glyphicon glyphicon-plus order_addBtn" title="+{{=it.ticket_group_arr[i].list[j].list[k].t_spread_price}}"></span> 
+                                            </div>
+                                            {{?}}
+                                        </td>
+                                        <td></td>
+                                        <td><!-- <span class="price tr_total">￥0.00</span> --></td>
+                                    </tr>
+                                    {{ } }}
+                                {{?}}
+                            {{ } }}
+                        </tbody>
+                        {{ } }}
+                    </table>
+                </div>
+            </div>
+            <!-- end 票价信息 -->
+
+            <!-- start 游客信息 -->
+            <div class="order_touristInfo">
+                <div class="title">游客信息</div>
+                <button type="button" class="select_addPassenger">批量添加乘客</button>
+                <div class="tourist-table">
+                    <table>
+                        <colgroup>
+                            <col width="150">
+                            <col width="130">
+                            <col width="130">
+                            <col width="270">
+                            <col width="10%">
+                            <!-- <col width="10%"> -->
+                            <col width="8%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>票价名称</th>
+                                <th>姓名</th>
+                                <th>联系电话</th>
+                                <th>证件号码</th>
+                                <th>去程返程</th>
+                                <!--<th></th>-->
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end 游客信息 -->
+
+            <!-- start 游客联系人 -->
+            <!--<div class="order_emergencyContact">
+                <div class="title">游客联系人</div>
+                <div class="info_content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6 col-xs-6">
+                                    <label for="order_emergencyContactName" class="col-md-1 col-xs-1"> 姓名： </label>
+                                    <input type="text" id="order_emergencyContactName" class="col-md-4 col-xs-4 order_emergencyContactName"/>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <label for="order_emergencyContactTel" class="col-md-1 col-xs-1"> 手机： </label>
+                                    <input type="text" id="order_emergencyContactTel" class="order_emergencyContactTel"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row input_remarkInfo">
+                            <div class="form-group">
+                                <label for="input_remarkInfo" class="col-sm-2 col-xs-2 control-label"> 备注： </label>
+                                <div class="col-sm-10 col-xs-10">
+                                    <div class="input-group">
+                                        <textarea name="" id="input_remarkInfo" form=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!-- end 游客联系人 -->
+
+            <!-- start 促销活动 -->
+            {{? it.p_promotion.length > 0 }}
+            <div class="order_acti">
+                <div class="title">活动促销：</div>
+                <div class="info_content info_contents" >
+                    <img class="imgc" src="img/xzs.png" alt="">
+                    <label class="labe" for="">活动促销:</label>
+                    <ul name="" id="activi">
+                        <li class="on_show" pp_id="{{= it.p_promotion[0].pp_id}}" title="{{= it.p_promotion[0].pp_title}} " >
+                            {{= it.p_promotion[0].pp_title}}            
+                        </li>
+                    </ul>
+                    <ul class="activi_ul">
+                        {{ for(var x in it.p_promotion) { }}
+                            <li class="on_show" pp_id="{{= it.p_promotion[x].pp_id}}" title="{{= it.p_promotion[x].pp_title}} " >
+                                {{= it.p_promotion[x].pp_title}}            
+                            </li>
+                        {{ } }}
+                    </ul>
+                </div>
+            </div>
+            {{?}}
+            <!-- end 促销活动 -->
+
+            <!-- start 其他信息 -->
+            <div class="order_otherContact" >
+                <div class="title">其他信息</div>
+                <div class="info_content" >
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6 col-xs-6">
+                                    <label for="order_outNumber" class="col-md-3 col-xs-3"> 外部订单号： </label>
+                                    <input type="text" id="order_outNumber" class="col-md-9 col-xs-9 order_outNumber"/>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    <label for="order_contactNumber" class="col-md-3 col-xs-3"> 合同号： </label>
+                                    <input type="text" id="order_contactNumber" class="col-md-9 col-xs-9 order_contactNumber"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row order_discount_topMargin">
+                            <div class="form-group">
+                                <div class="col-md-6 col-xs-6">
+                                    <label for="order_discount" class="col-md-3 col-xs-3"> 优惠金额： </label>
+                                    <input type="text" id="order_discount" class="col-md-9 col-xs-9 order_discount" />
+                                </div>
+                                {{? it.DbmFlag == 1 }}
+                                <div class="col-md-6 col-xs-6 order_settlementDiscount">
+                                    <label for="order_settlementDiscount" class="col-md-3 col-xs-3"> 结算优惠： </label>
+                                    <input type="text" id="order_settlementDiscount" class="col-md-9 col-xs-9 order_settlementDiscount"/>
+                                </div>
+                                {{?}}
+                            </div>
+                        </div>
+                        <div class="order_remark">
+                            <label>备注：</label>
+                            <textarea id="input_remarkInfo"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="orderInfo_submit"> 
+                    <a href="javascript:history.back();" class="pull-left hotsoso"><span>&lt;&lt;</span>返回产品详情页</a>
+                    <div class="pull-right">
+                        <div class="pull-left">
+                            <p class="top"><span>应付金额：</span><span class="price_promptBigFont priceColor_danger"><span>&yen</span><span class="total-money">0.00</span></span></p>
+                            <p class="bottom"><span>订单总额：</span><span class="priceColor_danger"><span>&yen</span><span class="l_pos_money">0.00</span></span></span></p>
+                        </div>
+                        <button class="pull-left stylesLoad" type="button">提交订单</button>
+                    </div>
+                </div>
+            </div>
+            <!-- end 其他信息 -->
+        </div>
+        <div class="order_balance">
+            <!-- pos单价格显示 -->
+            <div class="balance_info">
+                <div class="title"> 
+                    <span class="ion_shoppingcar"></span> 
+                    <span class="fontOrange">结算信息</span> 
+                    <span class="stopList" href="javascript:;">收起列表<i class="fa fa-angle-up"></i></span>
+                    <span class="openList" href="javascript:;">展开列表<i class="fa fa-angle-down"></i></span>
+                    <a class="eye" href="javascript:;"></a>
+                </div>
+                
+                <ul class="order_balanceDetails"></ul>
+
+                <div class="order_submit">
+                    <div> 
+                        <span>应付金额：</span>
+                        <span class="price_promptBigFont priceColor_danger">
+                            <span>¥</span>
+                            <span class="l_pos_money">0</span>
+                        </span> 
+                    </div>
+                    <div>
+                    <button class="stylesLoad" type="button">提交订单</button>
+                    </div>
+                </div>
+            </div>
+            <!-- 座位选择 -->
+            {{? it.bl_right_seat == "对号入座（人工选择）" }}
+            <div class="seat_select seat_table">
+                <div class="wenx">
+                    温馨提示：座位图仅供参考，以实际为准。
+                </div>
+                <div class="title clearfloat "> 
+                    <span class="pull-left"> 
+                        <span class="ion_blackBus"></span> 
+                        <span>座位选择</span> 
+                    </span> 
+                    <span class="pull-right dropdown seats_select"> 
+                        <span class="ion_up dropdown-toggle" id="buselsect"  data-toggle="dropdown">客车1</span> 
+                        {{? it.bl_bus.length > 1}}
+                        <ul class="dropdown-menu bus-list" role="menu" aria-labelledby="buselsect" id="busselect">
+                            {{ for(var i=0; i<it.bl_bus.length;i++) { }}
+                            <li data-id="{{=i}}"><a href="javascript:;" tabindex="-1">客车{{=i+1}}</a></li>
+                            {{ } }}
+                        </ul>
+                        {{?}}
+                    </span> 
+                </div>
+                 
+                <div id="bus">
+                    {{ for(var i=0; i<it.bl_bus.length;i++) { }}
+                        <ul class="seat_content" id="bus{{=i}}" {{? i!==0}} style="display:none;" {{?}}>
+                            <li>
+                                <div class="clearfloat">
+                                    <div class="pull-left">
+                                    {{? it.bl_bus[i]%2 == 0}}
+                                        {{ for(var j=1; j<=it.bl_bus[i]; j++) { }}
+                                            <span class="oness seats null">{{=j}}</span>
+                                        {{ } }}
+                                        {{?? it.bl_bus[i]%4 == 0}}
+                                            {{ for(var j=1; j<=it.bl_bus[i]; j++) { }}
+                                                <span class="oness seats null">{{=j}}</span>
+                                            {{ } }}
+                                            {{?? it.bl_bus[i]%4 == 3}}
+                                            {{ for(var j=1; j<=it.bl_bus[i]; j++) { }}
+                                                <span class="threess seats null">{{=j}}</span>
+                                            {{ } }}
+                                                {{?? it.bl_bus[i]%4 == 1}}
+                                                    {{ for(var j=1; j<=it.bl_bus[i]; j++) { }}
+                                                        <span class="fivess seats null">{{=j}}</span>
+                                                    {{ } }}
+                                    {{?}}
+                                    </div> 
+                                </div>
+                            </li>
+                        </ul>
+                    {{ } }}
+                </div>
+                 
+            </div>
+            {{?}}
+        </div>
+    </div>
+    </script>
+</div>
+<!-- 游客信息模板 -->
+<script type="text/x-dot-template" id="TouristTemplage">
+    {{? it.TplHave == 0 || it.t_preset_type == '套票' }}
+        {{? it.t_preset_type == '套票'}}
+        <thead tid="{{= it.t_id }}" class="group-ticket">
+            <tr>
+                <th><div>{{= it.t_standards_name }}</div></th>
+                <th colspan="6"></th>
+            </tr>
+        </thead>
+        {{?}}
+    <tbody tid="{{= it.t_id }}" type="{{? it.t_preset_type == '套票' }}group{{??}}normal{{?}}">
+    {{?}}
+    {{? it.round }}
+        {{ for(var i = 0; i < it.round; i++){ }}
+        <tr>
+            <td>
+                <div class="line-1 clearfix" style="padding-left: 30px;">
+                    <span class="order_number">1</span>
+                    <span class="ticket_name"><div style="width:90px;height: auto;line-height: 35px; text-align: left;" class="table-tit" title="{{= it.t_standards_name }}">{{= it.t_standards_name }}</div></span>
+                </div>
+                <div class="line-2 ticket_type hot">
+                    {{= it.t_preset_type }}
+                    {{? it.t_limit_type != '无限制' }}
+                    <span class="icon_random" title="{{= it.t_limit_type }}{{= it.t_limit_condition }}"></span>
+                    {{?}}
+                </div>
+            </td>
+            <td style="position: relative;">
+                <div class="line-1">
+                    <input type="text" class="passenger_name">
+                </div>
+                <div class="line-2" style="left: 18px;">
+                    <span class="hot">去程：</span><span class="gosite">选择站点</span>
+                    <span class="green">返程：</span><span class="backsite">选择站点</span>
+                </div>
+            </td>
+            <td>
+                <div class="line-1"></div>
+                <input type="text" class="passenger_tel" style="border: 1px solid rgb(234, 234, 234);">
+            </td>
+            <td>
+                <div class="line-1"></div>
+                <div class='dropdown personalId_select'>
+                    <p class='btn dropdown-toggle card_type' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-expanded='false'>身份证</p>
+                    <input type='text' class='passenger_id'>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">身份证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">护照</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">军官证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">回乡证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">台胞证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">国际海员证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">港澳通行证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">赴台证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">其他</a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+            <td>
+                <div class="line-1"></div>
+                <div class="btn btn-default seats-select">上车点</div>
+            </td>
+            <!--<td>
+                <div class="line-1"></div>
+                <button type='button' class='btn btn-default setcontact' >设为联系人</button>
+            </td>-->
+            <td>
+                <div class="line-1"></div>
+                <span class='glyphicon glyphicon-remove resuce_passengerTicket'></span>
+            </td>
+        </tr>
+        {{ } }}
+    {{?? it.t_preset_type == '套票'}}
+        {{ for(var i in it.list){ }}
+            {{ for(var j = 0; j < it.list[i].num; j++){ }}
+            <tr tid="{{= it.list[i].t_id }}">
+                <td>
+                    <div class="line-1 clearfix" style="padding-left: 30px;">
+                        <span class="order_number">1</span>
+                        <span class="ticket_name"><div style="width:90px;height: auto;line-height: 35px; text-align: left;" class="table-tit" title="{{= it.list[i].t_standards_name }}">{{= it.list[i].t_standards_name }}</div></span>
+                    </div>
+                    <div class="line-2 ticket_type hot">
+                        {{= it.list[i].t_preset_type }}
+                        {{? it.list[i].t_limit_type != '无限制' }}
+                        <span class="icon_random" title="{{= it.list[i].t_limit_type }}{{= it.list[i].t_limit_condition }}"></span>
+                        {{?}}
+                    </div>
+                </td>
+                <td style="position: relative;">
+                    <div class="line-1">
+                        <input type="text" class="passenger_name">
+                    </div>
+                    <div class="line-2" style="left: 18px;">
+                        <span class="hot">去程：</span><span class="gosite">选择站点</span>
+                        <span class="green">返程：</span><span class="backsite">选择站点</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="line-1"></div>
+                    <input type="text" class="passenger_tel" style="border: 1px solid rgb(234, 234, 234);">
+                </td>
+                <td>
+                    <div class="line-1"></div>
+                    <div class='dropdown personalId_select'>
+                        <p class='btn dropdown-toggle card_type' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-expanded='false'>身份证</p>
+                        <input type='text' class='passenger_id'>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="javascript:;">身份证</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="javascript:;">护照</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="javascript:;">军官证</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="javascript:;">回乡证</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="javascript:;">台胞证</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="javascript:;">国际海员证</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="javascript:;">港澳通行证</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="javascript:;">赴台证</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="javascript:;">其他</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                    <div class="line-1"></div>
+                    <div class="btn btn-default seats-select">上车点</div>
+                </td>
+                <!--<td>
+                    <div class="line-1"></div>
+                    <button type='button' class='btn btn-default setcontact' >设为联系人</button>
+                </td>-->
+                <td>
+                    <div class="line-1"></div>
+                    {{? j == 0 }}
+                    <span class='glyphicon glyphicon-remove resuce_passengerTicket' style="position: relative;
+                    top: -58px;"></span>
+                    {{??}}
+                    <span class='glyphicon glyphicon-remove resuce_passengerTicket'></span>
+                    {{?}}
+                </td>
+            </tr>
+            {{ } }}
+        {{ } }}
+    {{??}}
+        <tr>
+            <td>
+                <div class="line-1 clearfix" style="padding-left: 30px;">
+                    <span class="order_number">1</span>
+                    <span class="ticket_name"><div style="width:90px;height: auto;line-height: 35px; text-align: left;" class="table-tit" title="{{= it.t_standards_name }}">{{= it.t_standards_name }}</div></span>
+                </div>
+                <div class="line-2 ticket_type hot">
+                    {{= it.t_preset_type }}
+                    {{? it.t_limit_type != '无限制' }}
+                    <span class="icon_random" title="{{= it.t_limit_type }}{{= it.t_limit_condition }}"></span>
+                    {{?}}
+                </div>
+            </td>
+            <td style="position: relative;">
+                <div class="line-1">
+                    <input type="text" class="passenger_name">
+                </div>
+                <div class="line-2" style="left: 18px;">
+                    <span class="hot">去程：</span><span class="gosite">选择站点</span>
+                    <span class="green">返程：</span><span class="backsite">选择站点</span>
+                </div>
+            </td>
+            <td>
+                <div class="line-1"></div>
+                <input type="text" class="passenger_tel" style="border: 1px solid rgb(234, 234, 234);">
+            </td>
+            <td>
+                <div class="line-1"></div>
+                <div class='dropdown personalId_select'>
+                    <p class='btn dropdown-toggle card_type' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-expanded='false'>身份证</p>
+                    <input type='text' class='passenger_id'>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">身份证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">护照</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">军官证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">回乡证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">台胞证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">国际海员证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">港澳通行证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">赴台证</a>
+                        </li>
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="javascript:;">其他</a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+            <td>
+                <div class="line-1"></div>
+                <div class="btn btn-default seats-select">上车点</div>
+            </td>
+            <!--<td>
+                <div class="line-1"></div>
+                <button type='button' class='btn btn-default setcontact' >设为联系人</button>
+            </td>-->
+            <td>
+                <div class="line-1"></div>
+                <span class='glyphicon glyphicon-remove resuce_passengerTicket'></span>
+            </td>
+        </tr>
+    {{?}}
+    {{? it.TplHave == 0 }}
+    </tbody>
+    {{?}}
+</script>
+<!-- 结算列表模板 -->
+<script type="text/x-dot-template" id="SettlementTemplage">
+<!-- 同行价结算总计显示 -->
+{{? it.Special }}
+    <li class="special_price">
+        <h5>结算明细</h5>
+        <div class="clearfloat small_titleGray">
+            <div class="pull-left"><span>票价金额：</span></div>
+            <div class="pull-right">
+                <span class="price_promptBigFont priceColor_danger">
+                    <span>¥</span><span class="posprice">{{= it.Special.TicketTotal }}</span>
+                </span>
+            </div>
+        </div>
+        {{? it.Special.BedTotal != '0.00' }}
+        <div class="clearfloat small_titleGray">
+            <div class="pull-left"><span>房差金额：</span></div>
+            <div class="pull-right">
+                <span class="price_promptBigFont priceColor_danger">
+                    <span>¥</span><span class="posprice">{{= it.Special.BedTotal }}</span>
+                </span>
+            </div>
+        </div>
+        {{?}}
+        {{? it.Special.SeatTotal != '0.00' }}
+        <div class="clearfloat small_titleGray">
+            <div class="pull-left"><span>接送金额：</span></div>
+            <div class="pull-right">
+                <span class="price_promptBigFont priceColor_danger">
+                    <span>¥</span><span class="posprice">{{= it.Special.SeatTotal }}</span>
+                </span>
+            </div>
+        </div>
+        {{?}}
+        {{? it.Special.DisTotal != '0.00' }}
+        <div class="clearfloat small_titleGray">
+            <div class="pull-left"><span>结算优惠：</span></div>
+            <div class="pull-right">
+                <span class="price_promptBigFont priceColor_danger">
+                    <span>¥</span><span class="posprice">{{= it.Special.DisTotal }}</span>
+                </span>
+            </div>
+        </div>
+        {{?}}
+        <div class="clearfloat small_titleGray">
+            <div class="pull-left"><span>实际结算：</span></div>
+            <div class="pull-right">
+                <span class="price_promptBigFont priceColor_danger">
+                    <span>¥</span><span class="posprice">{{= it.Special.FactTotal }}</span>
+                </span>
+            </div>
+        </div>
+        <div class="clearfloat small_titleGray">
+            <div class="pull-left"><span>佣金：</span></div>
+            <div class="pull-right">
+                <span class="price_promptBigFont priceColor_blue">
+                    <span>¥</span><span class="posprice">{{= it.Special.GetTotal }}</span>
+                </span>
+            </div>
+        </div>
+        {{? it.Special.ActiveTotal != '0.00' }}
+        <div class="clearfloat small_titleGray">
+            <div class="pull-left"><span>活动优惠：</span></div>
+            <div class="pull-right">
+                <span class="price_promptBigFont priceColor_green" title="{{= it.Special.ActiveTitle }}">
+                    <span>¥</span><span class="posprice">{{= it.Special.ActiveTotal }}</span>
+                </span>
+            </div>
+        </div>
+        {{?}}
+    </li>
+{{?}}
+
+ 
+
+<!-- 票价列表 -->
+{{ for(var i = 0; i < it.TicketList.length; i++){ }}
+    {{? it.TicketList[i].people_num > 0 }}
+        <!-- 普通票 -->
+        {{? it.TicketList[i].type == 'normal' }}
+        <li>
+            <h5>{{= it.TicketList[i].title }}</h5>
+            <div class="clearfloat small_titleGray">
+                <div class="pull-left">
+                    <span>报名：</span><span>{{= it.TicketList[i].people_num }}</span><span>人 ✕ </span><span>{{= it.TicketList[i].price }}</span>
+                </div>
+                <div class="pull-right" title="{{= it.TicketList[i].alt }}">
+                    <span class="price_promptBigFont priceColor_danger"><span>¥</span><span class="posprice">{{= it.TicketList[i].tr_price }}</span></span>
+                </div>
+            </div>
+            {{? it.TicketList[i].dec_bed_num != 0 }}
+            <div class="clearfloat small_titleGray">
+                <div class="pull-left">
+                    <span>补房差：</span><span>{{= it.TicketList[i].dec_bed_num}}</span><span>人 ✕ </span><span>{{= it.TicketList[i].bed_price}}</span>
+                </div>
+                <div class="pull-right">
+                    <span class="price_promptBigFont priceColor_danger"><span>¥</span><span class="posprice">{{= it.TicketList[i].dec_bed_money }}</span></span>
+                </div>
+            </div>
+            {{?}}
+        </li>
+        {{?}}
+        <!-- 套票 -->
+        {{? it.TicketList[i].type == 'group' }}
+        <li>
+            <h5>{{= it.TicketList[i].title }}</h5>
+            <div class="clearfloat small_titleGray">
+                <div class="pull-left">
+                    <span>报名：</span><span>{{= it.TicketList[i].people_num }}</span><span>人 {{= it.TicketList[i].base_num }} ✕ </span><span>{{= it.TicketList[i].price }}</span>
+                </div>
+                <div class="pull-right" title="{{= it.TicketList[i].alt }}">
+                    <span class="price_promptBigFont priceColor_danger"><span>¥</span><span class="posprice">{{= it.TicketList[i].tr_price }}</span></span>
+                </div>
+            </div>
+            {{ for(var j = 0; j < it.TicketList[i].group_bed.length; j++){ }}
+            {{? it.TicketList[i].group_bed[j].dec_bed_num != 0 }}
+            {{? j == 0 }}<h6 style="color: #666;">补房差：</h6>{{?}}
+            <div class="clearfloat small_titleGray">
+                <div class="pull-left">
+                    <span>{{= it.TicketList[i].group_bed[j].title }}：</span><span>{{= it.TicketList[i].group_bed[j].dec_bed_num }}</span><span>人 ✕ </span><span>{{= it.TicketList[i].group_bed[j].bed_price}}</span>
+                </div>
+                <div class="pull-right">
+                    <span class="price_promptBigFont priceColor_danger"><span>¥</span><span class="posprice">{{= it.TicketList[i].group_bed[j].dec_bed_money }}</span></span>
+                </div>
+            </div>
+            {{?}}
+            {{ } }}
+        </li>
+        {{?}}
+    {{?}}
+{{ } }}
+<!-- 去程 -->
+{{? it.GoList.length && it.Special.GoSeatTotal > 0 }}
+    <li>
+        <h5>【去程】</h5>
+        {{ for(var i = 0; i < it.GoList.length; i++){ }}
+        {{? it.GoList[i].total_price != '0.00' }}
+        <div class="clearfloat small_titleGray">
+            <div class="pull-left">
+                <span>{{= it.GoList[i].gosname }}：</span><span>{{= it.GoList[i].total }}</span><span>人 ✕ </span><span>{{= it.GoList[i].goprice }}</span>
+            </div>
+            <div class="pull-right">
+                <span class="price_promptBigFont priceColor_danger"><span>¥</span><span class="posprice">{{= it.GoList[i].total_price }}</span></span>
+            </div>
+        </div>
+        {{?}}
+        {{ } }}
+    </li>
+{{?}}
+<!-- 返程 -->
+{{? it.BackList.length && it.Special.BackSeatTotal > 0 }}
+    <li>
+        <h5>【返程】</h5>
+        {{ for(var i = 0; i < it.BackList.length; i++){ }}
+        {{? it.BackList[i].total_price != '0.00' }}
+        <div class="clearfloat small_titleGray">
+            <div class="pull-left">
+                <span>{{= it.BackList[i].backsname }}：</span><span>{{= it.BackList[i].total }}</span><span>人 ✕ </span><span>{{= it.BackList[i].backprice }}</span>
+            </div>
+            <div class="pull-right">
+                <span class="price_promptBigFont priceColor_danger"><span>¥</span><span class="posprice">{{= it.BackList[i].total_price }}</span></span>
+            </div>
+        </div>
+        {{?}}
+        {{ } }}
+    </li>
+{{?}}
+<!-- 优惠金额 -->
+{{? it.Discount > 0 }}
+    <li>
+        <div class="clearfloat small_titleGray">
+            <div class="pull-left"><span style="color: #333;font-size: 14px;">优惠金额</span></div>
+            <div class="pull-right">
+                <span class="price_promptBigFont priceColor_danger">
+                    <span>¥</span><span class="posprice">-{{= it.Discount }}</span>
+                </span>
+            </div>
+        </div>
+    </li>
+{{?}}
+</script>
+<div id="footer"></div>
+<div id="login_mask"></div>
+<!--模态框-->
+<div id="batch_fill"></div>
+<div id="select_site"></div>
+<div id="select_rebackSite"></div>
+<div id="select_confirmSite"></div>
+</body>
+<script id="link-js" type="text/javascript">
+    document.write(
+        '<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/order/order_common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/order/order.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/statistics.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</html>

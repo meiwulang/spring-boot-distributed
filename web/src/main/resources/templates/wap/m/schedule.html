@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="assets/css/schedule.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> --> 
+</head>
+<body>
+<div id="wrap">
+	<div class="main">
+		<div class="t-bar">
+			<a class="javascript:;"></a>
+			<span>选择日期/出游人数</span>
+			<div class="icon-trade"><i></i></div>
+		</div>
+		<div class="calendar">
+			<div class="month-list">
+				<ul class="clearfix">
+					<script id="tpl-month-list" type="text/html">
+						{ each data as value i }
+						<li year="{ data[i].year }" month="{ data[i].month }">
+							<div class="month">{ data[i].month }月</div>
+							<div style="display: none;" class="price"><i>￥</i>{ data[i].ticket_min_price }<u>起</u></div>
+							<div style="display: none;" class="trade-price"><i>￥</i>{ data[i].ticket_trade_price }<u>起</u></div>
+						</li>
+						{ /each }
+					</script>
+				</ul>
+			</div>
+			<div class="week">
+				<ul class="clearfix">
+					<li>一</li>
+					<li>二</li>
+					<li>三</li>
+					<li>四</li>
+					<li>五</li>
+					<li>六</li>
+					<li>日</li>
+				</ul>
+			</div>
+			<div class="calendar-list">
+				<script id="tpl-calendar" type="text/html">
+					<ul class="clearfix">
+						{ each data as value i }
+							{ if data[i].Y == year && data[i].m == month }
+							<li ind="{ i }" { if data[i].d == day && data[i].info.seat_num != "售完" }class="default"{ /if }>
+								{if data[i].info.is_cluster == '1'}
+									<div class="nw"></div>
+								{/if}
+								<div class="day">{ data[i].d }</div>
+								{ if data[i].info }
+									{ if data[i].info.sell_status == 1 }
+										{if data[i].info.price == '￥暂无报价'}
+											<div class="price sellout clearfix noprice zw" style="font-size: 5px;">暂无票价</div>
+											<div class="trade-price sellout clearfix noprice zw" style="font-size: 5px;">暂无票价</div>
+										{else}
+									<div class="price sellout clearfix"><i>￥</i><span>{ data[i].info.price_new }</span><u>起</u></div>
+									<div class="trade-price sellout clearfix"><i>￥</i><span>{ data[i].info.trade_price }</span><u>起</u></div>
+										{/if}
+									{else}
+										{ if data[i].info.price_new }
+											{if data[i].info.price == '￥暂无报价'}
+											<div class="price clearfix sellout noprice" style="font-size: 5px;">暂无票价</div>
+											<div class="trade-price clearfix sellout noprice" style="font-size: 5px;">暂无票价</div>
+											{else}
+											<div class="price clearfix">
+												<i>￥</i><span>{ data[i].info.price_new }</span><u>起</u>
+											</div>
+											<div class="trade-price clearfix">
+												<i>￥</i><span>{ data[i].info.trade_price }</span><u>起</u>
+											</div>
+											{/if}
+										{ else }
+										<div class="price clearfix sellout noprice zw" style="font-size: 5px;">暂无票价</div>
+										<div class="trade-price clearfix sellout noprice" style="font-size: 5px;">暂无票价</div>
+										{ /if }
+									{ /if }
+								{else}
+								<div class="noInfo"></div>
+								{ /if }
+							</li>
+							{ else }
+							<li class="blank"></li>
+							{ /if }
+						{ /each }
+					</ul>
+				</script>
+			</div>
+		</div>
+		<div class="ticket-list">
+
+		</div>
+		<div class="next disable">下一步</div>
+	</div>
+</div>
+</body>
+<script id="tpl-ticket-list" type="text/html">
+	{ if info }
+
+	<dl class="tpl_dl">
+		<dt><div class="dt_di">请选择班期 &#x3000;余座:（{info.seat_num}）
+			<span class="grou">
+				<span></span>
+				成团标识
+			</span>
+		</div></dt>
+		{ each info.bl_data as value i }
+			<dd>
+				{if info.bl_data[i].is_cluster == '1'}
+				<div class="nw"></div>
+				{/if}
+				{ info.bl_data[i].name } ({ info.bl_data[i].bl_num })
+			</dd>
+		{ /each }
+	</dl>
+	{ each info.bl_data as value k }
+	<div class="bl_tab">
+		{each info.bl_data[k].ticket as value i}
+		<div class="bl_class">
+			<h3 typ="{i}">{i}</h3>
+			<ul>
+			{each info.bl_data[k].ticket[i] as value x}
+				{ if info.bl_data[k].ticket[i][x].t_preset_type == '套票' }
+					<li class="clearfix" tid="{ info.bl_data[k].ticket[i][x].t_id }" type="group">
+					{ else }
+					<li class="clearfix" tid="{ info.bl_data[k].ticket[i][x].t_id }" type="normal">
+					{ /if }
+						<div class="list-l">
+							<span class="name">{ info.bl_data[k].ticket[i][x].t_standards_name }
+							<span>
+							（{ info.bl_data[k].ticket[i][x].t_preset_type }）
+							</span>
+							</span>
+							
+
+						</div>
+						<div class="list-r clearfix">
+							<div class="list_r_top">
+								<span class="price"><i>￥</i>0.00</span>
+								<span class="trade-price"><i>￥</i>0.00</span>
+							</div>
+							
+							<div class="num-check">
+								<span class="reduce">-</span>
+								<input type="text" readonly="readonly" value="0">
+								<span class="add">+</span>
+							</div>
+							<span class="s-trade-price"><i>￥</i>{ info.bl_data[k].ticket[i][x].t_trade_price } &times;</span>
+							<span class="s-price"><i>￥</i>{ info.bl_data[k].ticket[i][x].t_price } &times;</span>
+						</div>
+					</li>
+			{/each}
+			</ul>
+		</div>
+		{/each}
+	</div>
+	{ /each }
+	{ /if }
+</script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/schedule.build.js"></script>
+</html>

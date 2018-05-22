@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.BillMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.bill.Bill">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="b_bill_no" jdbcType="VARCHAR" property="bBillNo" />
+    <result column="b_bill_pid" jdbcType="BIGINT" property="bBillPid" />
+    <result column="b_bill_type" jdbcType="TINYINT" property="bBillType" />
+    <result column="b_saler_id" jdbcType="BIGINT" property="bSalerId" />
+    <result column="b_saler_name" jdbcType="VARCHAR" property="bSalerName" />
+    <result column="b_saler_company_id" jdbcType="BIGINT" property="bSalerCompanyId" />
+    <result column="b_saler_company_name" jdbcType="VARCHAR" property="bSalerCompanyName" />
+    <result column="b_amount" jdbcType="DECIMAL" property="bAmount" />
+    <result column="b_payed_amount" jdbcType="DECIMAL" property="bPayedAmount" />
+    <result column="b_brokerage" jdbcType="DECIMAL" property="bBrokerage" />
+    <result column="b_deduction" jdbcType="DECIMAL" property="bDeduction" />
+    <result column="b_cash_time" jdbcType="TIMESTAMP" property="bCashTime" />
+    <result column="b_repayment_time" jdbcType="TIMESTAMP" property="bRepaymentTime" />
+    <result column="b_type" jdbcType="INTEGER" property="bType" />
+    <result column="b_status" jdbcType="INTEGER" property="bStatus" />
+    <result column="b_remark" jdbcType="VARCHAR" property="bRemark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap id="BillDtoMap" extends="BaseResultMap" type="com.jdy.b2b.api.model.bill.OnlineBillParentDTO">
+    <collection property="subBillList" ofType="com.jdy.b2b.api.model.bill.Bill" column="b_bill_pid" resultMap="BaseResultMap" columnPrefix="sub_"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, b_bill_pid, b_bill_no, b_saler_id, b_saler_name, b_saler_company_id, b_saler_company_name,  b_amount, b_payed_amount,
+    b_brokerage, b_deduction, b_cash_time, b_repayment_time, b_bill_type, b_type, b_status, b_remark, create_time, create_user, update_time,
+    update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from fn_bill
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectOnlineBillList" resultMap="BillDtoMap">
+    SELECT
+    p.id,p.create_time,p.b_saler_id,p.b_saler_name,p.b_saler_company_id,p.b_saler_company_name,p.b_bill_no,p.b_bill_type,p.b_payed_amount,p.b_amount,p.b_brokerage,p.b_cash_time,p.b_status,p.b_type,
+    c.id AS sub_id,
+    c.create_time AS sub_create_time,
+    c.b_saler_id AS sub_b_saler_id,
+    c.b_saler_name AS sub_b_saler_name,
+    c.b_saler_company_id as sub_b_saler_company_id,
+    c.b_saler_company_name as sub_b_saler_company_name,
+    c.b_bill_no AS sub_b_bill_no,
+    c.b_bill_type AS sub_b_bill_type,
+    c.b_payed_amount AS sub_b_payed_amount,
+    c.b_amount AS sub_b_amount,
+    c.b_brokerage AS sub_b_brokerage,
+    c.b_cash_time AS sub_b_cash_time,
+    c.b_status AS sub_b_status,
+    c.b_type AS sub_b_type,
+    c.b_bill_pid AS sub_b_bill_pid
+    FROM
+    fn_bill p
+    LEFT JOIN fn_bill c ON p.id = c.b_bill_pid
+    <where>
+      p.b_type = 0
+      <if test="bStatus != null">
+        AND p.b_status = #{bStatus}
+      </if>
+      <if test="createTimeS != null and createTimeS != ''">
+        AND p.create_time &gt;= #{createTimeS}
+      </if>
+      <if test="createTimeE != null and createTimeE != ''">
+        AND p.create_time &lt;= #{createTimeE}
+      </if>
+      <if test="bSalerCompanyId != null">
+        AND p.b_saler_company_id = #{bSalerCompanyId}
+      </if>
+      <if test="bBillType != null">
+        AND p.b_bill_type = #{bBillType}
+      </if>
+      <if test="bBillNo != null">
+        AND p.b_bill_no = #{bBillNo}
+      </if>
+    </where>
+    order by p.b_cash_time DESC
+  </select>
+
+  <select id="sumOnlineBillTotal" resultType="com.jdy.b2b.api.model.bill.BillTotalInfoDTO">
+    select sum(p.b_amount) as totalAmount,
+    sum(p.b_payed_amount) as totalPayedAmount,
+    sum(p.b_brokerage) as totalBrokerage
+    FROM fn_bill p
+    <where>
+      p.b_type = 0
+      <if test="bStatus != null">
+        AND p.b_status = #{bStatus}
+      </if>
+      <if test="createTimeS != null and createTimeS != ''">
+        AND p.create_time &gt;= #{createTimeS}
+      </if>
+      <if test="createTimeE != null and createTimeE != ''">
+        AND p.create_time &lt;= #{createTimeE}
+      </if>
+      <if test="bSalerCompanyId != null">
+        AND p.b_saler_company_id = #{bSalerCompanyId}
+      </if>
+      <if test="bBillType != null">
+        AND p.b_bill_type = #{bBillType}
+      </if>
+      <if test="bBillNo != null">
+        AND p.b_bill_no = #{bBillNo}
+      </if>
+    </where>
+  </select>
+  <select id="sumCreditBillTotal" parameterType="com.jdy.b2b.api.model.bill.CreditBillVo" resultType="com.jdy.b2b.api.model.bill.BillTotalInfoDTO">
+    select sum(p.b_amount) as totalAmount,
+    sum(p.b_payed_amount) as totalPayedAmount,
+    sum(p.b_deduction) as totalDeduction
+    FROM fn_bill p
+    INNER JOIN fn_bill_detail bd ON  bd.db_bill_id = p.id
+    INNER  JOIN  fn_credit c ON p.b_saler_id = c.c_supplier_id AND bd.b_buyer_id = c.c_distributor_id
+    <where>
+      p.b_type = 1
+      <if test="bStatus != null">
+        AND p.b_status = #{bStatus}
+      </if>
+      <if test="createTimeS != null and createTimeS != ''">
+        AND p.create_time &gt;= #{createTimeS}
+      </if>
+      <if test="createTimeE != null and createTimeE != ''">
+        AND p.create_time &lt;= #{createTimeE}
+      </if>
+      <if test="bSalerCompanyId != null">
+        AND p.b_saler_company_id = #{bSalerCompanyId}
+      </if>
+      <if test="bBuyerCompanyId != null">
+        AND bd.b_buyer_company_id = #{bBuyerCompanyId}
+      </if>
+      <if test="bBillType != null">
+        AND p.b_bill_type = #{bBillType}
+      </if>
+      <if test="bBillNo != null">
+        AND p.b_bill_no = #{bBillNo}
+      </if>
+      <if test="cSettlementCycle != null">
+        AND c.c_settlement_cycle = #{cSettlementCycle}
+      </if>
+    </where>
+    group by p.id
+  </select>
+  <resultMap id="creditBillDTOMap" type="com.jdy.b2b.api.model.bill.CreditBillDTO">
+    <id property="id" jdbcType="BIGINT" column="id"/>
+    <result column="b_bill_no" jdbcType="VARCHAR" property="bBillNo" />
+    <result column="b_bill_type" jdbcType="TINYINT" property="bBillType" />
+    <result column="b_saler_id" jdbcType="BIGINT" property="bSalerId" />
+    <result column="b_saler_name" jdbcType="VARCHAR" property="bSalerName" />
+    <result column="b_saler_company_id" jdbcType="BIGINT" property="bSalerCompanyId" />
+    <result column="b_saler_company_name" jdbcType="VARCHAR" property="bSalerCompanyName" />
+    <result column="b_buyer_company_id" jdbcType="BIGINT" property="bBuyerCompanyId"/>
+    <result column="b_buyer_company_name" jdbcType="VARCHAR" property="bBuyerCompanyName"/>
+    <result column="b_amount" jdbcType="DECIMAL" property="bAmount" />
+    <result column="b_payed_amount" jdbcType="DECIMAL" property="bPayedAmount" />
+    <result column="b_deduction" jdbcType="DECIMAL" property="bDeduction" />
+    <result column="b_cash_time" jdbcType="TIMESTAMP" property="bCashTime" />
+    <result column="b_repayment_time" jdbcType="TIMESTAMP" property="bRepaymentTime" />
+    <result column="b_type" jdbcType="INTEGER" property="bType" />
+    <result column="b_status" jdbcType="INTEGER" property="bStatus" />
+    <result column="b_remark" jdbcType="VARCHAR" property="bRemark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="c_settlement_cycle" jdbcType="INTEGER" property="cSettlementCycle"/>
+    <result column="c_settlement_day" jdbcType="INTEGER" property="cSettlementDay"/>
+  </resultMap>
+  <select id="selectCreditBillList" parameterType="com.jdy.b2b.api.model.bill.CreditBillVo" resultMap="creditBillDTOMap">
+    SELECT
+    p.id,
+    p.create_time,
+    p.b_saler_company_id,
+    p.b_saler_company_name,
+    bd.b_buyer_company_id,
+    bd.b_buyer_company_name,
+    p.b_bill_no,
+    p.b_bill_type,
+    p.b_payed_amount,
+    p.b_amount,
+    p.b_deduction,
+    p.b_cash_time,
+    p.b_status,
+    p.b_type,
+    c.c_settlement_cycle,
+    c.c_settlement_day,
+    p.b_repayment_time
+    FROM fn_bill p
+    INNER JOIN fn_bill_detail bd ON bd.db_bill_id = p.id
+    INNER  JOIN  fn_credit c ON p.b_saler_id = c.c_supplier_id AND bd.b_buyer_id = c.c_distributor_id
+    <where>
+      p.b_type = 1
+      <if test="bStatus != null">
+        AND p.b_status = #{bStatus}
+      </if>
+      <if test="createTimeS != null and createTimeS != ''">
+        AND p.create_time &gt;= #{createTimeS}
+      </if>
+      <if test="createTimeE != null and createTimeE != ''">
+        AND p.create_time &lt;= #{createTimeE}
+      </if>
+      <if test="bSalerCompanyId != null">
+        AND p.b_saler_company_id = #{bSalerCompanyId}
+      </if>
+      <if test="bBuyerCompanyId != null">
+        AND bd.b_buyer_company_id = #{bBuyerCompanyId}
+      </if>
+      <if test="bBillType != null">
+        AND p.b_bill_type = #{bBillType}
+      </if>
+      <if test="bBillNo != null">
+        AND p.b_bill_no = #{bBillNo}
+      </if>
+      <if test="cSettlementCycle != null">
+        AND c.c_settlement_cycle = #{cSettlementCycle}
+      </if>
+    </where>
+    group by p.id
+    order by p.b_repayment_time DESC
+  </select>
+  <resultMap id="CreditBillDetailResultMap" type="com.jdy.b2b.api.model.bill.CreditBillDetailDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="b_bill_no" jdbcType="VARCHAR" property="bBillNo" />
+    <result column="b_saler_id" jdbcType="BIGINT" property="bSalerId" />
+    <result column="b_saler_name" jdbcType="VARCHAR" property="bSalerName" />
+    <result column="b_amount" jdbcType="DECIMAL" property="bAmount" />
+    <result column="b_status" jdbcType="INTEGER" property="bStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <collection property="orderList" column="id" ofType="com.jdy.b2b.api.model.Order" javaType="java.util.ArrayList" select="selectOrderListByBillId"/>
+    <collection property="orderPayList" column="id" ofType="com.jdy.b2b.api.model.OrderPay" javaType="java.util.ArrayList" select="selectOrderPayListByBillId"/>
+  </resultMap>
+  <select id="selectCreditBillDetail" resultMap="CreditBillDetailResultMap">
+        SELECT
+        b.id,
+        b_bill_no,
+        b_saler_id,
+        b_saler_name,
+        b_saler_company_id,
+        b_saler_company_name,
+        b_amount,
+        b_status,
+        b.create_time,
+        c.c_sevice_phone,
+        c.c_address
+        FROM fn_bill b ,sm_company c
+        WHERE b.b_bill_no = #{billNo} and b.b_saler_company_id = c.id
+  </select>
+  <select id="selectOrderListByBillId" resultType="com.jdy.b2b.api.model.Order" parameterType="java.lang.Long" >
+  select * from sl_order where id IN (
+  select DISTINCT op.op_order_id from fn_bill_detail bd,sl_order_pay op where bd.db_bill_id = #{id} and op.id = bd.db_order_pay_id)
+</select>
+  <select id="selectOrderPayListByBillId" resultType="com.jdy.b2b.api.model.OrderPay" parameterType="Long">
+    select op.* from fn_bill_detail bd,sl_order_pay op where bd.db_bill_id = #{id} and op.id = bd.db_order_pay_id
+  </select>
+  <resultMap id="BillWithOrderPayDtoMap" type="com.jdy.b2b.api.model.bill.BillWithOrderPayDto" extends="BaseResultMap">
+    <result column="commission" property="commission" jdbcType="DECIMAL"/>
+    <result column="cs_settlement_rate" property="csSettlementRate" jdbcType="DECIMAL"/>
+    <result column="cs_qr_rate" property="csQrRate" jdbcType="DECIMAL"/>
+    <collection property="orders" select="com.jdy.b2b.api.dao.OrderMapper.selectOrderWithOrderPayListByBillId" column="id" javaType="ArrayList" ofType="com.jdy.b2b.api.model.bill.OrderWithOrderPay"/>
+  </resultMap>
+  <select id="selectBillWithOrderPayDto" resultMap="BillWithOrderPayDtoMap" parameterType="long">
+      select b.*,cs.cs_settlement_rate*b.b_amount commission,cs.cs_settlement_rate,cs.cs_qr_rate  from fn_bill b LEFT JOIN sm_company_setting cs on b.b_saler_company_id = cs.cs_company_id WHERE  b.id = #{id,jdbcType=BIGINT}
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from fn_bill
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.bill.Bill" useGeneratedKeys="true" keyProperty="id">
+    insert into fn_bill (id, b_bill_pid,  b_bill_no, b_saler_id,
+      b_saler_name, b_saler_company_id, b_saler_company_name,
+      b_amount, b_payed_amount, b_brokerage,
+      b_cash_time, b_bill_type, b_type, b_status,
+      b_remark, create_time, create_user,
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{bBillPid,jdbcType=BIGINT},#{bBillNo,jdbcType=VARCHAR}, #{bSalerId,jdbcType=BIGINT},
+      #{bSalerName,jdbcType=VARCHAR},#{bSalerCompanyId,jdbcType=BIGINT},#{bSalerCompanyName,jdbcType=VARCHAR},
+      #{bAmount,jdbcType=DECIMAL}, #{bPayedAmount,jdbcType=DECIMAL}, #{bBrokerage,jdbcType=DECIMAL},
+      #{bCashTime,jdbcType=TIMESTAMP}, #{bBillType,jdbcType=TINYINT},#{bType,jdbcType=INTEGER}, #{bStatus,jdbcType=INTEGER},
+      #{bRemark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT},
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.bill.Bill">
+    insert into fn_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bBillPid != null">
+        b_bill_pid,
+      </if>
+      <if test="bBillNo != null">
+        b_bill_no,
+      </if>
+      <if test="bSalerId != null">
+        b_saler_id,
+      </if>
+      <if test="bSalerName != null">
+        b_saler_name,
+      </if>
+      <if test="bAmount != null">
+        b_amount,
+      </if>
+      <if test="bPayedAmount != null">
+        b_payed_amount,
+      </if>
+      <if test="bBrokerage != null">
+        b_brokerage,
+      </if>
+      <if test="bCashTime != null">
+        b_cash_time,
+      </if>
+      <if test="bBillType != null">
+        b_bill_type,
+      </if>
+      <if test="bType != null">
+        b_type,
+      </if>
+      <if test="bStatus != null">
+        b_status,
+      </if>
+      <if test="bRemark != null">
+        b_remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bBillPid != null">
+        #{bBillPid,jdbcType=BIGINT},
+      </if>
+      <if test="bBillNo != null">
+        #{bBillNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bSalerId != null">
+        #{bSalerId,jdbcType=BIGINT},
+      </if>
+      <if test="bSalerName != null">
+        #{bSalerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bAmount != null">
+        #{bAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bPayedAmount != null">
+        #{bPayedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bBrokerage != null">
+        #{bBrokerage,jdbcType=DECIMAL},
+      </if>
+      <if test="bCashTime != null">
+        #{bCashTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bBillType != null">
+        #{bBillType,jdbcType=TINYINT},
+      </if>
+      <if test="bType != null">
+        #{bType,jdbcType=INTEGER},
+      </if>
+      <if test="bStatus != null">
+        #{bStatus,jdbcType=INTEGER},
+      </if>
+      <if test="bRemark != null">
+        #{bRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.bill.Bill">
+    update fn_bill
+    <set>
+      <if test="bBillPid != null">
+        b_bill_pid = #{bBillPid,jdbcType=BIGINT},
+      </if>
+      <if test="bBillNo != null">
+        b_bill_no = #{bBillNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bSalerId != null">
+        b_saler_id = #{bSalerId,jdbcType=BIGINT},
+      </if>
+      <if test="bSalerName != null">
+        b_saler_name = #{bSalerName,jdbcType=VARCHAR},
+      </if>
+      <if test="bAmount != null">
+        b_amount = #{bAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bPayedAmount != null">
+        b_payed_amount = #{bPayedAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bBrokerage != null">
+        b_brokerage = #{bBrokerage,jdbcType=DECIMAL},
+      </if>
+      <if test="bCashTime != null">
+        b_cash_time = #{bCashTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bBillType != null">
+        b_bill_type = #{bBillType,jdbcType=INTEGER},
+      </if>
+      <if test="bType != null">
+        b_type = #{bType,jdbcType=INTEGER},
+      </if>
+      <if test="bStatus != null">
+        b_status = #{bStatus,jdbcType=INTEGER},
+      </if>
+      <if test="bRemark != null">
+        b_remark = #{bRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.bill.Bill">
+    update fn_bill
+    set b_bill_pid = #{bBillPid,jdbcType=BIGINT},
+      b_bill_no = #{bBillNo,jdbcType=VARCHAR},
+      b_saler_id = #{bSalerId,jdbcType=BIGINT},
+      b_saler_name = #{bSalerName,jdbcType=VARCHAR},
+      b_amount = #{bAmount,jdbcType=DECIMAL},
+      b_payed_amount = #{bPayedAmount,jdbcType=DECIMAL},
+      b_brokerage = #{bBrokerage,jdbcType=DECIMAL},
+      b_cash_time = #{bCashTime,jdbcType=TIMESTAMP},
+      b_bill_type = #{bBillType,jdbcType=TINYINT},
+      b_type = #{bType,jdbcType=INTEGER},
+      b_status = #{bStatus,jdbcType=INTEGER},
+      b_remark = #{bRemark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <resultMap id="OnlineBillList4Export" type="com.jdy.b2b.api.model.bill.BillDto4ExportBillList" extends="BaseResultMap">
+    <result property="realPay" column="realPay" jdbcType="DECIMAL"/>
+    <result property="bigArea" column="group_id" jdbcType="VARCHAR"/>
+    <result property="companyNo" column="c_no" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="queryOnlineBillList4Export" resultMap="OnlineBillList4Export" parameterType="com.jdy.b2b.api.model.bill.ParamDto4ExportBillList">
+    SELECT b.*,city.group_id,(1-(cs.cs_settlement_rate+cs.cs_qr_rate)*0.01)*b.b_payed_amount realPay,company.c_no from fn_bill b JOIN sm_company company on b.b_saler_company_id = company.id JOIN cm_city city ON company.c_province = city.name JOIN sm_company_setting cs ON b.b_saler_company_id = cs.cs_company_id where city.level = 1
+    <if test="salerCompanyId != null">
+      AND b.b_saler_company_id = #{salerCompanyId,jdbcType=BIGINT}
+    </if>
+    <if test="startDate != null">
+      AND DATEDIFF(DATE_FORMAT(b.create_time,'%Y-%m-%d'),#{startDate,jdbcType=VARCHAR})&gt;0
+    </if>
+    <if test="endDate != null">
+      AND DATEDIFF(DATE_FORMAT(b.create_time,'%Y-%m-%d'),#{endDate,jdbcType=VARCHAR})&lt;0
+    </if>
+  </select>
+</mapper>

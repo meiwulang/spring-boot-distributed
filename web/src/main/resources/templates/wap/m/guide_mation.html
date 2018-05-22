@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>游客信息</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/guide_mation.css">
+    <!-- <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> --> 
+</head>
+<body>
+<div id="wrap">
+	<div class="acti_header">游客信息
+		<a class="lef" href="javascript:;"></a>
+	</div>
+	<div class="main">
+	<script id="tpl-condition" type="text/html">
+		{if team_seat}
+		<div class="trip cons display">
+			<dl>
+				<dt class="no_border">
+					<div class="one">
+						<span>游客信息（{team_seat.big_num}成人/{team_seat.small_num}儿童、共{team_seat.bed_num}床）</span>
+					</div>
+					<div class="two tw"><span></span>所有游客</div>
+				</dt>
+			</dl>
+			{each team_seat.list as value i}
+			<dl>
+				
+				<dt class="parint">
+					<div class="one oness">
+						<p>{team_seat.list[i].o_name}<span class="tel"> <a style="color: #84b6fb;" href="tel:{team_seat.list[i].o_mobile}">{team_seat.list[i].o_mobile}</a></span>
+						{if team_detail.team_show_sorg == '1'}
+						<span class="org_nam">({team_seat.list[i].o_sorg_name})</span>
+						{/if}
+						</p>
+						<div class="two twos">{team_seat.list[i].o_bed_num}床</div>
+						{if team_seat.list[i].o_remark}
+						<span class="son">备注:{team_seat.list[i].o_remark}</span>
+
+						{/if}
+						
+					</div>
+				</dt>
+				{each team_seat.list[i].list as value j}
+				<dd type="{team_seat.list[i].list[j].s_tname}" stname="{team_seat.list[i].list[j].s_start_stname}">
+					<div class="ones">
+						{j + 1} . {if team_seat.list[i].list[j].s_is_bl && team_seat.list[i].list[j].s_is_bl == '1'}<span class="mations"></span>{/if}{team_seat.list[i].list[j].s_vip_name}<span><a style="color: #84b6fb;" href="tel:{team_seat.list[i].list[j].s_vip_mob}">{team_seat.list[i].list[j].s_vip_mob}</a></span>
+					</div>
+					<div class="twos">
+						<span>{team_seat.list[i].list[j].s_sex}
+						{if team_seat.list[i].list[j].s_age}
+						<span>({team_seat.list[i].list[j].s_age})</span>
+						{/if}
+						</span>
+					</div>
+				</dd>
+				{/each}
+				
+			</dl>
+			{/each}
+			<div class="but bu">接送 信息</div>
+			<div class="but buts">票种 信息</div>
+		</div>
+		{/if}
+		<div class="actiss fa">
+			<div class="go_back_header">游客接送</div>
+			<div class="conss">
+				{if team_seat.shuttle_info}
+				{each team_seat.shuttle_info as value i}
+				<dl class="go_back go_ba">
+					<dt>{i}</dt>
+					{each team_seat.shuttle_info[i] as value j}
+					<dd stname="{team_seat.shuttle_info[i][j].s_start_stname}">
+						<div class="far clearfix">
+							<div class="le">
+							{if team_seat.shuttle_info[i][j].s_start_time == '0'}
+
+							{else}
+							<span class="tim"></span>
+							{/if}
+							<span class="nai"> {team_seat.shuttle_info[i][j].s_start_stname}</span></div>
+							<div class="rig">{team_seat.shuttle_info[i][j].num}人</div>
+						</div>
+					</dd>
+					{/each}
+				</dl>
+				{/each}
+				{/if}
+			</div>
+			<div class="less">
+				
+			</div>
+		</div>
+
+		<div class="list fa">
+			<div class="go_back_header">票种汇总信息</div>
+			<div class="conss">
+				<dl class="go_back go_backs">
+				{if team_seat.ticket_type}
+					{each team_seat.ticket_type as value i}
+					<dd types="{i}">
+						<div class="far">
+							<div class="les">{i}</div>
+							<div class="rigs">{team_seat.ticket_type[i]}人</div>
+						</div>
+					</dd>
+					{/each}
+				{/if}	
+				</dl>
+			</div>
+			<div class="less">
+				
+			</div>
+		</div>
+	</script>	
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/guide_mation.build.js"></script>
+</html>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.station.ShuttleBusMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.station.ShuttleBus">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sb_departure_id" jdbcType="BIGINT" property="sbDepartureId" />
+    <result column="sb_shuttle_stop_id" jdbcType="BIGINT" property="sbShuttleStopId" />
+    <result column="sb_time" jdbcType="TIME" property="sbTime" />
+    <result column="sb_traffic" jdbcType="INTEGER" property="sbTraffic" />
+    <result column="sb_return" jdbcType="BIT" property="sbReturn" />
+    <result column="sb_time_length" jdbcType="INTEGER" property="sbTimeLength" />
+    <result column="sb_price" jdbcType="DECIMAL" property="sbPrice" />
+    <result column="sb_start_point" jdbcType="VARCHAR" property="sbStartPoint" />
+    <result column="sb_start_time" jdbcType="TIMESTAMP" property="sbStartTime" />
+    <result column="sb_end_time" jdbcType="TIMESTAMP" property="sbEndTime" />
+    <result column="sb_effect_week" jdbcType="VARCHAR" property="sbEffectWeek" />
+    <result column="sb_status" jdbcType="INTEGER" property="sbStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <resultMap id="DtoResultMap" type="com.jdy.b2b.api.model.station.ShuttleBusDTO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sb_departure_id" jdbcType="BIGINT" property="sbDepartureId" />
+    <result column="sb_shuttle_stop_id" jdbcType="BIGINT" property="sbShuttleStopId" />
+    <result column="sb_time" jdbcType="TIME" property="sbTime" />
+    <result column="sb_traffic" jdbcType="INTEGER" property="sbTraffic" />
+    <result column="sb_return" jdbcType="BIT" property="sbReturn" />
+    <result column="sb_time_length" jdbcType="INTEGER" property="sbTimeLength" />
+    <result column="sb_price" jdbcType="DECIMAL" property="sbPrice" />
+    <result column="sb_start_point" jdbcType="VARCHAR" property="sbStartPoint" />
+    <result column="d_name" jdbcType="VARCHAR" property="dName" />
+    <result column="sb_start_time" jdbcType="TIMESTAMP" property="sbStartTime" />
+    <result column="sb_end_time" jdbcType="TIMESTAMP" property="sbEndTime" />
+    <result column="sb_effect_week" jdbcType="VARCHAR" property="sbEffectWeek" />
+    <result column="sb_status" jdbcType="INTEGER" property="sbStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id,  sb_departure_id,sb_shuttle_stop_id, sb_time, sb_traffic, sb_return, sb_time_length, 
+    sb_price, sb_start_point, sb_start_time, sb_end_time, sb_effect_week, sb_status, 
+    create_time, create_user, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sr_shuttle_bus
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sr_shuttle_bus
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.station.ShuttleBus" keyProperty="id" useGeneratedKeys="true">
+    insert into sr_shuttle_bus (id,  sb_departure_id, sb_shuttle_stop_id,
+      sb_time, sb_traffic, sb_return, 
+      sb_time_length, sb_price, sb_start_point, 
+      sb_start_time, sb_end_time, sb_effect_week, 
+      sb_status, create_time, create_user, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT},#{sbDepartureId,jdbcType=BIGINT}, #{sbShuttleStopId,jdbcType=BIGINT}, 
+      #{sbTime,jdbcType=TIME}, #{sbTraffic,jdbcType=INTEGER}, #{sbReturn,jdbcType=BIT}, 
+      #{sbTimeLength,jdbcType=INTEGER}, #{sbPrice,jdbcType=DECIMAL}, #{sbStartPoint,jdbcType=VARCHAR}, 
+      #{sbStartTime,jdbcType=TIMESTAMP}, #{sbEndTime,jdbcType=TIMESTAMP}, #{sbEffectWeek,jdbcType=VARCHAR}, 
+      #{sbStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="batchSave" keyProperty="id"   useGeneratedKeys="true">
+    insert into sr_shuttle_bus (id,  sb_departure_id, 
+      sb_time, sb_traffic, sb_return, 
+      sb_time_length, sb_price, sb_start_point, 
+      sb_start_time, sb_end_time, sb_effect_week, 
+      sb_status, create_time, create_user, 
+      update_time, update_user,sb_shuttle_stop_id)
+    values 
+    <foreach collection="list" item="t" separator="," >
+    (#{t.id,jdbcType=BIGINT},#{t.sbDepartureId,jdbcType=BIGINT}, 
+      #{t.sbTime,jdbcType=TIME}, #{t.sbTraffic,jdbcType=INTEGER}, #{t.sbReturn,jdbcType=BIT}, 
+      #{t.sbTimeLength,jdbcType=INTEGER}, #{t.sbPrice,jdbcType=DECIMAL}, #{t.sbStartPoint,jdbcType=VARCHAR}, 
+      #{t.sbStartTime,jdbcType=TIMESTAMP}, #{t.sbEndTime,jdbcType=TIMESTAMP}, #{t.sbEffectWeek,jdbcType=VARCHAR}, 
+      #{t.sbStatus,jdbcType=INTEGER}, #{t.createTime,jdbcType=TIMESTAMP}, #{t.createUser,jdbcType=BIGINT}, 
+      #{t.updateTime,jdbcType=TIMESTAMP}, #{t.updateUser,jdbcType=BIGINT},#{t.sbShuttleStopId,jdbcType=BIGINT})
+    </foreach>  
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.station.ShuttleBus">
+    insert into sr_shuttle_bus
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sbDepartureId != null">
+        sb_departure_id,
+      </if>
+      <if test="sbShuttleStopId != null">
+        sb_shuttle_stop_id,
+      </if>
+      <if test="sbTime != null">
+        sb_time,
+      </if>
+      <if test="sbTraffic != null">
+        sb_traffic,
+      </if>
+      <if test="sbReturn != null">
+        sb_return,
+      </if>
+      <if test="sbTimeLength != null">
+        sb_time_length,
+      </if>
+      <if test="sbPrice != null">
+        sb_price,
+      </if>
+      <if test="sbStartPoint != null">
+        sb_start_point,
+      </if>
+      <if test="sbStartTime != null">
+        sb_start_time,
+      </if>
+      <if test="sbEndTime != null">
+        sb_end_time,
+      </if>
+      <if test="sbEffectWeek != null">
+        sb_effect_week,
+      </if>
+      <if test="sbStatus != null">
+        sb_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sbDepartureId != null">
+        #{sbDepartureId,jdbcType=BIGINT},
+      </if>
+      <if test="sbShuttleStopId != null">
+        #{sbShuttleStopId,jdbcType=BIGINT},
+      </if>
+      <if test="sbTime != null">
+        #{sbTime,jdbcType=TIME},
+      </if>
+      <if test="sbTraffic != null">
+        #{sbTraffic,jdbcType=INTEGER},
+      </if>
+      <if test="sbReturn != null">
+        #{sbReturn,jdbcType=BIT},
+      </if>
+      <if test="sbTimeLength != null">
+        #{sbTimeLength,jdbcType=INTEGER},
+      </if>
+      <if test="sbPrice != null">
+        #{sbPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sbStartPoint != null">
+        #{sbStartPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sbStartTime != null">
+        #{sbStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sbEndTime != null">
+        #{sbEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sbEffectWeek != null">
+        #{sbEffectWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="sbStatus != null">
+        #{sbStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.station.ShuttleBus">
+    update sr_shuttle_bus
+    <set>
+      <if test="sbDepartureId != null">
+        sb_departure_id = #{sbDepartureId,jdbcType=BIGINT},
+      </if>
+      <if test="sbShuttleStopId != null">
+        sb_shuttle_stop_id = #{sbShuttleStopId,jdbcType=BIGINT},
+      </if>
+      <if test="sbTime != null">
+        sb_time = #{sbTime,jdbcType=TIME},
+      </if>
+      <if test="sbTraffic != null">
+        sb_traffic = #{sbTraffic,jdbcType=INTEGER},
+      </if>
+      <if test="sbReturn != null">
+        sb_return = #{sbReturn,jdbcType=BIT},
+      </if>
+      <if test="sbTimeLength != null">
+        sb_time_length = #{sbTimeLength,jdbcType=INTEGER},
+      </if>
+      <if test="sbPrice != null">
+        sb_price = #{sbPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sbStartPoint != null">
+        sb_start_point = #{sbStartPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sbStartTime != null">
+        sb_start_time = #{sbStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sbEndTime != null">
+        sb_end_time = #{sbEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sbEffectWeek != null">
+        sb_effect_week = #{sbEffectWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="sbStatus != null">
+        sb_status = #{sbStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.station.ShuttleBus">
+    update sr_shuttle_bus
+    set 
+      sb_departure_id = #{sbDepartureId,jdbcType=BIGINT},
+      sb_shuttle_stop_id = #{sbShuttleStopId,jdbcType=BIGINT},
+      sb_time = #{sbTime,jdbcType=TIME},
+      sb_traffic = #{sbTraffic,jdbcType=INTEGER},
+      sb_return = #{sbReturn,jdbcType=BIT},
+      sb_time_length = #{sbTimeLength,jdbcType=INTEGER},
+      sb_price = #{sbPrice,jdbcType=DECIMAL},
+      sb_start_point = #{sbStartPoint,jdbcType=VARCHAR},
+      sb_start_time = #{sbStartTime,jdbcType=TIMESTAMP},
+      sb_end_time = #{sbEndTime,jdbcType=TIMESTAMP},
+      sb_effect_week = #{sbEffectWeek,jdbcType=VARCHAR},
+      sb_status = #{sbStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="queryList" resultMap="DtoResultMap">
+	SELECT
+		a.d_name,
+		sr_shuttle_bus.id,  sb_departure_id,sb_shuttle_stop_id, sb_time, sb_traffic, sb_return, sb_time_length, 
+    sb_price, sb_start_point, sb_start_time, sb_end_time, sb_effect_week, sb_status, 
+    sr_shuttle_bus.create_time, sr_shuttle_bus.create_user, sr_shuttle_bus.update_time, sr_shuttle_bus.update_user
+	FROM
+		sr_departure a,
+		sr_shuttle_bus
+	<include refid="listWhere"/>
+	LIMIT #{startNum}, #{pageSize}	 
+  </select>
+  <select id="queryListCount" resultType="int">
+ 	 select count(1) from <include refid="tableName"/>,sr_departure a <include refid="listWhere"/>
+  </select>
+  <sql id="tableName">
+	sr_shuttle_bus
+  </sql>
+	<sql id="listWhere">
+		<where>
+			<if test="sbDepartureId !=null">
+			
+				sb_departure_id=#{sbDepartureId}
+				AND sb_departure_id = a.id
+			</if>
+			<if test="sbStartPoint !=null">
+				<bind name="LikeSbStartPoint" value="'%'+sbStartPoint+'%'"/>
+				AND sb_start_point like #{LikeSbStartPoint}
+			</if>
+			<if test="sbReturn !=null">
+				AND sb_return = #{sbReturn}
+			</if>
+          <if test="sbStatus != null">
+            and sb_status = #{sbStatus}
+          </if>
+		</where>
+	</sql>	
+	<select id="getShuttleBusCountByTimeAndStatus" resultType="long">
+	SELECT id
+	FROM sr_shuttle_bus
+	WHERE
+	  sb_departure_id=#{sbDepartureId}
+	AND sb_shuttle_stop_id=#{sbShuttleStopId}
+	AND sb_status=#{sbStatus}
+	AND sb_return=#{sbReturn}
+	AND (
+		(sb_start_time &lt;= #{sbStartTime} AND sb_end_time &gt;= #{sbEndTime}) OR
+		(sb_start_time &gt;= #{sbStartTime} AND sb_start_time &lt;= #{sbEndTime}) OR
+		(sb_end_time &gt;= #{sbStartTime} AND sb_end_time &lt;= #{sbEndTime}) OR
+		(sb_start_time &gt;= #{sbStartTime} AND sb_end_time &lt;= #{sbEndTime}) 
+	)
+	</select>	
+</mapper>

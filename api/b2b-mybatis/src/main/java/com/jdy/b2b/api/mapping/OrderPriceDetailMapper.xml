@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.OrderPriceDetailMapper">
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.OrderPriceDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="op_order_id" jdbcType="BIGINT" property="opOrderId" />
+    <result column="op_ticket_id" jdbcType="BIGINT" property="opTicketId" />
+    <result column="op_price_name" jdbcType="VARCHAR" property="opPriceName" />
+    <result column="op_num" jdbcType="INTEGER" property="opNum" />
+    <result column="op_price" jdbcType="DECIMAL" property="opPrice" />
+    <result column="op_total_price" jdbcType="DECIMAL" property="opTotalPrice" />
+    <result column="op_remark" jdbcType="VARCHAR" property="opRemark" />
+    <result column="op_type" jdbcType="INTEGER" property="opType" />
+    <result column="op_activity_id" jdbcType="BIGINT" property="opActivityId" />
+    <result column="op_status" jdbcType="TINYINT" property="opStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="BIGINT" property="updateUser" />
+    <result column="op_adult_num" jdbcType="INTEGER" property="opAdultNum" />
+    <result column="op_child_num" jdbcType="INTEGER" property="opChildNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, op_order_id, op_ticket_id, op_price_name, op_num, op_price, op_total_price, op_remark, 
+    op_type, op_activity_id, op_status, create_time, create_user, update_time, update_user,op_adult_num,op_child_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sl_order_price_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sl_order_price_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.OrderPriceDetail">
+    insert into sl_order_price_detail (id, op_order_id, op_ticket_id, 
+      op_price_name, op_num, op_price, 
+      op_total_price, op_remark, op_type, 
+      op_activity_id, op_status, create_time, 
+      create_user, update_time, update_user,op_adult_num,op_child_num
+      )
+    values (#{id,jdbcType=BIGINT}, #{opOrderId,jdbcType=BIGINT}, #{opTicketId,jdbcType=BIGINT}, 
+      #{opPriceName,jdbcType=VARCHAR}, #{opNum,jdbcType=INTEGER}, #{opPrice,jdbcType=DECIMAL}, 
+      #{opTotalPrice,jdbcType=DECIMAL}, #{opRemark,jdbcType=VARCHAR}, #{opType,jdbcType=INTEGER}, 
+      #{opActivityId,jdbcType=BIGINT}, #{opStatus,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=BIGINT},
+      #{opAdultNum,jdbcType=INTEGER},#{opChildNum,jdbcType=INTEGER}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.OrderPriceDetail">
+    insert into sl_order_price_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="opOrderId != null">
+        op_order_id,
+      </if>
+      <if test="opTicketId != null">
+        op_ticket_id,
+      </if>
+      <if test="opPriceName != null">
+        op_price_name,
+      </if>
+      <if test="opNum != null">
+        op_num,
+      </if>
+      <if test="opPrice != null">
+        op_price,
+      </if>
+      <if test="opTotalPrice != null">
+        op_total_price,
+      </if>
+      <if test="opRemark != null">
+        op_remark,
+      </if>
+      <if test="opType != null">
+        op_type,
+      </if>
+      <if test="opActivityId != null">
+        op_activity_id,
+      </if>
+      <if test="opStatus != null">
+        op_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="opAdult != null">
+        op_adult_num,
+      </if>
+      <if test="opChildNum != null">
+        op_child_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="opOrderId != null">
+        #{opOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="opTicketId != null">
+        #{opTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="opPriceName != null">
+        #{opPriceName,jdbcType=VARCHAR},
+      </if>
+      <if test="opNum != null">
+        #{opNum,jdbcType=INTEGER},
+      </if>
+      <if test="opPrice != null">
+        #{opPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="opTotalPrice != null">
+        #{opTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="opRemark != null">
+        #{opRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="opType != null">
+        #{opType,jdbcType=INTEGER},
+      </if>
+      <if test="opActivityId != null">
+        #{opActivityId,jdbcType=BIGINT},
+      </if>
+      <if test="opStatus != null">
+        #{opStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="opAdultNum != null">
+        #{op_adult_num,jdbcType=INTEGER},
+      </if>
+      <if test="opChildNum != null">
+        #{op_child_num,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.OrderPriceDetail">
+    update sl_order_price_detail
+    <set>
+      <if test="opOrderId != null">
+        op_order_id = #{opOrderId,jdbcType=BIGINT},
+      </if>
+      <if test="opTicketId != null">
+        op_ticket_id = #{opTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="opPriceName != null">
+        op_price_name = #{opPriceName,jdbcType=VARCHAR},
+      </if>
+      <if test="opNum != null">
+        op_num = #{opNum,jdbcType=INTEGER},
+      </if>
+      <if test="opPrice != null">
+        op_price = #{opPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="opTotalPrice != null">
+        op_total_price = #{opTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="opRemark != null">
+        op_remark = #{opRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="opType != null">
+        op_type = #{opType,jdbcType=INTEGER},
+      </if>
+      <if test="opActivityId != null">
+        op_activity_id = #{opActivityId,jdbcType=BIGINT},
+      </if>
+      <if test="opStatus != null">
+        op_status = #{opStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=BIGINT},
+      </if>
+      <if test="opAdultNum != null">
+        op_adult_num = #{opAdultNum,jdbcType=INTEGER},
+      </if>
+      <if test="opChildNum != null">
+        op_child_num = #{opChildNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.OrderPriceDetail">
+    update sl_order_price_detail
+    set op_order_id = #{opOrderId,jdbcType=BIGINT},
+      op_ticket_id = #{opTicketId,jdbcType=BIGINT},
+      op_price_name = #{opPriceName,jdbcType=VARCHAR},
+      op_num = #{opNum,jdbcType=INTEGER},
+      op_price = #{opPrice,jdbcType=DECIMAL},
+      op_total_price = #{opTotalPrice,jdbcType=DECIMAL},
+      op_remark = #{opRemark,jdbcType=VARCHAR},
+      op_type = #{opType,jdbcType=INTEGER},
+      op_activity_id = #{opActivityId,jdbcType=BIGINT},
+      op_status = #{opStatus,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=BIGINT},
+      op_adult_num = #{opAdultNum,jdbcType=INTEGER},
+      op_child_num = #{opChildNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <update id="updateNumById">
+      UPDATE sl_order_price_detail SET op_num = op_num - #{num},op_total_price = op_num * op_price WHERE op_order_id = #{orderId} and op_ticket_id = #{ticketId} and (op_num - #{num})>=0
+    </update>
+</mapper>

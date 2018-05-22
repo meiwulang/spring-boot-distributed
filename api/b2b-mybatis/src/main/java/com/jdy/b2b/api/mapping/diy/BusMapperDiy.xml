@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdy.b2b.api.dao.diy.BusMapperDiy">
+
+    <resultMap id="ResultMapExt" extends="com.jdy.b2b.api.dao.BusMapper.BaseResultMap"
+               type="com.jdy.b2b.api.model.diy.BusSeatsDTO">
+        <result column="bSeat" jdbcType="VARCHAR" property="bSeat"/>
+    </resultMap>
+
+    <resultMap id="BusWithHoldsResultMap" extends="com.jdy.b2b.api.dao.BusMapper.BaseResultMap"
+               type="com.jdy.b2b.api.model.diy.BusDTO">
+        <collection property="busHolds" ofType="com.jdy.b2b.api.model.diy.BusHoldDTO">
+            <result property="id" column="hold_id"/>
+            <result property="bBusId" column="b_bus_id"/>
+            <result property="bCompanyId" column="b_company_id"/>
+            <result property="companyName" column="company_name"/>
+            <result property="bAccount" column="b_account"/>
+            <result property="bHoldHours" column="b_hold_hours"/>
+            <result property="bSeat" column="b_seat"/>
+            <result property="createTime" column="h_create_time"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectBusAndHolds" resultMap="BusWithHoldsResultMap">
+        SELECT
+            b.*,
+            h.id hold_id,
+            h.b_bus_id,
+            h.b_company_id,
+            c.c_name company_name,
+            h.b_account,
+            h.b_hold_hours,
+            h.b_seat,
+            h.create_time h_create_time
+        FROM
+            ct_bus b
+        LEFT JOIN ct_bus_hold h ON b.id = h.b_bus_id
+        LEFT JOIN sm_company c on h.b_company_id = c.id
+        WHERE
+            b.b_status = 0
+        <if test="id != null">
+            and b.id = #{id}
+        </if>
+        <if test="bScheduleId != null">
+            and b.b_schedule_id = #{bScheduleId}
+        </if>
+        ORDER BY
+            b.id
+    </select>
+
+    <select id="selectBusList" resultMap="com.jdy.b2b.api.dao.BusMapper.BaseResultMap">
+        SELECT
+            *
+        FROM
+            ct_bus b
+        WHERE
+            b.b_status = 0
+        <if test="id != null">
+            and b.id = #{id}
+        </if>
+        <if test="bScheduleId != null">
+            and b.b_schedule_id = #{bScheduleId}
+        </if>
+        ORDER BY
+            b.id
+    </select>
+
+    <insert id="insertBatch" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        insert into ct_bus (id, b_no, b_schedule_id,
+        b_seats_num, b_seats_lock, b_status,
+        create_time, create_user, update_time,
+        update_user)
+        values
+        <foreach collection="list" separator="," item="item">
+        (#{item.id,jdbcType=BIGINT}, #{item.bNo,jdbcType=INTEGER}, #{item.bScheduleId,jdbcType=BIGINT},
+        #{item.bSeatsNum,jdbcType=INTEGER}, #{item.bSeatsLock,jdbcType=VARCHAR}, #{item.bStatus,jdbcType=INTEGER},
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.createUser,jdbcType=BIGINT}, #{item.updateTime,jdbcType=TIMESTAMP},
+        #{item.updateUser,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+
+</mapper>

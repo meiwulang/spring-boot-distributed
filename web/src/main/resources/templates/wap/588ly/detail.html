@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>芒果卉旅游</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="../Public/Css/icon/css/font-awesome.min.css" rel="stylesheet">
+    <script id="link-css" type="text/javascript">
+        var date = new Date();
+        var _TimeStamp = String(date.getFullYear()) + (date.getMonth()+1) + date.getDate() + date.getHours();
+        document.write(
+            '<link rel="stylesheet" type="text/css" href="css/calendar.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/perfect.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/travel.css?t='+_TimeStamp+'">'+
+            '<link rel="stylesheet" type="text/css" href="css/showprice.css?t='+_TimeStamp+'">'
+        );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/lib/jquery-1.11.3.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/jquery.sticky.js"></script>
+    <script src="js/lib/echo.min.js"></script>
+    <script src="js/lib/doT.min.js"></script>
+    <script src="js/lib/jquery.nav.js"></script>
+    <script src="js/common/configs.js"></script>
+    <script type="text/javascript">
+        document.write(
+            '<script type="text/javascript" src="'+ApiUrl+'/common/getConst.shtml?t='+date.getTime()+'"></'+'script>'
+        );
+    </script>
+    <script type="text/javascript">
+        function int2date(daytime, ds) {
+            daytime = daytime.toString();
+            var Y = daytime.substr(0, 4);
+            var M = daytime.substr(4, 2);
+            var D = daytime.substr(6, 2);
+            ds = ds ? ds : '.';
+            return Y + ds + M + ds + D;
+        };
+    </script>
+</head>
+<body>
+<div id="header" class="headers">                
+</div>
+<div class="main_navbar">
+    <div class="box_wrapper ">
+        <ul class="nav nav-tabs index_navbar" style="position: relative;">
+            <div style="display: none" class="tavel_date tavel_date_cls">
+                <div class="nscalendar">
+                    <div class="nsc-title">
+                        <div class="nsc-tc"> 2017年7月 </div>
+                    </div>
+                    <div class="nsc-content">
+                        <div class="nsc-list nsc-week"> 一 </div>
+                        <div class="nsc-list nsc-week"> 二 </div>
+                        <div class="nsc-list nsc-week"> 三 </div>
+                        <div class="nsc-list nsc-week"> 四 </div>
+                        <div class="nsc-list nsc-week"> 五 </div>
+                        <div class="nsc-list nsc-weekendt"> 六 </div>
+                        <div class="nsc-list nsc-weekendt"> 日 </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="detail_eye d_eye" onclick="Eye()" style="display: none;">
+                <i class="fa eye_slash" aria-hidden="true"></i>
+            </div>
+            
+            <li role="presentation" class="first_child">
+                <a href="index.html">首页</a>
+            </li>
+            <li role="presentation" id="type10"><a href="product_list.html?type=10">周边短线</a></li>
+            <li role="presentation" id="type11"><a href="product_list.html?type=11">国内长线</a></li>
+            <li role="presentation" id="type20"><a href="product_list.html?type=20">出境游</a></li>
+            <!-- <li role="presentation" id="type30"><a href="product_list.html?type=30">邮轮</a></li>
+            <li role="presentation" id="type40"><a href="product_list.html?type=40">特色游</a></li>
+            <li role="presentation" id="type50"><a href="product_list.html?type=50">自助游</a></li>
+            <li role="presentation"><a href="business.html">商家大全</a></li> -->
+        </ul>
+
+        <div class="login_registerBtn"> <span> <span class="ion_login"></span><span class="adde"></span> <a class="sp" data-toggle="modal" data-target="#myModal"><span>登录</span></a> </span> <span class="raid"> <span class="ion_register"></span> <a href="register0.html"><span>注册</span></a> </span> </div>
+
+    </div>
+
+</div>
+<div class="travel_detail" id="productdetailData"></div>
+
+<script id="productdetailData-template" type="text/x-dot-template">
+    <div class="box_wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-5 col-xs-5">
+                    <div class="product_BigPic">
+                        <img src="{{= it.slide_img[0] }}?x-oss-process=image/resize,m_mfit,h_355,w_552" id="bigImg"
+                             alt=""/>
+                    </div>
+                    <div class="clearfloat pic_space">
+                        <a href="javascript:;" class="pull-left glyphicon glyphicon-chevron-left slide_leftbtn"></a>
+                        <a href="javascript:;" class="pull-right glyphicon glyphicon-chevron-right slide_rightbtn"></a>
+                        <div class="pull-left product_detailPics">
+                            <ul class="clearfloat slide_sPicList" id="slide_sPicList">
+                                {{ for(var a in it.slide_img) { }}
+                                {{? a == 0}}
+                                <li class="pull-left slide_sPic redColor_selected">
+                                    <a href="javascript:;"><img src="{{= it.slide_img[a] }}?x-oss-process=image/resize,m_mfit,h_355,w_552" alt=""/></a>
+                                </li>
+                                {{??}}
+                                <li class="pull-left slide_sPic">
+                                    <a href="javascript:;"><img src="{{= it.slide_img[a] }}?x-oss-process=image/resize,m_mfit,h_355,w_552" alt=""/></a>
+                                </li>
+                                {{?}}
+                                {{ } }}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tavel_datess"></div>
+                </div>
+                <div class="col-md-7 col-xs-7">
+                    <div class="business_intro">
+                        <h1 class="pl-list pl-title" title="&lt;{{=it.p_name}}&gt;{{=it.p_sname}}">&lt;{{=it.p_name}}&gt;{{=it.p_sname}}</h1>
+                        <span class="pl-list pl-business"><a class="hop" href="company.html?org_id={{=it.p_cb_id}}">商家:&nbsp;{{=it.business}} / 电话：{{=it.meet_tel}} / 联系人： {{=it.linkman}}</a></span>
+                        <div class="clearfloat share_link">
+                            <a href="#">
+                                <span class="ion_travellink"></span>
+                                <span>分享</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="price_giantScreen">
+                        <div class="travel_proPrice priceColor_danger">
+                            {{? it.ticket_detail_min}}
+
+                                {{? it.ticket_detail_min['成人票'] &&  it.ticket_detail_min['成人票'].t_default == 1 }}
+                                    <span class="price_pr" title="同行价:{{= it.ticket_detail_min['成人票'].trade_price}}"></span>
+                                    <span class="price_promptBigFont" >{{= it.ticket_detail_min['成人票'].price}}</span>
+
+                                {{?? it.ticket_detail_min['儿童票'] &&  it.ticket_detail_min['儿童票'].t_default == 1 }}
+                                    <span class="price_pr" title="同行价:{{= it.ticket_detail_min['儿童票'].trade_price}}"></span>
+                                    <span class="price_promptBigFont" >{{= it.ticket_detail_min['儿童票'].price}}</span>
+                                {{?? it.ticket_detail_min['套票'] &&  it.ticket_detail_min['套票'].t_default == 1}}
+                                    <span class="price_pr" title="同行价:{{= it.ticket_detail_min['套票'].trade_price}}"></span>
+                                    <span class="price_promptBigFont" >{{= it.ticket_detail_min['套票'].price}}</span>
+
+                                {{??}}
+
+                                    {{? it.ticket_detail_min['成人票']}}
+                                    <span class="price_pr" title="同行价:{{= it.ticket_detail_min['成人票'].trade_price}}"></span>
+                                    <span class="price_promptBigFont" >{{= it.ticket_detail_min['成人票'].price}}</span>
+                                    {{?? it.ticket_detail_min['儿童票']}}
+                                    <span class="price_pr" title="同行价:{{= it.ticket_detail_min['儿童票'].trade_price}}"></span>
+                                    <span class="price_promptBigFont" >{{= it.ticket_detail_min['儿童票'].price}}</span>
+                                    {{??}}
+                                    <span class="price_pr" title="同行价:{{= it.ticket_detail_min['套票'].trade_price}}"></span>
+                                    <span class="price_promptBigFont" >{{= it.ticket_detail_min['套票'].price}}</span>
+                                    {{?}}
+                                {{?}}
+
+                                <span>起</span>
+                            {{??}}
+                            <span class="price_promptBigFont">暂无票价</span>
+                            {{?}}
+                        </div>
+                        <div class="keyTips">
+                            {{? it.p_promotion && it.p_promotion.length > 0}}
+                            <span class="al_specialTravelLine">{{=it.p_promotion[0].pp_tip}}</span>
+                            {{?}}
+                            {{ for(var w in it.p_key) { }}
+                                {{? it.p_key[w].pk_bcolor}}
+                                <span style="color: {{=it.p_key[w].pk_color}};border: 1px solid {{=it.p_key[w].pk_bcolor}};">{{=it.p_key[w].pk_name}}</span>
+                                {{??}}
+                                <span style="color: {{=it.p_key[w].pk_color}};background-color: {{=it.p_key[w].pk_bgcolor}};">{{=it.p_key[w].pk_name}}</span>
+                                {{?}}
+                            {{ } }}
+                        </div>
+                    </div>
+                    <div class="clearfloat">
+                        <div class="pull-left plan_order">
+                            <div class="four_top">
+                                <div class="plan_orderIntro">
+                                    <span>编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号 :</span>
+                                    <span>{{=it.p_num}}</span>
+                                </div>
+                                <div class="plan_orderIntro plan_top">
+                                    <span>行程天数 :</span>
+                                    <span>{{=it.p_days}}</span>
+                                </div>
+                                <div class="plan_orderIntro">
+                                    <span>出&nbsp;&nbsp;发&nbsp;&nbsp;地 :</span>
+                                    <span class="city-list"></span>
+                                    <span class="elseArea">
+                                    	{{? it.start_place.length > 1}}
+                                    	<span class="exampleArea">显示更多出发地</span>
+                                    	{{?}}
+                                    	<br />
+
+                                    	<span class="detailArea">
+                                    		{{ for(var x in it.start_place) { }}
+                                    		<span>{{= it.start_place[x]}}</span>
+                                    		{{ } }}
+                                    	</span>
+                                    </span>
+
+                                </div>
+                                {{? it.p_promotion && it.p_promotion.length > 0}}
+                                <div class="detail_acti">
+                                    <div class="acti">
+                                        <span class="acti_h">活动立减：</span>
+                                        <span>{{= it.p_promotion[0].pp_title}}</span>
+                                    </div>
+                                    <div class="acts">活动详情>>
+                                        <div class="actss">
+                                            {{ for(var g in it.p_promotion){ }}
+                                                <div class="groups">
+                                                    <div class="group_tips" style="color: #f00;margin-bottom: -5px;margin-top: -10px;">
+                                                        <span>※ 所有活动仅在出团前支付有效</span>
+                                                    </div>
+                                                    <div class="group_right">
+                                                        <span>{{=it.p_promotion[g].pp_title}}</span>
+                                                    </div>
+                                                    <div class="contenss">
+                                                        <span>活动时间：<span>{{=it.p_promotion[g].pp_start_date}}</span>&nbsp;至&nbsp;<span>{{=it.p_promotion[g].pp_end_date}}</span></span>
+                                                    </div>
+                                                    <div class="contens">
+                                                        <span>班期时间：<span>{{=it.p_promotion[g].pp_classes_start_date_str}}</span>&nbsp;至&nbsp;<span>{{=it.p_promotion[g].pp_classes_end_date_str}}</span></span>
+                                                    </div>
+                                                </div>
+                                                {{ }}}
+                                        </div>
+                                        <img src="img/bgs.png" alt="">
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                {{?}}
+                            </div>
+                            {{? it.appoint == false}}
+                            <button class="btn xiajia" type="button" disabled="">无权购买</button>
+                            {{??}}
+                                {{? it.p_status == 1}}
+                                <button class="btn immediate_signUp" type="button" onclick="gorder(event,{{=it.city_code}})">立即报名</button>
+                                {{??}}
+                                <button class="btn xiajia" type="button" disabled="">已下架</button>
+                                {{?}}
+                            {{?}}
+                            
+                            {{? it.man_qq.length > 0}}
+                            <div class="immediate_contact">
+                                <a href="tencent://message/?uin={{=it.man_qq}}&Site=芒果卉旅游&Menu=yes" target="_blank">
+                                    <i class="qq_logo"></i>
+                                    <span>在线咨询</span>
+                                </a>
+                            </div>
+                            {{?}}
+                        </div>
+                        <div class="pull-right qRcode_signUp"><img src='/b2b/product/qrcode?p_id={{=it.p_id}}&city_code={{=it.city_code}}' style='width:100%'></div>
+                    </div>
+
+                    <div class="schedule-detail"></div>
+            </div>
+        </div>
+    </div>
+</script>
+<div class="travel_intro">
+    <div class="box_wrapper">
+        <div class="travel_introList clearfloat">
+            <ul class="travel_introList_sort pull-left tle" id="productTitle">
+
+            </ul>
+            <script id="productTitle-template" type="text/x-dot-template">
+                {{ for(var k in it) { }}
+                    {{? k == "feature"}}
+                        {{? it['feature']}}
+                        <li class="pull-left feature ive">
+                            <a to="#li{{=k}}">
+                                <span>{{= it[k].title}}</span>
+                            </a>
+                        </li>
+                        {{??}}
+                        <li class="pull-left feature ive">
+                            <a to="#line_tit">
+                                <span>线路班期</span>
+                            </a>
+                        </li>
+                        {{?}}
+                    {{??}}
+                        {{? it[k].title != undefined}}
+                        <li class="pull-left">
+                            <a to="#li{{=k}}">
+                                <span>{{= it[k].title}}</span>
+                            </a>
+                        </li>
+                        {{?}}
+                    {{?}}
+
+                {{ } }}
+            </script>
+            <div class="pull-right printer_btn">
+                <a href="javascript;" target="_blank" onclick="PrinterUrl()">
+                    <span class="ion_printer"></span>
+                    <span>打印行程</span>
+                </a>
+            </div>
+        </div>
+        <!--{{? it.ticket_detail_min}}-->
+        <div class="line_schedule container-fluid">
+            <div class="row first first_fb">
+                <div class="lineIntro_title line_tit" id="line_tit">线路班期:</div>
+            </div>
+            <div class="row line_scheduleTh">
+                <div class="col-md-4 col-xs-4 th">出发日期[班期编号/班次名称]</div>
+                <div class="col-md-1 col-xs-1">星期</div>
+                <div class="col-md-2 col-xs-2">门市价 
+                <span class="detail_eye" onclick="Eye()" style="display: none;"><i class="fa eye_slash" aria-hidden="true"></i></span>
+                </div>
+                <div class="col-md-1 col-xs-1">计划</div>
+                <div class="col-md-1 col-xs-1">已定</div>
+                <div class="col-md-1 col-xs-1">剩余</div>
+                <div class="col-md-2 col-xs-2">操作</div>
+
+            </div>
+            <ul id="productlist_detailsData" class="ticket_detail">
+
+            </ul>
+
+            <script id="productlist_detailsData-template" type="text/x-dot-template">
+                {{ for(var k in it) { }}
+                <li class="row oli">
+                    <div class="top">
+
+                        <div class="col-md-4 col-xs-4 th heig">
+                        {{= it[k].bl_start_date}}[{{= it[k].bl_num}}]
+                        {{? it[k].p_promotion && it[k].p_promotion.length > 0}}
+                        <span class="parys">活动促销
+                            <div class="actso">
+                                {{ for(var g in it[k].p_promotion){ }}
+                                    <div class="groups">
+                                        <div class="group_tips" style="color: #f00;margin-top: -5px;">
+                                            <span>※ 所有活动仅在出团前支付有效</span>
+                                        </div>
+                                        <div class="group_right">
+                                            <span>{{=it[k].p_promotion[g].pp_title}}</span>
+                                        </div>
+                                        <div class="conten">
+                                            <span>活动时间：<span>{{=it[k].p_promotion[g].pp_start_date}}</span>&nbsp;至&nbsp;<span>{{=it[k].p_promotion[g].pp_end_date}}</span></span>
+                                        </div>
+                                        <div class="conten">
+                                            <span>班期时间：<span>{{=it[k].p_promotion[g].pp_classes_start_date_str}}</span>&nbsp;至&nbsp;<span>{{=it[k].p_promotion[g].pp_classes_end_date_str}}</span></span>
+                                        </div>
+                                    </div>
+                                {{ }}}
+                            </div>
+                            <img src="img/bgs.png" alt="">
+                        </span>
+                        {{?}}
+                        </div>
+                        <div class="col-md-1 col-xs-1 hotsoso heig">{{= it[k].bl_start_week}}</div>
+                        {{? it[k].t_price == '暂无报价'}}
+                        <div class="col-md-2 col-xs-2 hotsoso heig showprice" style="position: relative;">{{= it[k].t_price}}</div>
+                        {{??}}
+                        <div class="col-md-2 col-xs-2 hotsoso heig showprice" style="position: relative;">{{= it[k].t_price}}元/人 </div>
+                        {{?}}
+                        <div class="col-md-1 col-xs-1 hotsoso heig">{{= it[k].bl_seat_count}}</div>
+
+                        <!-- 成团 -->
+                        {{? it[k].is_cluster  == 1}}
+                        <div class="col-md-1 col-xs-1 chengtuan heig"><img class="groupImgDetail" src="img/group.png"><span>{{=it[k].bl_saled}}</span> </div>
+                        {{??}}
+                        <div class="col-md-1 col-xs-1 heig">{{= it[k].bl_saled}}</div><!-- 已定 -->
+                        {{?}}
+
+                        <div class="col-md-1 col-xs-1 heig">{{= it[k].num}}</div>
+                       <!-- 售罄 -->
+                        {{? it[k].sell_status == 1}}
+                        <div class="col-md-2 col-xs-2 heig"><img class="sellOutImgDetail" src="img/sell_out.png"> </div>
+                        {{??}}
+                         <div class="col-md-2 col-xs-2 heig">
+                            <button class="immediate_signUpSmall" onclick="gorders('{{= it[k].p_id}}','{{= it[k].bl_id}}',event)">立即报名
+                            </button>
+                        {{?}}
+
+                    </div>
+                    {{? !isEmptyObject(it[k].ticket) }}
+                    <div class=" middle_specialCol">
+                        {{ for(var z in it[k].ticket) { }}
+                        <div class="col-md-12 col-xs-12">
+                            <div class="col-md-3 col-xs-3">{{=it[k].ticket[z].t_preset_type}}</div>
+                            <div class="col-md-3 col-xs-3">{{=it[k].ticket[z].t_standards_name}}</div>
+                            <div class="col-md-3 col-xs-3" class="travels">
+                            <p class="travel" title="同行价：{{? it[k].ticket[z].t_price != ''}}{{= it[k].ticket[z].t_price}}元/人 {{??}}暂无报价{{?}}"></p>
+                                {{? it[k].ticket[z].t_price!= ''}}{{= it[k].ticket[z].t_price}}元/人 {{??}}暂无报价{{?}}
+                            </div>
+                        </div>
+                        {{ } }}
+                    </div>
+                    {{?}}
+                </li>
+
+                {{ } }}
+            </script>
+
+            <div class="row check_moreschedule">
+                <a class="more more_active">查看更多班期>></a>
+            </div>
+        </div>
+        <!--{{?}}-->
+    </div>
+</div>
+
+<div class="travel_DetailIntro" id="productdetailstrokeData">
+
+</div>
+
+<script id="productdetailstrokeData-template" type="text/x-dot-template">
+    <div class="box_wrapper">
+        <div class="intro_Content">
+        	<p id="lifeature_nice"></p>
+            {{? it['feature'] }}
+
+            <div id="lifeature" class="lineIntro_title scoll_title">线路特色:</div>
+            <ul class="line_description">
+                <li>{{= it['feature'].detail}}</li>
+            </ul>
+            {{?}}
+            <div id="listroke" class="lineIntro_title scoll_title">行程说明:</div>
+            <div class="stroke_description clearfloat" id="travelDetail_description">
+                <ul class="stroke_descriptionBtns">
+                    {{ for(var r in it['stroke'].detail) { }}
+                    <li><a href="#day{{= Number(r) +1 }}"><span>第{{= Number(r) +1}}天</span></a></span></li>
+
+
+                    {{ } }}
+                </ul>
+                <ul class="stroke_descriptionList">
+                    {{ for(var n in it['stroke'].detail) { }}
+                    <li class="clearfloat" id="day{{= Number(n) +1}}">
+                        <div class="pull-left ion_day">
+                            <div class="hexagonal">
+                                <!--<div class="hexagonalTop"></div>-->
+                                <!--<div class="hexagonalMiddle"></div>-->
+                                <!--<div class="hexagonalBottom"></div>-->
+                                <div class="six_shape"></div>
+                                <span class="days_sign">{{= Number(n) +1}}D</span>
+
+                                <div class="days_linkLine"></div>
+                            </div>
+
+                        </div>
+                        <div class="pull-left everyDay_intro">
+                            <h4><span>第{{= Number(n) +1}}天：</span>{{= it['stroke'].detail[n].title}}</h4>
+                            <ul class="line_description">
+                                <li></span>{{= it['stroke'].detail[n].detail}}</li>
+                            </ul>
+                            <ul class="clearfloat day_introPics">
+
+                                {{ for(var m in it['stroke'].detail[n].pic_img) { }}
+                                  <li class="pull-left"><img src="{{=it['stroke'].detail[n].pic_img[m]}}" alt=""/></li>
+                                {{ } }}
+
+                            </ul>
+                            <p class="bottom_f">
+                            	<span>餐饮：
+                            	{{? it['stroke'].detail[n].food.length>0}}
+								{{ for(var v in it['stroke'].detail[n].food) { }}
+								{{= it['stroke'].detail[n].food[v]}}
+								{{}}}
+
+								{{?}}
+                            	</span>
+                            	{{? it['stroke'].detail[n].food_remark.length>0}}
+
+								<span class="f_remark">{{= it['stroke'].detail[n].food_remark}}</span>
+								{{?}}
+								{{? !it['stroke'].detail[n].food.length>0 && !it['stroke'].detail[n].food_remark.length>0}}
+								 用餐自理
+								{{?}}
+                            </p>
+                            <p class="bottom_f">
+                            	<span>住宿：
+                            	{{? it['stroke'].detail[n].hotel.length>0}}
+    								{{ for(var g in it['stroke'].detail[n].hotel) { }}
+    								{{= it['stroke'].detail[n].hotel[g]}}
+								{{}}}
+
+								{{?}}
+                            	</span>
+                            	{{? it['stroke'].detail[n].hotel_remark.length>0}}
+								    <span class="f_remark">{{= it['stroke'].detail[n].hotel_remark}}</span>
+
+								{{?}}
+								{{? !it['stroke'].detail[n].hotel.length>0 && !it['stroke'].detail[n].hotel_remark.length>0}}
+								    住宿自理
+								{{?}}
+                            </p>
+                        </div>
+                    </li>
+                    {{ } }}
+                </ul>
+            </div>
+            <div class="lineIntro_title">费用说明:</div>
+            <div class="cost_description">
+            	<p id="licost_in_nice"></p>
+                {{? it['cost_in'] }}
+                <p id="licost_in" class="cost_container scoll_title">{{= it['cost_in'].title}}</p>
+
+                <div>
+                    {{= it['cost_in'].detail}}
+                </div>
+                {{?}}
+                <p id="licost_noin_nice"></p>
+                {{? it['cost_noin'] }}
+                <p id="licost_noin" class="cost_container scoll_title">{{= it['cost_noin'].title}}</p>
+
+                <div>
+                    {{= it['cost_noin'].detail}}
+                </div>
+                {{?}}
+            </div>
+            <p id="linotice_nice"></p>
+            {{? it['notice'] }}
+            <div id="linotice" class="lineIntro_title  scoll_title">{{= it['notice'].title}}:</div>
+            <div class="reserve_description">
+                {{= it['notice'].detail}}
+            </div>
+            {{?}}
+            <p id="livis"></p>
+            {{? it['visa'] }}
+            <div id="livisa" class="lineIntro_title  scoll_title">{{= it['visa'].title}}:</div>
+            <div class="reserve_description">
+                {{= it['visa'].detail}}
+            </div>
+            {{?}}
+            {{? it['annex'] }}
+            <div id="liannex" class="lineIntro_title  scoll_title">{{= it['annex'].title}}:</div>
+            <div class="reserve_description">
+                <ul class="clearfloat">
+                {{for(var i in it['annex'].detail) { }}
+                    <li class="annexLi">
+                        <a href="{{= it['annex'].detail[i].pa_url}}" target="_blank">
+                        <span class="img_type">
+                            {{? LowerCase(it['annex'].detail[i].pa_suffix) == 'docx' || LowerCase(it['annex'].detail[i].pa_suffix) == 'doc'}}
+                            <img src="img/enclosure/word_icon.png">
+                            {{?? LowerCase(it['annex'].detail[i].pa_suffix) == 'pdf'}}
+                            <img src="img/enclosure/pdf_icon.png">
+                            {{?? LowerCase(it['annex'].detail[i].pa_suffix) == 'zip'}}
+                            <img src="img/enclosure/zip_icon.png">
+                            {{?? LowerCase(it['annex'].detail[i].pa_suffix) == 'rar'}}
+                            <img src="img/enclosure/rar_icon.png">
+                            {{?? LowerCase(it['annex'].detail[i].pa_suffix) == '7z'}}
+                            <img src="img/enclosure/7z_icon.png">
+                            {{?? LowerCase(it['annex'].detail[i].pa_suffix) == 'txt'}}
+                            <img src="img/enclosure/txt_icon.png">
+                            {{?? LowerCase(it['annex'].detail[i].pa_suffix) == 'jpg' || LowerCase(it['annex'].detail[i].pa_suffix) == 'gif' || LowerCase(it['annex'].detail[i].pa_suffix) == 'png'}}
+                            <img src="img/enclosure/jpg_icon.png">
+                            {{?? LowerCase(it['annex'].detail[i].pa_suffix) == 'xlsx' || LowerCase(it['annex'].detail[i].pa_suffix) == 'xls'}}
+                            <img src="img/enclosure/excel_icon.png">
+                            {{?}}
+                        </span>
+                        &nbsp{{= it['annex'].detail[i].pa_name}}&nbsp&nbsp&nbsp&nbsp<span class="folder_size">（{{= it['annex'].detail[i].pa_size}}）</span>
+                        <i class="fa fa-download pull-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                {{ } }}
+                </ul>
+            </div>
+            {{?}}
+        </div>
+    </div>
+</script>
+<script id="scheduleTitleData-template" type="text/x-dot-template">
+    <div class="schedule-infor clearfloat">
+        <label class="pull-left">班期：</label>
+        <div class="pull-left">
+            <ul class="clearfloat">
+                {{ for(var i in it.info.bl_data) { }}
+                <li class="pull-left scheduleTitle" ind="{{=[i]}}" data-id="{{=it.info.bl_data[i].bl_id}}">{{=it.info.bl_data[i].name}}</span></li>   
+                {{ } }}
+            </ul>
+            
+        </div>
+    </div>
+    <div class="ticket-infor clearfloat">
+        <label class="pull-left">票价：</label>
+        <div  class="pull-left">
+            <ul>
+                {{ for(var j in it.info.bl_data) { }}
+                    {{ for(var k in it.info.bl_data[j].ticket) { }}
+                    <li class="ind{{=[j]}}s ticketCont">{{=it.info.bl_data[j].ticket[k].t_standards_name}}&nbsp&nbsp&nbsp（{{=it.info.bl_data[j].ticket[k].t_preset_type}}） <span class="priceWrap">[单价 <span class="priceOver" title="同行价：{{=it.info.bl_data[j].ticket[k].t_trade_price}}"></span><span>{{=it.info.bl_data[j].ticket[k].t_price}}</span> 元]</span></li>
+                    {{ } }}
+                {{ } }}
+            </ul>
+        </div>
+    </div>
+</script>
+<div id="footer"></div>
+<div id="login_mask"></div>
+<script type="text/javascript" src="js/common/alert.js"></script>
+<script id="link-js" type="text/javascript">
+    document.write(
+        '<script type="text/javascript" src="js/lib/jquery.calendar.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/common.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/myinfo.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/lib/showprice.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/detail/travel_detail.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/detail/detailEffect.js?t='+_TimeStamp+'"></'+'script>'+
+        '<script type="text/javascript" src="js/common/statistics.js?t='+_TimeStamp+'"></'+'script>'
+    );
+    document.getElementById('link-css').remove();
+    document.getElementById('link-js').remove();
+</script>
+</body>
+</html>

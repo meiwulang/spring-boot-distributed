@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jdy.b2b.api.dao.factoryTicket.FactoryTicketDepartureMapper" >
+  <resultMap id="BaseResultMap" type="com.jdy.b2b.api.model.factoryTicket.FactoryTicketDeparture" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="factory_ticket_id" property="factoryTicketId" jdbcType="BIGINT" />
+    <result column="departure_id" property="departureId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, factory_ticket_id, departure_id, create_time, create_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from ct_factory_ticket_departure
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ct_factory_ticket_departure
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jdy.b2b.api.model.factoryTicket.FactoryTicketDeparture" >
+    insert into ct_factory_ticket_departure (id, factory_ticket_id, departure_id,
+      create_time, create_user)
+    values (#{id,jdbcType=BIGINT}, #{factoryTicketId,jdbcType=BIGINT}, #{departureId,jdbcType=BIGINT},
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jdy.b2b.api.model.factoryTicket.FactoryTicketDeparture" >
+    insert into ct_factory_ticket_departure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="factoryTicketId != null" >
+        factory_ticket_id,
+      </if>
+      <if test="departureId != null" >
+        departure_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="factoryTicketId != null" >
+        #{factoryTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="departureId != null" >
+        #{departureId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jdy.b2b.api.model.factoryTicket.FactoryTicketDeparture" >
+    update ct_factory_ticket_departure
+    <set >
+      <if test="factoryTicketId != null" >
+        factory_ticket_id = #{factoryTicketId,jdbcType=BIGINT},
+      </if>
+      <if test="departureId != null" >
+        departure_id = #{departureId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jdy.b2b.api.model.factoryTicket.FactoryTicketDeparture" >
+    update ct_factory_ticket_departure
+    set factory_ticket_id = #{factoryTicketId,jdbcType=BIGINT},
+      departure_id = #{departureId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="bathInsert">
+ insert into ct_factory_ticket_departure (factory_ticket_id, departure_id)
+    values
+    <foreach collection="departureIds" item="item" separator=",">
+      (#{ticketId,jdbcType=BIGINT}, #{item,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+  <delete id="bathDelete">
+    DELETE from ct_factory_ticket_departure WHERE factory_ticket_id = #{ticketId}
+  </delete>
+  <select id="selectDepartureIdsByTicketId" resultType="java.lang.Long">
+    SELECT departure_id from ct_factory_ticket_departure WHERE factory_ticket_id = #{ticketId}
+  </select>
+  <select id="selectDepartureNamesByTicketId" resultType="java.lang.String">
+     SELECT d.d_name from ct_factory_ticket_departure ftd JOIN sr_departure d on ftd.departure_id = d.id WHERE factory_ticket_id = #{ticketId}
+  </select>
+</mapper>

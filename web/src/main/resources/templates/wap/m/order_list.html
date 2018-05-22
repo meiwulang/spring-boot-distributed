@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <title>订单列表</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/order_list.css">
+    <script type="text/javascript" src="assets/js/get_consts.js"></script>
+    <script type="text/javascript" src="assets/js/get_wechat.js"></script> 
+</head>
+<body>
+<div id="wrap" style="display: none">
+    <div class="main">
+        <div class="t-bar">
+        <a class="left"></a><span class="list-name">订单列表</span>
+        <a style="display: none;" class="links" href="javascript:;">礼品卡订单</a>
+        <a class="right"></a>
+        </div>
+        <div class="infor-bar">
+            <ul class="clearfix">
+                <li typ = "全部" typeNum=""><a href="javascript:;" class="active" typeNum="">全部</a></li>
+                <li typ = "待审核" typeNum="0"><a href="javascript:;" typeNum="0">待审核</a></li>
+                <li typ = "已驳回" typeNum="6"><a href="javascript:;" typeNum="6">已驳回</a></li>
+                <li typ = "已报名" typeNum="1"><a href="javascript:;" typeNum="1">已报名</a></li>
+                <li typ = "已首款" typeNum="7"><a href="javascript:;" typeNum="7">已首款</a></li>
+                <li typ = "已全款" typeNum="8"><a href="javascript:;" typeNum="8">已全款</a></li>
+                <li typ = "未签署" typeNum="5"><a href="javascript:;" typeNum="5">未签署</a></li>
+                <li typ = "已取消" typeNum="4"><a href="javascript:;" typeNum="4">已取消</a></li>
+            </ul>
+        </div>
+        <div class="lists">
+            <div class="content">
+                    <script id="tpl-lists" type="text/html">
+                    {if list && list.length}
+                    { each list as value i }
+                    <li num = '{ list[i].o_number }' status = '{list[i].o_status}' real = '{ list[i].o_settle_real }' prod='{ list[i].o_product_name }' org_name='{ list[i].org_name }' ids='{ list[i].order_id }'>
+                        <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide content">
+                                <a href="order_detail.html?n={ list[i].o_number }&order_type={ order_type }&otid={ list[i].order_id }&type={ list[i].o_status }">
+                                    <div class="title clearfix">
+                                        <div class="infor">
+                                            { if list[i].o_status == '待审核'}
+                                            <label class="state bg-blue">待审核</label>
+                                            { else if  list[i].o_status == '已报名'}
+                                            <label class="state bg-red">已报名</label>
+                                            { else if  list[i].o_status == '已首款'}
+                                            <label class="state bg-orange">已首款</label>
+                                            { else if  list[i].o_status == '已全款'}
+                                            <label class="state bg-green">已全款</label>
+                                            { else if  list[i].o_status == '已驳回'}
+                                            <label class="state bg-gray">已驳回</label>
+                                            { else if list[i].o_status == '已取消' }
+                                            <label class="state bg-gray">已取消</label>
+                                            { else if list[i].o_status == '未签署'}
+                                            <label class="state bg-cre">未签署</label>
+                                            { /if }
+                                            <div class="numb">[{ list[i].o_product_num }]{ list[i].o_product_name }</div>
+                                        </div>
+                                    </div>
+                                    <div class="detail clearfix">
+                                        <h3>{ list[i].org_name }</h3>
+                                        <div class="left">
+                                            <div class="valid-date">
+                                            <span>{ list[i].o_start_date }</span> &nbsp 至 &nbsp <span>{ list[i].o_end_date }</span>
+
+                                            {if list[i].refundStatus==0 || list[i].refundStatus!=null }
+                                            <span class="refundRecord bg-red" oId="{ list[i].order_id }">退款记录</span>
+                                            {/if}
+                                            <span class="endorse bg-red" oId="{ list[i].order_id }">改签按钮</span>
+                                            { if list[i].o_status != '已首款' }
+                                            <div class="money">￥<span>{ list[i].o_settle_real }</span></div>
+                                            { /if }
+                                            </div>
+                                            <div class="sell-date"><span>售：{ list[i].o_sell_time }</span>&nbsp; <span> 订单号:{list[i].o_number}</span>
+                                            
+                                                <span class="type">
+
+                                                { if list[i].o_big_num.length != 0 && list[i].o_small_num != 0}
+                                                { list[i].o_big_num }大/{ list[i].o_small_num }小
+                                                { else if list[i].o_big_num != 0 && list[i].o_small_num == 0 }
+                                                { list[i].o_big_num }大
+                                                { else if list[i].o_big_num == 0 && list[i].o_small_num != 0 }
+                                                { list[i].o_small_num }小
+                                                { /if }
+                                                
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                        <!-- 已首款显示金额 -->
+                                        { if list[i].o_status == '已首款' }
+                                        <div class="pay-first clearfix">
+                                            <div>待付尾款：<span>￥{ list[i].o_un_pay }</span></div>
+                                            <div>已付首款：<span>￥{ list[i].o_first_pay }</span></div>
+                                        </div>
+                                        { /if }
+                                    </div>
+                                    
+                                </a> 
+                                </div> 
+                                {if list[i].del_order == '1'}
+                                    <!-- {if list[i].teamPlanList == '1'} -->
+                                    <!-- <div class="swiper-slide menu deletes">计划已生成</div> -->
+                                    <!-- {else if list[i].teamPlanList == '0'} -->
+                                    <div class="swiper-slide menu delete">取消订单</div>
+                                    <!-- {/if} -->
+                                {else if list[i].del_order == '0'}
+                                    <!-- 已首款，已全款可以退款 -->
+                                    {if list[i].applyRefundFlag == 1 }
+                                        <div class="swiper-slide menu refund" oId="{ list[i].order_id }">申请退款</div>
+                                    {else}
+                                        <div class="swiper-slide menu no_delete">无权操作</div>
+                                    {/if}                                    
+                                {/if}
+                            </div> 
+                        </div>                       
+                    </li>
+                    { /each }
+                    {else}
+                    <p style="color: #999;padding-left: 15px;margin-top: 20px;">该状态没有数据！</p>
+                    {/if}
+                </script>                
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="assets/js/build/common.build.js"></script>
+<script type="text/javascript" src="assets/js/build/order_list.build.js"></script>
+</html>
